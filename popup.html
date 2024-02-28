@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShkoloTweaks</title>
+        <link rel="stylesheet" href="bulma.min.css" />
+    </head>
+    <body>
+        <div class="container m-3">
+            <h1 class="title">Shkolo Tweaks</h1>
+
+            <div class="field">
+                <label class="label">Status</label>
+                <span class="tag is-success" style="font-size: 16px; font-weight: bold;">Running</span>
+                <span class="tag is-danger" style="font-size: 16px; font-weight: bold;">Stopped</span>
+            </div>
+        </div>
+
+        <div class="container m-3">
+            <label class="label">Theme</label>
+            <div class="select">
+                <select  id="theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="container m-3">
+            <button class="button is-success is-fullwidth" style="font-size: 16px; font-weight: bold;" id="saveBtn">Save</button>
+        </div>
+
+        <div class="container m-3">
+            <button class="button is-danger is-fullwidth" style="font-size: 16px; font-weight: bold;" id="disableBtn">Disable</button>
+        </div>
+    </body>
+    <script src="popup.js"></script>
+</html>

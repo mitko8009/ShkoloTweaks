@@ -1,0 +1,22 @@
+{
+    "name": "ShkoloTweaks",
+    "description": "Tweaks for Shkolo",
+    "version": "0.0.2",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "permissions": ["tabs"],
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.shkolo.bg/*", 
+                "*://*.shkolo.com/*"
+            ],
+            "js": ["app.js"]
+        }
+    ]
+}
