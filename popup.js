@@ -1,14 +1,20 @@
 const saveBtn = document.getElementById('saveBtn');
 const disableBtn = document.getElementById('disableBtn');
 
-const theme = document.getElementById('theme');
-
+const themeElement = document.getElementById('theme');
 
 saveBtn.onclick = () => {
-    chrome.runtime.sendMessage({ event: "onStart"})
+    const prefs = {
+        theme: themeElement.value
+    }
+    chrome.runtime.sendMessage({ event: "onStart", prefs})
 }
 
-disableBtn.onclick = () => {
-    chrome.onclick.sendMessage({ event: "onStop"})
-}
+chrome.storage.local.get(["theme"], function(result){   
+    const { theme } = result
 
+    if (theme) {
+        themeElement.value = theme
+        console.log(theme)
+    }
+})

@@ -1,12 +1,15 @@
 chrome.runtime.onMessage.addListener(data => {
-    switch (data.event) {
-        case 'onStop':
-            console.log("On stop event received!")
-            break
+    const {event, prefs} = data
+    switch (event) {
         case 'onStart':
-            console.log("On start event received!")
+            handleSave(prefs);
             break
         default:
             break
     }
 })
+
+
+const handleSave = (prefs) => {
+    chrome.storage.local.set({"theme": prefs.theme}, function(){})
+}

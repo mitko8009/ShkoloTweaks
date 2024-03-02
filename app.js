@@ -11,7 +11,7 @@ function CreateCustomElement(tag, attr_tag, attr_name, value) {
 
 // CSS Injection
 try {
-    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v0.0.1"
+    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v0.0.2"
     
     //const navMenu = document.getElementsByClassName("nav navbar-nav pull-right") // Get Shkolo's navbar
     //
