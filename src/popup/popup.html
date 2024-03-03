@@ -6,30 +6,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ShkoloTweaks</title>
         <link rel="stylesheet" href="bulma.min.css" />
+        <link rel="stylesheet" href="popup.css" />
     </head>
     <body>
         <div class="container m-3">
             <h1 class="title">Shkolo Tweaks</h1>
 
-            <div class="field">
-                <label class="label">Status</label>
-                <span class="tag is-success" style="font-size: 16px; font-weight: bold;">Running</span>
-                <span class="tag is-danger" style="font-size: 16px; font-weight: bold;">Stopped</span>
-            </div>
+            <button class="button is-fullwidth" id="shkoloBtn">Open Shkolo.bg</button>
         </div>
 
         <div class="container m-3">
             <label class="label">Theme</label>
-            <div class="select">
+            <div class="select is-normal">
                 <select  id="theme">
                     <option value="light">Light</option>
                     <option value="dark">Dark</option>
                 </select>
             </div>
+            <span class="tag is-warning is-medium m-2" style="font-weight: bold;" id="note">
+                You may or may not lose some functionality
+                <button class="delete is-small" id="deleteNote"></button>
+            </span>
         </div>
 
         <div class="container m-3">
-            <button class="button is-success is-fullwidth" style="font-size: 16px; font-weight: bold;" id="saveBtn">Apply</button>
+            <button class="button is-fullwidth" id="saveBtn">Apply</button>
         </div>
     </body>
     <script src="popup.js"></script>

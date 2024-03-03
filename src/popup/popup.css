@@ -1,0 +1,9 @@
+.button {
+    font-size: 18px;
+    font-weight: bold;    
+}
+
+.warning {
+    color: rgb(185, 167, 0) !important;
+    font-size: smaller;
+}

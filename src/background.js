@@ -11,5 +11,6 @@ chrome.runtime.onMessage.addListener(data => {
 
 
 const handleSave = (prefs) => {
-    chrome.storage.local.set({"theme": prefs.theme}, function(){})
+    chrome.storage.local.set({ "theme": prefs.theme}, function(){})
+    chrome.runtime.sendMessage({ event: "UPDATE_POPUP"})
 }
