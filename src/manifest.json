@@ -1,20 +1,26 @@
 {
     "name": "ShkoloTweaks",
     "description": "Tweaks for Shkolo",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "manifest_version": 3,
     "background": {
         "service_worker": "background.js"
     },
     "action": {
         "default_popup": "popup/popup.html",
-        "permissions": ["tabs", "storage"]
+        "permissions": ["tabs", "storage", "activeTab"]
     },
     "permissions": [
         "storage",
         "activeTab",
         "tabs"
     ],
+    "icons": {
+        "16": "assets/icon_x16.png",
+        "32": "assets/icon_x32.png",
+        "48": "assets/icon_x48.png",
+        "128": "assets/icon_x128.png"
+    },
     "content_scripts": [
         {
             "matches": [

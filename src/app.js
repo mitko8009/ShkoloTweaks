@@ -9,12 +9,18 @@ function CreateCustomElement(tag, attr_tag, attr_name, value) {
     document.body.append(custom_element)
 }
 
+function removeElements(elements) {
+    Array.from(elements).forEach(function (element) {
+        element.remove()
+    })
+}
+
 // CSS Injection
 try {
-    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v0.0.4"
+    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v0.0.5"
 
-    chrome.storage.local.get(["theme"], function(result){
-        const { theme } = result
+    chrome.storage.local.get(["theme", "cleanUp", "blurPfp"], function(result){
+        const { theme, cleanUp, blurPfp } = result
         
         if (theme === "dark") {
             AddCustomStyle(`
@@ -23,7 +29,7 @@ try {
                 background-color: hsl(0, 0%, 8%) !important;
             }
 
-            label, .stats-label, a, .font-blue-dark, .font-blue-steel,.scheduleTable .scheduleCourse, .scheduleTable .scheduleTableCourse .hourNum, .page-sidebar .page-sidebar-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a>i, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a, .page-sidebar .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar .page-sidebar-menu li>a>.arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow:before, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a>i, .page-sidebar .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar .menu-title, .page-sidebar .page-sidebar-menu .sub-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a {
+            label, .stats-label, a, .font-blue-dark, .font-blue-steel,.scheduleTable .scheduleCourse, .scheduleTable .scheduleTableCourse .hourNum, .page-sidebar .page-sidebar-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a>i, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a, .page-sidebar .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar .page-sidebar-menu li>a>.arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow:before, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a>i, .page-sidebar .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar .menu-title, .page-sidebar .page-sidebar-menu .sub-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a, .note.note-warning {
                 color: white !important;
             }
 
@@ -40,7 +46,7 @@ try {
             }
 
             /* Dark bg */
-            .page-content, .portlet.portlet-sortable.light, .highcharts-background, .portlet.light, .grade, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu {
+            .page-content, .portlet.portlet-sortable.light, .highcharts-background, .portlet.light, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu, .detailsRow, .table-hover > tbody > tr.detailsRow:hover, .table-hover > tbody > tr.detailsRow:hover > td {
                 background-color: hsl(0, 0%, 15%) !important;
                 color: white;
             }
@@ -59,13 +65,25 @@ try {
             .pagination > li > a.clr1:not(.active), .pagination > li > a.clr2:not(.active), .pagination > li > a.clr2:not(.active), .pagination > li > a.clr3:not(.active),.pagination > li > a.clr4:not(.active), .pagination > li > a.clr5:not(.active), .pagination > li > a.clr6:not(.active), .pagination > li > a.clr7:not(.active), .pagination>li>a, .pagination>li>span {
                 background-color: rgba(0, 0, 0, 0) !important;
             }
-
+            
             /* Odd List Items Color */
             .table-striped>tbody>tr:nth-of-type(odd) {
                 background-color: hsl(0, 0%, 17%);
                 color: white;
             }
 
+            .table-striped>tbody>tr:nth-of-type(odd):hover {
+                background-color: hsl(0, 0%, 10%);
+            }
+
+            .grade {
+                font-weight: bold;
+            }
+
+            .classWorkGrade {
+                border: 2px solid white !important;
+            }
+            
             .highcharts-background {
                 fill: hsl(0, 0%, 15%);
                 color: white;
@@ -101,9 +119,60 @@ try {
             .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
                 border-color: hsl(0, 0%, 90%);
             }
+
+            .dashboard-stat.blue {
+                background-color: #095082 !important;
+            }
+
+            .dashboard-stat.green {
+                background-color: #19757d !important;
+            }
+
+            .dashboard-stat.red {
+                background-color: #912a31;
+            }
+
+            .dashboard-stat.yellow {
+                background-color: #96772f;
+            }
+
+            .dashboard-stat.purple {
+                background-color: #7a3796;
+            }
+
+            .dashboard-stat.green-jungle {
+                background-color: #196545;
+            }
+
+            .dashboard-stat .details .number, .dashboard-stat .details .desc{
+                font-weight: bold;
+            }
             `)
         }
-        console.log(theme)
+
+        if (cleanUp) {
+            var statsBtn = document.getElementsByClassName("btn btn-lg btn-e2e red huge")
+            removeElements(statsBtn)
+    
+            var rankDescr = document.getElementsByClassName("rank-descr")
+            removeElements(rankDescr)
+    
+            var mobileappbadges = document.getElementsByClassName("mobile-app-badges")
+            removeElements(mobileappbadges)
+    
+            var mobileapplink = document.getElementsByClassName("mobile-app-link")
+            removeElements(mobileapplink)
+    
+            document.getElementById("help-link-in-menu").remove()
+        }
+
+        if(blurPfp) {
+            AddCustomStyle(`
+            .img-circle avatar small {
+                filter: blur(50px);
+            }
+            `)
+        }
     })
 } catch (error) {
     console.log("[ShkoloTweaks] Error injecting CSS:\n" + error)

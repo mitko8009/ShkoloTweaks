@@ -3,12 +3,15 @@ const shkoloBtn = document.getElementById('shkoloBtn');
 const deleteNoteBtn = document.getElementById('deleteNote');
 
 const themeElement = document.getElementById('theme');
+const cleanUpSkolo = document.getElementById('cleanUpSkolo');
+const blurPfp = document.getElementById('blurPfp');
 
 chrome.runtime.onMessage.addListener(data => {
     const {event} = data
     switch (event) {
         case 'UPDATE_POPUP':
             updatePopup()
+            refreshPage()
             break
         default:
             break
@@ -17,20 +20,26 @@ chrome.runtime.onMessage.addListener(data => {
 
 saveBtn.onclick = () => {
     const prefs = {
-        theme: themeElement.value
+        theme: themeElement.value,
+        cleanUp: cleanUpSkolo.checked,
+        blurPfp: blurPfp.checked
     }
 
     chrome.runtime.sendMessage({ event: "onStart", prefs})
 }
 
 deleteNoteBtn.onclick = () => {
-    const note = document.getElementById('note');
-
-    note.remove()
+    document.getElementById('note').remove()
 }
 
 shkoloBtn.onclick = () => {
     chrome.tabs.create({ url: "https://app.shkolo.bg/dashboard" })
+}
+
+function refreshPage() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
+    });
 }
 
 function updatePopup() {
@@ -86,11 +95,19 @@ function updatePopup() {
     }
 }
 
-chrome.storage.local.get(["theme"], function(result){   
-    const { theme } = result
+chrome.storage.local.get(["theme", "cleanUp", "blurPfp"], function(result){   
+    const { theme, cleanUp, blurPfp } = result
 
     if (theme) {
         themeElement.value = theme
+    }
+
+    if (cleanUp) {
+        cleanUpSkolo.checked = cleanUp
+    }
+
+    if (blurPfp) {
+        blurPfp.checked = blurPfp
     }
 
     updatePopup()

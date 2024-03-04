@@ -23,8 +23,21 @@
                     <option value="dark">Dark</option>
                 </select>
             </div>
-            <span class="tag is-warning is-medium m-2" style="font-weight: bold;" id="note">
-                You may or may not lose some functionality
+
+            <label class="label checkbox" style="margin-top: 12px;">
+                <input type="checkbox" class="checkboxInput" id="cleanUpSkolo">
+                Clean Up Shkolo
+            </label>
+
+            <label class="label checkbox" style="margin-top: 12px;">
+                <input type="checkbox" class="checkboxInput" id="blurPfp">
+                Blur Profile Picture
+            </label>
+
+
+            <span class="tag is-warning is-medium" style="font-weight: bold; margin-top: 12px; padding-top: 42px; padding-bottom: 42px;" id="note">
+                <span class="icon has-text-danger" style="padding-bottom: 52px;">(!)</span>
+                Note: This is a beta version.<br>If you encounter any issues,<br>please report them to the developer.
                 <button class="delete is-small" id="deleteNote"></button>
             </span>
         </div>
