@@ -1,14 +1,15 @@
 {
     "name": "ShkoloTweaks",
     "description": "Tweaks for Shkolo",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "manifest_version": 3,
     "background": {
         "service_worker": "background.js"
     },
     "action": {
         "default_popup": "popup/popup.html",
-        "permissions": ["tabs", "storage", "activeTab"]
+        "default_title": "Shkolo Tweaks by mitko8009",
+        "options_page": "options.html"
     },
     "permissions": [
         "storage",

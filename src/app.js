@@ -17,10 +17,10 @@ function removeElements(elements) {
 
 // CSS Injection
 try {
-    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v0.0.5"
+    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v0.0.6"
 
-    chrome.storage.local.get(["theme", "cleanUp", "blurPfp"], function(result){
-        const { theme, cleanUp, blurPfp } = result
+    chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded"], function(result){
+        const { theme, cleanUp, blurPfp, rounded } = result
         
         if (theme === "dark") {
             AddCustomStyle(`
@@ -34,19 +34,19 @@ try {
             }
             
             /* Darker bg */
-            .page-header.navbar, .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover, .nav>li>a:focus, .nav>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .note-editor.note-frame .note-editing-area .note-editable, .panel-default>.panel-heading, .filtersContainer, .table-hover>tbody>tr:hover, .table-hover>tbody>tr:hover>td {
+            .page-header.navbar, .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover, .nav>li>a:focus, .nav>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .note-editor.note-frame .note-editing-area .note-editable, .panel-default>.panel-heading, .filtersContainer, .table-hover>tbody>tr:hover, .table-hover>tbody>tr:hover>td, .content-comment-section .content-comment {
                 background-color: hsl(0, 0%, 8%) !important;
                 color: white;
             }
 
             /* Dark bg */
-            .page-content, .portlet.portlet-sortable.light, .highcharts-background, .portlet.light, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu, .detailsRow, .table-hover > tbody > tr.detailsRow:hover, .table-hover > tbody > tr.detailsRow:hover > td, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover, .page-header.navbar .hor-menu.hor-menu-light.year-selector .navbar-nav > li.open > a, .page-header.navbar .hor-menu.hor-menu-light.app-switcher .navbar-nav > li.open > a, .messageThread, .panel, .dropdown-menu, .modal-content, .dropdown-menu>li.active:hover>a, .dropdown-menu>li.active>a, .dropdown-menu>li:hover>a, .inbox-folder-options-btn:hover, .inbox-folder-options-btn:focus, .inbox-folder-options-btn.focus, .inbox-folder-options-btn:active, .inbox-folder-options-btn.active, .open > .dropdown-toggle.inbox-folder-options-btn {
+            .page-content, .portlet.portlet-sortable.light, .highcharts-background, .portlet.light, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu, .detailsRow, .table-hover > tbody > tr.detailsRow:hover, .table-hover > tbody > tr.detailsRow:hover > td, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover, .page-header.navbar .hor-menu.hor-menu-light.year-selector .navbar-nav > li.open > a, .page-header.navbar .hor-menu.hor-menu-light.app-switcher .navbar-nav > li.open > a, .messageThread, .panel, .dropdown-menu, .modal-content, .dropdown-menu>li.active:hover>a, .dropdown-menu>li.active>a, .dropdown-menu>li:hover>a, .inbox-folder-options-btn:hover, .inbox-folder-options-btn:focus, .inbox-folder-options-btn.focus, .inbox-folder-options-btn:active, .inbox-folder-options-btn.active, .open > .dropdown-toggle.inbox-folder-options-btn, .empty-cell:hover, .table-hover > tbody > tr:hover > td.empty-cell, .empty-cell, .bootstrap-select.btn-group .no-results, table.dataTable tbody tr, .bg-default {
                 background-color: hsl(0, 0%, 15%) !important;
                 color: white !important;
             }
 
             /* Light Dark bg */
-            .taken-shi, .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu {
+            .taken-shi, .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText {
                 background-color: hsl(0, 0%, 22%) !important;
             }
 
@@ -181,6 +181,49 @@ try {
             .badge-success {
                 background-color: #0b5259;
             }
+
+            .badge {
+                font-weight: bold;
+                font-size: 12px;
+            }
+
+            .detailsRow.absenceType2 {
+                background-color: #8d850c !important;
+                border-color: transparent !important;
+            }
+
+            .detailsRow.absenceType1 {
+                background-color: #1b3b2c !important;
+                border-color: transparent !important;
+            }
+
+            .detailsRow.absenceType3, .badges-type-2 .badge-details-holder {
+                background-color: #814c4c !important;
+                border-color: transparent !important;
+            }
+
+            .badges-type-2, .badges-type-2:hover, .pupil-badge-type.remark {
+                background-color: #b58989 !important;
+                border-color: #9a4040 !important;
+            }
+
+            .badges-type-1, .badges-type-1:hover, .pupil-badge-type.appraisal {
+                background-color: #7b8577 !important;
+                border-color: #c0ff8e !important;
+            }
+
+            .badges-type-1 .badge-details-holder {
+                background: #79996b;
+                border-top: 1px solid #c0ff8e;
+            }
+
+            .rating:not(:hover) > input:checked ~ label, .rating > label:hover, .rating > label:hover ~ label {
+                color: #ffd700 !important;
+            }
+
+            .mt-element-ribbon .ribbon.ribbon-color-success>.ribbon-sub {
+                background-color: #1e7279;
+            }
             `)
         }
 
@@ -212,7 +255,18 @@ try {
             `)
         }
 
+        if (rounded) {
+            AddCustomStyle(`
+            .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu {
+                border-radius: 8px !important;
+            }
 
+            /* Top */
+            .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover, .nav-tabs>li>a:hover {
+                border-radius: 8px 8px 0 0 !important;
+            }
+            `)
+        }
     })
 } catch (error) {
     console.log("[ShkoloTweaks] Error injecting CSS:\n" + error)

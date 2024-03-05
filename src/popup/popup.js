@@ -1,10 +1,10 @@
 const saveBtn = document.getElementById('saveBtn');
 const shkoloBtn = document.getElementById('shkoloBtn');
 const deleteNoteBtn = document.getElementById('deleteNote');
-
 const themeElement = document.getElementById('theme');
 const cleanUpSkolo = document.getElementById('cleanUpSkolo');
 const blurPfpCheck = document.getElementById('blurPfp');
+const roundedCheckbox = document.getElementById('roundedCheckbox');
 
 chrome.runtime.onMessage.addListener(data => {
     const {event} = data
@@ -22,10 +22,13 @@ saveBtn.onclick = () => {
     const prefs = {
         theme: themeElement.value,
         cleanUp: cleanUpSkolo.checked,
-        blurPfp: blurPfpCheck.checked
+        blurPfp: blurPfpCheck.checked,
+        rounded: roundedCheckbox.checked,
     }
 
-    chrome.runtime.sendMessage({ event: "onStart", prefs})
+    chrome.storage.local.set(prefs)
+    console.log("Saved", prefs)
+    updatePopup()
 }
 
 deleteNoteBtn.onclick = () => {
@@ -92,24 +95,42 @@ function updatePopup() {
             .button:hover {
                 color: hsl(0, 0%, 20%);
             }
+
+            .checkbox:hover, .radio:hover {
+                color: #404040;
+            }
         `
     }
 }
 
-chrome.storage.local.get(["theme", "cleanUp", "blurPfp"], function(result){   
-    const { theme, cleanUp, blurPfp } = result
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    const url = new URL(tabs[0].url)
 
-    if (theme) {
-        themeElement.value = theme
-    }
+    if (url.hostname.includes("shkolo.bg")) {
+        document.getElementById("shkoloBtn").remove()
 
-    if (cleanUp) {
-        cleanUpSkolo.checked = cleanUp
+        const connectedStatus = document.createElement("span")
+        connectedStatus.classList.add("tag", "is-success", "is-light")
+        connectedStatus.style.fontSize = "14px"
+        connectedStatus.innerHTML = "Connected to Shkolo"
+        document.getElementById("header").appendChild(connectedStatus)
+    } else {
+        document.getElementById('note').remove()
     }
+});
 
-    if (blurPfp) {
-        blurPfpCheck.checked = blurPfp
-    }
+chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded"], function(result){   
+    const { theme, cleanUp, blurPfp, rounded } = result
+
+    if (theme) { themeElement.value = theme }
+
+    if (cleanUp) { cleanUpSkolo.checked = cleanUp }
+
+    if (blurPfp) { blurPfpCheck.checked = blurPfp }
+
+    if (rounded) { roundedCheckbox.checked = rounded }
+
+    console.log(rounded)
 
     updatePopup()
 })

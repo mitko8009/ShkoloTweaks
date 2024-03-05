@@ -11,3 +11,7 @@
 .checkboxInput {
     margin-right: 6px;
 }
+
+.checkbox:hover, .radio:hover {
+    color: #cccccc;
+}
