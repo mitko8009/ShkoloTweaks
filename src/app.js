@@ -29,30 +29,24 @@ try {
                 background-color: hsl(0, 0%, 8%) !important;
             }
 
-            label, .stats-label, a, .font-blue-dark, .font-blue-steel,.scheduleTable .scheduleCourse, .scheduleTable .scheduleTableCourse .hourNum, .page-sidebar .page-sidebar-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a>i, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a, .page-sidebar .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar .page-sidebar-menu li>a>.arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow:before, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a>i, .page-sidebar .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar .menu-title, .page-sidebar .page-sidebar-menu .sub-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a, .note.note-warning {
+            label, .stats-label, a, tspan, .font-blue-dark, .font-blue-steel,.scheduleTable .scheduleCourse, .scheduleTable .scheduleTableCourse .hourNum, .page-sidebar .page-sidebar-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a>i, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a, .page-sidebar .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar .page-sidebar-menu li>a>.arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow:before, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a>i, .page-sidebar .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar .menu-title, .page-sidebar .page-sidebar-menu .sub-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a, .note.note-warning, .page-header.navbar .top-menu .navbar-nav>li.dropdown .dropdown-toggle>i, .message-table-head > div, .message-user, .message-subject, .scroll-to-top>i, .btn-default, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate, .highcharts-menu-item {
                 color: white !important;
             }
-
-            /* Darker Darker bg */
-            .badge-success {
-                background-color: hsl(0, 0%, 4%) !inportant;
-            }
             
-
             /* Darker bg */
-            .page-header.navbar, .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover, .nav>li>a:focus, .nav>li>a:hover {
+            .page-header.navbar, .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover, .nav>li>a:focus, .nav>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .note-editor.note-frame .note-editing-area .note-editable, .panel-default>.panel-heading, .filtersContainer, .table-hover>tbody>tr:hover, .table-hover>tbody>tr:hover>td {
                 background-color: hsl(0, 0%, 8%) !important;
                 color: white;
             }
 
             /* Dark bg */
-            .page-content, .portlet.portlet-sortable.light, .highcharts-background, .portlet.light, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu, .detailsRow, .table-hover > tbody > tr.detailsRow:hover, .table-hover > tbody > tr.detailsRow:hover > td {
+            .page-content, .portlet.portlet-sortable.light, .highcharts-background, .portlet.light, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu, .detailsRow, .table-hover > tbody > tr.detailsRow:hover, .table-hover > tbody > tr.detailsRow:hover > td, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover, .page-header.navbar .hor-menu.hor-menu-light.year-selector .navbar-nav > li.open > a, .page-header.navbar .hor-menu.hor-menu-light.app-switcher .navbar-nav > li.open > a, .messageThread, .panel, .dropdown-menu, .modal-content, .dropdown-menu>li.active:hover>a, .dropdown-menu>li.active>a, .dropdown-menu>li:hover>a, .inbox-folder-options-btn:hover, .inbox-folder-options-btn:focus, .inbox-folder-options-btn.focus, .inbox-folder-options-btn:active, .inbox-folder-options-btn.active, .open > .dropdown-toggle.inbox-folder-options-btn {
                 background-color: hsl(0, 0%, 15%) !important;
-                color: white;
+                color: white !important;
             }
 
             /* Light Dark bg */
-            .taken-shi, .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+            .taken-shi, .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu {
                 background-color: hsl(0, 0%, 22%) !important;
             }
 
@@ -62,7 +56,7 @@ try {
             }
             
             /* Transparent bg */
-            .pagination > li > a.clr1:not(.active), .pagination > li > a.clr2:not(.active), .pagination > li > a.clr2:not(.active), .pagination > li > a.clr3:not(.active),.pagination > li > a.clr4:not(.active), .pagination > li > a.clr5:not(.active), .pagination > li > a.clr6:not(.active), .pagination > li > a.clr7:not(.active), .pagination>li>a, .pagination>li>span {
+            .pagination > li > a.clr1:not(.active), .pagination > li > a.clr2:not(.active), .pagination > li > a.clr2:not(.active), .pagination > li > a.clr3:not(.active),.pagination > li > a.clr4:not(.active), .pagination > li > a.clr5:not(.active), .pagination > li > a.clr6:not(.active), .pagination > li > a.clr7:not(.active), .pagination>li>a, .pagination>li>span, .portlet .portlet-title.is_stuck {
                 background-color: rgba(0, 0, 0, 0) !important;
             }
             
@@ -76,7 +70,7 @@ try {
                 background-color: hsl(0, 0%, 10%);
             }
 
-            .grade {
+            .grade, .btn.green-haze:not(.btn-outline), .dashboard-stat .details .number, .dashboard-stat .details .desc, .table td, .table th {
                 font-weight: bold;
             }
 
@@ -144,8 +138,48 @@ try {
                 background-color: #196545;
             }
 
-            .dashboard-stat .details .number, .dashboard-stat .details .desc{
+            .portlet>.portlet-title {
+                border-bottom: 0;
+            }
+
+            .inbox .inbox-nav>li>a:hover {
+                background-color: #383838;
+            }
+
+            .highcharts-scrollbar-track {
+                fill: hsl(0, 0%, 15%) !important;
+                stroke: hsl(0, 0%, 15%) !important;
+            }
+
+            .highcharts-scrollbar-thumb {
+                fill: hsl(0, 0%, 8%) !important;
+                stroke: hsl(0, 0%, 8%) !important;
+            }
+
+            .highcharts-scrollbar-button {
+                fill: hsl(0, 0%, 22%) !important;
+                stroke: hsl(0, 0%, 22%) !important;
+            }
+
+            tspan {
+                fill: white !important;
+                stroke: none !important;
+            }
+
+            .highcharts-button {
+                fill: hsl(0, 0%, 22%) !important;
+                stroke: hsl(0, 0%, 22%) !important;
+            }
+
+            .highcharts-root text {
+                fill: white !important;
+                stroke: none !important;
                 font-weight: bold;
+                color: white !important;
+            }
+
+            .badge-success {
+                background-color: #0b5259;
             }
             `)
         }
@@ -168,11 +202,17 @@ try {
 
         if(blurPfp) {
             AddCustomStyle(`
-            .img-circle avatar small {
-                filter: blur(50px);
+            .page-header.navbar .top-menu .navbar-nav>li.dropdown-user .dropdown-toggle>img, .inbox-content .timeline .timeline-badge-userpic {
+                filter: blur(3px);
+            }
+
+            .profile-userpic img.avatar {
+                filter: blur(5px);
             }
             `)
         }
+
+
     })
 } catch (error) {
     console.log("[ShkoloTweaks] Error injecting CSS:\n" + error)

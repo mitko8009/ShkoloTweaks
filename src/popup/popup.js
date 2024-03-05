@@ -4,7 +4,7 @@ const deleteNoteBtn = document.getElementById('deleteNote');
 
 const themeElement = document.getElementById('theme');
 const cleanUpSkolo = document.getElementById('cleanUpSkolo');
-const blurPfp = document.getElementById('blurPfp');
+const blurPfpCheck = document.getElementById('blurPfp');
 
 chrome.runtime.onMessage.addListener(data => {
     const {event} = data
@@ -22,7 +22,7 @@ saveBtn.onclick = () => {
     const prefs = {
         theme: themeElement.value,
         cleanUp: cleanUpSkolo.checked,
-        blurPfp: blurPfp.checked
+        blurPfp: blurPfpCheck.checked
     }
 
     chrome.runtime.sendMessage({ event: "onStart", prefs})
@@ -91,6 +91,7 @@ function updatePopup() {
 
             .button:hover {
                 color: hsl(0, 0%, 20%);
+            }
         `
     }
 }
@@ -107,7 +108,7 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp"], function(result){
     }
 
     if (blurPfp) {
-        blurPfp.checked = blurPfp
+        blurPfpCheck.checked = blurPfp
     }
 
     updatePopup()

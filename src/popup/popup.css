@@ -8,19 +8,6 @@
     font-size: smaller;
 }
 
-.checkbox {
-    border: 1px solid #fff;
-    border-radius: 8px;
-    padding: 4px;
-    padding-left: 8px;
-    background-color: hsl(0, 0%, 15%);
-}
-
-.checkbox:hover {
-    background-color: hsl(0, 0%, 20%);
-    color: white;
-}
-
 .checkboxInput {
     margin-right: 6px;
 }
