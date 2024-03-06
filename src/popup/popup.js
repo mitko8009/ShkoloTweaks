@@ -123,11 +123,8 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded"], function(re
     const { theme, cleanUp, blurPfp, rounded } = result
 
     if (theme) { themeElement.value = theme }
-
     if (cleanUp) { cleanUpSkolo.checked = cleanUp }
-
     if (blurPfp) { blurPfpCheck.checked = blurPfp }
-
     if (rounded) { roundedCheckbox.checked = rounded }
 
     console.log(rounded)
