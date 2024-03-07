@@ -127,7 +127,5 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded"], function(re
     if (blurPfp) { blurPfpCheck.checked = blurPfp }
     if (rounded) { roundedCheckbox.checked = rounded }
 
-    console.log(rounded)
-
     updatePopup()
 })

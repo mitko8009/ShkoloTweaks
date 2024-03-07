@@ -17,7 +17,7 @@ function removeElements(elements) {
 
 // CSS Injection
 try {
-    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v0.0.7"
+    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v0.1.1 (Beta)"
 
     chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded"], function(result){
         const { theme, cleanUp, blurPfp, rounded } = result
@@ -34,7 +34,7 @@ try {
             }
             
             /* Darker bg */
-            .page-header.navbar, .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover, .nav>li>a:focus, .nav>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .note-editor.note-frame .note-editing-area .note-editable, .panel-default>.panel-heading, .filtersContainer, .table-hover>tbody>tr:hover, .table-hover>tbody>tr:hover>td, .content-comment-section .content-comment {
+            .page-header.navbar, .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover, .nav>li>a:focus, .nav>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .note-editor.note-frame .note-editing-area .note-editable, .panel-default>.panel-heading, .filtersContainer, .table-hover>tbody>tr:hover, .table-hover>tbody>tr:hover>td, .content-comment-section .content-comment, div.dt-button-collection {
                 background-color: hsl(0, 0%, 8%) !important;
                 color: white;
             }
@@ -46,8 +46,9 @@ try {
             }
 
             /* Light Dark bg */
-            .taken-shi, .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info {
+            .taken-shi, .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled) {
                 background-color: hsl(0, 0%, 22%) !important;
+                color: white !important;
             }
 
             /* Hover for Text */
@@ -92,7 +93,7 @@ try {
                 background-color: hsl(0, 0%, 15%);
             }
 
-            .btn-info, .btn.green:not(.btn-outline) {
+            .btn-info, .btn.green:not(.btn-outline), a.dt-button.buttons-columnVisibility.active:not(.disabled) {
                 background-color: hsl(0, 0%, 15%);
                 border-color: hsl(0, 0%, 90%);
             }
@@ -284,7 +285,7 @@ try {
 
         if (rounded) {
             AddCustomStyle(`
-            .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .onOffSwitch, .onOffSwitch-handle, .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .icheckbox_square-blue, .iradio_square-blue {
+            .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .onOffSwitch, .onOffSwitch-handle, .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .icheckbox_square-blue, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button {
                 border-radius: 8px !important;
             }
 

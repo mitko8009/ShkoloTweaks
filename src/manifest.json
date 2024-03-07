@@ -1,7 +1,7 @@
 {
     "name": "ShkoloTweaks",
     "description": "Tweaks for Shkolo",
-    "version": "0.0.7",
+    "version": "0.1.1",
     "manifest_version": 3,
     "background": {
         "service_worker": "background.js"
