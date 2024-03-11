@@ -1,6 +1,7 @@
 const saveBtn = document.getElementById('saveBtn');
 const shkoloBtn = document.getElementById('shkoloBtn');
 const deleteNoteBtn = document.getElementById('deleteNote');
+
 const themeElement = document.getElementById('theme');
 const cleanUpSkolo = document.getElementById('cleanUpSkolo');
 const blurPfpCheck = document.getElementById('blurPfp');
