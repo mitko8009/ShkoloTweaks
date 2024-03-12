@@ -17,7 +17,8 @@ function removeElements(elements) {
 
 // CSS Injection
 try {
-    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v0.1.2 (Beta)"
+    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v0.1.3 (Beta)";
+    document.getElementsByClassName("page-footer-inner")[0].innerHTML = document.getElementsByClassName("page-footer-inner")[0].innerHTML + " | ShkoloTweaks е създадено от екип <b>ITPG Studios</b> и е софтуер, който не е свързан или одобрен от Shkolo.bg.";
 
     chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded"], function(result){
         const { theme, cleanUp, blurPfp, rounded } = result
@@ -273,6 +274,11 @@ try {
                 margin-bottom: 4px !important;
                 margin-top: 4px !important;
             }
+
+            .nav-item {
+                margin: 5px !important;
+            }
+
             `)
         }
 
@@ -280,18 +286,38 @@ try {
             AddCustomStyle(`
             .page-header.navbar .top-menu .navbar-nav>li.dropdown-user .dropdown-toggle>img, .inbox-content .timeline .timeline-badge-userpic {
                 filter: blur(3px);
+                transition: all 0.4s;
             }
 
             .profile-userpic img.avatar {
                 filter: blur(5px);
+                transition: all 0.4s;
             }
+
+            .profile-userpic img.avatar:hover {
+                filter: blur(0);
+            }
+
+            .page-header.navbar .top-menu .navbar-nav>li.dropdown-user .dropdown-toggle>img:hover, .inbox-content .timeline .timeline-badge-userpic:hover {
+                filter: blur(0);
+            }
+
             `)
         }
 
         if (rounded) {
             AddCustomStyle(`
-            .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .onOffSwitch, .onOffSwitch-handle, .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .icheckbox_square-blue, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button, .inbox .inbox-body, .inbox .inbox-sidebar, .new-message-recipients-box > span > span > span, .select2-dropdown, .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .onOffSwitch, .onOffSwitch-handle, .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button, .inbox .inbox-body, .inbox .inbox-sidebar, .new-message-recipients-box > span > span > span, .select2-dropdown, .select2-container--default .select2-selection--multiple .select2-selection__choice {
                 border-radius: 8px !important;
+            }
+
+            rect {
+                rx: 8px;
+            }
+
+            .nav-item > a {
+                border-radius: 8px !important;
+                border: 0 !important;
             }
 
             /* Top */
@@ -318,6 +344,103 @@ try {
                 background-color: #fff0;
                 border: 0;
             }
+
+            #tableGrades, #tableAbsences, #tableFeedbacks {
+                border-collapse: unset !important;
+                
+            }   
+
+
+            #tab_control_test > .portlet > table {
+                border-radius: 20px !important;
+                border-collapse: unset !important;
+            }
+
+            #tab_control_test > .portlet > table > thead > tr > .thinTableColumn {
+                border-left: 0 !important;
+                border-right: 0 !important;
+            }
+
+            #tab_control_test > .portlet > .table > tbody > .compactTableRow > td {
+                border-left: 0 !important;
+                border-bottom: 0 !important;
+                border-right: 0 !important;
+            }
+
+            #tab_control_test > .portlet > .table > thead > .tableHeadersFooters > .col-md-4 {
+                border-left: 0 !important;
+            }
+
+
+            #tab_parent_meeting > .portlet > table {
+                border-radius: 20px !important;
+                border-collapse: unset !important;
+            }
+
+            #tab_parent_meeting > .portlet > table > thead > tr > .thinTableColumn {
+                border-left: 0 !important;
+                border-right: 0 !important;
+            }
+
+            #tab_parent_meeting > .portlet > .table > tbody > .compactTableRow > td {
+                border-left: 0 !important;
+                border-bottom: 0 !important;
+                border-right: 0 !important;
+            }
+
+            #tab_parent_meeting > .portlet > .table > thead > .tableHeadersFooters > .col-md-4 {
+                border-left: 0 !important;
+            }
+
+
+            .annualAssessment {
+                border-left: 0 !important;
+                border-right: 0 !important;
+            }
+
+            #tableAbsences > thead > tr > .thinTableColumn {
+                border-left: 0 !important;
+                border-right: 0 !important;
+            }
+
+            #tableFeedbacks > thead > tr > .thinTableColumn {
+                border-left: 0 !important;
+                border-right: 0 !important;
+            }
+
+            #tableGrades:not(#tableGrades >  *), #tableAbsences:not(#tableAbsences >  *), #tableFeedbacks:not(#tableFeedbacks >  *) {
+                border-radius: 20px !important;
+            }
+
+            .big {
+                border: 0 !important;
+            }
+
+            tfoot .annualAssessment.solid-left-border {
+                border: 0 !important;
+            }
+
+            thead .thinTableColumn:first-of-type {
+                border: 0 !important;
+            }
+            .numVal:not(.term1):not(.term2):not(.solid-left-border) .thinTableColumn {
+                border: 0 !important;
+                
+              }
+
+            .scheduleTableColumn {
+
+                padding: 3px;
+                
+            }
+
+            .scheduleTableBody .scheduleTableCell:last-child {
+                border-bottom-right-radius: 8px !important;
+                border-bottom-left-radius: 8px !important;
+            } 
+              
+
+
             `)
         }
     })

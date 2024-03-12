@@ -7,7 +7,10 @@ const cleanUpSkolo = document.getElementById('cleanUpSkolo');
 const blurPfpCheck = document.getElementById('blurPfp');
 const roundedCheckbox = document.getElementById('roundedCheckbox');
 
+
+
 chrome.runtime.onMessage.addListener(data => {
+    console.log("Received message", data)
     const {event} = data
     switch (event) {
         case 'UPDATE_POPUP':
@@ -20,6 +23,7 @@ chrome.runtime.onMessage.addListener(data => {
 })
 
 saveBtn.onclick = () => {
+    console.log("Saving preferences")
     const prefs = {
         theme: themeElement.value,
         cleanUp: cleanUpSkolo.checked,
@@ -30,6 +34,7 @@ saveBtn.onclick = () => {
     chrome.storage.local.set(prefs)
     console.log("Saved", prefs)
     updatePopup()
+    refreshPage()
 }
 
 deleteNoteBtn.onclick = () => {
@@ -41,9 +46,11 @@ shkoloBtn.onclick = () => {
 }
 
 function refreshPage() {
+    console.log("Refreshing page")
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
+        chrome.tabs.reload(tabs[0].id);
     });
+
 }
 
 function updatePopup() {
