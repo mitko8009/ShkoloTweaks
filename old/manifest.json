@@ -1,16 +1,19 @@
 {
     "name": "ShkoloTweaks",
-    "description": "Shkolo Tweaks is a web extension that adds Dark Theme, Pfp Blur, and other fixes to the Shkolo.bg website.",
-    "version": "0.1.3",
+    "description": "Tweaks for Shkolo",
+    "version": "0.1.2",
     "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
     "action": {
         "default_popup": "popup/popup.html",
-        "default_title": "Shkolo Tweaks by ITPG Studios"
+        "default_title": "Shkolo Tweaks by mitko8009",
+        "options_page": "popup.html"
     },
     "permissions": [
         "storage",
-        "activeTab",
-        "tabs"
+        "activeTab"
     ],
     "icons": {
         "16": "assets/icon_x16.png",
@@ -26,10 +29,5 @@
             ],
             "js": ["app.js"]
         }
-    ],
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "d5d263ce-84a4-49b4-8052-18a19c8423d0"
-        }
-    }
+    ]
 }
