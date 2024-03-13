@@ -438,9 +438,6 @@ try {
                 border-bottom-right-radius: 8px !important;
                 border-bottom-left-radius: 8px !important;
             } 
-              
-
-
             `)
         }
     })

@@ -21,10 +21,8 @@
 **Download NOW**
 
 [![Google Chrome](https://img.shields.io/badge/Google%20Chrome-4285F4?style=for-the-badge&logo=GoogleChrome&logoColor=white)](https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc?hl=en&authuser=0)
-
-**Coming soon**
-
 [![Firefox](https://img.shields.io/badge/Firefox-FF7139?style=for-the-badge&logo=Firefox-Browser&logoColor=white)]()
+
 ## Authors
 
 - [@mitko8009](https://github.com/mitko8009)
