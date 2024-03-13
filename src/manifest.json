@@ -1,35 +1,38 @@
 {
-    "name": "ShkoloTweaks",
-    "description": "Shkolo Tweaks is a web extension that adds Dark Theme, Pfp Blur, and other fixes to the Shkolo.bg website.",
-    "version": "0.1.3",
-    "manifest_version": 3,
-    "action": {
-        "default_popup": "popup/popup.html",
-        "default_title": "Shkolo Tweaks by ITPG Studios"
-    },
-    "permissions": [
-        "storage",
-        "activeTab",
-        "tabs"
-    ],
-    "icons": {
-        "16": "assets/icon_x16.png",
-        "32": "assets/icon_x32.png",
-        "48": "assets/icon_x48.png",
-        "128": "assets/icon_x128.png"
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "*://*.shkolo.bg/*", 
-                "*://*.shkolo.com/*"
-            ],
-            "js": ["app.js"]
-        }
-    ],
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "{d5d263ce-84a4-49b4-8052-18a19c8423d0}"
-        }
-    }
+	"name": "ShkoloTweaks",
+	"description": "Shkolo Tweaks is a web extension that adds Dark Theme, Pfp Blur, and other fixes to the Shkolo.bg website.",
+	"version": "0.1.3",
+	"manifest_version": 3,
+	"author": "ITPG Studios",
+	"action": {
+		"default_popup": "popup/popup.html",
+		"default_title": "Shkolo Tweaks by ITPG Studios"
+	},
+	"permissions": [
+		"storage",
+		"activeTab",
+		"tabs"
+	],
+	"icons": {
+		"16": "assets/icon_x16.png",
+		"32": "assets/icon_x32.png",
+		"48": "assets/icon_x48.png",
+		"128": "assets/icon_x128.png"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"*://*.shkolo.bg/*",
+				"*://*.shkolo.com/*"
+			],
+			"js": [
+				"app.js"
+			]
+		}
+	],
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "{d5d263ce-84a4-49b4-8052-18a19c8423d0}"
+		}
+	}
 }
