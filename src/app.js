@@ -302,6 +302,37 @@ try {
                 filter: blur(0);
             }
 
+
+            .username {
+                filter: blur(5px);
+                transition: all 0.4s;
+
+                &:hover {
+                    filter: blur(0);
+                }
+            }
+
+
+            .form-group > div.col-sm-6 > p.form-control-static {
+                filter: blur(5px);
+                transition: all 0.4s;
+
+                &:hover {
+                    filter: blur(0);
+                }
+            }
+
+            .profile-usertitle-name {
+                filter: blur(5px);
+                transition: all 0.4s;
+
+                &:hover {
+                    filter: blur(0);
+                }
+            }
+
+
+
             `)
         }
 
@@ -438,6 +469,8 @@ try {
                 border-bottom-right-radius: 8px !important;
                 border-bottom-left-radius: 8px !important;
             } 
+
+
             `)
         }
     })
