@@ -1,4 +1,16 @@
-const site = window.location.hostname
+var manifestURL = chrome.runtime.getURL("manifest.json");
+
+fetch(manifestURL)
+  .then(response => response.json())
+  .then(data => {
+    console.log("Extension name:", data.name);
+    console.log("Extension version:", data.version);
+    console.log("Permissions:", data.permissions);
+  })
+  .catch(error => {
+    console.error("Error reading manifest file:", error);
+  });
+
 
 const AddCustomStyle = css => document.head.appendChild(document.createElement("style")).innerHTML = css
 
