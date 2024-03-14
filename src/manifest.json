@@ -1,35 +1,39 @@
 {
-    "manifest_version": 3,
-    "name": "ShkoloTweaks",
-    "description": "Shkolo Tweaks is a web extension that adds Dark Theme, Pfp Blur, and other fixes to the Shkolo.bg website.",
-    "version": "0.1.4",
-    "action": {
-        "default_popup": "popup/popup.html",
-        "default_title": "Shkolo Tweaks by ITPG Studios"
-    },
-    "permissions": [
-        "storage",
-        "activeTab",
-        "tabs"
-    ],
-    "icons": {
-        "16": "assets/icon_x16.png",
-        "32": "assets/icon_x32.png",
-        "48": "assets/icon_x48.png",
-        "128": "assets/icon_x128.png"
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "*://*.shkolo.bg/*", 
-                "*://*.shkolo.com/*"
-            ],
-            "js": ["app.js"]
-        }
-    ],
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "{d5d263ce-84a4-49b4-8052-18a19c8423d0}"
-        }
-    }
+	"manifest_version": 3,
+	"name": "ShkoloTweaks",
+	"description": "Shkolo Tweaks is a web extension that adds Dark Theme, Pfp Blur, and other fixes to the Shkolo.bg website.",
+	"version": "0.1.4",
+	"author": "ITPG Studios",
+	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwA/QFSNdP+DLYSw03MBR/G5tjMiBWnkM+/EiB+pioR559CAD8V/cbzj1XEdN5Gm+C7MB0pRGaPQtwu0gdKKYfX1DJZY2+eCFv+0hCfuxbUvNWo07dloGlNbN78jqhtvFegxy//TDeyF+Fsssv+j2FSUsPhobuzxHq90u7kikFBFMydNUKKbt4OZT0BnFbfdUV16LCI0t1GveetSyYaABUusIbn+yyOw0DQUvztpfQkseKfbxUv3rSbdGS5BFiBwX+1rI0fqMrZ0kP5VbxJtNyKUBdONZte1NmotaBqcwilKnq48jNTz0RT7T6U02qqPBpU+Dvs7uhFPOfbw8FI+KZwIDAQAB",
+	"action": {
+		"default_popup": "popup/popup.html",
+		"default_title": "Shkolo Tweaks by ITPG Studios"
+	},
+	"permissions": [
+		"storage",
+		"activeTab"
+	],
+	"icons": {
+		"16": "assets/icon_x16.png",
+		"32": "assets/icon_x32.png",
+		"48": "assets/icon_x48.png",
+		"128": "assets/icon_x128.png"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"*://*.shkolo.bg/*",
+				"*://*.shkolo.com/*"
+			],
+			"js": [
+				"app.js"
+			],
+			"run_at": "document_end"
+		}
+	],
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "{d5d263ce-84a4-49b4-8052-18a19c8423d0}"
+		}
+	}
 }

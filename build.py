@@ -15,10 +15,10 @@ with open("./src/manifest.json", "r") as manifestfile:
 def archive(): # Archive the build
     try:
         return shutil.make_archive(manifest['name'], "zip", "./src/", owner=manifest['author'], group=manifest['author'])
-    except Exception as Exception:
+    except ValueError:
         manifest["browser_specific_settings"] = browser_specific_settings
         saveJSON("./src/manifest.json", manifest)
-        return f"An error occurred while archiving the build\nBuild Option: {str(buildoption)}\nException: {Exception}"
+        return f"An error occurred while archiving the build\nBuild Option: {str(buildoption)}\nExseption: {ValueError}"
 
 def saveJSON(jsonFile, data):
     with open(jsonFile, "w") as jsonfile:
