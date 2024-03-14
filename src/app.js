@@ -1,16 +1,7 @@
-var manifestURL = chrome.runtime.getURL("manifest.json");
+const manifest = chrome.runtime.getManifest()
 
-fetch(manifestURL)
-  .then(response => response.json())
-  .then(data => {
-    console.log("Extension name:", data.name);
-    console.log("Extension version:", data.version);
-    console.log("Permissions:", data.permissions);
-  })
-  .catch(error => {
-    console.error("Error reading manifest file:", error);
-  });
-
+const version = manifest.version
+const name = manifest.name
 
 const AddCustomStyle = css => document.head.appendChild(document.createElement("style")).innerHTML = css
 
@@ -29,7 +20,7 @@ function removeElements(elements) {
 
 // CSS Injection
 try {
-    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v0.1.3 (Beta)";
+    document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v" + version + " (Beta)";
     document.getElementsByClassName("page-footer-inner")[0].innerHTML = document.getElementsByClassName("page-footer-inner")[0].innerHTML + " | ShkoloTweaks е създадено от екип <b>ITPG Studios</b> и е софтуер, който не е свързан или одобрен от Shkolo.bg.";
 
     chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded"], function(result){
@@ -291,6 +282,10 @@ try {
                 margin: 5px !important;
             }
 
+            .portlet>.portlet-title>.caption {
+                font-weight: bold;
+            }
+
             `)
         }
 
@@ -350,7 +345,7 @@ try {
 
         if (rounded) {
             AddCustomStyle(`
-            .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .onOffSwitch, .onOffSwitch-handle, .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button, .inbox .inbox-body, .inbox .inbox-sidebar, .new-message-recipients-box > span > span > span, .select2-dropdown, .select2-container--default .select2-selection--multiple .select2-selection__choice, .page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a {
+            .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .onOffSwitch, .onOffSwitch-handle, .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button, .inbox .inbox-body, .inbox .inbox-sidebar, .new-message-recipients-box > span > span > span, .select2-dropdown, .select2-container--default .select2-selection--multiple .select2-selection__choice, .page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a, .profile-usermenu ul li.active a, .profile-usermenu ul li a:hover {
                 border-radius: 8px !important;
             }
 
@@ -390,9 +385,7 @@ try {
 
             #tableGrades, #tableAbsences, #tableFeedbacks {
                 border-collapse: unset !important;
-                
             }   
-
 
             #tab_control_test > .portlet > table {
                 border-radius: 20px !important;
@@ -414,7 +407,6 @@ try {
                 border-left: 0 !important;
             }
 
-
             #tab_parent_meeting > .portlet > table {
                 border-radius: 20px !important;
                 border-collapse: unset !important;
@@ -435,7 +427,6 @@ try {
                 border-left: 0 !important;
             }
 
-
             .annualAssessment {
                 border-left: 0 !important;
                 border-right: 0 !important;
@@ -455,21 +446,9 @@ try {
                 border-radius: 20px !important;
             }
 
-            .big {
+            .big, tfoot .annualAssessment.solid-left-border, thead .thinTableColumn:first-of-type, .numVal:not(.term1):not(.term2):not(.solid-left-border) .thinTableColumn {
                 border: 0 !important;
             }
-
-            tfoot .annualAssessment.solid-left-border {
-                border: 0 !important;
-            }
-
-            thead .thinTableColumn:first-of-type {
-                border: 0 !important;
-            }
-            .numVal:not(.term1):not(.term2):not(.solid-left-border) .thinTableColumn {
-                border: 0 !important;
-                
-              }
 
             .scheduleTableColumn {
                 padding: 3px;
@@ -478,6 +457,11 @@ try {
             .scheduleTableBody .scheduleTableCell:last-child {
                 border-bottom-right-radius: 8px !important;
                 border-bottom-left-radius: 8px !important;
+            }
+
+            .profile-usermenu ul li {
+                border-bottom: none !important;
+                margin: 5px !important;
             }
             `)
         }

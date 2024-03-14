@@ -8,7 +8,6 @@ const blurPfpCheck = document.getElementById('blurPfp');
 const roundedCheckbox = document.getElementById('roundedCheckbox');
 
 
-
 chrome.runtime.onMessage.addListener(data => {
     console.log("Received message", data)
     const {event} = data
