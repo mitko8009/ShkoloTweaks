@@ -1,6 +1,7 @@
 const saveBtn = document.getElementById('saveBtn');
 const shkoloBtn = document.getElementById('shkoloBtn');
 const deleteNoteBtn = document.getElementById('deleteNote');
+const preset = document.getElementById('preset');
 
 const themeElement = document.getElementById('theme');
 const cleanUpSkolo = document.getElementById('cleanUpSkolo');
@@ -43,6 +44,14 @@ shkoloBtn.onclick = () => {
     chrome.tabs.create({ url: "https://app.shkolo.bg/dashboard" })
 }
 
+preset.onclick = () => {
+    themeElement.value = "dark"
+    cleanUpSkolo.checked = true
+    blurPfpCheck.checked = true
+    roundedCheckbox.checked = true
+    saveBtn.click()
+}
+
 function refreshPage() {
     console.log("Refreshing page")
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -76,6 +85,10 @@ function updatePopup() {
             .button:hover {
                 color: hsl(0, 0%, 80%);
             }
+
+            .checkbox:hover, .radio:hover {
+                color: #cccccc;
+            }
         `
     } else if (themeElement.value === "light") { // Light Popup Theme
         document.head.appendChild(document.createElement("style")).innerHTML = `
@@ -100,6 +113,10 @@ function updatePopup() {
 
             .button:hover {
                 color: hsl(0, 0%, 20%);
+            }
+
+            .checkbox:hover, .radio:hover {
+                color: #404040;
             }
 
             .checkbox:hover, .radio:hover {

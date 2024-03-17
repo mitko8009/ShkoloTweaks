@@ -33,7 +33,7 @@ try {
                 background-color: hsl(0, 0%, 8%) !important;
             }
 
-            label, .stats-label, a, tspan, .font-blue-dark, .font-blue-steel,.scheduleTable .scheduleCourse, .scheduleTable .scheduleTableCourse .hourNum, .page-sidebar .page-sidebar-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a>i, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a, .page-sidebar .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar .page-sidebar-menu li>a>.arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow:before, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a>i, .page-sidebar .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar .menu-title, .page-sidebar .page-sidebar-menu .sub-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a, .note.note-warning, .page-header.navbar .top-menu .navbar-nav>li.dropdown .dropdown-toggle>i, .message-table-head > div, .message-user, .message-subject, .scroll-to-top>i, .btn-default, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate, .highcharts-menu-item, .note.note-info, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external>h3 {
+            label, .stats-label, a, tspan, .font-blue-dark, .font-blue-steel,.scheduleTable .scheduleCourse, .scheduleTable .scheduleTableCourse .hourNum, .page-sidebar .page-sidebar-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a>i, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a, .page-sidebar .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar .page-sidebar-menu li>a>.arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow:before, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a>i, .page-sidebar .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar .menu-title, .page-sidebar .page-sidebar-menu .sub-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a, .note.note-warning, .page-header.navbar .top-menu .navbar-nav>li.dropdown .dropdown-toggle>i, .message-table-head > div, .message-user, .message-subject, .scroll-to-top>i, .btn-default, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate, .highcharts-menu-item, .note.note-info, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external>h3, span, p {
                 color: white !important;
             }
             
@@ -282,7 +282,7 @@ try {
                 margin: 5px !important;
             }
 
-            .portlet>.portlet-title>.caption {
+            .portlet>.portlet-title>.caption, .inbox-nav-folder .inbox-nav-folder-info .inbox-nav-folder-name {
                 font-weight: bold;
             }
 
@@ -345,7 +345,7 @@ try {
 
         if (rounded) {
             AddCustomStyle(`
-            .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .onOffSwitch, .onOffSwitch-handle, .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button, .inbox .inbox-body, .inbox .inbox-sidebar, .new-message-recipients-box > span > span > span, .select2-dropdown, .select2-container--default .select2-selection--multiple .select2-selection__choice, .page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a, .profile-usermenu ul li.active a, .profile-usermenu ul li a:hover {
+            .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button, .inbox .inbox-body, .inbox .inbox-sidebar, .new-message-recipients-box > span > span > span, .select2-dropdown, .select2-container--default .select2-selection--multiple .select2-selection__choice, .page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a, .profile-usermenu ul li.active a, .profile-usermenu ul li a:hover, .filtersContainer {
                 border-radius: 8px !important;
             }
 
@@ -463,6 +463,54 @@ try {
                 border-bottom: none !important;
                 margin: 5px !important;
             }
+
+            .inbox .inbox-nav>li>a {
+                border-radius: 8px !important;
+                margin-top: 3px !important;
+                margin-bottom: 3px !important;
+            }
+
+            .inbox .inbox-nav > li.active > a {
+                border: none !important;
+                background-color: hsl(0, 0%, 22%) !important;
+            }
+
+            .message-table-head > div:first-child {
+                border-radius: 8px 0 0 8px !important;
+                margin-bottom: 5px !important;
+            }
+
+            .message-table-head > div:last-child {
+                border-radius: 0 8px 8px 0 !important;
+            }
+            
+            .messageThread {
+                border: none !important;
+            }
+
+            .messageThread:hover {
+                background-color: hsl(0, 0%, 22%) !important;
+                border-radius: 8px !important;
+            }
+
+            .profile-usermenu ul li.active a, .profile-usermenu ul li a {
+                border: none !important;
+            }
+
+            .onOffSwitch-handle, .onOffSwitch {
+                border-radius: 20px !important;
+            }
+
+            .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+                border-radius: 8px 0 0 8px !important;
+            }
+
+            .btn-group>.btn:last-child:not(:first-child), .btn-group>.btn:not(:first-child):not(:last-child) {
+                border-radius: 0 8px 8px 0 !important;
+            }
+
+            
+
             `)
         }
     })
