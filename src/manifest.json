@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "ShkoloTweaks",
 	"description": "Shkolo Tweaks is a web extension that adds Dark Theme, Blur Personal Data, and other useful features to the Shkolo.bg website.",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"author": "ITPG Studios",
 	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwA/QFSNdP+DLYSw03MBR/G5tjMiBWnkM+/EiB+pioR559CAD8V/cbzj1XEdN5Gm+C7MB0pRGaPQtwu0gdKKYfX1DJZY2+eCFv+0hCfuxbUvNWo07dloGlNbN78jqhtvFegxy//TDeyF+Fsssv+j2FSUsPhobuzxHq90u7kikFBFMydNUKKbt4OZT0BnFbfdUV16LCI0t1GveetSyYaABUusIbn+yyOw0DQUvztpfQkseKfbxUv3rSbdGS5BFiBwX+1rI0fqMrZ0kP5VbxJtNyKUBdONZte1NmotaBqcwilKnq48jNTz0RT7T6U02qqPBpU+Dvs7uhFPOfbw8FI+KZwIDAQAB",
 	"action": {

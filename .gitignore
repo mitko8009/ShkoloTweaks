@@ -1,3 +1,4 @@
 .vscode
 .history
 *.zip
+Tools/__pycache__
