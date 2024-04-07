@@ -1,16 +1,8 @@
 const manifest = chrome.runtime.getManifest()
 
 const version = manifest.version
-const name = manifest.name
 
 const AddCustomStyle = css => document.head.appendChild(document.createElement("style")).innerHTML = css
-
-function CreateCustomElement(tag, attr_tag, attr_name, value) {
-    const custom_element = document.createElement(tag)
-    custom_element.setAttribute(attr_tag, attr_name)
-    custom_element.innerHTML = value
-    document.body.append(custom_element)
-}
 
 function removeElements(elements) {
     Array.from(elements).forEach(function (element) {
@@ -44,7 +36,7 @@ try {
             }
 
             /* Dark bg */
-            .page-content, .portlet.portlet-sortable.light, .highcharts-background, .portlet.light, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu, .detailsRow, .table-hover > tbody > tr.detailsRow:hover, .table-hover > tbody > tr.detailsRow:hover > td, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover, .page-header.navbar .hor-menu.hor-menu-light.year-selector .navbar-nav > li.open > a, .page-header.navbar .hor-menu.hor-menu-light.app-switcher .navbar-nav > li.open > a, .messageThread, .panel, .dropdown-menu, .modal-content, .dropdown-menu>li.active:hover>a, .dropdown-menu>li.active>a, .dropdown-menu>li:hover>a, .inbox-folder-options-btn:hover, .inbox-folder-options-btn:focus, .inbox-folder-options-btn.focus, .inbox-folder-options-btn:active, .inbox-folder-options-btn.active, .open > .dropdown-toggle.inbox-folder-options-btn, .empty-cell:hover, .table-hover > tbody > tr:hover > td.empty-cell, .empty-cell, .bootstrap-select.btn-group .no-results, table.dataTable tbody tr, .bg-default, .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .page-sidebar .page-sidebar-menu>li:hover>a, .note-btn:hover, .note-btn:hover, .panel-heading.note-toolbar .note-color .note-btn-group:hover > .note-btn, .panel-heading.note-toolbar .note-color .note-btn-group:hover > .note-btn, .note-popover .popover-content .note-color .dropdown-menu .note-palette .note-color-reset, .panel-heading.note-toolbar .note-color .dropdown-menu .note-palette .note-color-reset, .note-popover .popover-content .note-color .dropdown-menu .note-palette .note-color-select, .panel-heading.note-toolbar .note-color .dropdown-menu .note-palette .note-color-select, .bg-white {
+            .page-content, .portlet.portlet-sortable.light, .highcharts-background, .portlet.light, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu, .detailsRow, .table-hover > tbody > tr.detailsRow:hover, .table-hover > tbody > tr.detailsRow:hover > td, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover, .page-header.navbar .hor-menu.hor-menu-light.year-selector .navbar-nav > li.open > a, .page-header.navbar .hor-menu.hor-menu-light.app-switcher .navbar-nav > li.open > a, .messageThread, .panel, .dropdown-menu, .modal-content, .dropdown-menu>li.active:hover>a, .dropdown-menu>li.active>a, .dropdown-menu>li:hover>a, .inbox-folder-options-btn, .inbox-folder-options-btn:focus, .inbox-folder-options-btn.focus, .inbox-folder-options-btn:active, .inbox-folder-options-btn.active, .open > .dropdown-toggle.inbox-folder-options-btn, .empty-cell:hover, .table-hover > tbody > tr:hover > td.empty-cell, .empty-cell, .bootstrap-select.btn-group .no-results, table.dataTable tbody tr, .bg-default, .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .page-sidebar .page-sidebar-menu>li:hover>a, .note-btn:hover, .note-btn:hover, .panel-heading.note-toolbar .note-color .note-btn-group:hover > .note-btn, .panel-heading.note-toolbar .note-color .note-btn-group:hover > .note-btn, .note-popover .popover-content .note-color .dropdown-menu .note-palette .note-color-reset, .panel-heading.note-toolbar .note-color .dropdown-menu .note-palette .note-color-reset, .note-popover .popover-content .note-color .dropdown-menu .note-palette .note-color-select, .panel-heading.note-toolbar .note-color .dropdown-menu .note-palette .note-color-select, .bg-white {
                 background-color: hsl(0, 0%, 15%) !important;
                 color: white !important;
             }
@@ -102,7 +94,7 @@ try {
                 border-color: hsl(0, 0%, 90%);
             }
 
-            .btn-info:hover, .btn.green:not(.btn-outline):hover {
+            .btn-info:hover, .btn.green:not(.btn-outline):hover, .btn-info.active, .btn-info:active, .btn-info.focus, .btn-info:focus, .btn-info.active.focus, .btn-info.active:focus, .btn-info.active:hover, .btn-info:active.focus, .btn-info:active:focus, .btn-info:active:hover, .open>.btn-info.dropdown-toggle.focus, .open>.btn-info.dropdown-toggle:focus, .open>.btn-info.dropdown-toggle:hover, .btn.green:not(.btn-outline).active.focus, .btn.green:not(.btn-outline).active:focus, .btn.green:not(.btn-outline).active:hover, .btn.green:not(.btn-outline):active.focus, .btn.green:not(.btn-outline):active:focus, .btn.green:not(.btn-outline):active:hover, .open>.btn.green:not(.btn-outline).dropdown-toggle.focus, .open>.btn.green:not(.btn-outline).dropdown-toggle:focus, .open>.btn.green:not(.btn-outline).dropdown-toggle:hover, .btn.green:not(.btn-outline).active, .btn.green:not(.btn-outline):active, .btn.green:not(.btn-outline).focus, .btn.green:not(.btn-outline):focus{
                 background-color: hsl(0, 0%, 4%);
                 border-color: white;
             }
@@ -203,22 +195,22 @@ try {
             }
 
             .detailsRow.absenceType3, .badges-type-2 .badge-details-holder {
-                background-color: #814c4c !important;
+                background-color: #f1484bc2 !important;
                 border-color: transparent !important;
             }
 
             .badges-type-2, .badges-type-2:hover, .pupil-badge-type.remark {
-                background-color: #b58989 !important;
+                background-color: #262626 !important;
                 border-color: #9a4040 !important;
             }
 
             .badges-type-1, .badges-type-1:hover, .pupil-badge-type.appraisal {
-                background-color: #7b8577 !important;
+                background-color: #262626 !important;
                 border-color: #c0ff8e !important;
             }
 
             .badges-type-1 .badge-details-holder {
-                background: #79996b;
+                background: #748f60;
                 border-top: 1px solid #c0ff8e;
             }
 
@@ -241,6 +233,10 @@ try {
 
             .cc_container {
                 background: hsl(0, 0%, 15%) !important;
+            }
+
+            .popupText::before {
+                border-color: transparent transparent #383838 transparent;
             }
             `)
         }
@@ -512,8 +508,6 @@ try {
             .btn-group>.btn:last-child:not(:first-child), .btn-group>.btn:not(:first-child):not(:last-child) {
                 border-radius: 0 8px 8px 0 !important;
             }
-
-            
 
             `)
         }

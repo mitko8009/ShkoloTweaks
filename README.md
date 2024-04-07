@@ -10,7 +10,7 @@
 
 - Dark Theme
 - Annoying site fixes
-- Profile Picture Blur 
+- Blur Personal Data
 - Rounded Corners
 
 
