@@ -11,10 +11,9 @@
     <body>
         <div class="container m-3" id="header">
             <h1 class="title">Shkolo Tweaks</h1>
-
             <button class="button is-fullwidth is-info is-light" id="shkoloBtn">Open Shkolo.bg</button>
         </div>
-
+        
         <div class="container m-3">
             
             <label class="label">Theme</label>
@@ -24,31 +23,32 @@
                     <option value="light">Light</option>
                 </select>
             </div>
-
+            
             <label class="label checkbox" style="margin-top: 12px;">
                 <input type="checkbox" class="checkboxInput" id="roundedCheckbox">
                 Rounded Corners
             </label>
-
+            
             <label class="label checkbox" style="margin-top: 12px;">
                 <input type="checkbox" class="checkboxInput" id="cleanUpSkolo">
                 General Fixes
             </label>
-
+            
             <label class="label checkbox" style="margin-top: 12px;">
                 <input type="checkbox" class="checkboxInput" id="blurPfp">
                 Blur Personal Data
             </label>
-
+            
             <span class="tag is-warning is-medium" style="font-weight: bold; margin-top: 12px; padding-top: 42px; padding-bottom: 42px; font-size: 14px;" id="note">
                 Note: This is a beta version.<br>If you encounter any issues,<br>please report them to the developer.
                 <button class="delete is-small" id="deleteNote"></button>
             </span>
         </div>
-
+        
         <div class="container m-3">
             <button class="button is-fullwidth" id="saveBtn">Apply</button>
             <button class="button is-fullwidth" id="preset" style="margin-top: 12px; font-size: 17px;">Apply Recommended Settings</button>
+            <label class="label m-1" id="version"></label>
         </div>
     </body>
     <script src="popup.js"></script>

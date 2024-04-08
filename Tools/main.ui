@@ -71,7 +71,7 @@
          </font>
         </property>
        </widget>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="label_Name">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -89,7 +89,7 @@
          <string>Name</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="label_Version">
         <property name="geometry">
          <rect>
           <x>360</x>
@@ -126,7 +126,7 @@
          <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="label_Publisher">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -160,7 +160,7 @@
          </font>
         </property>
        </widget>
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="label_PublicKey">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -197,7 +197,7 @@
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="label_Description">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -225,7 +225,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QGroupBox" name="groupBox">
+       <widget class="QGroupBox" name="Icons">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -237,7 +237,7 @@
         <property name="title">
          <string>Icons</string>
         </property>
-        <widget class="QFrame" name="frame_4">
+        <widget class="QFrame" name="x48">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -270,7 +270,7 @@
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QLabel" name="label_10">
+         <widget class="QLabel" name="label_x48">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -327,7 +327,7 @@
           </property>
          </widget>
         </widget>
-        <widget class="QFrame" name="frame_3">
+        <widget class="QFrame" name="x32">
          <property name="geometry">
           <rect>
            <x>250</x>
@@ -360,7 +360,7 @@
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QLabel" name="label_8">
+         <widget class="QLabel" name="label_x32">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -396,7 +396,7 @@
           </property>
          </widget>
         </widget>
-        <widget class="QFrame" name="frame_5">
+        <widget class="QFrame" name="x128">
          <property name="geometry">
           <rect>
            <x>250</x>
@@ -429,7 +429,7 @@
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QLabel" name="label_11">
+         <widget class="QLabel" name="label_x128">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -465,7 +465,7 @@
           </property>
          </widget>
         </widget>
-        <widget class="QFrame" name="frame_2">
+        <widget class="QFrame" name="x16">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -498,7 +498,7 @@
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QLabel" name="label_6">
+         <widget class="QLabel" name="label_x16">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -544,8 +544,14 @@
           <height>81</height>
          </rect>
         </property>
+        <property name="cursor" stdset="0">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::AllEditTriggers</set>
+        </property>
        </widget>
-       <widget class="QLabel" name="label_7">
+       <widget class="QLabel" name="label_Permissions">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -633,7 +639,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QFrame" name="frame">
+      <widget class="QFrame" name="commands">
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>

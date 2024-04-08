@@ -2,11 +2,16 @@ const saveBtn = document.getElementById('saveBtn');
 const shkoloBtn = document.getElementById('shkoloBtn');
 const deleteNoteBtn = document.getElementById('deleteNote');
 const preset = document.getElementById('preset');
+const label_version = document.getElementById('version');
 
 const themeElement = document.getElementById('theme');
 const cleanUpSkolo = document.getElementById('cleanUpSkolo');
 const blurPfpCheck = document.getElementById('blurPfp');
 const roundedCheckbox = document.getElementById('roundedCheckbox');
+
+const manifest = chrome.runtime.getManifest()
+
+const version = manifest.version
 
 
 chrome.runtime.onMessage.addListener(data => {
@@ -152,3 +157,5 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded"], function(re
 
     updatePopup()
 })
+
+label_version.innerHTML = `v${version}`
