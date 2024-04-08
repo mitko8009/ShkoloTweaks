@@ -35,3 +35,6 @@ def LoadManifest(path):
 def SaveManifest(path, data):
     with open(path, "w") as jsonfile:
         json.dump(data, jsonfile, indent='\t')
+        
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
