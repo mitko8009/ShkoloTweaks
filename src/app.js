@@ -1,6 +1,6 @@
 const manifest = chrome.runtime.getManifest()
-
 const version = manifest.version
+const pageurl = window.location.href
 
 const AddCustomStyle = css => document.head.appendChild(document.createElement("style")).innerHTML = css
 
@@ -10,13 +10,14 @@ function removeElements(elements) {
     })
 }
 
-// CSS Injection
+
+
 try {
     document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v" + version + " (Beta)";
     document.getElementsByClassName("page-footer-inner")[0].innerHTML = document.getElementsByClassName("page-footer-inner")[0].innerHTML + " | ShkoloTweaks е създадено от екип <b>ITPG Studios</b> и е софтуер, който не е свързан или одобрен от Shkolo.bg.";
 
-    chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded"], function(result){
-        const { theme, cleanUp, blurPfp, rounded } = result
+    chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "widgets"], function(result){
+        const { theme, cleanUp, blurPfp, rounded, widgets } = result
         
         if (theme === "dark") {
             AddCustomStyle(`
@@ -510,6 +511,50 @@ try {
             }
 
             `)
+        }
+
+        if (widgets) {
+            if (pageurl.includes("dashboard")){
+                const widgetsRow = document.getElementsByClassName("col-md-12")[0].children[2]
+                const widgetBlurprint = widgetsRow.children[0].cloneNode(true)
+
+                removeElements(widgetBlurprint.children[0].children[1].children) // Remove the content of the widget
+                removeElements(widgetBlurprint.children[0].children[0].children[0].children[0].children)
+
+                var widgetTitle = widgetBlurprint.children[0].children[0].children[0].children[1]
+                var widgetContent = widgetBlurprint.children[0].children[1]
+
+                const iframe = document.createElement("iframe")
+                iframe.src = "https://app.shkolo.bg/diary#tab_schedule"
+                iframe.style.display = 'none'
+                document.body.appendChild(iframe)
+
+                widgetTitle.innerHTML = "Schedule (ShkoloTweaks v"+version+")"
+
+                widgetContent.style.fontSize = "14px"
+                widgetContent.style.fontWeight = "bold"
+                widgetContent.innerHTML = "Loading..."
+                
+                setTimeout(() => {
+                    widgetContent.innerHTML = ""
+                    try {
+                        const day = new Date().getDay() - 1
+                        if (day < 0 || day > 4) day = 4
+
+                        var data = iframe.contentWindow.document.getElementsByClassName("scheduleTableColumn")[day].cloneNode(true)
+                        if (theme === "dark") {
+                            data.style.backgroundColor = "hsl(0, 0%, 22%)"
+                        }
+                        data.style.padding = "10px"
+                        widgetContent.appendChild(data)
+                        iframe.remove()
+                    } catch (error) {
+                        widgetContent.innerHTML = "Error loading schedule"
+                    }
+                }, 2000)
+
+                widgetsRow.appendChild(widgetBlurprint)
+            }
         }
     })
 } catch (error) {

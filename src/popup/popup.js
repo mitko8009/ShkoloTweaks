@@ -8,9 +8,9 @@ const themeElement = document.getElementById('theme');
 const cleanUpSkolo = document.getElementById('cleanUpSkolo');
 const blurPfpCheck = document.getElementById('blurPfp');
 const roundedCheckbox = document.getElementById('roundedCheckbox');
+const widgetsCheckbox = document.getElementById('widgets');
 
 const manifest = chrome.runtime.getManifest()
-
 const version = manifest.version
 
 
@@ -33,6 +33,7 @@ saveBtn.onclick = () => {
         cleanUp: cleanUpSkolo.checked,
         blurPfp: blurPfpCheck.checked,
         rounded: roundedCheckbox.checked,
+        widgets: widgetsCheckbox.checked
     }
 
     chrome.storage.local.set(prefs)
@@ -147,13 +148,14 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     }
 });
 
-chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded"], function(result){   
-    const { theme, cleanUp, blurPfp, rounded } = result
+chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "widgets"], function(result){   
+    const { theme, cleanUp, blurPfp, rounded, widgets } = result
 
     if (theme) { themeElement.value = theme }
     if (cleanUp) { cleanUpSkolo.checked = cleanUp }
     if (blurPfp) { blurPfpCheck.checked = blurPfp }
     if (rounded) { roundedCheckbox.checked = rounded }
+    if (widgets) { widgetsCheckbox.checked = widgets }
 
     updatePopup()
 })
