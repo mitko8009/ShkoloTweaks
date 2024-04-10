@@ -262,6 +262,8 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
             var scheduleWidgetTitle = scheduleWidget.children[0].children[0].children[0].children[1]
             var scheduleWidgetContent = scheduleWidget.children[0].children[1]
 
+            scheduleWidget.children[0].children[0].children[0].children[0].remove()
+
             var iframe = getDiary()
 
             scheduleWidgetTitle.innerHTML = "Schedule"
@@ -284,10 +286,13 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
                         data.style.padding = "10px"
         
                         scheduleWidgetContent.appendChild(data)
+
+                        const scheduleWidgetIcon = scheduleWidget.children[0].children[0].children[0].appendChild(iframe.contentWindow.document.getElementsByClassName("scheduleTab")[0].children[0].cloneNode(true))
+                        scheduleWidgetIcon.style = "color: white !important;"
                     } catch (error) {
-                        scheduleWidgetContent.innerHTML = "Error loading schedule."
+                        scheduleWidgetContent.innerHTML = "Error loading schedule. Please contact the developer and provide the following error:<br>" + error
                     }
-                }, 600);
+                }, 800);
             });
 
             if (!cleanUp) scheduleWidget.children[0].children[2].remove()
@@ -558,5 +563,4 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
 
         `)
     }
-
-})
+});
