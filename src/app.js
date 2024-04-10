@@ -280,23 +280,45 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
                         if (day < 0 || day > 4) day = 4
         
                         var data = iframe.contentWindow.document.getElementsByClassName("scheduleTableColumn")[day].cloneNode(true)
+
                         if (theme === "dark") {
                             data.style.backgroundColor = "hsl(0, 0%, 22%)"
                         }
                         data.style.padding = "10px"
-        
-                        scheduleWidgetContent.appendChild(data)
+                        
+                        dataTable = data.children[1].cloneNode(true)
+                        console.log(dataTable.children[0].children[0].children[0])
+                        scheduleWidgetTitle.innerHTML += " | " + data.children[0].children[0].innerHTML
+                        
+                        for (var i = 0; i < dataTable.children.length; i++) {
+                            if(dataTable.children[i].children[0].children.length > 0) {
+                                var className = dataTable.children[i].children[0].children[0]
+                                className.children[0].style = "padding-right: 10px;"
+                                className.children[1].style = "padding-right: 10px;"
+                                className.children[2].style = "padding-right: 10px;"
 
-                        const scheduleWidgetIcon = scheduleWidget.children[0].children[0].children[0].appendChild(iframe.contentWindow.document.getElementsByClassName("scheduleTab")[0].children[0].cloneNode(true))
-                        scheduleWidgetIcon.style = "color: white !important;"
+                                if (theme === "dark") className.style = "margin: 4px; padding: 10px; font-size: 16px; border: 1px solid #ffffff; background-color: hsl(0, 0%, 22%) !important;"
+                                else className.style = "margin: 4px; padding: 10px; font-size: 16px; border: 1px solid #4b77be; background-color: hsl(0, 0%, 22%) !important;"
+
+                                if (rounded) className.classList.add('rounded')
+
+                                scheduleWidgetContent.appendChild(className.cloneNode(true))
+                                console.log(dataTable.children[i].children[0].children[0])
+                            }
+                        }
                     } catch (error) {
-                        scheduleWidgetContent.innerHTML = "Error loading schedule. Please contact the developer and provide the following error:<br>" + error
+                        console.error("Error loading schedule. Please contact the developer and provide the following error:\n" + error)
+                        scheduleWidgetContent.innerHTML = "Error loading schedule."
                     }
                 }, 800);
+                
+                const scheduleWidgetIcon = scheduleWidget.children[0].children[0].children[0].appendChild(iframe.contentWindow.document.getElementsByClassName("scheduleTab")[0].children[0].cloneNode(true))
+                scheduleWidgetIcon.style = "color: white !important;"
             });
-
+            
             if (!cleanUp) scheduleWidget.children[0].children[2].remove()
-
+            
+            scheduleWidget.children[0].style = "height: 500px;"
             widgetsRow.appendChild(scheduleWidget)
         }
     }
@@ -397,7 +419,7 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
 
     if (rounded) {
         AddCustomStyle(`
-        .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button, .inbox .inbox-body, .inbox .inbox-sidebar, .new-message-recipients-box > span > span > span, .select2-dropdown, .select2-container--default .select2-selection--multiple .select2-selection__choice, .page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a, .profile-usermenu ul li.active a, .profile-usermenu ul li a:hover, .filtersContainer, .cc_container {
+        .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .rounded, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button, .inbox .inbox-body, .inbox .inbox-sidebar, .new-message-recipients-box > span > span > span, .select2-dropdown, .select2-container--default .select2-selection--multiple .select2-selection__choice, .page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a, .profile-usermenu ul li.active a, .profile-usermenu ul li a:hover, .filtersContainer, .cc_container {
             border-radius: 8px !important;
         }
 
