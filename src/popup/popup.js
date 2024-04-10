@@ -8,7 +8,7 @@ const themeElement = document.getElementById('theme');
 const cleanUpSkolo = document.getElementById('cleanUpSkolo');
 const blurPfpCheck = document.getElementById('blurPfp');
 const roundedCheckbox = document.getElementById('roundedCheckbox');
-const widgetsCheckbox = document.getElementById('widgets');
+const scheduleWidgetCheckbox = document.getElementById('scheduleWidget');
 
 const manifest = chrome.runtime.getManifest()
 const version = manifest.version
@@ -33,7 +33,7 @@ saveBtn.onclick = () => {
         cleanUp: cleanUpSkolo.checked,
         blurPfp: blurPfpCheck.checked,
         rounded: roundedCheckbox.checked,
-        widgets: widgetsCheckbox.checked
+        scheduleWidget: scheduleWidgetCheckbox.checked
     }
 
     chrome.storage.local.set(prefs)
@@ -137,25 +137,19 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 
     if (url.hostname.includes("shkolo.bg")) {
         document.getElementById("shkoloBtn").remove()
-
-        const connectedStatus = document.createElement("span")
-        connectedStatus.classList.add("tag", "is-success", "is-light")
-        connectedStatus.style.fontSize = "14px"
-        connectedStatus.innerHTML = "Connected to Shkolo"
-        document.getElementById("header").appendChild(connectedStatus)
     } else {
         document.getElementById('note').remove()
     }
 });
 
-chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "widgets"], function(result){   
-    const { theme, cleanUp, blurPfp, rounded, widgets } = result
+chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], function(result){   
+    const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
 
     if (theme) { themeElement.value = theme }
     if (cleanUp) { cleanUpSkolo.checked = cleanUp }
     if (blurPfp) { blurPfpCheck.checked = blurPfp }
     if (rounded) { roundedCheckbox.checked = rounded }
-    if (widgets) { widgetsCheckbox.checked = widgets }
+    if (scheduleWidget) { scheduleWidgetCheckbox.checked = scheduleWidget }
 
     updatePopup()
 })
