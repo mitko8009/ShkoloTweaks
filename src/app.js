@@ -310,8 +310,15 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
                             if(dataTable.children[i].children[0].children.length > 0) {
                                 var className = dataTable.children[i].children[0].children[0]
                                 className.children[0].style = "padding-right: 10px;"
-                                className.children[1].style = "padding-right: 10px;"
                                 className.lastElementChild.classList.add('pull-right')
+                                if (className.children[className.children.length - 2].children[0].classList.value === "far fa-key") {
+                                    classRoom = className.children[className.children.length - 2].cloneNode(true)
+                                    className.children[className.children.length - 2].remove()
+                                    classRoom.classList.add('pull-right')
+                                    classRoom.style = "padding-right: 12px;"
+                                    className.appendChild(classRoom)
+                                }
+                                
 
                                 if (theme === "dark") className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #ffffff; background-color: hsl(0, 0%, 22%) !important;"
                                 else className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #4b77be; background-color: hsl(0, 0%, 98%) !important;"
@@ -327,7 +334,15 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
                         console.error("Error loading schedule.\nError: " + error )
                         scheduleWidgetContent.innerHTML = "Error loading schedule."
                     }
-                }, 800);
+
+                    var scheduleViewMore = document.createElement("a")
+                    scheduleViewMore.innerHTML = "View More"
+                    scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
+                    scheduleViewMore.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block;"
+                    if (rounded) scheduleViewMore.classList.add("rounded")
+                    scheduleViewMore.classList.add("pull-right")
+                    scheduleWidget.children[0].children[0].appendChild(scheduleViewMore)
+                }, 1000);
                 
                 const scheduleWidgetIcon = scheduleWidget.children[0].children[0].children[0].appendChild(iframe.contentWindow.document.getElementsByClassName("scheduleTab")[0].children[0].cloneNode(true))
                 scheduleWidgetIcon.style = "color: white !important;"
@@ -417,9 +432,6 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
                 filter: blur(0);
             }
         }
-
-
-
         `)
     }
 
