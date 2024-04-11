@@ -25,9 +25,27 @@ function getDiary() {
 document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v" + version + " (Beta)";
 document.getElementsByClassName("page-footer-inner")[0].innerHTML = document.getElementsByClassName("page-footer-inner")[0].innerHTML + " | ShkoloTweaks е създадено от екип <b>ITPG Studios</b> и е софтуер, който не е свързан или одобрен от Shkolo.bg.";
 
-chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], function(result){
+chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], function(result){
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
-    
+
+    if (theme !== "dark" && theme !== "light") chrome.storage.sync.set({theme: "dark"})
+
+    if (theme !== "dark") {
+        var topMenu = document.getElementsByClassName("nav navbar-nav pull-right")[0]
+        console.log(topMenu.children[2])
+        var option = topMenu.children[2].cloneNode(true)
+        removeElements(option.children[0].children)
+        option.children[0].innerHTML = "Apply Dark Theme"
+        option.children[0].style = "color: white !important; font-weight: bold;"
+        option.children[0].href = "javascript:void(0)"
+        option.children[0].onclick = () => {
+            chrome.storage.sync.set({theme: "dark"})
+            location.reload()
+        }
+        option.title = "Apply Dark Theme"
+        topMenu.prepend(option)
+    }
+
     if (theme === "dark") {
         AddCustomStyle(`
         html, body, .form-control {
@@ -52,7 +70,7 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
         }
 
         /* Light Dark bg */
-        .taken-shi, .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled), .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple, .select2-dropdown, .dropzone {
+        .taken-shi, .pagination>.active>a, .messageThread:hover, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled), .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple, .select2-dropdown, .dropzone {
             background-color: hsl(0, 0%, 22%) !important;
             color: white !important;
         }
@@ -77,7 +95,7 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
             background-color: hsl(0, 0%, 10%);
         }
 
-        .grade, .btn.green-haze:not(.btn-outline), .dashboard-stat .details .number, .dashboard-stat .details .desc, .table td, .table th {
+        .grade, .btn.green-haze:not(.btn-outline), .table td, .table th {
             font-weight: bold;
         }
 
@@ -163,7 +181,7 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
             stroke: hsl(0, 0%, 8%) !important;
         }
 
-        .highcharts-scrollbar-button {
+        .highcharts-scrollbar-button, .highcharts-button {
             fill: hsl(0, 0%, 22%) !important;
             stroke: hsl(0, 0%, 22%) !important;
         }
@@ -171,11 +189,6 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
         tspan {
             fill: white !important;
             stroke: none !important;
-        }
-
-        .highcharts-button {
-            fill: hsl(0, 0%, 22%) !important;
-            stroke: hsl(0, 0%, 22%) !important;
         }
 
         .highcharts-root text {
@@ -248,6 +261,11 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
         .popupText::before {
             border-color: transparent transparent #383838 transparent;
         }
+
+        .inbox .inbox-nav > li.active > a {
+            border: none !important;
+            background-color: hsl(0, 0%, 22%) !important;
+        }
         `)
     }
     
@@ -271,6 +289,7 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
             scheduleWidgetContent.style.fontSize = "14px"
             scheduleWidgetContent.style.fontWeight = "bold"
             scheduleWidgetContent.innerHTML = "Loading..."
+            scheduleWidgetContent.style.height = "auto"
 
             iframe.addEventListener("load", () => {
                 setTimeout(() => {
@@ -278,16 +297,13 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
                     try {
                         const day = new Date().getDay() - 1
                         if (day < 0 || day > 4) day = 4
-        
                         var data = iframe.contentWindow.document.getElementsByClassName("scheduleTableColumn")[day].cloneNode(true)
 
                         if (theme === "dark") {
                             data.style.backgroundColor = "hsl(0, 0%, 22%)"
                         }
                         data.style.padding = "10px"
-                        
                         dataTable = data.children[1].cloneNode(true)
-                        console.log(dataTable.children[0].children[0].children[0])
                         scheduleWidgetTitle.innerHTML += " | " + data.children[0].children[0].innerHTML
                         
                         for (var i = 0; i < dataTable.children.length; i++) {
@@ -295,19 +311,20 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
                                 var className = dataTable.children[i].children[0].children[0]
                                 className.children[0].style = "padding-right: 10px;"
                                 className.children[1].style = "padding-right: 10px;"
-                                className.children[2].style = "padding-right: 10px;"
+                                className.lastElementChild.classList.add('pull-right')
 
-                                if (theme === "dark") className.style = "margin: 4px; padding: 10px; font-size: 16px; border: 1px solid #ffffff; background-color: hsl(0, 0%, 22%) !important;"
-                                else className.style = "margin: 4px; padding: 10px; font-size: 16px; border: 1px solid #4b77be; background-color: hsl(0, 0%, 22%) !important;"
-
+                                if (theme === "dark") className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #ffffff; background-color: hsl(0, 0%, 22%) !important;"
+                                else className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #4b77be; background-color: hsl(0, 0%, 98%) !important;"
                                 if (rounded) className.classList.add('rounded')
 
                                 scheduleWidgetContent.appendChild(className.cloneNode(true))
-                                console.log(dataTable.children[i].children[0].children[0])
                             }
                         }
+
+                        var scheduleWidgetContentHeight = scheduleWidgetContent.offsetHeight + 100
+                        scheduleWidget.children[0].style.height = scheduleWidgetContentHeight + "px"
                     } catch (error) {
-                        console.error("Error loading schedule. Please contact the developer and provide the following error:\n" + error)
+                        console.error("Error loading schedule.\nError: " + error )
                         scheduleWidgetContent.innerHTML = "Error loading schedule."
                     }
                 }, 800);
@@ -317,8 +334,6 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
             });
             
             if (!cleanUp) scheduleWidget.children[0].children[2].remove()
-            
-            scheduleWidget.children[0].style = "height: 500px;"
             widgetsRow.appendChild(scheduleWidget)
         }
     }
@@ -356,7 +371,7 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
             margin: 5px !important;
         }
 
-        .portlet>.portlet-title>.caption, .inbox-nav-folder .inbox-nav-folder-info .inbox-nav-folder-name {
+        .portlet>.portlet-title>.caption, .inbox-nav-folder .inbox-nav-folder-info .inbox-nav-folder-name, .dashboard-stat .details .number, .dashboard-stat .details .desc {
             font-weight: bold;
         }
 
@@ -394,16 +409,7 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
         }
 
 
-        .form-group > div.col-sm-6 > p.form-control-static {
-            filter: blur(5px);
-            transition: all 0.4s;
-
-            &:hover {
-                filter: blur(0);
-            }
-        }
-
-        .profile-usertitle-name {
+        .form-group > div.col-sm-6 > p.form-control-static, .profile-usertitle-name {
             filter: blur(5px);
             transition: all 0.4s;
 
@@ -419,7 +425,7 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
 
     if (rounded) {
         AddCustomStyle(`
-        .btn:not(.btn-sm):not(.btn-lg), .portlet.portlet-sortable.light, .rounded, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button, .inbox .inbox-body, .inbox .inbox-sidebar, .new-message-recipients-box > span > span > span, .select2-dropdown, .select2-container--default .select2-selection--multiple .select2-selection__choice, .page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a, .profile-usermenu ul li.active a, .profile-usermenu ul li a:hover, .filtersContainer, .cc_container {
+        .btn:not(.btn-sm):not(.btn-lg), .messageThread:hover, .portlet.portlet-sortable.light, .rounded, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .dropdown-menu, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button, .inbox .inbox-body, .inbox .inbox-sidebar, .new-message-recipients-box > span > span > span, .select2-dropdown, .select2-container--default .select2-selection--multiple .select2-selection__choice, .page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a, .profile-usermenu ul li.active a, .profile-usermenu ul li a:hover, .filtersContainer, .inbox-folder-options-btn:hover, .inbox-folder-options-btn:focus, .inbox-folder-options-btn.focus, .inbox-folder-options-btn:active, .inbox-folder-options-btn.active, .open > .dropdown-toggle.inbox-folder-options-btn, .cc_container {
             border-radius: 8px !important;
         }
 
@@ -443,12 +449,12 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
         }
 
         /* Left */
-        .pagination>li:first-child>a, .pagination>li:first-child>span {
+        .pagination>li:first-child>a, .pagination>li:first-child>span, .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
             border-radius: 8px 0 0 8px !important;
         }
 
         /* Right */
-        .pagination>li:last-child>a, .pagination>li:last-child>span {
+        .pagination>li:last-child>a, .pagination>li:last-child>span, .message-table-head > div:last-child, .btn-group>.btn:last-child:not(:first-child), .btn-group>.btn:not(:first-child):not(:last-child) {
             border-radius: 0 8px 8px 0 !important;
         }
 
@@ -461,17 +467,17 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
             border-collapse: unset !important;
         }   
 
-        #tab_control_test > .portlet > table {
+        #tab_control_test > .portlet > table, #tab_parent_meeting > .portlet > table {
             border-radius: 20px !important;
             border-collapse: unset !important;
         }
 
-        #tab_control_test > .portlet > table > thead > tr > .thinTableColumn {
+        #tab_control_test > .portlet > table > thead > tr > .thinTableColumn, #tab_parent_meeting > .portlet > table > thead > tr > .thinTableColumn, .annualAssessment, #tableAbsences > thead > tr > .thinTableColumn, #tableFeedbacks > thead > tr > .thinTableColumn {
             border-left: 0 !important;
             border-right: 0 !important;
         }
 
-        #tab_control_test > .portlet > .table > tbody > .compactTableRow > td {
+        #tab_control_test > .portlet > .table > tbody > .compactTableRow > td, #tab_parent_meeting > .portlet > .table > tbody > .compactTableRow > td {
             border-left: 0 !important;
             border-bottom: 0 !important;
             border-right: 0 !important;
@@ -481,42 +487,11 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
             border-left: 0 !important;
         }
 
-        #tab_parent_meeting > .portlet > table {
-            border-radius: 20px !important;
-            border-collapse: unset !important;
-        }
-
-        #tab_parent_meeting > .portlet > table > thead > tr > .thinTableColumn {
-            border-left: 0 !important;
-            border-right: 0 !important;
-        }
-
-        #tab_parent_meeting > .portlet > .table > tbody > .compactTableRow > td {
-            border-left: 0 !important;
-            border-bottom: 0 !important;
-            border-right: 0 !important;
-        }
-
         #tab_parent_meeting > .portlet > .table > thead > .tableHeadersFooters > .col-md-4 {
             border-left: 0 !important;
         }
 
-        .annualAssessment {
-            border-left: 0 !important;
-            border-right: 0 !important;
-        }
-
-        #tableAbsences > thead > tr > .thinTableColumn {
-            border-left: 0 !important;
-            border-right: 0 !important;
-        }
-
-        #tableFeedbacks > thead > tr > .thinTableColumn {
-            border-left: 0 !important;
-            border-right: 0 !important;
-        }
-
-        #tableGrades:not(#tableGrades >  *), #tableAbsences:not(#tableAbsences >  *), #tableFeedbacks:not(#tableFeedbacks >  *) {
+        #tableGrades:not(#tableGrades >  *), #tableAbsences:not(#tableAbsences >  *), #tableFeedbacks:not(#tableFeedbacks >  *), .onOffSwitch-handle, .onOffSwitch {
             border-radius: 20px !important;
         }
 
@@ -544,45 +519,14 @@ chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWid
             margin-bottom: 3px !important;
         }
 
-        .inbox .inbox-nav > li.active > a {
-            border: none !important;
-            background-color: hsl(0, 0%, 22%) !important;
-        }
-
         .message-table-head > div:first-child {
             border-radius: 8px 0 0 8px !important;
             margin-bottom: 5px !important;
         }
-
-        .message-table-head > div:last-child {
-            border-radius: 0 8px 8px 0 !important;
-        }
         
-        .messageThread {
+        .messageThread, .profile-usermenu ul li.active a, .profile-usermenu ul li a {
             border: none !important;
         }
-
-        .messageThread:hover {
-            background-color: hsl(0, 0%, 22%) !important;
-            border-radius: 8px !important;
-        }
-
-        .profile-usermenu ul li.active a, .profile-usermenu ul li a {
-            border: none !important;
-        }
-
-        .onOffSwitch-handle, .onOffSwitch {
-            border-radius: 20px !important;
-        }
-
-        .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
-            border-radius: 8px 0 0 8px !important;
-        }
-
-        .btn-group>.btn:last-child:not(:first-child), .btn-group>.btn:not(:first-child):not(:last-child) {
-            border-radius: 0 8px 8px 0 !important;
-        }
-
         `)
     }
 });

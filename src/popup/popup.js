@@ -36,7 +36,7 @@ saveBtn.onclick = () => {
         scheduleWidget: scheduleWidgetCheckbox.checked
     }
 
-    chrome.storage.local.set(prefs)
+    chrome.storage.sync.set(prefs)
     console.log("Saved", prefs)
     updatePopup()
     refreshPage()
@@ -142,7 +142,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     }
 });
 
-chrome.storage.local.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], function(result){   
+chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], function(result){   
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
 
     if (theme) { themeElement.value = theme }
