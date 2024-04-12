@@ -311,7 +311,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
                         for (var i = 0; i < dataTable.children.length; i++) {
                             if(dataTable.children[i].children[0].children.length > 0) {
                                 var className = dataTable.children[i].children[0].children[0]
-                                className.children[0].style = "padding-right: 10px; max-width: 40%; display: inline-block; overflow: auto; white-space: nowrap;"
+                                className.children[0].style = "padding-right: 10px;"
                                 className.lastElementChild.classList.add('pull-right')
                                 if (className.children[className.children.length - 2].children[0].classList.value === "far fa-key") {
                                     classRoom = className.children[className.children.length - 2].cloneNode(true)
