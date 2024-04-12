@@ -432,7 +432,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         }
 
 
-        .form-group > div.col-sm-6 > p.form-control-static, .profile-usertitle-name, .btn:not(.btn-sm):not(.btn-lg) {
+        .form-group > div.col-sm-6 > p.form-control-static, .profile-usertitle-name {
             filter: blur(5px);
             transition: all 0.4s;
 
