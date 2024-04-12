@@ -274,7 +274,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             const widgetsRow = document.getElementsByClassName("col-md-12")[0].children[2]
             const scheduleWidget = widgetsRow.children[0].cloneNode(true)
 
-            scheduleWidget.className = "col-sm-12"
+            scheduleWidget.className = "col-sm-6"
 
             removeElements(scheduleWidget.children[0].children[1].children) // Remove the content of the widget
             removeElements(scheduleWidget.children[0].children[0].children[0].children[0].children)
@@ -297,8 +297,8 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
                 setTimeout(() => {
                     scheduleWidgetContent.innerHTML = ""
                     try {
-                        const day = new Date().getDay() - 1
-                        if (day < 0 || day > 4) day = 4
+                        var day = new Date().getDay() - 1
+                        if (day < 0 || day > 4) day = 0
                         var data = iframe.contentWindow.document.getElementsByClassName("scheduleTableColumn")[day].cloneNode(true)
 
                         if (theme === "dark") {
@@ -321,6 +321,11 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
                                     className.appendChild(classRoom)
                                 }
                                 
+                                var classTitle = className.children[0].innerHTML
+                                var classTitleDetails = classTitle.split("</i> ")[0]
+                                classTitle = classTitle.split("</i> ")[1].split("(")[0]
+                                console.log(classTitleDetails + "</i> " + classTitle)
+                                className.children[0].innerHTML = classTitleDetails + "</i> " + classTitle
 
                                 if (theme === "dark") className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #ffffff; background-color: hsl(0, 0%, 22%) !important;"
                                 else className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #4b77be; background-color: hsl(0, 0%, 98%) !important;"
