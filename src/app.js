@@ -293,12 +293,21 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             scheduleWidgetContent.innerHTML = "Loading..."
             scheduleWidgetContent.style.height = "auto"
 
+            var scheduleViewMore = document.createElement("a")
+            scheduleViewMore.innerHTML = "View More"
+            scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
+            scheduleViewMore.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block;"
+            if (rounded) scheduleViewMore.classList.add("rounded")
+            scheduleViewMore.classList.add("pull-right")
+            scheduleWidget.children[0].children[0].appendChild(scheduleViewMore)
+
             iframe.addEventListener("load", () => {
                 setTimeout(() => {
                     scheduleWidgetContent.innerHTML = ""
                     try {
                         var day = new Date().getDay() - 1
                         if (day < 0 || day > 4) day = 0
+                        
                         var data = iframe.contentWindow.document.getElementsByClassName("scheduleTableColumn")[day].cloneNode(true)
 
                         if (theme === "dark") {
@@ -341,14 +350,6 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
                         console.error("Error loading schedule.\nError: " + error )
                         scheduleWidgetContent.innerHTML = "Error loading schedule."
                     }
-
-                    var scheduleViewMore = document.createElement("a")
-                    scheduleViewMore.innerHTML = "View More"
-                    scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
-                    scheduleViewMore.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block;"
-                    if (rounded) scheduleViewMore.classList.add("rounded")
-                    scheduleViewMore.classList.add("pull-right")
-                    scheduleWidget.children[0].children[0].appendChild(scheduleViewMore)
                 }, 1000);
                 
                 const scheduleWidgetIcon = scheduleWidget.children[0].children[0].children[0].appendChild(iframe.contentWindow.document.getElementsByClassName("scheduleTab")[0].children[0].cloneNode(true))
@@ -431,7 +432,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         }
 
 
-        .form-group > div.col-sm-6 > p.form-control-static, .profile-usertitle-name {
+        .form-group > div.col-sm-6 > p.form-control-static, .profile-usertitle-name, .btn:not(.btn-sm):not(.btn-lg) {
             filter: blur(5px);
             transition: all 0.4s;
 
