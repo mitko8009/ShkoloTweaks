@@ -17,7 +17,7 @@ a, p, h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-  font-size: 1.3em;
+  font-size: 1.4em;
 }
 
 h1 {
@@ -34,7 +34,7 @@ body {
 }
 
 .backlightContainer {
-  font-family: Helvetica;
+  font-family: 'Coolvetica';
   position: relative;
   width: 70%;
   height: 80%;
@@ -87,9 +87,8 @@ button {
   height: auto;
   color: #fff;
   padding: 10px 25px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Coolvetica';
   font-size: 24px;
-  font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
