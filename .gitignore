@@ -3,3 +3,4 @@
 *.zip
 Tools/__pycache__
 .idea
+.firebaserc

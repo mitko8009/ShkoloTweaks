@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ShkoloTweaks</title>
+
+    <script defer src="/__/firebase/10.11.0/firebase-app-compat.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <h1>ShkoloTweaks</h1>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
+    
+      const firebaseConfig = {
+        apiKey: "AIzaSyBDZKJjeaZIk4Q51h-JhuMwE8xcQR-W6Ag",
+        authDomain: "shkolotweaks.firebaseapp.com",
+        projectId: "shkolotweaks",
+        storageBucket: "shkolotweaks.appspot.com",
+        messagingSenderId: "518875020508",
+        appId: "1:518875020508:web:1d2b99eebe8baf4de80819",
+        measurementId: "G-T4TD48C043"
+      };
+    
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>
