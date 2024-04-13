@@ -1,7 +1,7 @@
 
 [![License](https://img.shields.io/badge/License-GPL_v3-red)](https://github.com/mitko8009/ShkoloTweaks/blob/main/LICENSE)
 
-# Shkolo Tweaks
+[![ShkoloTweaks](https://shkolotweaks.web.app/assets/thumb2.png)]
 
 **Shkolo Tweaks** is a web extension that adds *Dark Theme*, *Pfp Blur*, and other *custom features* to the **[Shkolo.bg]("https://www.shkolo.bg/")** website.
 
