@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Required META Tags -->
     <title>ShkoloTweaks</title>
-
-    <script defer src="/__/firebase/10.11.0/firebase-app-compat.js"></script>
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <meta charset="utf-8">
+    <!-- META Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="ShkoloTweaks - a web extension for customizing Shkolo.bg">
+    <meta property="og:description" content="ShkoloTweaks is a web extension that adds Dark Theme, Custom Widgets, and more to Shkolo.bg.">
+    <meta property="og:image" content="https://shkolotweaks.web.app/assets/thumb1.png">
+    <meta property="og:url" content="https://shkolotweaks.web.app/">
+    <meta property="og:site_name" content="ShkoloTweaks">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#4276a4">
+    <meta name="description" content="ShkoloTweaks is a web extension that adds Dark Theme, Custom Widgets, and more to Shkolo.bg.">
 
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <h1>ShkoloTweaks</h1>
+    <div class="backlightContainer" style="display: grid; place-content: center;">
+      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <h1 style="line-height: 0; margin-top: 1em;">Shkolo Tweaks</h1>
+        <p><strong>ShkoloTweaks</strong> is a web extension that adds Dark Theme, Custom Widgets, and more customization to <a href="https://app.shkolo.bg/dashboard">Shkolo.bg</a>.</p>
+        <button class="btn" onclick="window.open('https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc?hl=en&authuser=0')"><img src="assets/webStore.png"><br>Download Now</button>
+      </div>
+    </div>
 
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";

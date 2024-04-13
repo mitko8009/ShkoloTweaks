@@ -9,9 +9,9 @@
 ## Features
 
 - Dark Theme
-- Annoying site fixes
 - Blur Personal Data
 - Rounded Corners
+- Custom Widgets
 
 
 ## Availability
