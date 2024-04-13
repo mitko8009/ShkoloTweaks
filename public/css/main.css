@@ -1,19 +1,28 @@
+@font-face {
+  font-family: 'Coolvetica';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../coolvetica.otf") format('otf');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
 html, body {
   margin: 0 auto;
   height: 100%;
 }
 
 a, p, h1, h2, h3, h4, h5, h6 {
-    color: white;
+  color: white;
 }
 
 p {
-    font-size: 1.3em;
+  font-size: 1.3em;
 }
 
 h1 {
-    font-size: 6em;
-    text-shadow: rgba(255,255, 255,0.9) 0px 0px 100px;
+  font-size: 6em;
+  text-shadow: rgba(255,255, 255,0.9) 0px 0px 100px;
 }
 
 body {
@@ -74,35 +83,35 @@ button {
 }
 
 .btn {
-    width: auto;
-    height: auto;
-    color: #fff;
-    padding: 10px 25px;
-    font-family: 'Lato', sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    display: inline-block;
-    outline: none;
+  width: auto;
+  height: auto;
+  color: #fff;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
 
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .btn img {
-    width: 48px;
-    height: 48px;
-    margin-right: 10px;
-    margin-bottom: -6px;
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
+  margin-bottom: -6px;
 }
 
 .btn:hover {
-    background: rgba(255, 255, 255, .5);
-    border: 2px solid rgba(255, 255, 255, 1);
-    box-shadow: rgba(255, 255, 255, 0.5) 0px 0px 20px;
+  background: rgba(255, 255, 255, .5);
+  border: 2px solid rgba(255, 255, 255, 1);
+  box-shadow: rgba(255, 255, 255, 0.5) 0px 0px 20px;
 }
 
