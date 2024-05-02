@@ -2,6 +2,14 @@ const manifest = chrome.runtime.getManifest()
 const version = manifest.version
 const pageurl = window.location.href
 
+const WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+const WIDGETSROW = document.getElementsByClassName("col-md-12")[0].children[2]
+
+var date = new Date()
+
+var scheduleWidgetTitle
+var scheduleWidgetContent
+
 const AddCustomStyle = css => document.head.appendChild(document.createElement("style")).innerHTML = css
 
 function removeElements(elements) {
@@ -11,8 +19,7 @@ function removeElements(elements) {
 }
 
 let loadOnes = false
-function getDiary() {
-    if (loadOnes) return iframe
+function loadDiary() {
     const iframe = document.createElement("iframe")
     iframe.src = "https://app.shkolo.bg/diary#tab_schedule"
     iframe.sandbox = "allow-scripts allow-same-origin"
@@ -22,13 +29,57 @@ function getDiary() {
     return iframe
 }
 
+function sc_saveLocaly(data) {
+    console.log(data)
+
+    var scheduleData = {}
+
+    for (var i = 0; i < data.children.length; i++) { // Days
+        scheduleData[WEEKDAYS[i]] = {}
+
+        for (var j = 0; j < data.children[i].children[1].children.length; j++) { // Classes
+            scheduleData[WEEKDAYS[i]][j] = {}
+
+            for (var m = 0; m < data.children[i].children[1].children[j].children[0].children[0].children.length; m++) { // Class Details
+                if (data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML.length > 0) {
+                    //console.log(data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML + " / " + i + " / " + j + " / " + m); // Debugging
+                    scheduleData[WEEKDAYS[i]][j][m] = data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML
+                }
+            }
+        }
+    }
+    
+    scheduleData = JSON.stringify(scheduleData)
+    chrome.storage.sync.set({scheduleData: scheduleData})
+}
+
+function sc_fetchAndSave() {
+    var iframe = loadDiary()
+
+    iframe.addEventListener("load", () => {
+        scheduleWidgetContent.innerHTML = ""
+        setTimeout(() => {
+            sc_saveLocaly(iframe.contentWindow.document.getElementsByClassName("scheduleTable")[0].cloneNode(true))
+        }, 1000);
+    });
+}
+
+function sc_DisplayDay(day, data) {
+    dayData = data[day]
+    
+
+}
+
 document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v" + version + " (Beta)";
 document.getElementsByClassName("page-footer-inner")[0].innerHTML = document.getElementsByClassName("page-footer-inner")[0].innerHTML + " | ShkoloTweaks е създадено от екип <b>ITPG Studios</b> и е софтуер, който не е свързан или одобрен от Shkolo.bg.";
 
 chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], function(result){
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
 
-    if (theme !== "dark" && theme !== "light") chrome.storage.sync.set({theme: "dark"})
+    if (theme !== "dark" && theme !== "light") {
+        chrome.storage.sync.set({theme: "dark"})
+        window.reload()
+    } 
 
     if (theme !== "dark") {
         var topMenu = document.getElementsByClassName("nav navbar-nav pull-right")[0]
@@ -58,7 +109,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         }
         
         /* Darker bg */
-        .page-header.navbar, .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover, .nav>li>a:focus, .nav>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .note-editor.note-frame .note-editing-area .note-editable, .panel-default>.panel-heading, .filtersContainer, .table-hover>tbody>tr:hover, .table-hover>tbody>tr:hover>td, .content-comment-section .content-comment, div.dt-button-collection, .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        .page-header.navbar, .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover, .nav>li>a:focus, .nav>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .note-editor.note-frame .note-editing-area .note-editable, .panel-default>.panel-heading, .filtersContainer, .table-hover>tbody>tr:hover, .table-hover>tbody>tr:hover>td, .content-comment-section .content-comment, div.dt-button-collection, .select2-container--default .select2-selection--multiple .select2-selection__choice, .selectionTableCell.selected {
             background-color: hsl(0, 0%, 8%) !important;
             color: white;
         }
@@ -70,7 +121,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         }
 
         /* Light Dark bg */
-        .taken-shi, .pagination>.active>a, .messageThread:hover, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled), .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple, .select2-dropdown, .dropzone {
+        .taken-shi, .pagination>.active>a, .messageThread:hover, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled), .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple, .select2-dropdown, .dropzone, .table-highlight-td > tbody > tr > td:not(.emptySelectionCell):hover {
             background-color: hsl(0, 0%, 22%) !important;
             color: white !important;
         }
@@ -269,96 +320,126 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         `)
     }
     
-    if (scheduleWidget) {
-        if (pageurl.includes("dashboard")){
-            const widgetsRow = document.getElementsByClassName("col-md-12")[0].children[2]
-            const scheduleWidget = widgetsRow.children[0].cloneNode(true)
+    if (scheduleWidget && pageurl.includes("dashboard")) {
+        const scheduleWidget = WIDGETSROW.children[0].cloneNode(true)
 
-            scheduleWidget.className = "col-sm-6"
+        scheduleWidget.className = "col-sm-6"
 
-            removeElements(scheduleWidget.children[0].children[1].children) // Remove the content of the widget
-            removeElements(scheduleWidget.children[0].children[0].children[0].children[0].children)
+        removeElements(scheduleWidget.children[0].children[1].children) // Remove the content of the widget
+        removeElements(scheduleWidget.children[0].children[0].children[0].children[0].children)
 
-            var scheduleWidgetTitle = scheduleWidget.children[0].children[0].children[0].children[1]
-            var scheduleWidgetContent = scheduleWidget.children[0].children[1]
+        scheduleWidgetTitle = scheduleWidget.children[0].children[0].children[0].children[1]
+        scheduleWidgetContent = scheduleWidget.children[0].children[1]
 
-            scheduleWidget.children[0].children[0].children[0].children[0].remove()
+        scheduleWidget.children[0].children[0].children[0].children[0].remove()
 
-            var iframe = getDiary()
+        //var iframe = loadDiary()
 
-            scheduleWidgetTitle.innerHTML = "Schedule"
+        scheduleWidgetTitle.innerHTML = "Schedule"
 
-            scheduleWidgetContent.style.fontSize = "14px"
-            scheduleWidgetContent.style.fontWeight = "bold"
-            scheduleWidgetContent.innerHTML = "Loading..."
-            scheduleWidgetContent.style.height = "auto"
+        scheduleWidgetContent.style.fontSize = "14px"
+        scheduleWidgetContent.style.fontWeight = "bold"
+        scheduleWidgetContent.innerHTML = "Loading..."
+        scheduleWidgetContent.style.height = "auto"
 
-            var scheduleViewMore = document.createElement("a")
-            scheduleViewMore.innerHTML = "View More"
-            scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
-            scheduleViewMore.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block;"
-            if (rounded) scheduleViewMore.classList.add("rounded")
-            scheduleViewMore.classList.add("pull-right")
-            scheduleWidget.children[0].children[0].appendChild(scheduleViewMore)
+        var scheduleViewMore = document.createElement("a")
+        scheduleViewMore.innerHTML = "View More"
+        scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
+        scheduleViewMore.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block;"
+        if (rounded) scheduleViewMore.classList.add("rounded")
+        scheduleViewMore.classList.add("pull-right")
+        scheduleWidget.children[0].children[0].appendChild(scheduleViewMore)
 
-            iframe.addEventListener("load", () => {
-                setTimeout(() => {
-                    scheduleWidgetContent.innerHTML = ""
-                    try {
-                        var day = new Date().getDay() - 1
-                        if (day < 0 || day > 4) day = 0
-                        
-                        var data = iframe.contentWindow.document.getElementsByClassName("scheduleTableColumn")[day].cloneNode(true)
+        chrome.storage.sync.get(["scheduleData"], function(result) {
+            const { scheduleData } = result
 
-                        if (theme === "dark") {
-                            data.style.backgroundColor = "hsl(0, 0%, 22%)"
-                        }
-                        data.style.padding = "10px"
-                        dataTable = data.children[1].cloneNode(true)
-                        scheduleWidgetTitle.innerHTML += " | " + data.children[0].children[0].innerHTML
-                        
-                        for (var i = 0; i < dataTable.children.length; i++) {
-                            if(dataTable.children[i].children[0].children.length > 0) {
-                                var className = dataTable.children[i].children[0].children[0]
-                                className.children[0].style = "padding-right: 10px;"
-                                className.lastElementChild.classList.add('pull-right')
-                                if (className.children[className.children.length - 2].children[0].classList.value === "far fa-key") {
-                                    classRoom = className.children[className.children.length - 2].cloneNode(true)
-                                    className.children[className.children.length - 2].remove()
-                                    classRoom.classList.add('pull-right')
-                                    classRoom.style = "padding-right: 12px;"
-                                    className.appendChild(classRoom)
-                                }
-                                
-                                var classTitle = className.children[0].innerHTML
-                                var classTitleDetails = classTitle.split("</i> ")[0]
-                                classTitle = classTitle.split("</i> ")[1].split("(")[0]
-                                console.log(classTitleDetails + "</i> " + classTitle)
-                                className.children[0].innerHTML = classTitleDetails + "</i> " + classTitle
+            //console.log(scheduleData)
+            var data = JSON.parse(scheduleData)
 
-                                if (theme === "dark") className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #ffffff; background-color: hsl(0, 0%, 22%) !important;"
-                                else className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #4b77be; background-color: hsl(0, 0%, 98%) !important;"
-                                if (rounded) className.classList.add('rounded')
+            if (result === undefined || data === undefined || true) {
+                console.log("Fetching schedule data...")
+                sc_fetchAndSave()
+            }
 
-                                scheduleWidgetContent.appendChild(className.cloneNode(true))
-                            }
-                        }
-
-                        var scheduleWidgetContentHeight = scheduleWidgetContent.offsetHeight + 100
-                        scheduleWidget.children[0].style.height = scheduleWidgetContentHeight + "px"
-                    } catch (error) {
-                        console.error("Error loading schedule.\nError: " + error )
-                        scheduleWidgetContent.innerHTML = "Error loading schedule."
-                    }
-                }, 1000);
-                
-                const scheduleWidgetIcon = scheduleWidget.children[0].children[0].children[0].appendChild(iframe.contentWindow.document.getElementsByClassName("scheduleTab")[0].children[0].cloneNode(true))
-                scheduleWidgetIcon.style = "color: white !important;"
-            });
+            var refreshSchedule = false
+            for (var i = 0; i < data.length; i++) {
+                if (data[WEEKDAYS[i]][0] === undefined) {
+                    console.log(`Data not found for ${WEEKDAYS[i]}. Refreshing schedule data...`)
+                    refreshSchedule = true
+                }
+            }
+            if (refreshSchedule) {
+                sc_fetchAndSave()
+            }
             
-            if (!cleanUp) scheduleWidget.children[0].children[2].remove()
-            widgetsRow.appendChild(scheduleWidget)
-        }
+            var day = date.getDay() - 1
+            if (day < 0 || day > 4) day = 0
+            var weekday = WEEKDAYS[day]
+            weekday = WEEKDAYS[0]
+
+            sc_DisplayDay(weekday, data)
+        });
+
+//        iframe.addEventListener("load", () => {
+//            setTimeout(() => {
+//                scheduleWidgetContent.innerHTML = ""
+//                //try {
+//                    var day = date.getDay() - 1
+//                    if (day < 0 || day > 4) day = 0
+//
+//                    sc_saveLocaly(iframe.contentWindow.document.getElementsByClassName("scheduleTable")[0].cloneNode(true))
+//
+//                    var data = iframe.contentWindow.document.getElementsByClassName("scheduleTableColumn")[day].cloneNode(true)
+//
+//                    if (theme === "dark") {
+//                        data.style.backgroundColor = "hsl(0, 0%, 22%)"
+//                    }
+//                    data.style.padding = "10px"
+//                    dataTable = data.children[1].cloneNode(true)
+//                    scheduleWidgetTitle.innerHTML += " | " + data.children[0].children[0].innerHTML
+//                        
+//                    for (var i = 0; i < dataTable.children.length; i++) {
+//                        if(dataTable.children[i].children[0].children.length > 0) {
+//                            var className = dataTable.children[i].children[0].children[0]
+//                            className.children[0].style = "padding-right: 10px;"
+//                            className.lastElementChild.classList.add('pull-right')
+//                            //if (className.children[className.children.length - 2].children[0].classList.value === "far fa-key") {
+//                            //    classRoom = className.children[className.children.length - 2].cloneNode(true)
+//                            //    className.children[className.children.length - 2].remove()
+//                            //    classRoom.classList.add('pull-right')
+//                            //    classRoom.style = "padding-right: 12px;"
+//                            //    className.appendChild(classRoom)
+//                            //}
+//
+//                            var classTitle = className.children[0].innerHTML
+//                            if (classTitle.includes("</i>")) {
+//                                var classTitleDetails = classTitle.split("</i> ")[0]
+//                                classTitle = classTitle.split("</i> ")[1].split("(")[0]
+//                                className.children[0].innerHTML = classTitleDetails + "</i> " + classTitle
+//                            }
+//
+//                            if (theme === "dark") className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #ffffff; background-color: hsl(0, 0%, 22%) !important;"
+//                            else className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #4b77be; background-color: hsl(0, 0%, 98%) !important;"
+//                            if (rounded) className.classList.add('rounded')
+//
+//                            scheduleWidgetContent.appendChild(className.cloneNode(true))
+//                        }
+//                    }
+//
+//                    var scheduleWidgetContentHeight = scheduleWidgetContent.offsetHeight + 100
+//                    scheduleWidget.children[0].style.height = scheduleWidgetContentHeight + "px"
+//                //} catch (error) {
+//                //    console.error("Error loading schedule.\nError: " + error )
+//                //    scheduleWidgetContent.innerHTML = "Error loading schedule."
+//                //}
+//            }, 1000);
+//            
+//            const scheduleWidgetIcon = scheduleWidget.children[0].children[0].children[0].appendChild(iframe.contentWindow.document.getElementsByClassName("scheduleTab")[0].children[0].cloneNode(true))
+//            scheduleWidgetIcon.style = "color: white !important;"
+//        });
+        
+    if (!cleanUp) scheduleWidget.children[0].children[2].remove()
+        WIDGETSROW.appendChild(scheduleWidget)
     }
 
     if (cleanUp) {

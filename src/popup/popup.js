@@ -10,6 +10,8 @@ const blurPfpCheck = document.getElementById('blurPfp');
 const roundedCheckbox = document.getElementById('roundedCheckbox');
 const scheduleWidgetCheckbox = document.getElementById('scheduleWidget');
 
+const sk_success = document.getElementById('sk_success');
+
 const manifest = chrome.runtime.getManifest()
 const version = manifest.version
 
@@ -141,6 +143,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         document.getElementById('note').remove()
     }
 });
+
 
 chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], function(result){   
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result

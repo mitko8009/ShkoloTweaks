@@ -15,3 +15,12 @@
 .checkbox:hover, .radio:hover {
     color: #cccccc;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.title {
+    text-align: center;
+}
