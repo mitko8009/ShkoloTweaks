@@ -30,7 +30,7 @@ function loadDiary() {
 }
 
 function sc_saveLocaly(data) {
-    console.log(data)
+    console.log(data) // REMOVE
 
     var scheduleData = {}
 
@@ -53,19 +53,33 @@ function sc_saveLocaly(data) {
     chrome.storage.sync.set({scheduleData: scheduleData})
 }
 
-function sc_fetchAndSave() {
+function sc_fetchAndSave(displayDay) {
+    console.log("Fetching schedule data...")
+
     var iframe = loadDiary()
 
     iframe.addEventListener("load", () => {
         scheduleWidgetContent.innerHTML = ""
         setTimeout(() => {
             sc_saveLocaly(iframe.contentWindow.document.getElementsByClassName("scheduleTable")[0].cloneNode(true))
+
+            chrome.storage.sync.get(["scheduleData"], function(result) {
+                result.scheduleData = JSON.parse(result.scheduleData)
+                sc_DisplayDay(displayDay, result.scheduleData)
+            });
         }, 1000);
     });
 }
 
 function sc_DisplayDay(day, data) {
     dayData = data[day]
+    
+    console.log(dayData)
+
+    if (Object.keys(dayData[0]).length <= 0 || !dayData[0].hasOwnProperty("0")) { // DATA VALIDATION
+        scheduleWidgetContent.innerHTML = "No data was found for the specific date.<br>Click View More to view the full schedule."
+        return
+    }
     
 
 }
@@ -353,31 +367,31 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         chrome.storage.sync.get(["scheduleData"], function(result) {
             const { scheduleData } = result
 
+            console.log(scheduleData)
+
             //console.log(scheduleData)
             var data = JSON.parse(scheduleData)
 
-            if (result === undefined || data === undefined || true) {
-                console.log("Fetching schedule data...")
-                sc_fetchAndSave()
-            }
-
-            var refreshSchedule = false
-            for (var i = 0; i < data.length; i++) {
-                if (data[WEEKDAYS[i]][0] === undefined) {
-                    console.log(`Data not found for ${WEEKDAYS[i]}. Refreshing schedule data...`)
-                    refreshSchedule = true
-                }
-            }
-            if (refreshSchedule) {
-                sc_fetchAndSave()
-            }
-            
             var day = date.getDay() - 1
             if (day < 0 || day > 4) day = 0
             var weekday = WEEKDAYS[day]
-            weekday = WEEKDAYS[0]
+            weekday = WEEKDAYS[1] // REMOVE
 
-            sc_DisplayDay(weekday, data)
+            // DATA VALIDATION
+            var refreshSchedule = false
+            if (scheduleData === undefined || scheduleData === null || data === undefined) refreshSchedule = true
+            if (!refreshSchedule) {
+                if (Object.keys(data[weekday][0]).length <= 0 || !data[weekday][0].hasOwnProperty("0")) {
+                    console.log(`Data not found for ${weekday}.`)
+                    refreshSchedule = true
+                }
+            }
+
+            if (refreshSchedule) {
+                sc_fetchAndSave(weekday)
+            } else {
+                sc_DisplayDay(weekday, data)
+            }
         });
 
 //        iframe.addEventListener("load", () => {
