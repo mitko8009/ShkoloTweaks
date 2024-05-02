@@ -30,8 +30,6 @@ function loadDiary() {
 }
 
 function sc_saveLocaly(data) {
-    console.log(data) // REMOVE
-
     var scheduleData = {}
 
     for (var i = 0; i < data.children.length; i++) { // Days
@@ -53,7 +51,7 @@ function sc_saveLocaly(data) {
     chrome.storage.sync.set({scheduleData: scheduleData})
 }
 
-function sc_fetchAndSave(displayDay) {
+function sc_fetchAndSave(displayDay, widget) {
     console.log("Fetching schedule data...")
 
     var iframe = loadDiary()
@@ -65,23 +63,67 @@ function sc_fetchAndSave(displayDay) {
 
             chrome.storage.sync.get(["scheduleData"], function(result) {
                 result.scheduleData = JSON.parse(result.scheduleData)
-                sc_DisplayDay(displayDay, result.scheduleData)
+                sc_DisplayDay(displayDay, result.scheduleData, widget)
             });
         }, 1000);
     });
 }
 
-function sc_DisplayDay(day, data) {
+function sc_DisplayDay(day, data, widget) {
     dayData = data[day]
     
-    console.log(dayData)
-
+    scheduleWidgetTitle.innerHTML += " | " + day
+    
     if (Object.keys(dayData[0]).length <= 0 || !dayData[0].hasOwnProperty("0")) { // DATA VALIDATION
         scheduleWidgetContent.innerHTML = "No data was found for the specific date.<br>Click View More to view the full schedule."
         return
     }
-    
 
+    scheduleWidgetContent.innerHTML = ""
+
+    for (var i = 0; i < Object.keys(dayData).length; i++) {
+        var classNode = document.createElement("div")
+        classNode.classList.add("rounded")
+        classNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #ffffff;"
+
+        // Class Title (Ex. "Mathematics", "English", etc.)
+        var classTitle = document.createElement("a")
+        classTitle.innerHTML = dayData[i][0]
+        classTitle.classList.add("scheduleCourse")
+        if (dayData[i][0].includes("</i>")) {
+            var classTitleDetails = dayData[i][0].split("</i> ")[0]
+            classTitle.innerHTML = dayData[i][0].split("</i> ")[1].split("(")[0]
+            classTitle.innerHTML = classTitleDetails + "</i> " + classTitle.innerHTML
+        }
+        classNode.appendChild(classTitle)
+
+        // Class Teacher (Ex. "Mrs. Raicheva", etc.)
+        var classTeacher = document.createElement("span")
+        classTeacher.innerHTML = " | " + dayData[i][1]
+        classTeacher.classList.add("scheduleSecondary")
+        classTeacher.classList.add("secondaryFirst")
+        classNode.appendChild(classTeacher)
+
+        // Class Time (Ex. "08:00 - 09:00", "09:00 - 10:00", etc.)
+        var classTime = document.createElement("span")
+        classTime.innerHTML = dayData[i][3]
+        classTime.classList.add("scheduleSecondary")
+        classTime.classList.add("pull-right")
+        classNode.appendChild(classTime)
+
+        // Class Room (Ex. "Room 103", "Room 404", etc.)
+        var classRoom = document.createElement("span")
+        classRoom.innerHTML = dayData[i][2]
+        classRoom.style = "padding-right: 12px;"
+        classRoom.classList.add("scheduleSecondary")
+        classRoom.classList.add("pull-right")
+        classNode.appendChild(classRoom)
+
+        scheduleWidgetContent.appendChild(classNode)
+    }
+
+    var scheduleWidgetContentHeight = scheduleWidgetContent.offsetHeight + 100
+    widget.children[0].style.height = scheduleWidgetContentHeight + "px"
 }
 
 document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v" + version + " (Beta)";
@@ -335,19 +377,17 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
     }
     
     if (scheduleWidget && pageurl.includes("dashboard")) {
-        const scheduleWidget = WIDGETSROW.children[0].cloneNode(true)
+        const sc_Widget = WIDGETSROW.children[0].cloneNode(true)
 
-        scheduleWidget.className = "col-sm-6"
+        sc_Widget.className = "col-sm-6"
 
-        removeElements(scheduleWidget.children[0].children[1].children) // Remove the content of the widget
-        removeElements(scheduleWidget.children[0].children[0].children[0].children[0].children)
+        removeElements(sc_Widget.children[0].children[1].children) // Remove the content of the widget
+        removeElements(sc_Widget.children[0].children[0].children[0].children[0].children)
 
-        scheduleWidgetTitle = scheduleWidget.children[0].children[0].children[0].children[1]
-        scheduleWidgetContent = scheduleWidget.children[0].children[1]
+        scheduleWidgetTitle = sc_Widget.children[0].children[0].children[0].children[1]
+        scheduleWidgetContent = sc_Widget.children[0].children[1]
 
-        scheduleWidget.children[0].children[0].children[0].children[0].remove()
-
-        //var iframe = loadDiary()
+        sc_Widget.children[0].children[0].children[0].children[0].remove()
 
         scheduleWidgetTitle.innerHTML = "Schedule"
 
@@ -356,13 +396,21 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         scheduleWidgetContent.innerHTML = "Loading..."
         scheduleWidgetContent.style.height = "auto"
 
+        var icon = document.createElement("i")
+        icon.classList.add("fal")
+        icon.classList.add("fa-table")
+        if (theme === "dark") icon.style = "color: white !important;"
+        else icon.style = "color: #4b77be !important;"
+        sc_Widget.children[0].children[0].children[0].appendChild(icon)
+
         var scheduleViewMore = document.createElement("a")
         scheduleViewMore.innerHTML = "View More"
         scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
-        scheduleViewMore.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block;"
+        if (theme === "dark") scheduleViewMore.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block;"
+        else scheduleViewMore.style = "font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block;"
         if (rounded) scheduleViewMore.classList.add("rounded")
         scheduleViewMore.classList.add("pull-right")
-        scheduleWidget.children[0].children[0].appendChild(scheduleViewMore)
+        sc_Widget.children[0].children[0].appendChild(scheduleViewMore)
 
         chrome.storage.sync.get(["scheduleData"], function(result) {
             const { scheduleData } = result
@@ -375,7 +423,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             var day = date.getDay() - 1
             if (day < 0 || day > 4) day = 0
             var weekday = WEEKDAYS[day]
-            weekday = WEEKDAYS[1] // REMOVE
+            weekday = WEEKDAYS[1]
 
             // DATA VALIDATION
             var refreshSchedule = false
@@ -388,72 +436,14 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             }
 
             if (refreshSchedule) {
-                sc_fetchAndSave(weekday)
+                sc_fetchAndSave(weekday, sc_Widget)
             } else {
-                sc_DisplayDay(weekday, data)
+                sc_DisplayDay(weekday, data, sc_Widget)
             }
         });
-
-//        iframe.addEventListener("load", () => {
-//            setTimeout(() => {
-//                scheduleWidgetContent.innerHTML = ""
-//                //try {
-//                    var day = date.getDay() - 1
-//                    if (day < 0 || day > 4) day = 0
-//
-//                    sc_saveLocaly(iframe.contentWindow.document.getElementsByClassName("scheduleTable")[0].cloneNode(true))
-//
-//                    var data = iframe.contentWindow.document.getElementsByClassName("scheduleTableColumn")[day].cloneNode(true)
-//
-//                    if (theme === "dark") {
-//                        data.style.backgroundColor = "hsl(0, 0%, 22%)"
-//                    }
-//                    data.style.padding = "10px"
-//                    dataTable = data.children[1].cloneNode(true)
-//                    scheduleWidgetTitle.innerHTML += " | " + data.children[0].children[0].innerHTML
-//                        
-//                    for (var i = 0; i < dataTable.children.length; i++) {
-//                        if(dataTable.children[i].children[0].children.length > 0) {
-//                            var className = dataTable.children[i].children[0].children[0]
-//                            className.children[0].style = "padding-right: 10px;"
-//                            className.lastElementChild.classList.add('pull-right')
-//                            //if (className.children[className.children.length - 2].children[0].classList.value === "far fa-key") {
-//                            //    classRoom = className.children[className.children.length - 2].cloneNode(true)
-//                            //    className.children[className.children.length - 2].remove()
-//                            //    classRoom.classList.add('pull-right')
-//                            //    classRoom.style = "padding-right: 12px;"
-//                            //    className.appendChild(classRoom)
-//                            //}
-//
-//                            var classTitle = className.children[0].innerHTML
-//                            if (classTitle.includes("</i>")) {
-//                                var classTitleDetails = classTitle.split("</i> ")[0]
-//                                classTitle = classTitle.split("</i> ")[1].split("(")[0]
-//                                className.children[0].innerHTML = classTitleDetails + "</i> " + classTitle
-//                            }
-//
-//                            if (theme === "dark") className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #ffffff; background-color: hsl(0, 0%, 22%) !important;"
-//                            else className.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #4b77be; background-color: hsl(0, 0%, 98%) !important;"
-//                            if (rounded) className.classList.add('rounded')
-//
-//                            scheduleWidgetContent.appendChild(className.cloneNode(true))
-//                        }
-//                    }
-//
-//                    var scheduleWidgetContentHeight = scheduleWidgetContent.offsetHeight + 100
-//                    scheduleWidget.children[0].style.height = scheduleWidgetContentHeight + "px"
-//                //} catch (error) {
-//                //    console.error("Error loading schedule.\nError: " + error )
-//                //    scheduleWidgetContent.innerHTML = "Error loading schedule."
-//                //}
-//            }, 1000);
-//            
-//            const scheduleWidgetIcon = scheduleWidget.children[0].children[0].children[0].appendChild(iframe.contentWindow.document.getElementsByClassName("scheduleTab")[0].children[0].cloneNode(true))
-//            scheduleWidgetIcon.style = "color: white !important;"
-//        });
         
     if (!cleanUp) scheduleWidget.children[0].children[2].remove()
-        WIDGETSROW.appendChild(scheduleWidget)
+        WIDGETSROW.appendChild(sc_Widget)
     }
 
     if (cleanUp) {
