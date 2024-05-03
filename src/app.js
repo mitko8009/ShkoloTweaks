@@ -18,14 +18,12 @@ function removeElements(elements) {
     })
 }
 
-let loadOnes = false
 function loadDiary() {
     const iframe = document.createElement("iframe")
     iframe.src = "https://app.shkolo.bg/diary#tab_schedule"
     iframe.sandbox = "allow-scripts allow-same-origin"
     iframe.style.display = 'none'
     document.body.appendChild(iframe)
-    loadOnes = true
     return iframe
 }
 
@@ -72,7 +70,7 @@ function sc_fetchAndSave(displayDay, widget) {
 function sc_DisplayDay(day, data, widget) {
     dayData = data[day]
     
-    scheduleWidgetTitle.innerHTML += " | " + day
+    scheduleWidgetTitle.innerHTML =  "SCHEDULE | " + day
     
     if (Object.keys(dayData[0]).length <= 0 || !dayData[0].hasOwnProperty("0")) { // DATA VALIDATION
         scheduleWidgetContent.innerHTML = "No data was found for the specific date.<br>Click View More to view the full schedule."
@@ -379,6 +377,10 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
     if (scheduleWidget && pageurl.includes("dashboard")) {
         const sc_Widget = WIDGETSROW.children[0].cloneNode(true)
 
+        var day = date.getDay() - 1
+        if (day < 0 || day > 4) day = 0
+        var weekday = WEEKDAYS[day]
+
         sc_Widget.className = "col-sm-6"
 
         removeElements(sc_Widget.children[0].children[1].children) // Remove the content of the widget
@@ -412,18 +414,23 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         scheduleViewMore.classList.add("pull-right")
         sc_Widget.children[0].children[0].appendChild(scheduleViewMore)
 
+        var scheduleRefresh = document.createElement("a")
+        scheduleRefresh.innerHTML = "Refresh"
+        if (theme === "dark") scheduleRefresh.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block; margin-right: 10px;"
+        else scheduleRefresh.style = "font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block; margin-right: 8px;"
+        if (rounded) scheduleRefresh.classList.add("rounded")
+        scheduleRefresh.classList.add("pull-right")
+        scheduleRefresh.onclick = () => {
+            scheduleWidgetTitle.innerHTML = "Schedule"
+            scheduleWidgetContent.innerHTML = "Fetching schedule data..."
+            sc_fetchAndSave(WEEKDAYS[date.getDay() - 1], sc_Widget)
+        }
+        sc_Widget.children[0].children[0].appendChild(scheduleRefresh)
+
         chrome.storage.sync.get(["scheduleData"], function(result) {
             const { scheduleData } = result
 
-            console.log(scheduleData)
-
-            //console.log(scheduleData)
             var data = JSON.parse(scheduleData)
-
-            var day = date.getDay() - 1
-            if (day < 0 || day > 4) day = 0
-            var weekday = WEEKDAYS[day]
-            weekday = WEEKDAYS[1]
 
             // DATA VALIDATION
             var refreshSchedule = false
@@ -434,6 +441,40 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
                     refreshSchedule = true
                 }
             }
+
+            // Next and Previous Day Buttons
+            var nextDay = document.createElement("a")
+            var icon = document.createElement("i")
+            icon.classList.add("fal")
+            icon.classList.add("fa-chevron-right")
+            nextDay.appendChild(icon)
+            if (theme === "dark") nextDay.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block; margin-right: 10px;"
+            else nextDay.style = "font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block; margin-right: 8px;"
+            if (rounded) nextDay.classList.add("rounded")
+            nextDay.classList.add("pull-right")
+            nextDay.onclick = () => {
+                day += 1
+                if (day > 4) day = 0
+                sc_DisplayDay(WEEKDAYS[day], data, sc_Widget)
+            }
+            sc_Widget.children[0].children[0].appendChild(nextDay)
+
+            var previousDay = document.createElement("a")
+            var icon = document.createElement("i")
+            icon.classList.add("fal")
+            icon.classList.add("fa-chevron-left")
+            previousDay.appendChild(icon)
+            if (theme === "dark") previousDay.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block; margin-right: 10px;"
+            else previousDay.style = "font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block; margin-right: 8px;"
+            if (rounded) previousDay.classList.add("rounded")
+            previousDay.classList.add("pull-right")
+            previousDay.onclick = () => {
+                day -= 1
+                if (day < 0) day = 4
+                sc_DisplayDay(WEEKDAYS[day], data, sc_Widget)
+            }
+            sc_Widget.children[0].children[0].appendChild(previousDay)
+            
 
             if (refreshSchedule) {
                 sc_fetchAndSave(weekday, sc_Widget)

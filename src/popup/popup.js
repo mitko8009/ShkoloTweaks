@@ -1,6 +1,8 @@
+const manifest = chrome.runtime.getManifest()
+const version = manifest.version
+
 const saveBtn = document.getElementById('saveBtn');
 const shkoloBtn = document.getElementById('shkoloBtn');
-const deleteNoteBtn = document.getElementById('deleteNote');
 const preset = document.getElementById('preset');
 const label_version = document.getElementById('version');
 
@@ -11,9 +13,6 @@ const roundedCheckbox = document.getElementById('roundedCheckbox');
 const scheduleWidgetCheckbox = document.getElementById('scheduleWidget');
 
 const sk_success = document.getElementById('sk_success');
-
-const manifest = chrome.runtime.getManifest()
-const version = manifest.version
 
 
 chrome.runtime.onMessage.addListener(data => {
@@ -42,10 +41,6 @@ saveBtn.onclick = () => {
     console.log("Saved", prefs)
     updatePopup()
     refreshPage()
-}
-
-deleteNoteBtn.onclick = () => {
-    document.getElementById('note').remove()
 }
 
 shkoloBtn.onclick = () => {
@@ -139,8 +134,6 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 
     if (url.hostname.includes("shkolo.bg")) {
         document.getElementById("shkoloBtn").remove()
-    } else {
-        document.getElementById('note').remove()
     }
 });
 
