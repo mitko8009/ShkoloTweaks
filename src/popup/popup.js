@@ -11,6 +11,8 @@ const cleanUpSkolo = document.getElementById('cleanUpSkolo');
 const blurPfpCheck = document.getElementById('blurPfp');
 const roundedCheckbox = document.getElementById('roundedCheckbox');
 const scheduleWidgetCheckbox = document.getElementById('scheduleWidget');
+const ScheduleTitle = document.getElementById('ScheduleTitle');
+const ScheduleContent = document.getElementById('ScheduleContent');
 
 const sk_success = document.getElementById('sk_success');
 
@@ -57,7 +59,7 @@ preset.onclick = () => {
 
 function refreshPage() {
     console.log("Refreshing page")
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         chrome.tabs.reload(tabs[0].id);
     });
 
@@ -129,7 +131,7 @@ function updatePopup() {
     }
 }
 
-chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     const url = new URL(tabs[0].url)
 
     if (url.hostname.includes("shkolo.bg")) {
@@ -138,7 +140,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 });
 
 
-chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], function(result){   
+chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], (result) => {   
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
 
     if (theme) { themeElement.value = theme }

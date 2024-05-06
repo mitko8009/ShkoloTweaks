@@ -124,31 +124,95 @@ function sc_DisplayDay(day, data, widget) {
     widget.children[0].style.height = scheduleWidgetContentHeight + "px"
 }
 
+function getIcon(subject) {
+    var icon = document.createElement("i")
+    icon.classList.add("fal")
+    icon.classList.add("scIcon")
+    icon.classList.add("fa-"+subject.toLowerCase())
+    return icon
+}
+
+// Global Styles
+AddCustomStyle(`
+    .rounded {
+        border-radius: 8px !important;
+    }
+`)
+
 document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v" + version + " (Beta)";
 document.getElementsByClassName("page-footer-inner")[0].innerHTML = document.getElementsByClassName("page-footer-inner")[0].innerHTML + " | ShkoloTweaks е създадено от екип <b>ITPG Studios</b> и е софтуер, който не е свързан или одобрен от Shkolo.bg.";
 
-chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], function(result){
+
+
+if (pageurl.includes("https://app.shkolo.bg/stats/pupil/")) {
+    // Navbar Tab
+    var navbar = document.getElementsByClassName("nav nav-tabs")[0]
+
+    var at_tab = document.createElement("li")
+    at_tab.appendChild(document.createElement("a"))
+    at_tab.children[0].setAttribute("data-toggle", "tab")
+    at_tab.children[0].setAttribute("data-value", "tab-st")
+    at_tab.children[0].href = "#tab-st"
+    at_tab.children[0].classList.add("stats-tab")
+    var at_TabIcon = document.createElement("i")
+    at_TabIcon.classList.add("fal")
+    at_TabIcon.classList.add("fa-chart-line")
+    at_tab.children[0].appendChild(at_TabIcon)
+    at_tab.children[0].innerHTML += " ShkoloTweaks"
+    navbar.appendChild(at_tab)
+
+    // Tab Content
+    var tab_content = document.getElementsByClassName("tab-content")[0]
+
+    var at_TabContent = document.createElement("div")
+    at_TabContent.classList.add("tab-pane")
+    at_TabContent.id = "tab-st"
+
+    // Left Column
+    var at_TabContentLeft = document.createElement("div")
+    at_TabContentLeft.classList.add("col-md-6")
+    at_TabContentLeft.classList.add("column")
+    at_TabContentLeft.classList.add("sortable")
+
+    // Cool Stats Widget
+    var at_StatsWidget = document.createElement("div")
+    at_StatsWidget.classList.add("portlet")
+    at_StatsWidget.classList.add("portlet-sortable")
+    at_StatsWidget.classList.add("portlet-rank")
+    at_StatsWidget.classList.add("light")
+    at_StatsWidget.classList.add("bordered")
+
+    var at_StatsWidgetTitle = document.createElement("div")
+    at_StatsWidgetTitle.classList.add("portlet-title")
+    at_StatsWidgetTitle.appendChild(document.createElement("div"))
+    at_StatsWidgetTitle.children[0].classList.add("caption")
+    at_StatsWidgetTitle.children[0].appendChild(getIcon("chart-line"))
+    at_StatsWidgetTitle.children[0].innerHTML += "<span class='caption-subject bold font-blue-steel uppercase'> Cool Stats</span>"
+    
+    var at_StatsWidgetContent = document.createElement("div")
+    at_StatsWidgetContent.classList.add("portlet-body")
+    at_StatsWidgetContent.classList.add("stats-rank-portlet-body")
+    at_StatsWidgetContent.classList.add("clearfix")
+
+    at_StatsWidget.appendChild(at_StatsWidgetTitle)
+    at_StatsWidget.appendChild(at_StatsWidgetContent)
+
+    at_TabContentLeft.appendChild(at_StatsWidget)
+
+    // Append the columns
+    at_TabContent.appendChild(at_TabContentLeft)
+
+    // Append the tab content
+    tab_content.appendChild(at_TabContent)
+}
+
+chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], (result) => {
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
+    console.log(result)
 
     if (theme !== "dark" && theme !== "light") {
         chrome.storage.sync.set({theme: "dark"})
         window.reload()
-    } 
-
-    if (theme !== "dark") {
-        var topMenu = document.getElementsByClassName("nav navbar-nav pull-right")[0]
-        console.log(topMenu.children[2])
-        var option = topMenu.children[2].cloneNode(true)
-        removeElements(option.children[0].children)
-        option.children[0].innerHTML = "Apply Dark Theme"
-        option.children[0].style = "color: white !important; font-weight: bold;"
-        option.children[0].href = "javascript:void(0)"
-        option.children[0].onclick = () => {
-            chrome.storage.sync.set({theme: "dark"})
-            location.reload()
-        }
-        option.title = "Apply Dark Theme"
-        topMenu.prepend(option)
     }
 
     if (theme === "dark") {
@@ -158,7 +222,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             background-color: hsl(0, 0%, 8%) !important;
         }
 
-        label, .stats-label, a, tspan, .font-blue-dark, .font-blue-steel,.scheduleTable .scheduleCourse, .scheduleTable .scheduleTableCourse .hourNum, .page-sidebar .page-sidebar-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a>i, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a, .page-sidebar .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar .page-sidebar-menu li>a>.arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow:before, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a>i, .page-sidebar .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar .menu-title, .page-sidebar .page-sidebar-menu .sub-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a, .note.note-warning, .page-header.navbar .top-menu .navbar-nav>li.dropdown .dropdown-toggle>i, .message-table-head > div, .message-user, .message-subject, .scroll-to-top>i, .btn-default, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate, .highcharts-menu-item, .note.note-info, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external>h3, span, p {
+        label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.scheduleTable .scheduleCourse, .scheduleTable .scheduleTableCourse .hourNum, .page-sidebar .page-sidebar-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a>i, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a, .page-sidebar .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar .page-sidebar-menu li>a>.arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow:before, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a>i, .page-sidebar .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar .menu-title, .page-sidebar .page-sidebar-menu .sub-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a, .note.note-warning, .page-header.navbar .top-menu .navbar-nav>li.dropdown .dropdown-toggle>i, .message-table-head > div, .message-user, .message-subject, .scroll-to-top>i, .btn-default, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate, .highcharts-menu-item, .note.note-info, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external>h3, span, p {
             color: white !important;
         }
         
@@ -372,6 +436,25 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             background-color: hsl(0, 0%, 22%) !important;
         }
         `)
+    } else {
+        var topMenu = document.getElementsByClassName("nav navbar-nav pull-right")[0]
+        var option = topMenu.children[2].cloneNode(true)
+        removeElements(option.children[0].children)
+        option.children[0].innerHTML = "Apply Dark Theme"
+        option.children[0].style = "color: white !important; font-weight: bold;"
+        option.children[0].href = "javascript:void(0)"
+        option.children[0].onclick = () => {
+            chrome.storage.sync.set({theme: "dark"})
+            location.reload()
+        }
+        option.title = "Apply Dark Theme"
+        topMenu.prepend(option)
+
+        AddCustomStyle(`
+        .scIcon {
+            color: #4b77be !important;
+        }
+        `)
     }
     
     if (scheduleWidget && pageurl.includes("dashboard")) {
@@ -423,7 +506,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         scheduleRefresh.onclick = () => {
             scheduleWidgetTitle.innerHTML = "Schedule"
             scheduleWidgetContent.innerHTML = "Fetching schedule data..."
-            sc_fetchAndSave(WEEKDAYS[date.getDay() - 1], sc_Widget)
+            sc_fetchAndSave(WEEKDAYS[date.getDay() - 1 > 4 ? 0 : date.getDay()], sc_Widget)
         }
         sc_Widget.children[0].children[0].appendChild(scheduleRefresh)
 
@@ -448,8 +531,8 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             icon.classList.add("fal")
             icon.classList.add("fa-chevron-right")
             nextDay.appendChild(icon)
-            if (theme === "dark") nextDay.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block; margin-right: 10px;"
-            else nextDay.style = "font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block; margin-right: 8px;"
+            if (theme === "dark") nextDay.style = `font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block; margin-right: 8px;`
+            else nextDay.style = `font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block; margin-right: 8px;`
             if (rounded) nextDay.classList.add("rounded")
             nextDay.classList.add("pull-right")
             nextDay.onclick = () => {
@@ -464,8 +547,8 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             icon.classList.add("fal")
             icon.classList.add("fa-chevron-left")
             previousDay.appendChild(icon)
-            if (theme === "dark") previousDay.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block; margin-right: 10px;"
-            else previousDay.style = "font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block; margin-right: 8px;"
+            if (theme === "dark") previousDay.style = `font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block; margin-right: 8px;`
+            else previousDay.style = `font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block; margin-right: 8px;`
             if (rounded) previousDay.classList.add("rounded")
             previousDay.classList.add("pull-right")
             previousDay.onclick = () => {
@@ -483,7 +566,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             }
         });
         
-    if (!cleanUp) scheduleWidget.children[0].children[2].remove()
+        if (!cleanUp) sc_Widget.children[0].children[2].remove()
         WIDGETSROW.appendChild(sc_Widget)
     }
 
@@ -674,5 +757,10 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             border: none !important;
         }
         `)
+    } else {
+        AddCustomStyle(`
+        .rounded {
+            border-radius: 0 !important;
+        }`)
     }
 });
