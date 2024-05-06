@@ -12,7 +12,7 @@ html, body {
   height: 100%;
 }
 
-a, p, h1, h2, h3, h4, h5, h6 {
+a, p, h1, h2, h3, h4, h5, h6, title {
   color: white;
 }
 
@@ -20,7 +20,7 @@ p {
   font-size: 1.4em;
 }
 
-h1 {
+h1, title {
   font-size: 6em;
   text-shadow: rgba(255,255, 255,0.9) 0px 0px 100px;
 }
