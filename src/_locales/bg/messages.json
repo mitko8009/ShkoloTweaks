@@ -70,5 +70,11 @@
     },
     "darkTheme": {
         "message": "Тъмна"
+    },
+    "StatsLTOPopup": {
+        "message": "Това е броят отваряния на началната страница на Shkolo, откакто сте инсталирали <b>ShkoloTweaks</b>."
+    },
+    "StatsLTO": {
+        "message": "oтваряния на Shkolo"
     }
 }

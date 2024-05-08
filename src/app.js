@@ -159,46 +159,66 @@ if (pageurl.includes("https://app.shkolo.bg/stats/pupil/")) {
     // Tab Content
     var tab_content = document.getElementsByClassName("tab-content")[0]
 
-    var at_TabContent = document.createElement("div")
+    var at_TabContent = tab_content.appendChild(document.createElement("div"))
     at_TabContent.classList.add("tab-pane")
     at_TabContent.id = "tab-st"
 
     // Left Column
-    var at_TabContentLeft = document.createElement("div")
+    var at_TabContentLeft = at_TabContent.appendChild(document.createElement("div"))
     at_TabContentLeft.classList.add("col-md-6")
     at_TabContentLeft.classList.add("column")
     at_TabContentLeft.classList.add("sortable")
 
     // Cool Stats Widget
-    var at_StatsWidget = document.createElement("div")
+    var at_StatsWidget = at_TabContentLeft.appendChild(document.createElement("div"))
     at_StatsWidget.classList.add("portlet")
     at_StatsWidget.classList.add("portlet-sortable")
     at_StatsWidget.classList.add("portlet-rank")
     at_StatsWidget.classList.add("light")
     at_StatsWidget.classList.add("bordered")
 
-    var at_StatsWidgetTitle = document.createElement("div")
+    var at_StatsWidgetTitle = at_StatsWidget.appendChild(document.createElement("div"))
     at_StatsWidgetTitle.classList.add("portlet-title")
     at_StatsWidgetTitle.appendChild(document.createElement("div"))
     at_StatsWidgetTitle.children[0].classList.add("caption")
     at_StatsWidgetTitle.children[0].appendChild(getIcon("chart-line"))
     at_StatsWidgetTitle.children[0].innerHTML += "<span class='caption-subject bold font-blue-steel uppercase'> Cool Stats</span>"
     
-    var at_StatsWidgetContent = document.createElement("div")
+    var at_StatsWidgetContent = at_StatsWidget.appendChild(document.createElement("div"))
     at_StatsWidgetContent.classList.add("portlet-body")
     at_StatsWidgetContent.classList.add("stats-rank-portlet-body")
     at_StatsWidgetContent.classList.add("clearfix")
 
-    at_StatsWidget.appendChild(at_StatsWidgetTitle)
-    at_StatsWidget.appendChild(at_StatsWidgetContent)
+    var at_StatsWidgetContent_LTO = at_StatsWidgetContent.appendChild(document.createElement("div"))
+    at_StatsWidgetContent_LTO.classList.add("col-sm-4")
+    at_StatsWidgetContent_LTO.classList.add("col-xs-6")
+    at_StatsWidgetContent_LTO.classList.add("stats-rank-box")
+    at_StatsWidgetContent_LTO.classList.add("cursor-pointer")
+    at_StatsWidgetContent_LTO.classList.add("centered-text")
 
-    at_TabContentLeft.appendChild(at_StatsWidget)
+    var at_StatsWidgetContent_LTO_Value = at_StatsWidgetContent_LTO.appendChild(document.createElement("div"))
+    at_StatsWidgetContent_LTO_Value.classList.add("rank-value")
+    at_StatsWidgetContent_LTO_Value.appendChild(document.createElement("div"))
+    at_StatsWidgetContent_LTO_Value.children[0].classList.add("stats-rank")
+    chrome.storage.sync.get(["LTO"], (result) => {
+        at_StatsWidgetContent_LTO_Value.children[0].innerHTML = result.LTO
+    })
 
-    // Append the columns
-    at_TabContent.appendChild(at_TabContentLeft)
-
-    // Append the tab content
-    tab_content.appendChild(at_TabContent)
+    at_StatsWidgetContent_LTO_Value.appendChild(document.createElement("div"))
+    at_StatsWidgetContent_LTO_Value.classList.add("stats-label")
+    at_StatsWidgetContent_LTO_Value.children[1].innerHTML = chrome.i18n.getMessage("StatsLTO")
+    
+    var at_StatsWidgetContent_LTO_popup = at_StatsWidgetContent_LTO.appendChild(document.createElement("div"))
+    at_StatsWidgetContent_LTO_popup.classList.add("popupText")
+    at_StatsWidgetContent_LTO_popup.classList.add("statsRankPopup")
+    at_StatsWidgetContent_LTO_popup.innerHTML = chrome.i18n.getMessage("StatsLTOPopup")
+} else if (pageurl.includes("https://app.shkolo.bg/dashboard")) {
+    chrome.storage.sync.get(["LTO"], (result) => { 
+        LTO = result.LTO 
+        LTO = LTO === undefined ? 0 : LTO
+        LTO += 1
+        chrome.storage.sync.set({LTO: LTO})
+    });
 }
 
 chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], (result) => {
