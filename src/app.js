@@ -30,8 +30,6 @@ function loadDiary() {
 function sc_saveLocaly(data) {
     var scheduleData = {}
 
-    console.log(data)
-
     for (var i = 0; i < data.children.length; i++) { // Days
         scheduleData[WEEKDAYS[i]] = {}
 
@@ -75,7 +73,7 @@ function sc_fetchAndSave(displayDay, widget) {
 function sc_DisplayDay(day, data, widget) {
     dayData = data[day]
     
-    scheduleWidgetTitle.innerHTML =  "SCHEDULE | " + day
+    scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule") + " | " + chrome.i18n.getMessage(day)
 
     scheduleWidgetContent.innerHTML = ""
 
@@ -105,7 +103,7 @@ function sc_DisplayDay(day, data, widget) {
     
             // Class Time (Ex. "08:00 - 09:00", "09:00 - 10:00", etc.)
             var classTime = document.createElement("span")
-            classTime.innerHTML = dayData[i][3] === undefined ? "No room specified" : dayData[i][3]
+            classTime.innerHTML = dayData[i][3] === undefined ? chrome.i18n.getMessage("NoRoom") : dayData[i][3]
             classTime.classList.add("scheduleSecondary")
             classTime.classList.add("pull-right")
             classNode.appendChild(classTime)
@@ -134,17 +132,12 @@ function getIcon(subject) {
     return icon
 }
 
-// Global Styles
-AddCustomStyle(`
-    .rounded {
-        border-radius: 8px !important;
-    }
-`)
+fetch(chrome.runtime.getURL("css/__global.css"))
+.then(response => response.text())
+.then(data => { AddCustomStyle(data) });
 
-document.getElementById("sc-name-lbl").innerHTML = document.getElementById("sc-name-lbl").innerHTML + " | ShkoloTweaks v" + version + " (Beta)";
-document.getElementsByClassName("page-footer-inner")[0].innerHTML = document.getElementsByClassName("page-footer-inner")[0].innerHTML + " | ShkoloTweaks е създадено от екип <b>ITPG Studios</b> и е софтуер, който не е свързан или одобрен от Shkolo.bg.";
-
-
+document.getElementById("sc-name-lbl").innerHTML += " | ShkoloTweaks v" + version + " (Beta)";
+document.getElementsByClassName("page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
 
 if (pageurl.includes("https://app.shkolo.bg/stats/pupil/")) {
     // Navbar Tab
@@ -219,9 +212,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
     if (theme === "dark") {
         fetch(chrome.runtime.getURL("css/dark.css"))
             .then(response => response.text())
-            .then(data => {
-                AddCustomStyle(data)
-            });
+            .then(data => { AddCustomStyle(data) });
     } else {
         var topMenu = document.getElementsByClassName("nav navbar-nav pull-right")[0]
         var option = topMenu.children[2].cloneNode(true)
@@ -260,11 +251,11 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
 
         sc_Widget.children[0].children[0].children[0].children[0].remove()
 
-        scheduleWidgetTitle.innerHTML = "Schedule"
+        scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule")
 
         scheduleWidgetContent.style.fontSize = "14px"
         scheduleWidgetContent.style.fontWeight = "bold"
-        scheduleWidgetContent.innerHTML = "Loading..."
+        scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("Loading")
         scheduleWidgetContent.style.height = "auto"
 
         var icon = document.createElement("i")
@@ -275,7 +266,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         sc_Widget.children[0].children[0].children[0].appendChild(icon)
 
         var scheduleViewMore = document.createElement("a")
-        scheduleViewMore.innerHTML = "View More"
+        scheduleViewMore.innerHTML = chrome.i18n.getMessage("ViewMore")
         scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
         if (theme === "dark") scheduleViewMore.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block;"
         else scheduleViewMore.style = "font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block;"
@@ -284,14 +275,14 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         sc_Widget.children[0].children[0].appendChild(scheduleViewMore)
 
         var scheduleRefresh = document.createElement("a")
-        scheduleRefresh.innerHTML = "Refresh"
+        scheduleRefresh.innerHTML = chrome.i18n.getMessage("Refresh")
         if (theme === "dark") scheduleRefresh.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block; margin-right: 10px;"
         else scheduleRefresh.style = "font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block; margin-right: 8px;"
         if (rounded) scheduleRefresh.classList.add("rounded")
         scheduleRefresh.classList.add("pull-right")
         scheduleRefresh.onclick = () => {
-            scheduleWidgetTitle.innerHTML = "Schedule"
-            scheduleWidgetContent.innerHTML = "Fetching schedule data..."
+            scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule")
+            scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FetchSchedule")
             sc_fetchAndSave(WEEKDAYS[date.getDay() - 1 > 4 ? 0 : date.getDay() - 1], sc_Widget)
         }
         sc_Widget.children[0].children[0].appendChild(scheduleRefresh)
@@ -404,21 +395,18 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
     if(blurPfp) {
         fetch(chrome.runtime.getURL("css/blurData.css"))
             .then(response => response.text())
-            .then(data => {
-                AddCustomStyle(data)
-            });
+            .then(data => { AddCustomStyle(data) });
     }
 
     if (rounded) {
         fetch(chrome.runtime.getURL("css/rounded.css"))
             .then(response => response.text())
-            .then(data => {
-                AddCustomStyle(data)
-            });
+            .then(data => { AddCustomStyle(data) });
     } else {
         AddCustomStyle(`
         .rounded {
             border-radius: 0 !important;
-        }`)
+        }
+        `)
     }
 });

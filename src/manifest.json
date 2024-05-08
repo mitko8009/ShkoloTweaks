@@ -2,9 +2,10 @@
 	"manifest_version": 3,
 	"name": "ShkoloTweaks",
 	"short_name": "ShkoloTW",
-	"description": "Customize your Shkolo experience with ShkoloTweaks! Dark mode, Custom widgets, Cool Stats, and more!",
-	"version": "0.3.3",
+	"description": "__MSG_extDescription__",
+	"version": "0.4.0",
 	"author": "ITPG Studios",
+	"default_locale": "bg",
 	"homepage_url": "https://shkolotweaks.web.app/",
 	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwA/QFSNdP+DLYSw03MBR/G5tjMiBWnkM+/EiB+pioR559CAD8V/cbzj1XEdN5Gm+C7MB0pRGaPQtwu0gdKKYfX1DJZY2+eCFv+0hCfuxbUvNWo07dloGlNbN78jqhtvFegxy//TDeyF+Fsssv+j2FSUsPhobuzxHq90u7kikFBFMydNUKKbt4OZT0BnFbfdUV16LCI0t1GveetSyYaABUusIbn+yyOw0DQUvztpfQkseKfbxUv3rSbdGS5BFiBwX+1rI0fqMrZ0kP5VbxJtNyKUBdONZte1NmotaBqcwilKnq48jNTz0RT7T6U02qqPBpU+Dvs7uhFPOfbw8FI+KZwIDAQAB",
 	"action": {
@@ -35,7 +36,7 @@
 	],
 	"web_accessible_resources": [
 		{
-			"resources": [ 
+			"resources": [
 				"css/*"
 			],
 			"matches": [

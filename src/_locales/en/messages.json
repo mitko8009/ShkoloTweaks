@@ -1,0 +1,74 @@
+{
+    "extDescription": {
+        "message": "Customize your Shkolo experience with ShkoloTweaks! Dark mode, Custom widgets, Cool Stats, and more!"
+    },
+    "FooterDisclaimer": {
+        "message": "ShkoloTweaks was created by the <b>ITPG Web Studios</b> team and is software not affiliated with or endorsed by Shkolo.bg."
+    },
+    "Monday": {
+        "message": "Monday"
+    },
+    "Tuesday": {
+        "message": "Tuesday"
+    },
+    "Wednesday": {
+        "message": "Wednesday"
+    },
+    "Thursday": {
+        "message": "Thursday"
+    },
+    "Friday": {
+        "message": "Friday"
+    },
+    "Saturday": {
+        "message": "Saturday"
+    },
+    "Sunday": {
+        "message": "Sunday"
+    },
+    "Schedule": {
+        "message": "Schedule"
+    },
+    "Refresh": {
+        "message": "Refresh"
+    },
+    "ViewMore": {
+        "message": "View More"
+    },
+    "FetchSchedule": {
+        "message": "Fetching schedule data..."
+    },
+    "Loading": {
+        "message": "Loading..."
+    },
+    "NoRoom": {
+        "message": "No room specified"
+    },
+    "themeLabel": {
+        "message": "Theme"
+    },
+    "applyBtn": {
+        "message": "Apply"
+    },
+    "shkoloBtn": {
+        "message": "Open Shkolo.bg"
+    },
+    "cleanUpLabel": {
+        "message": "General Fixes"
+    },
+    "roundedLabel": {
+        "message": "Rounded corners"
+    },
+    "blurLabel": {
+        "message": "Blur Personal Info"
+    },
+    "scLabel": {
+        "message": "Schedule Widget"
+    },
+    "lightTheme": {
+        "message": "Light"
+    },
+    "darkTheme": {
+        "message": "Dark"
+    }
+}

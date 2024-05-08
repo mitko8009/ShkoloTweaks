@@ -1,0 +1,74 @@
+{
+    "extDescription": {
+        "message": "Персонализирайте своето Shkolo със ShkoloTweaks! Тъмен режим, персонализирани джаджи, любопитни статистики и много други!"
+    },
+    "FooterDisclaimer": {
+        "message": "ShkoloTweaks е създадено от екип <b>ITPG Web Studios</b> и е софтуер, който не е свързан или одобрен от Shkolo.bg."
+    },
+    "Monday": {
+        "message": "Понеделник"
+    },
+    "Tuesday": {
+        "message": "Вторник"
+    },
+    "Wednesday": {
+        "message": "Сряда"
+    },
+    "Thursday": {
+        "message": "Четвъртък"
+    },
+    "Friday": {
+        "message": "Петък"
+    },
+    "Saturday": {
+        "message": "Събота"
+    },
+    "Sunday": {
+        "message": "Неделя"
+    },
+    "Schedule": {
+        "message": "Разписание"
+    },
+    "Refresh": {
+        "message": "Обнови"
+    },
+    "ViewMore": {
+        "message": "Виж още"
+    },
+    "FetchSchedule": {
+        "message": "Данните за графика се обновяват..."
+    },
+    "Loading": {
+        "message": "Зареждане..."
+    },
+    "NoRoom": {
+        "message": "Няма въведена стая"
+    },
+    "themeLabel": {
+        "message": "Тема"
+    },
+    "applyBtn": {
+        "message": "Приложи"
+    },
+    "shkoloBtn": {
+        "message": "Отвори Shkolo.bg"
+    },
+    "cleanUpLabel": {
+        "message": "Основни продобрения"
+    },
+    "roundedLabel": {
+        "message": "Закръглени ъгли"
+    },
+    "blurLabel": {
+        "message": "Скриване на лични данни"
+    },
+    "scLabel": {
+        "message": "Панел за разписание"
+    },
+    "lightTheme": {
+        "message": "Светла"
+    },
+    "darkTheme": {
+        "message": "Тъмна"
+    }
+}

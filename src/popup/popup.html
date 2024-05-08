@@ -19,38 +19,30 @@
                 
                 <div class="container m-3">
                     
-                    <label class="label">Theme</label>
+                    <label class="label" id="themeLabel">Theme</label>
                     <div class="select is-normal">
-                        <select  id="theme">
-                            <option value="light">Light</option>
-                            <option value="dark">Dark</option>
-                        </select>
+                        <select id="theme"></select>
                     </div>
                     
-                    <label class="label checkbox" style="margin-top: 12px;">
+                    <label class="label checkbox" style="margin-top: 12px;" id="roundedLabel">
                         <input type="checkbox" class="checkboxInput" id="roundedCheckbox">
-                        Rounded Corners
                     </label>
                     
-                    <label class="label checkbox" style="margin-top: 12px;">
-                        <input type="checkbox" class="checkboxInput" id="cleanUpSkolo">
-                        General Fixes
+                    <label class="label checkbox" style="margin-top: 12px;" id="cleanUpLabel">
+                        <input type="checkbox" class="checkboxInput" id="cleanUpShkolo">
                     </label>
                     
-                    <label class="label checkbox" style="margin-top: 12px;">
+                    <label class="label checkbox" style="margin-top: 12px;" id="blurLabel">
                         <input type="checkbox" class="checkboxInput" id="blurPfp">
-                        Blur Personal Data
                     </label>
         
-                    <label class="label checkbox" style="margin-top: 12px;">
+                    <label class="label checkbox" style="margin-top: 12px;" id="scLabel">
                         <input type="checkbox" class="checkboxInput" id="scheduleWidget">
-                        Schedule Widget
                     </label>   
                 </div>
                 
                 <div class="container m-3">
                     <button class="button is-fullwidth" id="saveBtn">Apply</button>
-                    <button class="button is-fullwidth" id="preset" style="margin-top: 12px; font-size: 17px;">Apply Recommended Settings</button>
                     <label class="label m-1" id="version"></label>
                 </div>
             </div>
