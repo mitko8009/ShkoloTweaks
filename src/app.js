@@ -30,23 +30,28 @@ function loadDiary() {
 function sc_saveLocaly(data) {
     var scheduleData = {}
 
+    console.log(data)
+
     for (var i = 0; i < data.children.length; i++) { // Days
         scheduleData[WEEKDAYS[i]] = {}
 
         for (var j = 0; j < data.children[i].children[1].children.length; j++) { // Classes
             scheduleData[WEEKDAYS[i]][j] = {}
-
-            for (var m = 0; m < data.children[i].children[1].children[j].children[0].children[0].children.length; m++) { // Class Details
-                if (data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML.length > 0) {
-                    //console.log(data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML + " / " + i + " / " + j + " / " + m); // Debugging
-                    scheduleData[WEEKDAYS[i]][j][m] = data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML
+            if (data.children[i].children[1].children[j].children[0].children.length <= 0) {
+                scheduleData[WEEKDAYS[i]][j] = {}
+            } else {
+                for (var m = 0; m < data.children[i].children[1].children[j].children[0].children[0].children.length; m++) { // Class Details
+                    if (data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML.length > 0) {
+                        //console.log(data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML + " / " + i + " / " + j + " / " + m); // Debugging
+                        scheduleData[WEEKDAYS[i]][j][m] = data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML
+                    }
                 }
             }
         }
     }
     
     scheduleData = JSON.stringify(scheduleData)
-    chrome.storage.sync.set({scheduleData: scheduleData})
+    chrome.storage.local.set({scheduleData: scheduleData})
 }
 
 function sc_fetchAndSave(displayDay, widget) {
@@ -59,7 +64,7 @@ function sc_fetchAndSave(displayDay, widget) {
         setTimeout(() => {
             sc_saveLocaly(iframe.contentWindow.document.getElementsByClassName("scheduleTable")[0].cloneNode(true))
 
-            chrome.storage.sync.get(["scheduleData"], function(result) {
+            chrome.storage.local.get(["scheduleData"], function(result) {
                 result.scheduleData = JSON.parse(result.scheduleData)
                 sc_DisplayDay(displayDay, result.scheduleData, widget)
             });
@@ -71,53 +76,50 @@ function sc_DisplayDay(day, data, widget) {
     dayData = data[day]
     
     scheduleWidgetTitle.innerHTML =  "SCHEDULE | " + day
-    
-    if (Object.keys(dayData[0]).length <= 0 || !dayData[0].hasOwnProperty("0")) { // DATA VALIDATION
-        scheduleWidgetContent.innerHTML = "No data was found for the specific date.<br>Click View More to view the full schedule."
-        return
-    }
 
     scheduleWidgetContent.innerHTML = ""
 
     for (var i = 0; i < Object.keys(dayData).length; i++) {
-        var classNode = document.createElement("div")
-        classNode.classList.add("rounded")
-        classNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #ffffff;"
-
-        // Class Title (Ex. "Mathematics", "English", etc.)
-        var classTitle = document.createElement("a")
-        classTitle.innerHTML = dayData[i][0]
-        classTitle.classList.add("scheduleCourse")
-        if (dayData[i][0].includes("</i>")) {
-            var classTitleDetails = dayData[i][0].split("</i> ")[0]
-            classTitle.innerHTML = dayData[i][0].split("</i> ")[1].split("(")[0]
-            classTitle.innerHTML = classTitleDetails + "</i> " + classTitle.innerHTML
+        if (Object.keys(dayData[i]).length > 0) {
+            var classNode = document.createElement("div")
+            classNode.classList.add("rounded")
+            classNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #ffffff;"
+    
+            // Class Title (Ex. "Mathematics", "English", etc.)
+            var classTitle = document.createElement("a")
+            classTitle.innerHTML = dayData[i][0]
+            classTitle.classList.add("scheduleCourse")
+            if (dayData[i][0].includes("</i>")) {
+                var classTitleDetails = dayData[i][0].split("</i> ")[0]
+                classTitle.innerHTML = dayData[i][0].split("</i> ")[1].split("(")[0]
+                classTitle.innerHTML = classTitleDetails + "</i> " + classTitle.innerHTML
+            }
+            classNode.appendChild(classTitle)
+    
+            // Class Teacher (Ex. "Mrs. Raicheva", etc.)
+            var classTeacher = document.createElement("span")
+            classTeacher.innerHTML = " | " + dayData[i][1]
+            classTeacher.classList.add("scheduleSecondary")
+            classTeacher.classList.add("secondaryFirst")
+            classNode.appendChild(classTeacher)
+    
+            // Class Time (Ex. "08:00 - 09:00", "09:00 - 10:00", etc.)
+            var classTime = document.createElement("span")
+            classTime.innerHTML = dayData[i][3] === undefined ? "No room specified" : dayData[i][3]
+            classTime.classList.add("scheduleSecondary")
+            classTime.classList.add("pull-right")
+            classNode.appendChild(classTime)
+    
+            // Class Room (Ex. "Room 103", "Room 404", etc.)
+            var classRoom = document.createElement("span")
+            classRoom.innerHTML = dayData[i][2]
+            classRoom.style = "padding-right: 12px;"
+            classRoom.classList.add("scheduleSecondary")
+            classRoom.classList.add("pull-right")
+            classNode.appendChild(classRoom)
+    
+            scheduleWidgetContent.appendChild(classNode)
         }
-        classNode.appendChild(classTitle)
-
-        // Class Teacher (Ex. "Mrs. Raicheva", etc.)
-        var classTeacher = document.createElement("span")
-        classTeacher.innerHTML = " | " + dayData[i][1]
-        classTeacher.classList.add("scheduleSecondary")
-        classTeacher.classList.add("secondaryFirst")
-        classNode.appendChild(classTeacher)
-
-        // Class Time (Ex. "08:00 - 09:00", "09:00 - 10:00", etc.)
-        var classTime = document.createElement("span")
-        classTime.innerHTML = dayData[i][3]
-        classTime.classList.add("scheduleSecondary")
-        classTime.classList.add("pull-right")
-        classNode.appendChild(classTime)
-
-        // Class Room (Ex. "Room 103", "Room 404", etc.)
-        var classRoom = document.createElement("span")
-        classRoom.innerHTML = dayData[i][2]
-        classRoom.style = "padding-right: 12px;"
-        classRoom.classList.add("scheduleSecondary")
-        classRoom.classList.add("pull-right")
-        classNode.appendChild(classRoom)
-
-        scheduleWidgetContent.appendChild(classNode)
     }
 
     var scheduleWidgetContentHeight = scheduleWidgetContent.offsetHeight + 100
@@ -208,7 +210,6 @@ if (pageurl.includes("https://app.shkolo.bg/stats/pupil/")) {
 
 chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], (result) => {
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
-    console.log(result)
 
     if (theme !== "dark" && theme !== "light") {
         chrome.storage.sync.set({theme: "dark"})
@@ -506,11 +507,11 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         scheduleRefresh.onclick = () => {
             scheduleWidgetTitle.innerHTML = "Schedule"
             scheduleWidgetContent.innerHTML = "Fetching schedule data..."
-            sc_fetchAndSave(WEEKDAYS[date.getDay() - 1 > 4 ? 0 : date.getDay()], sc_Widget)
+            sc_fetchAndSave(WEEKDAYS[date.getDay() - 1 > 4 ? 0 : date.getDay() - 1], sc_Widget)
         }
         sc_Widget.children[0].children[0].appendChild(scheduleRefresh)
 
-        chrome.storage.sync.get(["scheduleData"], function(result) {
+        chrome.storage.local.get(["scheduleData"], function(result) {
             const { scheduleData } = result
 
             var data = JSON.parse(scheduleData)
@@ -518,11 +519,16 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             // DATA VALIDATION
             var refreshSchedule = false
             if (scheduleData === undefined || scheduleData === null || data === undefined) refreshSchedule = true
-            if (!refreshSchedule) {
-                if (Object.keys(data[weekday][0]).length <= 0 || !data[weekday][0].hasOwnProperty("0")) {
-                    console.log(`Data not found for ${weekday}.`)
-                    refreshSchedule = true
+            try {
+                if (!refreshSchedule) {
+                    if (Object.keys(data[weekday][0]).length <= 0 || !data[weekday][0].hasOwnProperty("0")) {
+                        console.log(`Data not found for ${weekday}.`)
+                        refreshSchedule = true
+                    }
                 }
+            } catch (e) {
+                console.log(`Data not found for ${weekday}.`)
+                refreshSchedule = true
             }
 
             // Next and Previous Day Buttons
