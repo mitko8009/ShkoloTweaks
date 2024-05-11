@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../coolvetica.otf") format('otf');
+  src: url("https://shkolotweaks.web.app/assets/coolvetica.otf") format('otf');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -63,19 +63,6 @@ body {
   filter: blur(5vw);
   background: linear-gradient(270deg, #c70fff, #0fb3ff, #6b0fff);
   background-size: 200% 200%;
-  animation: animateGlow 10s ease infinite;
-}
-
-@keyframes animateGlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
 button {
