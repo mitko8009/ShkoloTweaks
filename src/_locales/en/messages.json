@@ -71,10 +71,10 @@
     "darkTheme": {
         "message": "Dark"
     },
-    "StatsLTOPopup": {
-        "message": "This is the number of times you've opened the Shkolo Dashboard since you've installed <b>ShkoloTweaks</b>."
-    },
     "StatsLTO": {
         "message": "times Shkolo was opened"
+    },
+    "StatsLTOPopup": {
+        "message": "This is the number of times you've opened the Shkolo Dashboard since you've installed <b>ShkoloTweaks</b>."
     }
 }
