@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("https://shkolotweaks.web.app/assets/coolvetica.otf") format('otf');
+  src: url("./assets/coolvetica.ttf") format('ttf');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -14,6 +14,10 @@ html, body {
 
 a, p, h1, h2, h3, h4, h5, h6, title {
   color: white;
+}
+
+h2 {
+  font-size: 2em;
 }
 
 p {
@@ -44,6 +48,23 @@ body {
   box-shadow: 0 4px 30px rgba(0, 0, 0, .1);
   border: 1px solid rgba(0, 0, 0, 0.125);
   animation: textColor 10s ease infinite;
+}
+
+.content {
+  overflow: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.blurText {
+  filter: blur(4px) brightness(0.5);
+  transition-duration: .4s;
+}
+
+.blurText:hover {
+  filter: blur(0px);
 }
 
 .backlightContainer:after {
