@@ -3,15 +3,15 @@
 
 ![ShkoloTweaks](https://shkolotweaks.web.app/assets/thumb2.png)
 
-**Shkolo Tweaks** is a web extension that adds *Dark Theme*, *Pfp Blur*, and other *custom features* to the **[Shkolo.bg]("https://www.shkolo.bg/")** website.
+**Shkolo Tweaks** is a web extension for customising **[Shkolo]("https://www.shkolo.bg/")**. It features a dark theme, widgets, stats, and much more.
 
 
 ## Features
 
-- Dark Theme
-- Blur Personal Data
-- Rounded Corners
-- Custom Widgets
+- Customization
+- Provides Additional Functionality
+- Stat Tracking
+- Supports English and Bulgarian
 
 
 ## Availability
