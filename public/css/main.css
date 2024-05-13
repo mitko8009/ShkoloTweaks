@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../coolvetica.otf") format('otf');
+  src: url("./assets/coolvetica.ttf") format('ttf');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -12,15 +12,19 @@ html, body {
   height: 100%;
 }
 
-a, p, h1, h2, h3, h4, h5, h6 {
+a, p, h1, h2, h3, h4, h5, h6, title {
   color: white;
+}
+
+h2 {
+  font-size: 2em;
 }
 
 p {
   font-size: 1.4em;
 }
 
-h1 {
+h1, title {
   font-size: 6em;
   text-shadow: rgba(255,255, 255,0.9) 0px 0px 100px;
 }
@@ -46,6 +50,23 @@ body {
   animation: textColor 10s ease infinite;
 }
 
+.content {
+  overflow: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.blurText {
+  filter: blur(4px) brightness(0.5);
+  transition-duration: .4s;
+}
+
+.blurText:hover {
+  filter: blur(0px);
+}
+
 .backlightContainer:after {
   position: absolute;
   content: "";
@@ -63,19 +84,6 @@ body {
   filter: blur(5vw);
   background: linear-gradient(270deg, #c70fff, #0fb3ff, #6b0fff);
   background-size: 200% 200%;
-  animation: animateGlow 10s ease infinite;
-}
-
-@keyframes animateGlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
 button {

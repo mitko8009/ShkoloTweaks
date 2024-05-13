@@ -8,29 +8,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:title" content="ShkoloTweaks - a web extension for customizing Shkolo.bg">
     <meta property="og:description" content="ShkoloTweaks is a web extension that adds Dark Theme, Custom Widgets, and more to Shkolo.bg.">
-    <meta property="og:image" content="https://shkolotweaks.web.app/assets/thumb2.png">
-    <meta property="og:url" content="https://shkolotweaks.web.app/">
+    <meta property="og:image" content="https://shkolotweaks.xyz/assets/thumb2.png">
+    <meta property="og:url" content="https://shkolotweaks.xyz/">
     <meta property="og:site_name" content="ShkoloTweaks">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#4276a4">
     <meta name="description" content="ShkoloTweaks is a web extension that adds Dark Theme, Custom Widgets, and more to Shkolo.bg.">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Shkolo Tweaks",
+        "image": "https://shkolotweaks.xyz/assets/thumb2.png",
+        "description": "ShkoloTweaks is a web extension that adds Dark Theme, Custom Widgets, and more to Shkolo.bg.",
+        "author": "ITPG Web Studios",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4",
+          "ratingCount": "4"
+        }
+      }
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MB2CXRCR');</script>
+    <!-- End Google Tag Manager -->
     
     <link rel="shortcut icon" type="image/x-icon" href="assets/logo.png">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="./sitemap.xml" />
     <link rel="stylesheet" href="css/main.css">
   </head>
+
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MB2CXRCR"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <div class="backlightContainer" style="display: grid; place-content: center;">
       <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <img src="assets/logo.png" style="height: 128px; margin-bottom: -50px;">
+        <img src="assets/logo.png" style="height: 128px; margin-bottom: -50px;" alt="Shkolo Tweaks logo">
         <h1 style="line-height: 0; margin-top: 1em;">Shkolo Tweaks</h1>
         <!--<p>ShkoloTweaks is a web extension that adds Dark Theme, Custom Widgets, and more customization to <a href="https://app.shkolo.bg/dashboard">Shkolo.bg</a>.</p>-->
         <div>
-          <button class="btn" onclick="window.open('https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc?hl=en&authuser=0')"><img src="assets/webStore.png"><br>Download Now</button>
-          <button class="btn"><img src="assets/firefox.png"><br>Coming Soon</button>
+          <button class="btn" onclick="window.open(`https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc?hl=en&authuser=0`)"><img src="assets/webStore.png" alt="Google Web Store"><br>Download Now</button>
+          <button class="btn"><img src="assets/firefox.png" alt="Firefox Web Store"><br>Coming Soon</button>
         </div>
+        <p>
+          <a href="./about.html" style="cursor: help;">About</a> • 
+          <a href="./contact.html">Contact</a>
+        </p>
       </div>
     </div>
 
+    <a href="./chrome/index.html"></a>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
