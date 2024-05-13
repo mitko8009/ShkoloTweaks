@@ -1,18 +1,46 @@
-const saveBtn = document.getElementById('saveBtn');
-const shkoloBtn = document.getElementById('shkoloBtn');
-const deleteNoteBtn = document.getElementById('deleteNote');
-const preset = document.getElementById('preset');
-const label_version = document.getElementById('version');
-
-const themeElement = document.getElementById('theme');
-const cleanUpSkolo = document.getElementById('cleanUpSkolo');
-const blurPfpCheck = document.getElementById('blurPfp');
-const roundedCheckbox = document.getElementById('roundedCheckbox');
-const scheduleWidgetCheckbox = document.getElementById('scheduleWidget');
-
 const manifest = chrome.runtime.getManifest()
 const version = manifest.version
 
+const saveBtn = document.getElementById('saveBtn');
+const shkoloBtn = document.getElementById('shkoloBtn');
+const label_version = document.getElementById('version');
+
+const themeElement = document.getElementById('theme');
+
+const ScheduleTitle = document.getElementById('ScheduleTitle');
+const ScheduleContent = document.getElementById('ScheduleContent');
+
+const label_theme = document.getElementById('themeLabel');
+const label_cleanUp = document.getElementById('cleanUpLabel');
+const label_blur = document.getElementById('blurLabel');
+const label_rounded = document.getElementById('roundedLabel');
+const label_scheduleWidget = document.getElementById('scLabel');
+
+
+// i18n
+label_theme.innerHTML = chrome.i18n.getMessage("themeLabel")
+saveBtn.innerHTML = chrome.i18n.getMessage("applyBtn")
+shkoloBtn.innerHTML = chrome.i18n.getMessage("shkoloBtn")
+
+label_cleanUp.innerHTML += chrome.i18n.getMessage("cleanUpLabel")
+label_blur.innerHTML += chrome.i18n.getMessage("blurLabel")
+label_rounded.innerHTML += chrome.i18n.getMessage("roundedLabel")
+label_scheduleWidget.innerHTML += chrome.i18n.getMessage("scLabel")
+
+var darkValue = themeElement.appendChild(document.createElement("option"))
+darkValue.value = "dark"
+darkValue.innerHTML = chrome.i18n.getMessage("darkTheme")
+
+var lightValue = themeElement.appendChild(document.createElement("option"))
+lightValue.value = "light"
+lightValue.innerHTML = chrome.i18n.getMessage("lightTheme")
+
+// / i18n /
+
+const cleanUpShkolo = document.getElementById('cleanUpShkolo');
+const blurPfpCheck = document.getElementById('blurPfp');
+const roundedCheckbox = document.getElementById('roundedCheckbox');
+const scheduleWidgetCheckbox = document.getElementById('scheduleWidget');
 
 chrome.runtime.onMessage.addListener(data => {
     console.log("Received message", data)
@@ -30,7 +58,7 @@ saveBtn.onclick = () => {
     console.log("Saving preferences")
     const prefs = {
         theme: themeElement.value,
-        cleanUp: cleanUpSkolo.checked,
+        cleanUp: cleanUpShkolo.checked,
         blurPfp: blurPfpCheck.checked,
         rounded: roundedCheckbox.checked,
         scheduleWidget: scheduleWidgetCheckbox.checked
@@ -42,25 +70,13 @@ saveBtn.onclick = () => {
     refreshPage()
 }
 
-deleteNoteBtn.onclick = () => {
-    document.getElementById('note').remove()
-}
-
 shkoloBtn.onclick = () => {
     chrome.tabs.create({ url: "https://app.shkolo.bg/dashboard" })
 }
 
-preset.onclick = () => {
-    themeElement.value = "dark"
-    cleanUpSkolo.checked = true
-    blurPfpCheck.checked = true
-    roundedCheckbox.checked = true
-    saveBtn.click()
-}
-
 function refreshPage() {
     console.log("Refreshing page")
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         chrome.tabs.reload(tabs[0].id);
     });
 
@@ -132,21 +148,20 @@ function updatePopup() {
     }
 }
 
-chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     const url = new URL(tabs[0].url)
 
     if (url.hostname.includes("shkolo.bg")) {
         document.getElementById("shkoloBtn").remove()
-    } else {
-        document.getElementById('note').remove()
     }
 });
 
-chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], function(result){   
+
+chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], (result) => {   
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
 
     if (theme) { themeElement.value = theme }
-    if (cleanUp) { cleanUpSkolo.checked = cleanUp }
+    if (cleanUp) { cleanUpShkolo.checked = cleanUp }
     if (blurPfp) { blurPfpCheck.checked = blurPfp }
     if (rounded) { roundedCheckbox.checked = rounded }
     if (scheduleWidget) { scheduleWidgetCheckbox.checked = scheduleWidget }

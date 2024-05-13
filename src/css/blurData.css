@@ -1,0 +1,37 @@
+.page-header.navbar .top-menu .navbar-nav>li.dropdown-user .dropdown-toggle>img, .inbox-content .timeline .timeline-badge-userpic {
+    filter: blur(3px);
+    transition: all 0.4s;
+}
+
+.profile-userpic img.avatar {
+    filter: blur(5px);
+    transition: all 0.4s;
+}
+
+.profile-userpic img.avatar:hover {
+    filter: blur(0);
+}
+
+.page-header.navbar .top-menu .navbar-nav>li.dropdown-user .dropdown-toggle>img:hover, .inbox-content .timeline .timeline-badge-userpic:hover {
+    filter: blur(0);
+}
+
+
+.username {
+    filter: blur(5px);
+    transition: all 0.4s;
+
+    &:hover {
+        filter: blur(0);
+    }
+}
+
+
+.form-group > div.col-sm-6 > p.form-control-static, .profile-usertitle-name {
+    filter: blur(5px);
+    transition: all 0.4s;
+
+    &:hover {
+        filter: blur(0);
+    }
+}
