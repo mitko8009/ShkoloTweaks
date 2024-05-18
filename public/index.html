@@ -20,7 +20,7 @@
         "@type": "Product",
         "name": "Shkolo Tweaks",
         "image": "https://shkolotweaks.xyz/assets/thumb2.png",
-        "description": "ShkoloTweaks is a web extension that adds Dark Theme, Custom Widgets, and more to Shkolo.bg.",
+        "description": "ShkoloTweaks is a web extension for customising Shkolo. It features a dark theme, widgets, stats, and much more.",
         "author": "ITPG Web Studios",
         "aggregateRating": {
           "@type": "AggregateRating",
@@ -52,8 +52,8 @@
     <div class="backlightContainer" style="display: grid; place-content: center;">
       <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <img src="assets/logo.png" style="height: 128px; margin-bottom: -50px;" alt="Shkolo Tweaks logo">
-        <h1 style="line-height: 0; margin-top: 1em;">Shkolo Tweaks</h1>
-        <!--<p>ShkoloTweaks is a web extension that adds Dark Theme, Custom Widgets, and more customization to <a href="https://app.shkolo.bg/dashboard">Shkolo.bg</a>.</p>-->
+        <h1>Shkolo Tweaks</h1>
+        <p>ShkoloTweaks is a web extension for customising <a href="https://shkolo.bg/">Shkolo</a>.<br>It features a dark theme, widgets, stats, and much more.<br><a style="text-shadow: rgba(255,255, 255, 1) 0px 0px 50px; font-size: 2em;">Try it yourself!</a></p>
         <div>
           <button class="btn" onclick="window.open(`https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc?hl=en&authuser=0`)"><img src="assets/webStore.png" alt="Google Web Store"><br>Download Now</button>
           <button class="btn"><img src="assets/firefox.png" alt="Firefox Web Store"><br>Coming Soon</button>
@@ -66,23 +66,6 @@
     </div>
 
     <a href="./chrome/index.html"></a>
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
-    
-      const firebaseConfig = {
-        apiKey: "AIzaSyBDZKJjeaZIk4Q51h-JhuMwE8xcQR-W6Ag",
-        authDomain: "shkolotweaks.firebaseapp.com",
-        projectId: "shkolotweaks",
-        storageBucket: "shkolotweaks.appspot.com",
-        messagingSenderId: "518875020508",
-        appId: "1:518875020508:web:1d2b99eebe8baf4de80819",
-        measurementId: "G-T4TD48C043"
-      };
-    
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
-    </script>
     <script src="main.js"></script>
   </body>
 </html>

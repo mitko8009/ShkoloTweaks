@@ -16,8 +16,14 @@ a, p, h1, h2, h3, h4, h5, h6, title {
   color: white;
 }
 
+h1 {
+  line-height: 0;
+  margin-top: 1em;
+}
+
 h2 {
   font-size: 2em;
+  text-shadow: rgba(255,255, 255,0.7) 0px 0px 50px;
 }
 
 p {
