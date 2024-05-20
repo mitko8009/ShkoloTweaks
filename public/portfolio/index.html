@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>mitko8009's Portfolio</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="lib/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
+    <style>
+        .navbar-tooltip {
+            background-color: #6b6b6b71;
+            color: #fff;
+            box-shadow: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-content">
+            <a class="nav-link" id="portfolioHome" title="Portfolio" hidden><img src="assets/user.png" style="height: 32px;"></a>
+            <a class="nav-link" id="projectsIcon" title="Projects"><img src="assets/projects.png" style="height: 32px;"></a>
+            <a class="nav-link" id="awardsIcon" title="Awards"><img src="assets/awards.png" style="height: 32px;"></a>
+            <a class="nav-link" href="//github.com/mitko8009" title="GitHub"><img src="assets/github.png" style="height: 32px;"></a>
+            <a style="position: relative; border-left: #fff 3px solid; padding-top: 2ch; padding-bottom: 2ch; border-radius: 4px;"></a>
+            <a class="nav-link" id="shkolotweaks" title="Shkolo Tweaks"><img src="assets/shkolotweaks.png" style="height: 32px;"></a>
+            <!-- <a class="nav-link" id="" title=""><img src="" style="height: 32px;"></a> -->
+        </div>
+    </div>
+
+    <div class="content">
+        <div>
+            <div class="window draggable" id="winProjects" style="position: absolute; min-height: 350px; min-width: 650px;" hidden> <!-- Projects Window -->
+                <div class="winHeader">
+                    <img src="assets/projects.png" style="height: 4ch; padding: 4px;">
+                    <a style="font-size: 4ch; position: relative; bottom: 7px;"><b>Projects</b></a>
+                </div>
+                <img src="assets/close.png" class="closeWindowBtn" id="closeWinProjectsBtn">
+            </div>
+
+            <div class="window draggable" id="winAwards" style="position: absolute; min-height: 310px; min-width: 500px;" hidden> <!-- Awards Window -->
+                <div class="winHeader">
+                    <img src="assets/awards.png" style="height: 4ch; padding: 4px;">
+                    <a style="font-size: 4ch; position: relative; bottom: 7px;"><b>Awards</b></a>
+                </div>
+                <img src="assets/close.png" class="closeWindowBtn" id="closeWinAwardsBtn">
+                <h1>No awards to display yet. :(</h1>
+            </div>
+
+            <div class="window draggable" id="pjson" style="min-height: 310px; min-width: 620px;"> <!-- Portfolio Window -->
+                <div class="winHeader">
+                    <img src="assets/user.png" style="height: 4ch; padding: 4px;">
+                    <a style="font-size: 4ch; position: relative; bottom: 7px;"><b>Dimitar <span style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">"mitko8009"</span> Mitev</b></a>
+                </div>
+                <img src="assets/close.png" class="closeWindowBtn" id="closeWindowBtn">
+                <p style="font-size: 1.8em; margin-top: -1px;"><i class="uil uil-brackets-curly" style="font-size: .8em; color: #f8b242; margin-right: 6px;"></i>Portfolio.json</p>
+                <div class="wipe">
+                    <p style="color: #f8b242;">{</p>
+                    <p class="jsonIn1">name:<b>"Dimitar 'mitko8009' Mitev",</b></p>
+                    <p class="jsonIn1">description:<b>"I <a style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">code</a> stuff for fun&#128526;.",</b></p>
+                    <p class="jsonIn1">location:<b>"Varna, Bulgaria &#127463;&#127468;",</b></p>
+                    <p class="jsonIn1">studing_at:<b>"<a href="https://itpg-varna.bg/" class="footerLink">ITPG-Varna<a>&#127891;"</b></p>
+                    <p style="color: #f8b242;">}</p>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                    <p>{</p>
+                    <p class="jsonIn1">game?:"<a href="https://store.steampowered.com/app/670510/ColorBlend_FX_Desaturation/" class="footerLink" style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">ColorBlend FX</a>"</p>
+                    <p>}</p>
+                </div>
+                <div style="font-size: 1.6em; margin-top: 1ch; position: absolute; bottom: 4px;"><b><p>
+                    <a href="https://github.com/mitko8009" class="footerLink">./GitHub.com</a>
+                    <a href="https://www.instagram.com/mitko8009_/" class="footerLink">./Instagram.com</a>
+                </p></b></div>
+                <div style="position: absolute; top: 100%; left: 100%; bottom: 0; right: 0;"><i class="uil uil-arrow-down-right"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script src="lib/jquery-ui.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
