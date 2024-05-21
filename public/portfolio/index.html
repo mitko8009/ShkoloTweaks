@@ -8,7 +8,6 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="lib/jquery-ui.min.css" />
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
     <style>
         .navbar-tooltip {
@@ -22,59 +21,77 @@
 <body>
     <div class="navbar">
         <div class="navbar-content">
-            <a class="nav-link" id="portfolioHome" title="Portfolio" hidden><img src="assets/user.png" style="height: 32px;"></a>
-            <a class="nav-link" id="projectsIcon" title="Projects"><img src="assets/projects.png" style="height: 32px;"></a>
-            <a class="nav-link" id="awardsIcon" title="Awards"><img src="assets/awards.png" style="height: 32px;"></a>
+            <a class="nav-link" id="nav_portfolio" title="Portfolio" hidden><img src="assets/user.png" style="height: 32px;"></a>
+            <a class="nav-link" id="nav_projects" title="Top Projects"><img src="assets/projects.png" style="height: 32px;"></a>
+            <a class="nav-link" id="nav_awards" title="Awards"><img src="assets/awards.png" style="height: 32px;"></a>
+            <a style="position: relative; border-left: #fff 3px solid; padding-top: 2ch; padding-bottom: 2ch; border-radius: 4px;"></a>
             <a class="nav-link" href="//github.com/mitko8009" title="GitHub"><img src="assets/github.png" style="height: 32px;"></a>
             <a style="position: relative; border-left: #fff 3px solid; padding-top: 2ch; padding-bottom: 2ch; border-radius: 4px;"></a>
-            <a class="nav-link" id="shkolotweaks" title="Shkolo Tweaks"><img src="assets/shkolotweaks.png" style="height: 32px;"></a>
+            <a class="nav-link" id="nav_ShTw" title="Shkolo Tweaks"><img src="assets/shkolotweaks.png" style="height: 32px;"></a>
             <!-- <a class="nav-link" id="" title=""><img src="" style="height: 32px;"></a> -->
         </div>
     </div>
 
     <div class="content">
         <div>
-            <div class="window draggable" id="winProjects" style="position: absolute; min-height: 350px; min-width: 650px;" hidden> <!-- Projects Window -->
+            <div class="window draggable" id="win_projects" style="position: absolute; top: 20%; left: 10%; min-height: 350px; min-width: 670px;" hidden> <!-- Projects Window -->
                 <div class="winHeader">
                     <img src="assets/projects.png" style="height: 4ch; padding: 4px;">
-                    <a style="font-size: 4ch; position: relative; bottom: 7px;"><b>Projects</b></a>
+                    <a class="headerText"><b>Top Projects</b></a>
                 </div>
-                <img src="assets/close.png" class="closeWindowBtn" id="closeWinProjectsBtn">
+                <img src="assets/close.png" class="closeWindowBtn" id="win_projects_close">
+                <div>
+                    <div class="projSection">
+                        <h1><img src="assets/shkolotweaks.png" style="height: 32px; margin-bottom: -8px; margin-right: 8px;">Shkolo Tweaks</h1>
+                        <h2>Web extension for customizing the digital diary, <a href="//shkolo.bg/" class="footerLink">Shkolo.bg</a></h2>
+                        <div style="margin-top: 40px; margin-bottom: 20px;"><p>
+                            <a href="//shkolotweaks.xyz/" class="projBtn footerLink" style="font-size: 1.5em;"><b>Official Website</b></a>
+                            <a href="//chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc" class="projBtn footerLink" style="font-size: 1.5em;"><b>Chrome Web Store</b></a>
+                        </p></div>
+                    </div>
+                </div>
             </div>
 
-            <div class="window draggable" id="winAwards" style="position: absolute; min-height: 310px; min-width: 500px;" hidden> <!-- Awards Window -->
+            <div class="window draggable" id="win_awards" style="position: absolute; top: 15%; left: 65%; min-height: 310px; min-width: 500px;" hidden> <!-- Awards Window -->
                 <div class="winHeader">
                     <img src="assets/awards.png" style="height: 4ch; padding: 4px;">
-                    <a style="font-size: 4ch; position: relative; bottom: 7px;"><b>Awards</b></a>
+                    <a class="headerText"><b>Awards</b></a>
                 </div>
-                <img src="assets/close.png" class="closeWindowBtn" id="closeWinAwardsBtn">
+                <img src="assets/close.png" class="closeWindowBtn" id="win_awards_close">
                 <h1>No awards to display yet. :(</h1>
             </div>
 
-            <div class="window draggable" id="pjson" style="min-height: 310px; min-width: 620px;"> <!-- Portfolio Window -->
+            <div class="window draggable" id="win_ShTw" style="position: absolute; top: 45%; left: 2%; min-height: 310px; min-width: 500px;" hidden> <!-- Shkolo Tweaks Window -->
+                <div class="winHeader">
+                    <img src="assets/shkolotweaks.png" style="height: 4ch; padding: 4px;">
+                    <a class="headerText"><b>Shkolo Tweaks</b></a>
+                </div>
+                <img src="assets/close.png" class="closeWindowBtn" id="win_ShTw_close">
+            </div>
+
+            <div class="window draggable" id="win_portfolio" style="min-height: 310px; min-width: 620px;"> <!-- Portfolio Window -->
                 <div class="winHeader">
                     <img src="assets/user.png" style="height: 4ch; padding: 4px;">
-                    <a style="font-size: 4ch; position: relative; bottom: 7px;"><b>Dimitar <span style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">"mitko8009"</span> Mitev</b></a>
+                    <a class="headerText"><b>Dimitar <span style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">"mitko8009"</span> Mitev</b></a>
                 </div>
-                <img src="assets/close.png" class="closeWindowBtn" id="closeWindowBtn">
-                <p style="font-size: 1.8em; margin-top: -1px;"><i class="uil uil-brackets-curly" style="font-size: .8em; color: #f8b242; margin-right: 6px;"></i>Portfolio.json</p>
+                <img src="assets/close.png" class="closeWindowBtn" id="win_portfolio_close">
+                <p style="font-size: 1.8em; margin-top: 2ch;">Portfolio.json</p>
                 <div class="wipe">
-                    <p style="color: #f8b242;">{</p>
+                    <p style="color: #f3bc62;">{</p>
                     <p class="jsonIn1">name:<b>"Dimitar 'mitko8009' Mitev",</b></p>
                     <p class="jsonIn1">description:<b>"I <a style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">code</a> stuff for fun&#128526;.",</b></p>
                     <p class="jsonIn1">location:<b>"Varna, Bulgaria &#127463;&#127468;",</b></p>
-                    <p class="jsonIn1">studing_at:<b>"<a href="https://itpg-varna.bg/" class="footerLink">ITPG-Varna<a>&#127891;"</b></p>
-                    <p style="color: #f8b242;">}</p>
-                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                    <p class="jsonIn1">studing_at:<b>"<a href="//itpg-varna.bg/" class="footerLink">ITPG-Varna<a>&#127891;"</b></p>
+                    <p style="color: #f3bc62;">}</p>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br>
                     <p>{</p>
-                    <p class="jsonIn1">game?:"<a href="https://store.steampowered.com/app/670510/ColorBlend_FX_Desaturation/" class="footerLink" style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">ColorBlend FX</a>"</p>
+                    <p class="jsonIn1">game?:"<a href="//store.steampowered.com/app/670510/ColorBlend_FX_Desaturation/" class="footerLink" style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">ColorBlend FX</a>"</p>
                     <p>}</p>
                 </div>
                 <div style="font-size: 1.6em; margin-top: 1ch; position: absolute; bottom: 4px;"><b><p>
-                    <a href="https://github.com/mitko8009" class="footerLink">./GitHub.com</a>
-                    <a href="https://www.instagram.com/mitko8009_/" class="footerLink">./Instagram.com</a>
+                    <a href="//github.com/mitko8009" class="footerLink">./GitHub.com</a>
+                    <a href="//www.instagram.com/mitko8009_/" class="footerLink">./Instagram.com</a>
                 </p></b></div>
-                <div style="position: absolute; top: 100%; left: 100%; bottom: 0; right: 0;"><i class="uil uil-arrow-down-right"></i></div>
             </div>
         </div>
     </div>

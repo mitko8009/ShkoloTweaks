@@ -65,6 +65,12 @@ p {
     cursor: move;
 }
 
+.headerText {
+    position: relative;
+    font-size: 4ch;
+    bottom: 7px;
+}
+
 .footerLink {
     color: inherit;
     margin-right: 1ch;
@@ -100,6 +106,27 @@ p {
     padding-right: 1em;
 }
 
+.projSection {
+    border: #ffffffe8 3px solid;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 16px;
+}
+
+.projSection h1 {
+    margin-top: -.1em;
+}
+
+.projSection h2 {
+    line-height: 0;
+}
+
+.projBtn {
+    border: #ffffffd0 3px solid;
+    padding: 8px;
+    border-radius: 6px;
+}
+
 .navbar {
     display: grid;
     margin-left: auto;
@@ -110,7 +137,8 @@ p {
 .navbar-content {
     display: flex;
     background-color: rgb(40, 42, 43);
-    box-shadow: 0px 0px 0px #00000000;
+    box-shadow: 0px 0px 8px #ffffff3d;
+    border: #ffffff3d 1px solid;
     padding: 8px;
     gap: 8px;
     border-radius: 12px;
