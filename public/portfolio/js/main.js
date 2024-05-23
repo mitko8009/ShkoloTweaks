@@ -1,14 +1,12 @@
-function navBtnEffect(add = false) {
-    const GAP = 26;
-
+function navEffect(add = false) { // Navbar Effect Function
     $(".navbar-content").animate({backgroundColor: "rgb(110, 110, 110)"}, 20).delay(200).animate({backgroundColor: "rgb(40, 42, 43)"}, 20);
 
-    add ? 
-    $(".navbar-content").animate({width: $(".navbar-content").width() + $(".nav-link").eq(1).width() + GAP}, 300):
-    $(".navbar-content").animate({width: $(".navbar-content").width() - $(".nav-link").eq(1).width() - GAP}, 300);
+    add ?
+    $(".navbar-content").animate({width: $(".navbar-content").width() + $(".nav-link").eq(1).width() + 26}, 300):
+    $(".navbar-content").animate({width: $(".navbar-content").width() - $(".nav-link").eq(1).width() - 26}, 300);
 }
 
-function setOnFocus(elementId) {
+function setOnFocus(elementId) { // Window Focus Function
     for (let i = 0; i < $(".window").length; i++) {
         $(".window").eq(i).css("z-index", 7 - i);
     }
@@ -16,28 +14,25 @@ function setOnFocus(elementId) {
     $("#" + elementId).css("z-index", 8);
 }
 
-function closeWindow(elementId) {
-    navBtnEffect(true);
+function openWindow(id) { // Open Window Function
+    navEffect(false);
+    setOnFocus("win_" + id);
 
-    $("#win_" + elementId).animate({opacity: 0}, 300, () => {
-        $("#win_" + elementId).hide();
-        $("#nav_" + elementId).css("opacity", 0).show().animate({opacity: 1}, 50);
-    });
+    $("#nav_"+id).animate({opacity: 0}, 200, function() { $(this).hide(); });
+    $("#win_"+id).css({opacity: 0}).show().animate({opacity: 1}, 200);
 }
 
-function openWindow(elementId) {
-    navBtnEffect(false);
-    setOnFocus("win_" + elementId);
+function closeWindow(id) { // Close Window Function
+    navEffect(true);
 
-    $("#nav_" + elementId).animate({opacity: 0}, 200, () => {
-        $("#nav_" + elementId).hide();
+    $("#win_"+id).animate({opacity: 0}, 300, function() {
+        $(this).hide();
+        $("#nav_"+id).css("opacity", 0).show().animate({opacity: 1}, 50);
     });
-
-    $("#win_" + elementId).css({opacity: 0}).show().animate({opacity: 1}, 200);
 }
 
 $(document).ready(() => {
-    $(".draggable").draggable({
+    $(".window").draggable({
         handle: ".winHeader",
         containment: ".content",
         scroll: false,
@@ -47,21 +42,15 @@ $(document).ready(() => {
         stack: ".window",
     }).resizable();
 
-    // Portfolio
-    $("#win_portfolio_close").click(() => { closeWindow("portfolio"); });
-    $("#nav_portfolio").click(() => { openWindow("portfolio"); });
+    $(".closeWindowBtn").click(function() { // Close Window Function
+        id = $(this).attr("id").split("_")[1];
+        closeWindow(id);
+    });
 
-    // Projects
-    $("#win_projects_close").click(() => { closeWindow("projects"); });
-    $("#nav_projects").click(() => { openWindow("projects"); });
-
-    // Awards
-    $("#win_awards_close").click(() => { closeWindow("awards"); });
-    $("#nav_awards").click(() => { openWindow("awards"); });
-
-    // Shkolo Tweaks
-    $("#win_ShTw_close").click(() => { closeWindow("ShTw"); });
-    $("#nav_ShTw").click(() => { openWindow("ShTw"); });
+    $(".navWin").click(function() { // Open Window Function
+        id = $(this).attr("id").split("_")[1];
+        openWindow(id);
+    });
     
 
     $(".nav-link").tooltip({
