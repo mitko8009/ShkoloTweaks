@@ -1,0 +1,22 @@
+.page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu {
+    max-height: 400px !important;
+    min-height: 361px !important;
+}
+
+.profile-userpic img.avatar {
+    width: 150px;
+    height: 150px;
+}
+
+.select2-container, .inbox-compose .controls>input {
+    margin-bottom: 4px !important;
+    margin-top: 4px !important;
+}
+
+.nav-item, .page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a {
+    margin: 5px !important;
+}
+
+.portlet>.portlet-title>.caption, .inbox-nav-folder .inbox-nav-folder-info .inbox-nav-folder-name, .dashboard-stat .details .number, .dashboard-stat .details .desc {
+    font-weight: bold;
+}

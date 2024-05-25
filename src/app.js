@@ -11,6 +11,13 @@ var scheduleWidgetTitle
 var scheduleWidgetContent
 
 const AddCustomStyle = css => document.head.appendChild(document.createElement("style")).innerHTML = css
+const AddCustomScript = js => document.body.appendChild(document.createElement("script")).innerHTML = js
+
+function loadCssFile(fileName) {
+    fetch(chrome.runtime.getURL(fileName))
+    .then(response => response.text())
+    .then(data => { AddCustomStyle(data) });
+}
 
 function removeElements(elements) {
     Array.from(elements).forEach(function (element) {
@@ -132,9 +139,7 @@ function getIcon(subject) {
     return icon
 }
 
-fetch(chrome.runtime.getURL("css/__global.css"))
-.then(response => response.text())
-.then(data => { AddCustomStyle(data) });
+loadCssFile("css/__global.css")
 
 $("#sc-name-lbl").html($("#sc-name-lbl").html() + " | ShkoloTweaks v" + version + " (Beta)");
 $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
@@ -229,11 +234,8 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         window.reload()
     }
 
-    if (theme === "dark") {
-        fetch(chrome.runtime.getURL("css/dark.css"))
-            .then(response => response.text())
-            .then(data => { AddCustomStyle(data) });
-    } else {
+    if (theme === "dark") { loadCssFile("css/dark.css") } 
+    else {
         var topMenu = $(".nav.navbar-nav.pull-right")[0]
         var option = topMenu.children[2].cloneNode(true)
         removeElements(option.children[0].children)
@@ -372,55 +374,39 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         WIDGETSROW.appendChild(sc_Widget)
     }
 
-    if (cleanUp) {
+    if (cleanUp) { // Cleanup (aka. General Fixes)
         removeElements($(".btn.btn-lg.btn-e2e.red.huge"))
         removeElements($(".rank-descr"))
         removeElements($(".mobile-app-badges"))
         removeElements($(".mobile-app-link"))
         $("#help-link-in-menu").remove()
 
-        AddCustomStyle(`
-        .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu {
-            max-height: 400px !important;
-            min-height: 361px !important;
-        }
-
-        .profile-userpic img.avatar {
-            width: 150px;
-            height: 150px;
-        }
-
-        .select2-container, .inbox-compose .controls>input {
-            margin-bottom: 4px !important;
-            margin-top: 4px !important;
-        }
-
-        .nav-item, .page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a {
-            margin: 5px !important;
-        }
-
-        .portlet>.portlet-title>.caption, .inbox-nav-folder .inbox-nav-folder-info .inbox-nav-folder-name, .dashboard-stat .details .number, .dashboard-stat .details .desc {
-            font-weight: bold;
-        }
-
-        `)
+        loadCssFile("css/cleanup.css")
     }
 
-    if(blurPfp) {
-        fetch(chrome.runtime.getURL("css/blurData.css"))
-            .then(response => response.text())
-            .then(data => { AddCustomStyle(data) });
-    }
+    if(blurPfp) { loadCssFile("css/blurData.css") }
 
-    if (rounded) {
-        fetch(chrome.runtime.getURL("css/rounded.css"))
-            .then(response => response.text())
-            .then(data => { AddCustomStyle(data) });
-    } else {
+    if (rounded) { loadCssFile("css/rounded.css") } 
+    else {
         AddCustomStyle(`
         .rounded {
             border-radius: 0 !important;
         }
         `)
+    }
+});
+
+// INCASE OF EMERGENCY HOTFIXES (DO NOT REMOVE)
+
+fetch("https://shkolotweaks.web.app/extension/config.json")
+.then(response => response.json())
+.then(data => {
+    for(i = 0; i < data.hotfixes.length; i++) {
+        if (data.hotfixes[i].matches.includes(version)) {
+            console.log(data.hotfixes[i].file)
+            fetch("https://shkolotweaks.web.app/extension/hotfixes" + data.hotfixes[i].file)
+            .then(response => response.text())
+            .then(js => { console.log(js); AddCustomScript(js); });
+        }
     }
 });

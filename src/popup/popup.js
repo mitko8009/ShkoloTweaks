@@ -166,10 +166,10 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
 
 label_version.innerHTML = `v${version}`
 
-fetch("https://shkolotweaks.xyz/version")
-    .then(response => response.text())
+fetch("https://shkolotweaks.xyz/extension/config.json")
+    .then(response => response.json())
     .then(data => {
-        if (version !== data) {
+        if (version !== data.version) {
             label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("outdatedVersion")})`
         } else {
             label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("latestVersion")})`
