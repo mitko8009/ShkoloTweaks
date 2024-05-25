@@ -395,18 +395,3 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         `)
     }
 });
-
-// INCASE OF EMERGENCY HOTFIXES (DO NOT REMOVE)
-
-fetch("https://shkolotweaks.web.app/extension/config.json")
-.then(response => response.json())
-.then(data => {
-    for(i = 0; i < data.hotfixes.length; i++) {
-        if (data.hotfixes[i].matches.includes(version)) {
-            console.log(data.hotfixes[i].file)
-            fetch("https://shkolotweaks.web.app/extension/hotfixes" + data.hotfixes[i].file)
-            .then(response => response.text())
-            .then(js => { console.log(js); AddCustomScript(js); });
-        }
-    }
-});

@@ -1,11 +1,3 @@
 {
-    "version": "0.4.4",
-    "hotfix": [
-        {
-            "matches": [
-                "0.4.4"
-            ],
-            "file": "hotfix_example.js"
-        }
-    ]
+	"version": "0.4.4"
 }

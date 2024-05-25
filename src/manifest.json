@@ -16,6 +16,10 @@
 		"storage",
 		"activeTab"
 	],
+	"host_permissions": [
+		"*://*.shkolotweaks.xyz/*",
+		"*://*.shkolotweaks.web.app/*"
+	],
 	"icons": {
 		"16": "assets/icon_x16.png",
 		"32": "assets/icon_x32.png",
@@ -35,14 +39,11 @@
 			"run_at": "document_end"
 		}
 	],
-	"host_permissions": [
-		"*://*.shkolotweaks.xyz/*",
-		"*://*.shkolotweaks.web.app/*"
-	],
 	"web_accessible_resources": [
 		{
 			"resources": [
-				"css/*"
+				"css/*",
+				"assets/*"
 			],
 			"matches": [
 				"*://*.shkolo.bg/*",

@@ -59,16 +59,22 @@ class window(QMainWindow):
 
         for i in self.manifest['permissions']:
             self.mainUi.permissions.addItem(i)
+        
+        self.mainUi.permissions.addItem("")
+        self.mainUi.permissions.addItem("------- Host Permissions -------")
+        for i in self.manifest['host_permissions']:
+            self.mainUi.permissions.addItem(i)
             
         for i in self.manifest['content_scripts'][0]['js']:
             self.mainUi.content_scripts.addItem(i)
             
         for i in self.manifest['web_accessible_resources'][0]['resources']:
-            if i[-1] == '*': 
+            self.mainUi.web_accessible_resources.addItem(i)
+            if i[-1] == '*':
                 i = i[:-1]
                 for j in os.listdir(config['path'] + i):
                     self.mainUi.web_accessible_resources.addItem(i + j)
-            else:   self.mainUi.web_accessible_resources.addItem(i)
+                self.mainUi.web_accessible_resources.addItem("")
         
         for i in os.listdir(config['path'] + "/_locales/"):
             self.mainUi.default_locale.addItem(i)
@@ -95,9 +101,10 @@ class window(QMainWindow):
         SaveManifest(config['path'] + "manifest.json", self.manifest)
         if config['debug']: print(f"\nSaved Manifest:\n--> {self.manifest}")
         
-        with open("../public/version", "w") as f:
-            f.write(self.manifest['version'])
-            f.close()
+        extConfig = json.loads(open("../public/extension/config.json", "r").read())
+        extConfig['version'] = self.manifest['version']
+        with open("../public/extension/config.json", "w") as jsonfile:
+            json.dump(extConfig, jsonfile, indent='\t')
         
     def build(self):
         self.save()
