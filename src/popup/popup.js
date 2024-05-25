@@ -165,3 +165,11 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
 })
 
 label_version.innerHTML = `v${version}`
+
+fetch("https://shkolotweaks.xyz/version")
+    .then(response => response.text())
+    .then(data => {
+        if (version !== data) {
+            label_version.innerHTML = `v${version} -> v${data} (Update available)`
+        }
+    })
