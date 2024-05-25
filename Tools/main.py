@@ -59,6 +59,20 @@ class window(QMainWindow):
 
         for i in self.manifest['permissions']:
             self.mainUi.permissions.addItem(i)
+            
+        for i in self.manifest['content_scripts'][0]['js']:
+            self.mainUi.content_scripts.addItem(i)
+            
+        for i in self.manifest['web_accessible_resources'][0]['resources']:
+            if i[-1] == '*': 
+                i = i[:-1]
+                for j in os.listdir(config['path'] + i):
+                    self.mainUi.web_accessible_resources.addItem(i + j)
+            else:   self.mainUi.web_accessible_resources.addItem(i)
+        
+        for i in os.listdir(config['path'] + "/_locales/"):
+            self.mainUi.default_locale.addItem(i)
+        self.mainUi.default_locale.setCurrentText(self.manifest['default_locale'])
         
     def openFile(self, icon):
         data = QFileDialog.getOpenFileName(self.mainUi, "Select File","","Images (*.png *.xpm *.jpg)",options=QFileDialog.Options())
@@ -72,6 +86,7 @@ class window(QMainWindow):
         self.manifest['description'] = self.mainUi.Description.toPlainText()
         self.manifest['author'] = self.mainUi.Publisher.text()
         self.manifest['key'] = self.mainUi.PublicKey.text()
+        self.manifest['default_locale'] = self.mainUi.default_locale.currentText()
         self.manifest['icons']['16'] = self.mainUi.icon1.text()
         self.manifest['icons']['32'] = self.mainUi.icon2.text()
         self.manifest['icons']['48'] = self.mainUi.icon3.text()
@@ -104,4 +119,4 @@ class window(QMainWindow):
         clipboard.setText(text_box.text())
         return True
 
-window() # Start the window
+window() # Run the window

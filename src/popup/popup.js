@@ -69,10 +69,6 @@ saveBtn.onclick = () => {
     refreshPage()
 }
 
-shkoloBtn.onclick = () => {
-    chrome.tabs.create({ url: "https://app.shkolo.bg/dashboard" })
-}
-
 function refreshPage() {
     console.log("Refreshing page")
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
