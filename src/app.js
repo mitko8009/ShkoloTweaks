@@ -3,7 +3,7 @@ const version = manifest.version
 const pageurl = window.location.href
 
 const WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-const WIDGETSROW = $(".col-md-12")[0].children[2]
+const WIDGETSROW = document.getElementsByClassName("col-md-12")[0].children[2]
 
 var date = new Date()
 
@@ -62,7 +62,7 @@ function sc_fetchAndSave(displayDay, widget) {
         setTimeout(() => {
             sc_saveLocaly(iframe.contentWindow.document.getElementsByClassName("scheduleTable")[0].cloneNode(true))
 
-            chrome.storage.local.get(["scheduleData"], (result) => {
+            chrome.storage.local.get(["scheduleData"], function(result) {
                 result.scheduleData = JSON.parse(result.scheduleData)
                 sc_DisplayDay(displayDay, result.scheduleData, widget)
             });
@@ -136,12 +136,12 @@ fetch(chrome.runtime.getURL("css/__global.css"))
 .then(response => response.text())
 .then(data => { AddCustomStyle(data) });
 
-$("#sc-name-lbl").html($("#sc-name-lbl").html() + " | ShkoloTweaks v" + version + " (Beta)");
-$(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
+document.getElementById("sc-name-lbl").innerHTML += " | ShkoloTweaks v" + version + " (Beta)";
+document.getElementsByClassName("page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
 
-if (pageurl.includes("//app.shkolo.bg/stats/pupil/")) {
+if (pageurl.includes("https://app.shkolo.bg/stats/pupil/")) {
     // Navbar Tab
-    var navbar = $(".nav.nav-tabs")[0]
+    var navbar = document.getElementsByClassName("nav nav-tabs")[0]
 
     var at_tab = document.createElement("li")
     at_tab.appendChild(document.createElement("a"))
@@ -157,7 +157,7 @@ if (pageurl.includes("//app.shkolo.bg/stats/pupil/")) {
     navbar.appendChild(at_tab)
 
     // Tab Content
-    var tab_content = $(".tab-content")[0]
+    var tab_content = document.getElementsByClassName("tab-content")[0]
 
     var at_TabContent = tab_content.appendChild(document.createElement("div"))
     at_TabContent.classList.add("tab-pane")
@@ -212,10 +212,10 @@ if (pageurl.includes("//app.shkolo.bg/stats/pupil/")) {
     at_StatsWidgetContent_LTO_popup.classList.add("popupText")
     at_StatsWidgetContent_LTO_popup.classList.add("statsRankPopup")
     at_StatsWidgetContent_LTO_popup.innerHTML = chrome.i18n.getMessage("StatsLTOPopup")
-} else if (pageurl.includes("//app.shkolo.bg/dashboard")) {
-    chrome.storage.sync.get(["LTO"], (result) => {
-        LTO = result.LTO
-        if (LTO === undefined) LTO = 0
+} else if (pageurl.includes("https://app.shkolo.bg/dashboard")) {
+    chrome.storage.sync.get(["LTO"], (result) => { 
+        LTO = result.LTO 
+        LTO = LTO === undefined ? 0 : LTO
         LTO += 1
         chrome.storage.sync.set({LTO: LTO})
     });
@@ -234,7 +234,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             .then(response => response.text())
             .then(data => { AddCustomStyle(data) });
     } else {
-        var topMenu = $(".nav.navbar-nav.pull-right")[0]
+        var topMenu = document.getElementsByClassName("nav navbar-nav pull-right")[0]
         var option = topMenu.children[2].cloneNode(true)
         removeElements(option.children[0].children)
         option.children[0].innerHTML = "Apply Dark Theme"
@@ -373,11 +373,17 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
     }
 
     if (cleanUp) {
-        removeElements($(".btn.btn-lg.btn-e2e.red.huge"))
-        removeElements($(".rank-descr"))
-        removeElements($(".mobile-app-badges"))
-        removeElements($(".mobile-app-link"))
-        $("#help-link-in-menu").remove()
+        removeElements(document.getElementsByClassName("btn btn-lg btn-e2e red huge"))
+        removeElements(document.getElementsByClassName("rank-descr"))
+        removeElements(document.getElementsByClassName("mobile-app-badges"))
+        removeElements(document.getElementsByClassName("mobile-app-link"))
+        document.getElementById("help-link-in-menu").remove()
+
+        var dropdownmenulist = document.getElementsByClassName("dropdown-menu-list scroller")
+
+        for (var i = 0; i < dropdownmenulist.length; i++) {
+            dropdownmenulist[i].style = "height: 310px !important;" 
+        }
 
         AddCustomStyle(`
         .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu {

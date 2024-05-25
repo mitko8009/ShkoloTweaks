@@ -2,5 +2,5 @@
 	"title": "Extension Editor",
 	"version": "1.0.1",
 	"path": "../src/",
-	"debug": false
+	"debug": true
 }
