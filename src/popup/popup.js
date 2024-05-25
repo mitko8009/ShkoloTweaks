@@ -34,8 +34,7 @@ darkValue.innerHTML = chrome.i18n.getMessage("darkTheme")
 var lightValue = themeElement.appendChild(document.createElement("option"))
 lightValue.value = "light"
 lightValue.innerHTML = chrome.i18n.getMessage("lightTheme")
-
-// / i18n /
+// End i18n
 
 const cleanUpShkolo = document.getElementById('cleanUpShkolo');
 const blurPfpCheck = document.getElementById('blurPfp');
