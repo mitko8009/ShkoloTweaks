@@ -3,7 +3,7 @@
 	"name": "ShkoloTweaks",
 	"short_name": "ShkoloTW",
 	"description": "__MSG_extDescription__",
-	"version": "0.4.1",
+	"version": "0.4.3",
 	"author": "ITPG Studios",
 	"default_locale": "bg",
 	"homepage_url": "https://shkolotweaks.web.app/",
@@ -34,6 +34,10 @@
 			],
 			"run_at": "document_end"
 		}
+	],
+	"host_permissions": [
+		"*://*.shkolotweaks.xyz/*",
+		"*://*.shkolotweaks.web.app/*"
 	],
 	"web_accessible_resources": [
 		{

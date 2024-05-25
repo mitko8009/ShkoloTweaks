@@ -76,5 +76,11 @@
     },
     "StatsLTOPopup": {
         "message": "Това е броят отваряния на началната страница на Shkolo, откакто сте инсталирали <b>ShkoloTweaks</b>."
+    },
+    "latestVersion": {
+        "message": "Актуалнa версия"
+    },
+    "outdatedVersion": {
+        "message": "Актуализация е налична"
     }
 }

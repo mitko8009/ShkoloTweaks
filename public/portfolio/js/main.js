@@ -51,7 +51,8 @@ $(document).ready(() => {
         id = $(this).attr("id").split("_")[1];
         openWindow(id);
     });
-    
+
+    $(".winHeader").mousedown(function() { setOnFocus($(this).parent().attr("id")); });
 
     $(".nav-link").tooltip({
         tooltipClass: "navbar-tooltip",

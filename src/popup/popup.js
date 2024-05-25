@@ -170,6 +170,8 @@ fetch("https://shkolotweaks.xyz/version")
     .then(response => response.text())
     .then(data => {
         if (version !== data) {
-            label_version.innerHTML = `v${version} -> v${data} (Update available)`
+            label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("outdatedVersion")})`
+        } else {
+            label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("latestVersion")})`
         }
     })

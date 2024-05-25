@@ -76,5 +76,11 @@
     },
     "StatsLTOPopup": {
         "message": "This is the number of times you've opened the Shkolo Dashboard since you've installed <b>ShkoloTweaks</b>."
+    },
+    "latestVersion": {
+        "message": "Up to date"
+    },
+    "outdatedVersion": {
+        "message": "Update available"
     }
 }

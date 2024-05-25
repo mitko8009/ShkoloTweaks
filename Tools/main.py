@@ -95,6 +95,10 @@ class window(QMainWindow):
         SaveManifest(config['path'] + "manifest.json", self.manifest)
         if config['debug']: print(f"\nSaved Manifest:\n--> {self.manifest}")
         
+        with open("../public/version", "w") as f:
+            f.write(self.manifest['version'])
+            f.close()
+        
     def build(self):
         self.save()
         browser_specific_settings = self.manifest["browser_specific_settings"]
