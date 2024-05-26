@@ -3,8 +3,18 @@ body {
     color: #fff;
     background: linear-gradient(45deg, #121212, #1d1d1d, #1c1c1d);
     background-size: 300% 300%;
-    overflow: hidden;
+    overflow: auto;
 }
+
+canvas {
+    position: absolute;
+    z-index: -100;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
 
 .winHeader, img {
     -webkit-touch-callout: none;
@@ -44,10 +54,10 @@ p {
 }
 
 .window {
-    background: rgba(18, 18, 18, 0.8);
+    background: rgba(0, 4, 10, 0.8);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 
     position: absolute;
     min-height: 310px;
