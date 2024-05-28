@@ -216,3 +216,11 @@ tspan {
     border: none !important;
     background-color: hsl(0, 0%, 22%) !important;
 }
+
+
+.highcharts-column-series rect.highcharts-point {
+    stroke: #0000;
+}
+
+
+
