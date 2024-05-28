@@ -314,20 +314,8 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
 
             var data = JSON.parse(scheduleData)
 
-            // DATA VALIDATION
             var refreshSchedule = false
             if (scheduleData === undefined || scheduleData === null || data === undefined) refreshSchedule = true
-            try {
-                if (!refreshSchedule) {
-                    if (Object.keys(data[weekday]).length <= 0 || !data[weekday].hasOwnProperty("0")) {
-                        console.log(`Data not found for ${weekday}.`)
-                        refreshSchedule = true
-                    }
-                }
-            } catch (e) {
-                console.log(`Data not found for ${weekday}.`)
-                refreshSchedule = true
-            }
 
             // Next and Previous Day Buttons
             var nextDay = document.createElement("a")
@@ -335,8 +323,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             icon.classList.add("fal")
             icon.classList.add("fa-chevron-right")
             nextDay.appendChild(icon)
-            if (theme === "dark") nextDay.style = `font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block; margin-right: 8px;`
-            else nextDay.style = `font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block; margin-right: 8px;`
+            nextDay.classList.add("sc_buttons")
             if (rounded) nextDay.classList.add("rounded")
             nextDay.classList.add("pull-right")
             nextDay.onclick = () => {
@@ -351,8 +338,7 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             icon.classList.add("fal")
             icon.classList.add("fa-chevron-left")
             previousDay.appendChild(icon)
-            if (theme === "dark") previousDay.style = `font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block; margin-right: 8px;`
-            else previousDay.style = `font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block; margin-right: 8px;`
+            previousDay.classList.add("sc_buttons")
             if (rounded) previousDay.classList.add("rounded")
             previousDay.classList.add("pull-right")
             previousDay.onclick = () => {
@@ -363,10 +349,15 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             sc_Widget.children[0].children[0].appendChild(previousDay)
             
 
-            if (refreshSchedule) {
-                sc_fetchAndSave(weekday, sc_Widget)
-            } else {
-                sc_DisplayDay(weekday, data, sc_Widget)
+            try {
+                if (refreshSchedule) {
+                    sc_fetchAndSave(weekday, sc_Widget)
+                } else {
+                    sc_DisplayDay(weekday, data, sc_Widget)
+                }
+            } catch (error) {
+                console.error("If you see this error. Please report it to the developer.\n"+error)
+                scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FetchScheduleError") + "<br>" + error
             }
         });
         

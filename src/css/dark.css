@@ -217,10 +217,14 @@ tspan {
     background-color: hsl(0, 0%, 22%) !important;
 }
 
-
 .highcharts-column-series rect.highcharts-point {
     stroke: #0000;
 }
 
-
-
+.sc_buttons {
+    font-weight: bold;
+    border: 1px solid white;
+    padding: 8px;
+    display: inline-block;
+    margin-right: 8px;
+}

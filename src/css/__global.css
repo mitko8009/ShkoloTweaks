@@ -1,3 +1,11 @@
 .rounded {
     border-radius: 8px !important;
 }
+
+.sc_buttons {
+    font-weight: bold;
+    border: 1px solid #4b77be;
+    padding: 8px;
+    display: inline-block;
+    margin-right: 8px;
+}

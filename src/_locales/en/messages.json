@@ -38,6 +38,9 @@
     "FetchSchedule": {
         "message": "Fetching schedule data..."
     },
+    "FetchScheduleError": {
+        "message": "An error occurred while fetching the schedule data.<br> Try again by clinking the <b>refresh</b> button.<br><br>If the problem persists, please contact the developer."
+    },
     "Loading": {
         "message": "Loading..."
     },
@@ -75,7 +78,7 @@
         "message": "times Shkolo was opened"
     },
     "StatsLTOPopup": {
-        "message": "This is the number of times you've opened the Shkolo Dashboard since you've installed <b>ShkoloTweaks</b>."
+        "message": "This is the number of times you've opened the<br>Shkolo Dashboard since you've installed <b>ShkoloTweaks</b>.<br><b>Note:</b> This number is stored locally you may lose it if you clear your browser data."
     },
     "latestVersion": {
         "message": "Up to date"
