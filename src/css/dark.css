@@ -53,7 +53,7 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
     border: 2px solid white !important;
 }
 
-.highcharts-background {
+.highcharts-background, .highcharts-tooltip-box {
     fill: hsl(0, 0%, 15%);
     color: white;
 }
