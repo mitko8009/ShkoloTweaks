@@ -87,16 +87,20 @@ class window(QMainWindow):
             icon.setText(data[1:])
     
     def save(self):
-        self.manifest['name'] = self.mainUi.Name.text()
-        self.manifest['version'] = self.mainUi.Version.text()
-        self.manifest['description'] = self.mainUi.Description.toPlainText()
-        self.manifest['author'] = self.mainUi.Publisher.text()
-        self.manifest['key'] = self.mainUi.PublicKey.text()
-        self.manifest['default_locale'] = self.mainUi.default_locale.currentText()
-        self.manifest['icons']['16'] = self.mainUi.icon1.text()
-        self.manifest['icons']['32'] = self.mainUi.icon2.text()
-        self.manifest['icons']['48'] = self.mainUi.icon3.text()
-        self.manifest['icons']['128'] = self.mainUi.icon4.text()
+        self.manifest.update({
+            "name": self.mainUi.Name.text(),
+            "version": self.mainUi.Version.text(),
+            "description": self.mainUi.Description.toPlainText(),
+            "author": self.mainUi.Publisher.text(),
+            "key": self.mainUi.PublicKey.text(),
+            "default_locale": self.mainUi.default_locale.currentText(),
+            "icons": {
+                "16": self.mainUi.icon1.text(),
+                "32": self.mainUi.icon2.text(),
+                "48": self.mainUi.icon3.text(),
+                "128": self.mainUi.icon4.text()
+            }
+        })
         
         SaveManifest(config['path'] + "manifest.json", self.manifest)
         if config['debug']: print(f"\nSaved Manifest:\n--> {self.manifest}")
