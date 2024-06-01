@@ -221,10 +221,19 @@ tspan {
     stroke: #0000;
 }
 
+.highcharts-point {
+    stroke-width: 0px;
+}
+
 .sc_buttons {
     font-weight: bold;
     border: 1px solid white;
     padding: 8px;
     display: inline-block;
     margin-right: 8px;
+}
+
+.sc_buttons:hover {
+    background: white;
+    color: black !important;
 }

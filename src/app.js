@@ -104,23 +104,20 @@ function sc_DisplayDay(day, data, widget) {
             // Class Teacher (Ex. "Mrs. Raicheva", etc.)
             var classTeacher = document.createElement("span")
             classTeacher.innerHTML = " | " + dayData[i][1]
-            classTeacher.classList.add("scheduleSecondary")
-            classTeacher.classList.add("secondaryFirst")
+            classTeacher.classList.add("scheduleSecondary", "secondaryFirst")
             classNode.appendChild(classTeacher)
     
             // Class Time (Ex. "08:00 - 09:00", "09:00 - 10:00", etc.)
             var classTime = document.createElement("span")
             classTime.innerHTML = dayData[i][3] === undefined ? chrome.i18n.getMessage("NoRoom") : dayData[i][3]
-            classTime.classList.add("scheduleSecondary")
-            classTime.classList.add("pull-right")
+            classTime.classList.add("scheduleSecondary", "pull-right")
             classNode.appendChild(classTime)
     
             // Class Room (Ex. "Room 103", "Room 404", etc.)
             var classRoom = document.createElement("span")
             classRoom.innerHTML = dayData[i][2]
             classRoom.style = "padding-right: 12px;"
-            classRoom.classList.add("scheduleSecondary")
-            classRoom.classList.add("pull-right")
+            classRoom.classList.add("scheduleSecondary", "pull-right")
             classNode.appendChild(classRoom)
     
             scheduleWidgetContent.appendChild(classNode)
@@ -133,9 +130,7 @@ function sc_DisplayDay(day, data, widget) {
 
 function getIcon(subject) {
     var icon = document.createElement("i")
-    icon.classList.add("fal")
-    icon.classList.add("scIcon")
-    icon.classList.add("fa-"+subject.toLowerCase())
+    icon.classList.add("fal", "fa-"+subject.toLowerCase(), "scIcon")
     return icon
 }
 
@@ -155,8 +150,7 @@ if (pageurl.includes("//app.shkolo.bg/stats/pupil/")) {
     at_tab.children[0].href = "#tab-st"
     at_tab.children[0].classList.add("stats-tab")
     var at_TabIcon = document.createElement("i")
-    at_TabIcon.classList.add("fal")
-    at_TabIcon.classList.add("fa-chart-line")
+    at_TabIcon.classList.add("fal", "fa-chart-line")
     at_tab.children[0].appendChild(at_TabIcon)
     at_tab.children[0].innerHTML += " ShkoloTweaks"
     navbar.appendChild(at_tab)
@@ -170,17 +164,11 @@ if (pageurl.includes("//app.shkolo.bg/stats/pupil/")) {
 
     // Left Column
     var at_TabContentLeft = at_TabContent.appendChild(document.createElement("div"))
-    at_TabContentLeft.classList.add("col-md-6")
-    at_TabContentLeft.classList.add("column")
-    at_TabContentLeft.classList.add("sortable")
+    at_TabContentLeft.classList.add("col-md-6", "column", "sortable")
 
     // Cool Stats Widget
     var at_StatsWidget = at_TabContentLeft.appendChild(document.createElement("div"))
-    at_StatsWidget.classList.add("portlet")
-    at_StatsWidget.classList.add("portlet-sortable")
-    at_StatsWidget.classList.add("portlet-rank")
-    at_StatsWidget.classList.add("light")
-    at_StatsWidget.classList.add("bordered")
+    at_StatsWidget.classList.add("portlet", "portlet-sortable", "portlet-rank", "light", "bordered")
 
     var at_StatsWidgetTitle = at_StatsWidget.appendChild(document.createElement("div"))
     at_StatsWidgetTitle.classList.add("portlet-title")
@@ -190,16 +178,10 @@ if (pageurl.includes("//app.shkolo.bg/stats/pupil/")) {
     at_StatsWidgetTitle.children[0].innerHTML += "<span class='caption-subject bold font-blue-steel uppercase'> Cool Stats</span>"
     
     var at_StatsWidgetContent = at_StatsWidget.appendChild(document.createElement("div"))
-    at_StatsWidgetContent.classList.add("portlet-body")
-    at_StatsWidgetContent.classList.add("stats-rank-portlet-body")
-    at_StatsWidgetContent.classList.add("clearfix")
+    at_StatsWidgetContent.classList.add("portlet-body", "stats-rank-portlet-body", "clearfix")
 
     var at_StatsWidgetContent_LTO = at_StatsWidgetContent.appendChild(document.createElement("div"))
-    at_StatsWidgetContent_LTO.classList.add("col-sm-4")
-    at_StatsWidgetContent_LTO.classList.add("col-xs-6")
-    at_StatsWidgetContent_LTO.classList.add("stats-rank-box")
-    at_StatsWidgetContent_LTO.classList.add("cursor-pointer")
-    at_StatsWidgetContent_LTO.classList.add("centered-text")
+    at_StatsWidgetContent_LTO.classList.add("col-sm-4", "col-xs-6", "stats-rank-box", "cursor-pointer", "centered-text")
 
     var at_StatsWidgetContent_LTO_Value = at_StatsWidgetContent_LTO.appendChild(document.createElement("div"))
     at_StatsWidgetContent_LTO_Value.classList.add("rank-value")
@@ -214,8 +196,7 @@ if (pageurl.includes("//app.shkolo.bg/stats/pupil/")) {
     at_StatsWidgetContent_LTO_Value.children[1].innerHTML = chrome.i18n.getMessage("StatsLTO")
     
     var at_StatsWidgetContent_LTO_popup = at_StatsWidgetContent_LTO.appendChild(document.createElement("div"))
-    at_StatsWidgetContent_LTO_popup.classList.add("popupText")
-    at_StatsWidgetContent_LTO_popup.classList.add("statsRankPopup")
+    at_StatsWidgetContent_LTO_popup.classList.add("popupText", "statsRankPopup")
     at_StatsWidgetContent_LTO_popup.innerHTML = chrome.i18n.getMessage("StatsLTOPopup")
 } else if (pageurl.includes("//app.shkolo.bg/dashboard")) {
     chrome.storage.sync.get(["LTO"], (result) => {
@@ -277,12 +258,11 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
 
         scheduleWidgetContent.style.fontSize = "14px"
         scheduleWidgetContent.style.fontWeight = "bold"
-        scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("Loading")
         scheduleWidgetContent.style.height = "auto"
+        scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("Loading")
 
         var icon = document.createElement("i")
-        icon.classList.add("fal")
-        icon.classList.add("fa-table")
+        icon.classList.add("fal", "fa-table")
         if (theme === "dark") icon.style = "color: white !important;"
         else icon.style = "color: #4b77be !important;"
         sc_Widget.children[0].children[0].children[0].appendChild(icon)
@@ -292,16 +272,14 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
         if (theme === "dark") scheduleViewMore.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block;"
         else scheduleViewMore.style = "font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block;"
-        if (rounded) scheduleViewMore.classList.add("rounded")
-        scheduleViewMore.classList.add("pull-right")
+        scheduleViewMore.classList.add("pull-right", "sc_buttons", "rounded")
         sc_Widget.children[0].children[0].appendChild(scheduleViewMore)
 
         var scheduleRefresh = document.createElement("a")
         scheduleRefresh.innerHTML = chrome.i18n.getMessage("Refresh")
         if (theme === "dark") scheduleRefresh.style = "font-weight: bold; border: 1px solid white; padding: 8px; display: inline-block; margin-right: 10px;"
         else scheduleRefresh.style = "font-weight: bold; border: 1px solid #4b77be; padding: 8px; display: inline-block; margin-right: 8px;"
-        if (rounded) scheduleRefresh.classList.add("rounded")
-        scheduleRefresh.classList.add("pull-right")
+        scheduleRefresh.classList.add("pull-right", "sc_buttons", "rounded")
         scheduleRefresh.onclick = () => {
             scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule")
             scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FetchSchedule")
@@ -320,12 +298,9 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
             // Next and Previous Day Buttons
             var nextDay = document.createElement("a")
             var icon = document.createElement("i")
-            icon.classList.add("fal")
-            icon.classList.add("fa-chevron-right")
+            icon.classList.add("fal", "fa-chevron-right")
             nextDay.appendChild(icon)
-            nextDay.classList.add("sc_buttons")
-            if (rounded) nextDay.classList.add("rounded")
-            nextDay.classList.add("pull-right")
+            nextDay.classList.add("sc_buttons", "pull-right", "rounded")
             nextDay.onclick = () => {
                 day += 1
                 if (day > 4) day = 0
@@ -335,12 +310,9 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
 
             var previousDay = document.createElement("a")
             var icon = document.createElement("i")
-            icon.classList.add("fal")
-            icon.classList.add("fa-chevron-left")
+            icon.classList.add("fal", "fa-chevron-left")
             previousDay.appendChild(icon)
-            previousDay.classList.add("sc_buttons")
-            if (rounded) previousDay.classList.add("rounded")
-            previousDay.classList.add("pull-right")
+            previousDay.classList.add("sc_buttons", "pull-right", "rounded")
             previousDay.onclick = () => {
                 day -= 1
                 if (day < 0) day = 4
@@ -376,13 +348,5 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
     }
 
     if(blurPfp) { loadCssFile("css/blurData.css") }
-
     if (rounded) { loadCssFile("css/rounded.css") } 
-    else {
-        AddCustomStyle(`
-        .rounded {
-            border-radius: 0 !important;
-        }
-        `)
-    }
 });

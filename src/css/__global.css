@@ -1,5 +1,5 @@
 .rounded {
-    border-radius: 8px !important;
+    border-radius: 0 !important;
 }
 
 .sc_buttons {
@@ -8,4 +8,10 @@
     padding: 8px;
     display: inline-block;
     margin-right: 8px;
+    transition: .3s background;
+}
+
+.sc_buttons:hover {
+    background: #4b77be;
+    color: white;
 }
