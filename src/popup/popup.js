@@ -11,21 +11,16 @@ const ScheduleTitle = document.getElementById('ScheduleTitle');
 const ScheduleContent = document.getElementById('ScheduleContent');
 
 const label_theme = document.getElementById('themeLabel');
-const label_cleanUp = document.getElementById('cleanUpLabel');
-const label_blur = document.getElementById('blurLabel');
-const label_rounded = document.getElementById('roundedLabel');
-const label_scheduleWidget = document.getElementById('scLabel');
 
 
 // i18n
 label_theme.innerHTML = chrome.i18n.getMessage("themeLabel")
 saveBtn.innerHTML = chrome.i18n.getMessage("applyBtn")
 shkoloBtn.innerHTML = chrome.i18n.getMessage("shkoloBtn")
-
-label_cleanUp.innerHTML += chrome.i18n.getMessage("cleanUpLabel")
-label_blur.innerHTML += chrome.i18n.getMessage("blurLabel")
-label_rounded.innerHTML += chrome.i18n.getMessage("roundedLabel")
-label_scheduleWidget.innerHTML += chrome.i18n.getMessage("scLabel")
+$("#rounded").attr("data-tooltip", chrome.i18n.getMessage("roundedLabel"))
+$("#cleanup").attr("data-tooltip", chrome.i18n.getMessage("cleanUpLabel"))
+$("#blurpfp").attr("data-tooltip", chrome.i18n.getMessage("blurLabel"))
+$("#scWidget").attr("data-tooltip", chrome.i18n.getMessage("scLabel"))
 
 var darkValue = themeElement.appendChild(document.createElement("option"))
 darkValue.value = "dark"
@@ -57,10 +52,10 @@ saveBtn.onclick = () => {
     console.log("Saving preferences")
     const prefs = {
         theme: themeElement.value,
-        cleanUp: cleanUpShkolo.checked,
-        blurPfp: blurPfpCheck.checked,
-        rounded: roundedCheckbox.checked,
-        scheduleWidget: scheduleWidgetCheckbox.checked
+        rounded: $("#rounded").attr("aria-pressed") === "true",
+        cleanUp: $("#cleanup").attr("aria-pressed") === "true",
+        blurPfp: $("#blurpfp").attr("aria-pressed") === "true",
+        scheduleWidget: $("#scWidget").attr("aria-pressed") === "true"
     }
 
     chrome.storage.sync.set(prefs)
@@ -143,6 +138,18 @@ function updatePopup() {
     }
 }
 
+$(".option").click(function() { toggleOptionState($(this)); });
+function toggleOptionState(option, state=null) {
+    if (state === null) {
+        const state = option.attr("aria-pressed") === "true";
+        state ? option.removeClass("active") : option.addClass("active");
+        option.attr("aria-pressed", !state);
+    } else {
+        option.attr("aria-pressed", state);
+        state ? option.addClass("active") : option.removeClass("active");
+    }
+}
+
 chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     const url = new URL(tabs[0].url)
 
@@ -156,10 +163,10 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
 
     if (theme) { themeElement.value = theme }
-    if (cleanUp) { cleanUpShkolo.checked = cleanUp }
-    if (blurPfp) { blurPfpCheck.checked = blurPfp }
-    if (rounded) { roundedCheckbox.checked = rounded }
-    if (scheduleWidget) { scheduleWidgetCheckbox.checked = scheduleWidget }
+    toggleOptionState($("#rounded"), rounded)
+    toggleOptionState($("#cleanup"), cleanUp)
+    toggleOptionState($("#blurpfp"), blurPfp)
+    toggleOptionState($("#scWidget"), scheduleWidget)
 
     updatePopup()
 })

@@ -31,6 +31,9 @@ function closeWindow(id) { // Close Window Function
     });
 }
 
+const AddCustomStyle = css => document.head.appendChild(document.createElement("style")).innerHTML = css;
+const AddCustomScript = js => document.body.appendChild(document.createElement("script")).innerHTML = js;
+
 $(document).ready(() => {
     $(".window").draggable({
         handle: ".winHeader",

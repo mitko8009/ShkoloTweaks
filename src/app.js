@@ -87,7 +87,7 @@ function sc_DisplayDay(day, data, widget) {
     for (var i = 0; i < Object.keys(dayData).length; i++) {
         if (Object.keys(dayData[i]).length > 0) {
             var classNode = document.createElement("div")
-            classNode.classList.add("rounded")
+            classNode.classList.add("rounded", "scheduleClass")
             classNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #ffffff;"
     
             // Class Title (Ex. "Mathematics", "English", etc.)
@@ -289,10 +289,10 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
 
         chrome.storage.local.get(["scheduleData"], function(result) {
             const { scheduleData } = result
-
-            var data = JSON.parse(scheduleData)
-
             var refreshSchedule = false
+
+            try { var data = JSON.parse(scheduleData); } catch (error) { refreshSchedule = true; }
+
             if (scheduleData === undefined || scheduleData === null || data === undefined) refreshSchedule = true
 
             // Next and Previous Day Buttons
