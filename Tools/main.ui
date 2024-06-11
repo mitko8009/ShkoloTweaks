@@ -728,9 +728,9 @@
         <property name="geometry">
          <rect>
           <x>380</x>
-          <y>90</y>
+          <y>160</y>
           <width>191</width>
-          <height>291</height>
+          <height>221</height>
          </rect>
         </property>
         <property name="cursor" stdset="0">
@@ -744,7 +744,7 @@
         <property name="geometry">
          <rect>
           <x>380</x>
-          <y>70</y>
+          <y>140</y>
           <width>171</width>
           <height>21</height>
          </rect>

@@ -237,3 +237,11 @@ tspan {
     background: white;
     color: black !important;
 }
+
+.timeline .timeline-body-arrow {
+    border-color: transparent hsl(0, 0%, 22%) transparent transparent;
+}
+
+.modal .modal-header .close {
+    filter: invert(1);
+}

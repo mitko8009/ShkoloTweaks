@@ -1,55 +1,19 @@
 const manifest = chrome.runtime.getManifest()
 const version = manifest.version
-
-const saveBtn = document.getElementById('saveBtn');
-const shkoloBtn = document.getElementById('shkoloBtn');
 const label_version = document.getElementById('version');
 
-const themeElement = document.getElementById('theme');
-
-const ScheduleTitle = document.getElementById('ScheduleTitle');
-const ScheduleContent = document.getElementById('ScheduleContent');
-
-const label_theme = document.getElementById('themeLabel');
-
-
-// i18n
-label_theme.innerHTML = chrome.i18n.getMessage("themeLabel")
-saveBtn.innerHTML = chrome.i18n.getMessage("applyBtn")
-shkoloBtn.innerHTML = chrome.i18n.getMessage("shkoloBtn")
-$("#rounded").attr("data-tooltip", chrome.i18n.getMessage("roundedLabel"))
-$("#cleanup").attr("data-tooltip", chrome.i18n.getMessage("cleanUpLabel"))
-$("#blurpfp").attr("data-tooltip", chrome.i18n.getMessage("blurLabel"))
-$("#scWidget").attr("data-tooltip", chrome.i18n.getMessage("scLabel"))
-
-var darkValue = themeElement.appendChild(document.createElement("option"))
-darkValue.value = "dark"
-darkValue.innerHTML = chrome.i18n.getMessage("darkTheme")
-
-var lightValue = themeElement.appendChild(document.createElement("option"))
-lightValue.value = "light"
-lightValue.innerHTML = chrome.i18n.getMessage("lightTheme")
-// End i18n
-
+const themeElement = document.getElementById("theme-options");
 const cleanUpShkolo = document.getElementById('cleanUpShkolo');
 const blurPfpCheck = document.getElementById('blurPfp');
 const roundedCheckbox = document.getElementById('roundedCheckbox');
 const scheduleWidgetCheckbox = document.getElementById('scheduleWidget');
+const saveBtn = document.getElementById('saveBtn');
 
-chrome.runtime.onMessage.addListener(data => {
-    console.log("Received message", data)
-    const {event} = data
-    switch (event) {
-        case 'UPDATE_POPUP':
-            updatePopup()
-            break
-        default:
-            break
-    }
-})
+$("#theme-options").hide()
 
-saveBtn.onclick = () => {
-    console.log("Saving preferences")
+$("#saveBtn").click(() => { saveData(); })
+// saveBtn.onclick = () => {}
+function saveData() {
     const prefs = {
         theme: themeElement.value,
         rounded: $("#rounded").attr("aria-pressed") === "true",
@@ -58,9 +22,8 @@ saveBtn.onclick = () => {
         scheduleWidget: $("#scWidget").attr("aria-pressed") === "true"
     }
 
+    $("#saveBtn").css("background", "none").css("box-shadow", "0 0 0 0");
     chrome.storage.sync.set(prefs)
-    console.log("Saved", prefs)
-    updatePopup()
     refreshPage()
 }
 
@@ -69,92 +32,35 @@ function refreshPage() {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         chrome.tabs.reload(tabs[0].id);
     });
-
-}
-
-function updatePopup() {
-    if (themeElement.value == "dark") { // Dark Popup Theme
-        document.head.appendChild(document.createElement("style")).innerHTML = `
-            html {
-                background-color: hsl(0, 0%, 8%);
-                color: white;
-            }
-
-            #theme {
-                background-color: hsl(0, 0%, 8%);
-                color: white;
-            }
-
-            .title, .label {
-                color: white;
-            }
-
-            .button {
-                background-color: hsl(0, 0%, 8%);
-                color: white;
-            }
-
-            .button:hover {
-                color: hsl(0, 0%, 80%);
-            }
-
-            .checkbox:hover, .radio:hover {
-                color: #cccccc;
-            }
-        `
-    } else if (themeElement.value === "light") { // Light Popup Theme
-        document.head.appendChild(document.createElement("style")).innerHTML = `
-            html {
-                background-color: hsl(0, 0%, 100%);
-                color: black;
-            }
-
-            #theme {
-                background-color: hsl(0, 0%, 100%);
-                color: black;
-            }
-
-            .title, .label {
-                color: black;
-            }
-
-            .button {
-                background-color: hsl(0, 0%, 100%);
-                color: black;
-            }
-
-            .button:hover {
-                color: hsl(0, 0%, 20%);
-            }
-
-            .checkbox:hover, .radio:hover {
-                color: #404040;
-            }
-
-            .checkbox:hover, .radio:hover {
-                color: #404040;
-            }
-        `
-    }
 }
 
 $(".option").click(function() { toggleOptionState($(this)); });
 function toggleOptionState(option, state=null) {
-    if (state === null) {
+    if (state === null) {                                   // Toggle State
         const state = option.attr("aria-pressed") === "true";
         state ? option.removeClass("active") : option.addClass("active");
         option.attr("aria-pressed", !state);
-    } else {
+        $("#saveBtn").css("background-color", "hsl(0, 0%, 22%)").css("box-shadow", "0 0 0 1px #fff");
+    } else {                                                // Set State
         option.attr("aria-pressed", state);
         state ? option.addClass("active") : option.removeClass("active");
     }
 }
 
+$("#themePopup").click(() => { $("#theme-options").show(); })
+
+$(".theme-option").click(function() {
+    themeElement.value = $(this).attr("data-value")
+    $("#theme-options").hide()
+    toggleOptionState($(`#theme_${themeElement.value}`), false)
+    saveData()
+}) 
+
 chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     const url = new URL(tabs[0].url)
 
     if (url.hostname.includes("shkolo.bg")) {
-        document.getElementById("shkoloBtn").remove()
+        $("#shkoloBtn").remove()
     }
 });
 
@@ -162,13 +68,12 @@ chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
 chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], (result) => {   
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
 
-    if (theme) { themeElement.value = theme }
+    themeElement.value = theme
+    toggleOptionState($(`#theme_${theme}`), false)
     toggleOptionState($("#rounded"), rounded)
     toggleOptionState($("#cleanup"), cleanUp)
     toggleOptionState($("#blurpfp"), blurPfp)
     toggleOptionState($("#scWidget"), scheduleWidget)
-
-    updatePopup()
 })
 
 label_version.innerHTML = `v${version}`
@@ -176,12 +81,12 @@ label_version.innerHTML = `v${version}`
 
 setTimeout(() => {
     fetch("https://shkolotweaks.xyz/extension/config.json")
-        .then(response => response.json())
-        .then(data => {
-            if (version !== data.version) {
-                label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("outdatedVersion")})`
-            } else {
-                label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("latestVersion")})`
-            }
-        })
+    .then(response => response.json())
+    .then(data => {
+        if (version !== data.version) {
+            label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("outdatedVersion")})`
+        } else {
+            label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("latestVersion")})`
+        }
+    })
 }, 5000)

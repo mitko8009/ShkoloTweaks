@@ -2,6 +2,9 @@
     "extDescription": {
         "message": "Персонализирайте своето Shkolo със ShkoloTweaks! Тъмен режим, персонализирани джаджи, любопитни статистики и много други!"
     },
+    "extName": {
+        "message": "ShkoloTweaks"
+    },
     "FooterDisclaimer": {
         "message": "ShkoloTweaks е създадено от екип <b>ITPG Web Studios</b> и е софтуер, който не е свързан или одобрен от Shkolo.bg."
     },
@@ -48,10 +51,10 @@
         "message": "Няма въведена стая"
     },
     "themeLabel": {
-        "message": "Тема"
+        "message": "Цветова Тема"
     },
-    "applyBtn": {
-        "message": "Приложи"
+    "saveBtn": {
+        "message": "Запази"
     },
     "shkoloBtn": {
         "message": "Отвори Shkolo.bg"
@@ -85,5 +88,8 @@
     },
     "outdatedVersion": {
         "message": "Актуализация е налична"
+    },
+    "customizations": {
+        "message": "Персонализации"
     }
 }

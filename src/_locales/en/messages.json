@@ -2,6 +2,9 @@
     "extDescription": {
         "message": "Customize your Shkolo experience with ShkoloTweaks! Dark mode, Custom widgets, Cool Stats, and more!"
     },
+    "extName": {
+        "message": "ShkoloTweaks"
+    },
     "FooterDisclaimer": {
         "message": "ShkoloTweaks was created by the <b>ITPG Web Studios</b> team and is software not affiliated with or endorsed by Shkolo.bg."
     },
@@ -48,10 +51,10 @@
         "message": "No room specified"
     },
     "themeLabel": {
-        "message": "Theme"
+        "message": "Color Theme"
     },
-    "applyBtn": {
-        "message": "Apply"
+    "saveBtn": {
+        "message": "Save"
     },
     "shkoloBtn": {
         "message": "Open Shkolo.bg"
@@ -85,5 +88,8 @@
     },
     "outdatedVersion": {
         "message": "Update available"
+    },
+    "customizations": {
+        "message": "Customizations"
     }
 }
