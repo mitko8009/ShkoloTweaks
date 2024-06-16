@@ -1,10 +1,14 @@
+:root {
+    --shkoloPrimary: #4b77be;
+}
+
 .rounded {
     border-radius: 0 !important;
 }
 
 .sc_buttons {
     font-weight: bold;
-    border: 1px solid #4b77be;
+    border: 1px solid var(--shkoloPrimary);
     padding: 8px;
     display: inline-block;
     margin-right: 8px;
@@ -12,6 +16,10 @@
 }
 
 .sc_buttons:hover {
-    background: #4b77be;
+    background: var(--shkoloPrimary);
     color: white;
+}
+
+.scIcon {
+    color: var(--shkoloPrimary) !important;
 }

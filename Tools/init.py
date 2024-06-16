@@ -1,11 +1,17 @@
 import os
 import json
+import shutil
 
 config={
         "title":"ExtensionEditor",
         "version": "0.0.1",
         "path": "../src/",
-        "debug": False
+        "debug": False,
+        "settings": {
+            "minifyHTML": False,
+            "minifyCSS": False,
+            "minifyJS": False
+        }
     }
 
 def initConfig():
@@ -36,5 +42,6 @@ def SaveManifest(path, data):
     with open(path, "w") as jsonfile:
         json.dump(data, jsonfile, indent='\t')
         
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
+def createCopy(path, newpath):
+    shutil.copytree(path, newpath)
+    return newpath

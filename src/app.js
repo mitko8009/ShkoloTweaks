@@ -10,8 +10,13 @@ var date = new Date()
 var scheduleWidgetTitle
 var scheduleWidgetContent
 
+// Define jQuery
+var script = document.createElement("script")
+script.src = chrome.runtime.getURL("lib/jquery.min.js")
+script.type = "text/javascript"
+document.getElementsByTagName("head")[0].appendChild(script)
+
 const AddCustomStyle = css => document.head.appendChild(document.createElement("style")).innerHTML = css
-const AddCustomScript = js => document.body.appendChild(document.createElement("script")).innerHTML = js
 
 function loadCssFile(fileName) {
     fetch(chrome.runtime.getURL(fileName))
@@ -210,13 +215,16 @@ if (pageurl.includes("//app.shkolo.bg/stats/pupil/")) {
 chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], (result) => {
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
 
-    if (theme !== "dark" && theme !== "light") {
-        chrome.storage.sync.set({theme: "dark"})
-        window.reload()
-    }
+    if (theme !== "light") { // Load Any Theme
+        loadCssFile(`themes/${theme}/style.css`)
 
-    if (theme === "dark") { loadCssFile("css/dark.css") } 
-    else {
+        try {
+            var script = document.createElement("script")
+            script.src = chrome.runtime.getURL(`themes/${theme}/script.js`)
+            script.type = "text/javascript"
+            document.getElementsByTagName("head")[0].appendChild(script)
+        } catch { console.warn("Failed to load script.js for the theme.") }
+    } else {
         var topMenu = $(".nav.navbar-nav.pull-right")[0]
         var option = topMenu.children[2].cloneNode(true)
         removeElements(option.children[0].children)
@@ -229,12 +237,6 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
         }
         option.title = "Apply Dark Theme"
         topMenu.prepend(option)
-
-        AddCustomStyle(`
-        .scIcon {
-            color: #4b77be !important;
-        }
-        `)
     }
     
     if (scheduleWidget && pageurl.includes("dashboard")) {

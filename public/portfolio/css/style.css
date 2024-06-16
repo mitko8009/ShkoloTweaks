@@ -15,7 +15,6 @@ canvas {
     height: 100vh;
 }
 
-
 .winHeader, img {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -54,7 +53,7 @@ p {
 }
 
 .window {
-    background: rgba(0, 4, 10, 0.8);
+    background: rgba(19, 19, 19, 0.7);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
@@ -66,7 +65,7 @@ p {
     width: 89ch;
     padding: 3ch;
     padding-top: 1ch;
-    border-radius: 12px;
+    border-radius: 8px;
 }
 
 .winHeader {
@@ -116,6 +115,8 @@ p {
     padding-right: 1em;
 }
 
+/* Project CSS */
+
 .projSection {
     border: #ffffffe8 3px solid;
     border-radius: 6px;
@@ -136,6 +137,8 @@ p {
     padding: 8px;
     border-radius: 6px;
 }
+
+/* Navbar CSS */
 
 .navbar {
     display: grid;
@@ -175,6 +178,148 @@ p {
     background-color: #ffffff22;
     box-shadow: #ffffffa1 0px 0px 6px;
 }
+
+/* Awards CSS */
+
+.awards-content {
+    display: grid;
+    margin-right: 12px;
+    gap: 8px;
+}
+
+.awards_item {
+    display: flex;
+    width: 100%;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 4px;
+    outline: #00000000;
+
+    border: rgb(68, 68, 68) 1px solid;
+    border-radius: 4px;
+    background-color: rgba(36, 36, 36, 0.5);
+    
+    transition: 200ms;
+    cursor: grab;
+}
+
+.awards_item:hover {
+    background-color: rgba(58, 58, 58, 0.5);
+    outline: #ffffff 1px solid;
+}
+
+.awards_item img {
+    width: 32px;
+    height: 32px;
+    margin-top: 24px;
+    margin-right: 6px;
+}
+
+.awards_item h1 {
+    font-size: 1.7em;
+    line-height: 1em;
+}
+
+.awards_item h2 {
+    font-size: 1.4em;
+    line-height: .5em;
+    margin-top: -6px;
+}
+
+.awards_item h3 {
+    font-size: 1.2em;
+    line-height: .5em;
+    margin-top: 12px;
+    margin-bottom: -8px;
+}
+
+/* Popup CSS */
+
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+
+    place-items: center;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 16px;
+
+    background: #00000083;
+    backdrop-filter: blur(4px) brightness(.8);
+
+    z-index: 10000;
+}
+
+.popup-content {
+    background: #070707aa;
+    border: #ffffff 2px solid;
+    border-radius: 8px;
+    padding: 16px;
+    display: grid;
+    gap: 8px;
+}
+
+.popup-content p {
+    font-size: 1.3em;
+    overflow-x: visible;
+    line-height: 1.1em;
+}
+
+.popup-content h1 {
+    font-size: 1.8em;
+    line-height: 1em;
+}
+
+.popup-content h2 {
+    font-size: 1.6em;
+    line-height: 1em;
+    margin-top: -6px;
+}
+
+.closePopupBtn {
+    width: 32px;
+    height: 32px;
+    position: relative;
+    top: 0;
+    left: 96%;
+    border-radius: 4px;
+
+    transition: 200ms;
+}
+
+.closePopupBtn:hover {
+    background-color: #f82f2f;
+}
+
+.popup_title {
+    margin-top: -48px;
+    border-bottom: #ffffff 3px solid;
+    margin-bottom: 16px;
+}
+
+.popup_title h1 {
+    font-size: 1.7em;
+    line-height: 1em !important;
+}
+
+.popup_title h2 {
+    font-size: 1.4em;
+    line-height: .5em !important;
+    margin-top: -6px;
+}
+
+.popup_title h3 {
+    font-size: 1.2em;
+    line-height: .5em !important;
+    margin-top: 12px;
+    margin-bottom: -8px;
+}
+
 
 /* Console Window */
 
@@ -257,5 +402,3 @@ p {
 .console-output-log {
     color: #00ffcc;
 }
-
-/* End Console Window of CSS */

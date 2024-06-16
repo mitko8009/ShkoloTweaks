@@ -2,5 +2,10 @@
 	"title": "Extension Editor",
 	"version": "1.0.2",
 	"path": "../src/",
-	"debug": false
+	"debug": false,
+	"settings": {
+		"minifyHTML": true,
+		"minifyCSS": true,
+		"minifyJS": true
+	}
 }

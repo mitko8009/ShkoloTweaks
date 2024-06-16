@@ -1,6 +1,14 @@
+:root {
+    --darker-bg: hsl(0, 0%, 8%);
+    --darker2-bg: hsl(0, 0%, 10%);
+    --dark-bg: hsl(0, 0%, 15%);
+    --dark2-bg: hsl(0, 0%, 17%);
+    --lightDark-bg: hsl(0, 0%, 22%);
+}
+
 html, body, .form-control {
     color: white !important;
-    background-color: hsl(0, 0%, 8%) !important;
+    background-color: var(--darker-bg) !important;
 }
 
 label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.scheduleTable .scheduleCourse, .scheduleTable .scheduleTableCourse .hourNum, .page-sidebar .page-sidebar-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a>i, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar .page-sidebar-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a, .page-sidebar .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar .page-sidebar-menu li>a>.arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li>a>.arrow:before, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover>i, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a>i, .page-sidebar .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar .menu-title, .page-sidebar .page-sidebar-menu .sub-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a, .note.note-warning, .page-header.navbar .top-menu .navbar-nav>li.dropdown .dropdown-toggle>i, .message-table-head > div, .message-user, .message-subject, .scroll-to-top>i, .btn-default, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate, .highcharts-menu-item, .note.note-info, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external>h3, span, p {
@@ -9,19 +17,19 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 
 /* Darker bg */
 .page-header.navbar, .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover, .nav>li>a:focus, .nav>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .note-editor.note-frame .note-editing-area .note-editable, .panel-default>.panel-heading, .filtersContainer, .table-hover>tbody>tr:hover, .table-hover>tbody>tr:hover>td, .content-comment-section .content-comment, div.dt-button-collection, .select2-container--default .select2-selection--multiple .select2-selection__choice, .selectionTableCell.selected {
-    background-color: hsl(0, 0%, 8%) !important;
+    background-color: var(--darker-bg) !important;
     color: white;
 }
 
 /* Dark bg */
 .page-content, .portlet.portlet-sortable.light, .highcharts-background, .portlet.light, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu, .detailsRow, .table-hover > tbody > tr.detailsRow:hover, .table-hover > tbody > tr.detailsRow:hover > td, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover, .page-header.navbar .hor-menu.hor-menu-light.year-selector .navbar-nav > li.open > a, .page-header.navbar .hor-menu.hor-menu-light.app-switcher .navbar-nav > li.open > a, .messageThread, .panel, .dropdown-menu, .modal-content, .dropdown-menu>li.active:hover>a, .dropdown-menu>li.active>a, .dropdown-menu>li:hover>a, .inbox-folder-options-btn, .inbox-folder-options-btn:focus, .inbox-folder-options-btn.focus, .inbox-folder-options-btn:active, .inbox-folder-options-btn.active, .open > .dropdown-toggle.inbox-folder-options-btn, .empty-cell:hover, .table-hover > tbody > tr:hover > td.empty-cell, .empty-cell, .bootstrap-select.btn-group .no-results, table.dataTable tbody tr, .bg-default, .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .page-sidebar .page-sidebar-menu>li:hover>a, .note-btn:hover, .note-btn:hover, .panel-heading.note-toolbar .note-color .note-btn-group:hover > .note-btn, .panel-heading.note-toolbar .note-color .note-btn-group:hover > .note-btn, .note-popover .popover-content .note-color .dropdown-menu .note-palette .note-color-reset, .panel-heading.note-toolbar .note-color .dropdown-menu .note-palette .note-color-reset, .note-popover .popover-content .note-color .dropdown-menu .note-palette .note-color-select, .panel-heading.note-toolbar .note-color .dropdown-menu .note-palette .note-color-select, .bg-white {
-    background-color: hsl(0, 0%, 15%) !important;
+    background-color: var(--dark-bg) !important;
     color: white !important;
 }
 
 /* Light Dark bg */
 .taken-shi, .pagination>.active>a, .messageThread:hover, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled), .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple, .select2-dropdown, .dropzone, .table-highlight-td > tbody > tr > td:not(.emptySelectionCell):hover {
-    background-color: hsl(0, 0%, 22%) !important;
+    background-color: var(--lightDark-bg) !important;
     color: white !important;
 }
 
@@ -37,12 +45,12 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 
 /* Odd List Items Color */
 .table-striped>tbody>tr:nth-of-type(odd) {
-    background-color: hsl(0, 0%, 17%);
+    background-color: var(--dark2-bg) !important;
     color: white;
 }
 
 .table-striped>tbody>tr:nth-of-type(odd):hover {
-    background-color: hsl(0, 0%, 10%);
+    background-color: var(--darker2-bg) !important;
 }
 
 .grade, .btn.green-haze:not(.btn-outline), .table td, .table th {
@@ -54,21 +62,21 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 }
 
 .highcharts-background, .highcharts-tooltip-box {
-    fill: hsl(0, 0%, 15%);
+    fill: var(--dark-bg) !important;
     color: white;
 }
 
 .scheduleTable .scheduleTableCell:hover {
-    background-color: hsl(0, 0%, 10%);
+    background-color: var(--darker2-bg) !important;
 }
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     color: white;
-    background-color: hsl(0, 0%, 15%);
+    background-color: var(--dark-bg) !important;
 }
 
 .btn-info, .btn.green:not(.btn-outline), a.dt-button.buttons-columnVisibility.active:not(.disabled) {
-    background-color: hsl(0, 0%, 15%);
+    background-color: var(--dark-bg) !important;
     border-color: hsl(0, 0%, 90%);
 }
 
@@ -82,7 +90,7 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 }
 
 .page-sidebar .page-sidebar-menu .sub-menu>li.active>a, .page-sidebar .page-sidebar-menu .sub-menu>li.open>a, .page-sidebar .page-sidebar-menu .sub-menu>li:hover>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li.active>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li:hover>a {
-    background: #262626 !important;
+    background: var(--dark-bg) !important;
 }
 
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
@@ -118,7 +126,7 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 }
 
 .inbox .inbox-nav>li>a:hover {
-    background-color: #383838;
+    background-color: var(--lightDark-bg) !important;
 }
 
 .highcharts-scrollbar-track {
@@ -127,13 +135,13 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 }
 
 .highcharts-scrollbar-thumb {
-    fill: hsl(0, 0%, 8%) !important;
-    stroke: hsl(0, 0%, 8%) !important;
+    fill: var(--darker-bg) !important;
+    stroke: var(--darker-bg) !important;
 }
 
 .highcharts-scrollbar-button, .highcharts-button {
-    fill: hsl(0, 0%, 22%) !important;
-    stroke: hsl(0, 0%, 22%) !important;
+    fill: var(--lightDark-bg) !important;
+    stroke: var(--lightDark-bg) !important;
 }
 
 tspan {
@@ -173,12 +181,12 @@ tspan {
 }
 
 .badges-type-2, .badges-type-2:hover, .pupil-badge-type.remark {
-    background-color: #262626 !important;
+    background-color: var(--dark-bg) !important;
     border-color: #9a4040 !important;
 }
 
 .badges-type-1, .badges-type-1:hover, .pupil-badge-type.appraisal {
-    background-color: #262626 !important;
+    background-color: var(--dark-bg) !important;
     border-color: #c0ff8e !important;
 }
 
@@ -205,7 +213,7 @@ tspan {
 }
 
 .cc_container {
-    background: hsl(0, 0%, 15%) !important;
+    background: var(--dark-bg) !important;
 }
 
 .popupText::before {
@@ -214,7 +222,7 @@ tspan {
 
 .inbox .inbox-nav > li.active > a {
     border: none !important;
-    background-color: hsl(0, 0%, 22%) !important;
+    background-color: var(--lightDark-bg) !important;
 }
 
 .highcharts-column-series rect.highcharts-point {
@@ -239,7 +247,7 @@ tspan {
 }
 
 .timeline .timeline-body-arrow {
-    border-color: transparent hsl(0, 0%, 22%) transparent transparent;
+    border-color: transparent var(--lightDark-bg) transparent transparent;
 }
 
 .modal .modal-header .close {

@@ -23,14 +23,6 @@
             border-radius: 4px;
         }
     </style>
-    <!-- <script type="importmap">
-        {
-          "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
-            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
-          }
-        }
-      </script> -->
 </head>
 <body>
     <div class="navbar">
@@ -46,13 +38,46 @@
         </div>
     </div>
 
+    <div class="popup" id="popup_itsviat24">
+        <div class="popup-content">
+            <img src="assets/cross.svg" class="closePopupBtn">
+            <div class="popup_title">
+                <h3>IT Sviat 2024</h3>
+                <h1>NATIONAL(BG) INFORMATION TECHNOLOGY TOURNAMENT</h1>
+                <h2 style="color: #c96117;">3rd Place</h2>
+            </div>
+            <h1 style="border-bottom: #fff 2px solid;">Participation Details</h1>
+            <h2>Project: <a href="" target="_blank" class="footerLink">ShkoloTweaks</a></h2>
+            <h2>Team: mitko8009</h2>
+            <h1 style="border-bottom: #fff 2px solid; margin-bottom: -16px;">Overview</h1>
+            <p>IT Sviat is a national IT tournament for students in Bulgaria.<br>It is held annually and is organized by the Ministry of Education and Science of Bulgaria.</p>
+        </div>
+    </div>
+
+    <div class="popup" id="popup_blagoevgrad24">
+        <div class="popup-content">
+            <img src="assets/cross.svg" class="closePopupBtn">
+            <div class="popup_title">
+                <h3>Blagoevgrad 2024</h3>
+                <h1>NATIONAL(BG) INFORMATION TECHNOLOGY COMPETITION</h1>
+                <h2>4th Place</h2>
+            </div>
+            <h1 style="border-bottom: #fff 2px solid;">Participation Details</h1>
+            <h2>Project: <a href="https://github.com/EverWanderingTheGame/Ever-Wandering" target="_blank" class="footerLink">Ever Wandering</a></h2>
+            <h2>Team: mitko8009, S. Todorov</h2>
+            <h1 style="border-bottom: #fff 2px solid; margin-bottom: -16px;">Overview</h1>
+            <p>Blagoevgrad 2024 is a national IT competition for students in Bulgaria.<br>It is held annually and is organized by the Ministry of Education and Science of Bulgaria.</p>
+        </div>
+    </div>
+
+
     <div class="content">
         <div class="window" id="win_projects" style="position: absolute; top: 20%; left: 10%; min-height: 350px; min-width: 670px;" hidden> <!-- Projects Window -->
             <div class="winHeader">
                 <img src="assets/projects.svg" style="height: 4ch; padding: 4px;">
                 <a class="headerText"><b>Best Projects</b></a>
             </div>
-            <img src="assets/cross.svg" class="closeWindowBtn" id="win_projects_close">
+            <img src="assets/cross.svg" class="closeWindowBtn">
             <div>
                 <div class="projSection">
                     <h1><img src="assets/shkolotweaks.png" style="height: 32px; margin-bottom: -8px; margin-right: 8px;">Shkolo Tweaks</h1>
@@ -70,8 +95,25 @@
                 <img src="assets/awards.svg" style="height: 4ch; padding: 4px;">
                 <a class="headerText"><b>Awards</b></a>
             </div>
-            <img src="assets/cross.svg" class="closeWindowBtn" id="win_awards_close">
-            <h1>No awards to display yet. :(</h1>
+            <img src="assets/cross.svg" class="closeWindowBtn">
+            <div class="awards-content">
+                <div class="awards_item" id="popup_itsviat24">
+                    <img src="./assets/shkolotweaks.png" class="icon32">
+                    <div>
+                        <h3>IT Sviat 2024</h3>
+                        <h1>NATIONAL(BG) INFORMATION TECHNOLOGY TOURNAMENT</h1>
+                        <h2 style="color: #c96117;">3rd Place</h2>
+                    </div>
+                </div>
+                <div class="awards_item" id="popup_blagoevgrad24">
+                    <div>
+                        <h3>Blagoevgrad 2024</h3>
+                        <h1>NATIONAL(BG) INFORMATION TECHNOLOGY COMPETITION</h1>
+                        <h2>4th Place</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- <h1>No awards to display yet. :(</h1> -->
         </div>
 
         <div class="window" id="win_ShTw" style="position: absolute; top: 60%; left: 3%; min-height: 200px; min-width: 650px;" hidden> <!-- Shkolo Tweaks Window -->
@@ -79,7 +121,7 @@
                 <img src="assets/shkolotweaks.png" style="height: 4ch; padding: 4px;">
                 <a class="headerText"><b>Shkolo Tweaks</b></a>
             </div>
-            <img src="assets/cross.svg" class="closeWindowBtn" id="win_ShTw_close">
+            <img src="assets/cross.svg" class="closeWindowBtn">
             <div>
                 <h1><img src="assets/shkolotweaks.png" style="height: 32px; margin-bottom: -8px; margin-right: 6px">Shkolo Tweaks</h1>
                 <h2>Web extension for customizing the digital diary, <a href="//shkolo.bg/" target="_blank" class="footerLink">Shkolo.bg</a></h2>
@@ -96,7 +138,7 @@
                 <img src="assets/terminal.svg" style="height: 4ch; padding: 4px;">
                 <a class="headerText"><b>Terminal</b></a>
             </div>
-            <img src="assets/cross.svg" class="closeWindowBtn" id="win_terminal_close">
+            <img src="assets/cross.svg" class="closeWindowBtn">
             <div class="console">
                 <div class="console-history"></div>
                 <input type="text" class="console-input" autofocus spellcheck="false">
@@ -108,7 +150,7 @@
                 <img src="assets/user.svg" style="height: 4ch; padding: 4px;">
                 <a class="headerText"><b>Dimitar <span style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">"mitko8009"</span> Mitev</b></a>
             </div>
-            <img src="assets/cross.svg" class="closeWindowBtn" id="win_portfolio_close">
+            <img src="assets/cross.svg" class="closeWindowBtn">
             <p style="font-size: 1.8em; margin-top: 1ch;"><img src="assets/terminal.svg" style="height: 24px; margin-bottom: -4px; margin-right: 6px;" id="terminalBtn" >Portfolio.json</p>
             <div class="wipe">
                 <p style="color: #f3bc62;">{</p>
@@ -131,7 +173,6 @@
 
     <script src="//code.jquery.com/jquery-latest.min.js"></script>
     <script src="lib/jquery-ui.min.js"></script>
-    <script type="module"  src="js/three.js"></script>
     <script src="js/main.js"></script>
     <script src="js/terminal.js"></script>
 </body>

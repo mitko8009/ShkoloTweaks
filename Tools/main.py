@@ -5,12 +5,14 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import sys, os
 import shutil
+import random
 
 from init import *
+import utils
 
 class window(QMainWindow):
     def __init__(self): # Initialize the window
-        clear()
+        utils.clear()
         
         app = QApplication(sys.argv)
         super(window, self).__init__()
@@ -46,6 +48,9 @@ class window(QMainWindow):
         self.mainUi.icon2.setText(self.manifest['icons']['32'])
         self.mainUi.icon3.setText(self.manifest['icons']['48'])
         self.mainUi.icon4.setText(self.manifest['icons']['128'])
+        self.mainUi.minifyHTML.setChecked(config['settings']['minifyHTML'])
+        self.mainUi.minifyCSS.setChecked(config['settings']['minifyCSS'])
+        self.mainUi.minifyJS.setChecked(config['settings']['minifyJS'])
         
         self.mainUi.Save.clicked.connect(self.save)
         self.mainUi.actionSave.triggered.connect(self.save)
@@ -105,6 +110,11 @@ class window(QMainWindow):
         SaveManifest(config['path'] + "manifest.json", self.manifest)
         if config['debug']: print(f"\nSaved Manifest:\n--> {self.manifest}")
         
+        config['settings']['minifyHTML'] = self.mainUi.minifyHTML.isChecked()
+        config['settings']['minifyCSS'] = self.mainUi.minifyCSS.isChecked()
+        config['settings']['minifyJS'] = self.mainUi.minifyJS.isChecked()
+        saveConfig()
+        
         extConfig = json.loads(open("../public/extension/config.json", "r").read())
         extConfig['version'] = self.manifest['version']
         with open("../public/extension/config.json", "w") as jsonfile:
@@ -112,22 +122,24 @@ class window(QMainWindow):
         
     def build(self):
         self.save()
-        browser_specific_settings = self.manifest["browser_specific_settings"]
+        config['path'] = createCopy(config['path'], f"../temp_{random.randint(10000000000, 99999999999)}/")
+        self.loadManifest()
         
         if self.mainUi.OptionChromium.isChecked():
             del self.manifest['browser_specific_settings']
+        
+        if self.mainUi.minifyHTML.isChecked(): utils.minifyHTML(config['path'])
+        if self.mainUi.minifyCSS.isChecked(): utils.minifyCSS(config['path'])
+        if self.mainUi.minifyJS.isChecked(): utils.minifyJS(config['path'])
             
         SaveManifest(config['path'] + "manifest.json", self.manifest)
         
-        try:
-            archivePath = shutil.make_archive("../"+self.manifest['name'], 'zip', config['path'], owner=self.manifest['author'], group=self.manifest['author'])
-            self.manifest['browser_specific_settings'] = browser_specific_settings
-            SaveManifest(config['path'] + "manifest.json", self.manifest)
-            return archivePath
-        except ValueError as e:
-            self.manifest['browser_specific_settings'] = browser_specific_settings
-            SaveManifest(config['path'] + "manifest.json", self.manifest)
-            return print(f"Error: {e}")
+        shutil.make_archive("../"+self.manifest['name'], 'zip', config['path'], owner=self.manifest['author'], group=self.manifest['author'])
+        
+        print(f"Succesfully built extension at ../{self.manifest['name']}.zip")
+        shutil.rmtree(config['path'])
+        self.loadConfig()
+        self.loadManifest()
         
     def copy_text_to_clipboard(self, text_box):
         clipboard = QApplication.clipboard()

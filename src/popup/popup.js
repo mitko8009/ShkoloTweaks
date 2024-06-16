@@ -12,7 +12,7 @@ const saveBtn = document.getElementById('saveBtn');
 $("#theme-options").hide()
 
 $("#saveBtn").click(() => { saveData(); })
-// saveBtn.onclick = () => {}
+
 function saveData() {
     const prefs = {
         theme: themeElement.value,
@@ -77,7 +77,6 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
 })
 
 label_version.innerHTML = `v${version}`
-
 
 setTimeout(() => {
     fetch("https://shkolotweaks.xyz/extension/config.json")

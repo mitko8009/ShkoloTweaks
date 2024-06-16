@@ -34,6 +34,11 @@ function closeWindow(id) { // Close Window Function
 const AddCustomStyle = css => document.head.appendChild(document.createElement("style")).innerHTML = css;
 const AddCustomScript = js => document.body.appendChild(document.createElement("script")).innerHTML = js;
 
+// INITIALIZATION
+$(".popup").hide();
+$(".popup").css("opacity", 0);
+// INITIALIZATION END
+
 $(document).ready(() => {
     $(".window").draggable({
         handle: ".winHeader",
@@ -46,13 +51,21 @@ $(document).ready(() => {
     }).resizable();
 
     $(".closeWindowBtn").click(function() { // Close Window Function
-        id = $(this).attr("id").split("_")[1];
+        id = $(this).parent().attr("id").split("_")[1];
         closeWindow(id);
     });
 
     $(".navWin").click(function() { // Open Window Function
         id = $(this).attr("id").split("_")[1];
         openWindow(id);
+    });
+
+    $(".awards_item").click(function() {
+        $("#"+$(this).attr("id")).show().animate({opacity: 1}, 200);
+    });
+
+    $(".closePopupBtn").click(function() {
+        $(this).parent().parent().animate({opacity: 0}, 200, function() { $(this).hide(); }); 
     });
 
     $(".winHeader").mousedown(function() { setOnFocus($(this).parent().attr("id")); });
