@@ -6,6 +6,8 @@ from PyQt5.QtGui import *
 import sys, os
 import shutil
 import random
+import logging
+import time
 
 from init import *
 import utils
@@ -16,6 +18,15 @@ class window(QMainWindow):
         
         app = QApplication(sys.argv)
         super(window, self).__init__()
+        
+        self.logger = logging.getLogger(__name__)
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            encoding='utf-8',
+            filename='log.log'
+        )
+        self.logger.info("Initialized Logger")
         
         self.loadConfig()
         self.loadManifest()
@@ -119,8 +130,10 @@ class window(QMainWindow):
         extConfig['version'] = self.manifest['version']
         with open("../public/extension/config.json", "w") as jsonfile:
             json.dump(extConfig, jsonfile, indent='\t')
+        self.logger.info(f"Saved extension manifest")
         
     def build(self):
+        st = time.time()
         self.save()
         config['path'] = createCopy(config['path'], f"../temp_{random.randint(10000000000, 99999999999)}/")
         self.loadManifest()
@@ -138,6 +151,12 @@ class window(QMainWindow):
         
         print(f"Succesfully built extension at ../{self.manifest['name']}.zip")
         shutil.rmtree(config['path'])
+        
+        et = time.time()
+        print(f"Time taken to build: {round(et-st, 2)} seconds")
+        self.logger.info(f"Time taken to build: {round(et-st, 2)} seconds")
+        self.logger.info(f"Extension build information: {self.manifest['name']} v{self.manifest['version']} by {self.manifest['author']}")
+        
         self.loadConfig()
         self.loadManifest()
         

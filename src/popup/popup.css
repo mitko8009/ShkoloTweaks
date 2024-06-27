@@ -59,7 +59,6 @@ body {
     border: hsl(0, 0%, 90%) 2px solid;
 
     z-index: 1000;
-    transition: .5s;
 }
 
 .option {

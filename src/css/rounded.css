@@ -41,7 +41,7 @@ rect {
 }   
 
 #tab_control_test > .portlet > table, #tab_parent_meeting > .portlet > table {
-    border-radius: 20px !important;
+    border-radius: 8px !important;
     border-collapse: unset !important;
 }
 
@@ -65,7 +65,7 @@ rect {
 }
 
 #tableGrades:not(#tableGrades >  *), #tableAbsences:not(#tableAbsences >  *), #tableFeedbacks:not(#tableFeedbacks >  *), .onOffSwitch-handle, .onOffSwitch {
-    border-radius: 20px !important;
+    border-radius: 8px !important;
 }
 
 .big, tfoot .annualAssessment.solid-left-border, thead .thinTableColumn:first-of-type, .numVal:not(.term1):not(.term2):not(.solid-left-border) .thinTableColumn {

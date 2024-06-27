@@ -47,11 +47,11 @@ function toggleOptionState(option, state=null) {
     }
 }
 
-$("#themePopup").click(() => { $("#theme-options").show(); })
+$("#themePopup").click(() => { $("#theme-options").show().css({opacity: 0}).animate({opacity: 1}, 100); })
 
 $(".theme-option").click(function() {
     themeElement.value = $(this).attr("data-value")
-    $("#theme-options").hide()
+    $("#theme-options").animate({opacity: 0}, 100, function() { $(this).hide(); });
     toggleOptionState($(`#theme_${themeElement.value}`), false)
     saveData()
 }) 
@@ -82,10 +82,12 @@ setTimeout(() => {
     fetch("https://shkolotweaks.xyz/extension/config.json")
     .then(response => response.json())
     .then(data => {
-        if (version !== data.version) {
+        if (version < data.version) {
             label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("outdatedVersion")})`
+        } else if (version > data.version) {
+            label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("devVersion")})`
         } else {
             label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("latestVersion")})`
         }
-    })
+    });
 }, 5000)

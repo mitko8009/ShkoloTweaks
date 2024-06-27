@@ -89,6 +89,9 @@
     "outdatedVersion": {
         "message": "Update available"
     },
+    "devVersion": {
+        "message": "Development version"
+    },
     "customizations": {
         "message": "Customizations"
     }

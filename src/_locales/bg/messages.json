@@ -89,6 +89,9 @@
     "outdatedVersion": {
         "message": "Актуализация е налична"
     },
+    "devVersion": {
+        "message": "Разработчиска версия"
+    },
     "customizations": {
         "message": "Персонализации"
     }

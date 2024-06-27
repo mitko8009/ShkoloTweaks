@@ -141,7 +141,7 @@ function getIcon(subject) {
 
 loadCssFile("css/__global.css")
 
-$("#sc-name-lbl").html($("#sc-name-lbl").html() + " | ShkoloTweaks v" + version + " (Beta)");
+$("#sc-name-lbl").html($("#sc-name-lbl").html() + ` | ${manifest.name} v` + version);
 $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
 
 if (pageurl.includes("//app.shkolo.bg/stats/pupil/")) {
@@ -217,6 +217,15 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
 
     if (theme !== "light") { // Load Any Theme
         loadCssFile(`themes/${theme}/style.css`)
+
+        // Remove all element styles from all elements in the message-body
+        var messageBody = document.getElementsByClassName("message-body")[0]
+        if (messageBody !== undefined) {
+            for (var i = 0; i < messageBody.children.length; i++) {
+                messageBody.children[i].removeAttribute("style")
+            }
+        }
+        
 
         try {
             var script = document.createElement("script")

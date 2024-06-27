@@ -1,14 +1,32 @@
 :root {
-    --shkoloPrimary: #4b77be;
+    /* Globals */
+    --background-primary: #f5f5f5;
+    --border-primary: #4b77be;
+    --shkolo-primary: #4b77be;
+    --accent-primary: #285caf;
+    --text-primary: #4b77be;
 }
 
 .rounded {
     border-radius: 0 !important;
 }
 
+.blur {
+    filter: blur(4px);
+}
+
+.hovBlur {
+    filter: blur(4px);
+    transition: 1s filter;
+}
+
+.hovBlur:hover {
+    filter: blur(0);
+}
+
 .sc_buttons {
     font-weight: bold;
-    border: 1px solid var(--shkoloPrimary);
+    border: 1px solid var(--shkolo-primary);
     padding: 8px;
     display: inline-block;
     margin-right: 8px;
@@ -16,10 +34,10 @@
 }
 
 .sc_buttons:hover {
-    background: var(--shkoloPrimary);
+    background: var(--shkolo-primary);
     color: white;
 }
 
 .scIcon {
-    color: var(--shkoloPrimary) !important;
+    color: var(--shkolo-primary) !important;
 }

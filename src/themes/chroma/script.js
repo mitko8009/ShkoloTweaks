@@ -1,0 +1,1 @@
+alert("Your are useing a test theme thats not yet implemented. Please use a different theme.")
