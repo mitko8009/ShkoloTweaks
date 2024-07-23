@@ -26,7 +26,6 @@ class window(QMainWindow):
             encoding='utf-8',
             filename='log.log'
         )
-        self.logger.info("Initialized Logger")
         
         self.loadConfig()
         self.loadManifest()
@@ -83,6 +82,10 @@ class window(QMainWindow):
             
         for i in self.manifest['content_scripts'][0]['js']:
             self.mainUi.content_scripts.addItem(i)
+        
+        self.mainUi.content_scripts.itemDoubleClicked.connect(
+            lambda: utils.reviewFileinSrc(self.mainUi.content_scripts.currentItem().text(), config['path'])
+        )
             
         for i in self.manifest['web_accessible_resources'][0]['resources']:
             self.mainUi.web_accessible_resources.addItem(i)
@@ -91,6 +94,10 @@ class window(QMainWindow):
                 for j in os.listdir(config['path'] + i):
                     self.mainUi.web_accessible_resources.addItem(i + j)
                 self.mainUi.web_accessible_resources.addItem("")
+                
+        self.mainUi.web_accessible_resources.itemDoubleClicked.connect(
+            lambda: utils.reviewFileinSrc(self.mainUi.web_accessible_resources.currentItem().text(), config['path'])
+        )
         
         for i in os.listdir(config['path'] + "/_locales/"):
             self.mainUi.default_locale.addItem(i)
@@ -99,7 +106,7 @@ class window(QMainWindow):
     def openFile(self, icon):
         data = QFileDialog.getOpenFileName(self.mainUi, "Select File","","Images (*.png *.xpm *.jpg)",options=QFileDialog.Options())
         data = str(data[0].split(config['path'].split('/')[1])[-1])
-        if data.__len__() > 0:
+        if data.__len__()>0:
             icon.setText(data[1:])
     
     def save(self):

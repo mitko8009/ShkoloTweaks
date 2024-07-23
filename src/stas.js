@@ -60,16 +60,16 @@ function openPopup(title, content, buttons) {
 
 // STAS Callbacks
 
-// if (pageurl.includes('dashboard')) {
-//     openPopup('STAS (Shkolo Tweaks Alert System) - Testing',
-// `
-// ${manifest.name} - Name <br>
-// ${version} - Version <br>
-// ${pageurl} - Dashboard <br>
-// `,
-// [
-//     new STASButton('Read More', `${pageurl}`),
-//     new STASButton('See All Messages', 'https://app.shkolo.bg/messages')
-// ]);
-// }
+if (pageurl.includes('dashboard')) {
+    openPopup('STAS (Shkolo Tweaks Alert System) - Testing',
+`
+${manifest.name} - Name <br>
+${version} - Version <br>
+${pageurl} - Dashboard <br>
+`,
+[
+    new STASButton('Read More', `${pageurl}`),
+    new STASButton('See All Messages', 'https://app.shkolo.bg/messages')
+]);
+}
 

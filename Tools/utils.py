@@ -63,3 +63,16 @@ def minifyHTML(path):
         with open(file, "r") as f: html_text = f.read()
         r = requests.post("https://www.toptal.com/developers/html-minifier/api/raw", data={"input":html_text})
         with open(file, "w") as f2: f2.write(r.text)
+
+def getCurrentPath():
+    return str(os.getcwd())
+
+def openFileWithExplorer(path):
+    if path.endswith('*'): path = path[:-1]
+    path = path.replace("/", "\\")
+    os.system(f"explorer.exe {path}")
+    return True
+
+def reviewFileinSrc(file, path):
+    openFileWithExplorer(getCurrentPath()+"\\"+path+file)
+    

@@ -3,7 +3,7 @@
 	"name": "ShkoloTweaks (BETA)",
 	"short_name": "ShkoloTW",
 	"description": "__MSG_extDescription__",
-	"version": "0.4.8.1",
+	"version": "0.4.8.2",
 	"author": "ITPG Web Studios",
 	"default_locale": "en",
 	"homepage_url": "https://shkolotweaks.web.app/",
@@ -46,7 +46,8 @@
 				"lib/*",
 				"css/*",
 				"assets/*",
-				"themes/*"
+				"themes/*",
+				"data/*"
 			],
 			"matches": [
 				"*://*.shkolo.bg/*",

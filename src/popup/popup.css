@@ -131,3 +131,56 @@ body {
 .checkbox:hover, .radio:hover {
     color: #cccccc;
 }
+
+#dev_panel {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    backdrop-filter: blur(10px);
+    background-color: #00000056;
+    z-index: 998;
+}
+
+#close_dev_panel {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.centerItems {
+    display: flex;
+    position: absolute;
+    flex-wrap: wrap;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 6px;
+    z-index: 1000;
+}
+
+.dev_flag {
+    display: block;
+    color: #fff;
+    text-wrap: nowrap;
+    padding: 4px 8px 4px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.dev_flag.active {
+    border-color: #3ec53e;
+    color: #3ec53e;
+}
+
+.dev_flag.active:hover {
+    color: #34a334;
+}
+
+.dev_flag:hover {
+    color: #cccccc;
+}

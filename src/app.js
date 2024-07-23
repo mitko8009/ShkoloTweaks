@@ -13,7 +13,7 @@ var scheduleWidgetContent
 // Define jQuery
 var script = document.createElement("script")
 script.src = chrome.runtime.getURL("lib/jquery.min.js")
-script.type = "text/javascript"
+script.type = "text/javascript" 
 document.getElementsByTagName("head")[0].appendChild(script)
 
 const AddCustomStyle = css => document.head.appendChild(document.createElement("style")).innerHTML = css
@@ -359,5 +359,5 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
     }
 
     if(blurPfp) { loadCssFile("css/blurData.css") }
-    if (rounded) { loadCssFile("css/rounded.css") } 
+    if(rounded) { loadCssFile("css/rounded.css") } 
 });
