@@ -18,16 +18,13 @@
 
 **Shkolo Tweaks** is available on all *Chromium Browsers*.
 
-**Download NOW**
-
 [![Google Chrome](https://img.shields.io/badge/Google%20Chrome-4285F4?style=for-the-badge&logo=GoogleChrome&logoColor=white)](https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc?hl=en&authuser=0)
 
 ## Authors
 
 - [@mitko8009](https://github.com/mitko8009)
-
-    [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/mitko8009_/)
-
-
 - [@DeyanVNikolov](https://github.com/DeyanVNikolov)
 
+**[Official Website](https://shkolotweaks.xyz/) •**
+**[Chrome Web Store](https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc) •**
+**[GitHub Wiki](https://github.com/mitko8009/ShkoloTweaks/wiki)**
