@@ -6,6 +6,7 @@
     <title>mitko8009's Portfolio</title>
     <!-- META TAGS -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A interactive portfolio about Dimitar 'mitko8009' Mitev">
     <meta property="og:title" content="mitko8009's Portfolio">
     <meta property="og:url" content="https://shkolotweaks.xyz/portfolio/">
     <meta property="og:site_name" content="mitko8009's Portfolio">
@@ -27,14 +28,14 @@
 <body>
     <div class="navbar">
         <div class="navbar-content">
-            <a class="nav-link navWin" id="nav_portfolio" title="Portfolio" hidden><img src="assets/user.svg" style="height: 32px;"></a>
-            <a class="nav-link navWin" id="nav_projects" title="Best Projects"><img src="assets/projects.svg" style="height: 32px;"></a>
-            <a class="nav-link navWin" id="nav_awards" title="Awards"><img src="assets/awards.svg" style="height: 32px;"></a>
-            <a class="nav-link navWin" id="nav_terminal" title="Terminal" hidden><img src="assets/terminal.svg" style="height: 32px;"></a>
-            <a style="position: relative; border-left: #fff 3px solid; padding-top: 2ch; padding-bottom: 2ch; border-radius: 4px;"></a>
-            <a class="nav-link" href="//github.com/mitko8009" target="_blank" title="GitHub"><img src="assets/github.svg" style="height: 32px;"></a>
-            <a style="position: relative; border-left: #fff 3px solid; padding-top: 2ch; padding-bottom: 2ch; border-radius: 4px;"></a>
-            <a class="nav-link navWin" id="nav_ShTw" title="Shkolo Tweaks"><img src="assets/shkolotweaks.png" style="height: 32px;"></a>
+            <a class="nav-link navWin" id="nav_portfolio" title="Portfolio" hidden><img src="assets/user.svg" style="height: 32px;" alt="General Information"></a>
+            <a class="nav-link navWin" id="nav_projects" title="Best Projects"><img src="assets/projects.svg" style="height: 32px;" alt="Projects Info"></a>
+            <a class="nav-link navWin" id="nav_awards" title="Awards"><img src="assets/awards.svg" style="height: 32px;" alt="Awards Info"></a>
+            <a class="nav-link navWin" id="nav_terminal" title="Terminal" hidden><img src="assets/terminal.svg" style="height: 32px;" alt="Terminal Window"></a>
+            <span style="position: relative; border-left: #fff 3px solid; padding-top: 2ch; padding-bottom: 2ch; border-radius: 4px;"></span>
+            <a class="nav-link" href="//github.com/mitko8009" target="_blank" title="GitHub"><img src="assets/github.svg" style="height: 32px;" alt="GitHub Profile"></a>
+            <span style="position: relative; border-left: #fff 3px solid; padding-top: 2ch; padding-bottom: 2ch; border-radius: 4px;"></span>
+            <a class="nav-link navWin" id="nav_ShTw" title="Shkolo Tweaks"><img src="assets/shkolotweaks.png" style="height: 32px;" alt="ShkoloTweaks Website"></a>
         </div>
     </div>
 
@@ -47,7 +48,7 @@
                 <h2 style="color: #c96117;">3rd Place</h2>
             </div>
             <h1 style="border-bottom: #fff 2px solid;">Participation Details</h1>
-            <h2>Project: <a href="" target="_blank" class="footerLink">ShkoloTweaks</a></h2>
+            <h2>Project: <span href="" target="_blank" class="footerLink">ShkoloTweaks</span></h2>
             <h2>Team: mitko8009</h2>
             <h1 style="border-bottom: #fff 2px solid; margin-bottom: -16px;">Overview</h1>
             <p>IT Sviat is a national IT tournament for students in Bulgaria.<br>It is held annually and is organized by the Ministry of Education and Science of Bulgaria.</p>
@@ -75,7 +76,7 @@
         <div class="window" id="win_projects" style="position: absolute; top: 20%; left: 10%; min-height: 350px; min-width: 670px;" hidden> <!-- Projects Window -->
             <div class="winHeader">
                 <img src="assets/projects.svg" style="height: 4ch; padding: 4px;">
-                <a class="headerText"><b>Best Projects</b></a>
+                <span class="headerText"><b>Best Projects</b></span>
             </div>
             <img src="assets/cross.svg" class="closeWindowBtn">
             <div>
@@ -93,7 +94,7 @@
         <div class="window" id="win_awards" style="position: absolute; top: 15%; left: 65%; min-height: 310px; min-width: 500px;" hidden> <!-- Awards Window -->
             <div class="winHeader">
                 <img src="assets/awards.svg" style="height: 4ch; padding: 4px;">
-                <a class="headerText"><b>Awards</b></a>
+                <span class="headerText"><b>Awards</b></span>
             </div>
             <img src="assets/cross.svg" class="closeWindowBtn">
             <div class="awards-content">
@@ -119,7 +120,7 @@
         <div class="window" id="win_ShTw" style="position: absolute; top: 60%; left: 3%; min-height: 200px; min-width: 650px;" hidden> <!-- Shkolo Tweaks Window -->
             <div class="winHeader">
                 <img src="assets/shkolotweaks.png" style="height: 4ch; padding: 4px;">
-                <a class="headerText"><b>Shkolo Tweaks</b></a>
+                <span class="headerText"><b>Shkolo Tweaks</b></span>
             </div>
             <img src="assets/cross.svg" class="closeWindowBtn">
             <div>
@@ -136,7 +137,7 @@
         <div class="window" id="win_terminal" style="position: absolute; top: 60%; left: 3%; min-height: 350px; min-width: 700x;" hidden> <!-- Terminal Window -->
             <div class="winHeader">
                 <img src="assets/terminal.svg" style="height: 4ch; padding: 4px;">
-                <a class="headerText"><b>Terminal</b></a>
+                <span class="headerText"><b>Terminal</b></span>
             </div>
             <img src="assets/cross.svg" class="closeWindowBtn">
             <div class="console">
@@ -147,17 +148,17 @@
 
         <div class="window" id="win_portfolio" style="position: absolute; top: 30%; left: 35%; min-height: 310px; min-width: 620px;"> <!-- Portfolio Window -->
             <div class="winHeader">
-                <img src="assets/user.svg" style="height: 4ch; padding: 4px;">
-                <a class="headerText"><b>Dimitar <span style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">"mitko8009"</span> Mitev</b></a>
+                <img src="assets/user.svg" style="height: 4ch; padding: 4px;" alt="User Icon">
+                <span class="headerText"><b>Dimitar <span style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">"mitko8009"</span> Mitev</b></span>
             </div>
-            <img src="assets/cross.svg" class="closeWindowBtn">
-            <p style="font-size: 1.8em; margin-top: 1ch;"><img src="assets/terminal.svg" style="height: 24px; margin-bottom: -4px; margin-right: 6px;" id="terminalBtn" >Portfolio.json</p>
+            <img src="assets/cross.svg" class="closeWindowBtn" alt="Close Window Button">
+            <p style="font-size: 1.8em; margin-top: 1ch;"><img src="assets/terminal.svg" style="height: 24px; margin-bottom: -4px; margin-right: 6px;" id="terminalBtn" alt="Terminal Button">Portfolio.json</p>
             <div class="wipe">
                 <p style="color: #f3bc62;">{</p>
                 <p class="jsonIn1">name:<b>"Dimitar 'mitko8009' Mitev",</b></p>
-                <p class="jsonIn1">description:<b>"I <a style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">code</a> stuff for fun&#128526;.",</b></p>
+                <p class="jsonIn1">description:<b>"I <span style="text-shadow: rgba(255, 255, 255, 0.7) 0px 0px 15px;">code</span> stuff for fun&#128526;.",</b></p>
                 <p class="jsonIn1">location:<b>"Varna, Bulgaria &#127463;&#127468;",</b></p>
-                <p class="jsonIn1">studying_at:<b>"<a href="//itpg-varna.bg/" target="_blank" class="footerLink">ITPG-Varna<a>&#127891;"</b></p>
+                <p class="jsonIn1">studying_at:<b><a href="//itpg-varna.bg/" target="_blank" class="footerLink">"ITPG-Varna&#127891;"<a></b></p>
                 <p style="color: #f3bc62;">}</p>
                 <br><br><br><br><br><br><br><br><br><br><br><br><br>
                 <p>{</p>

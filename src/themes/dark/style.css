@@ -245,7 +245,7 @@ tspan {
 
 .sc_buttons {
     font-weight: bold;
-    border: 1px solid white;
+    border: 1px solid white !important;
     padding: 8px;
     display: inline-block;
     margin-right: 8px;
@@ -254,6 +254,7 @@ tspan {
 .sc_buttons:hover {
     background: white;
     color: black !important;
+    text-decoration: none;
 }
 
 .timeline .timeline-body-arrow {

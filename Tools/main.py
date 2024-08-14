@@ -79,9 +79,10 @@ class window(QMainWindow):
         self.mainUi.permissions.addItem("------- Host Permissions -------")
         for i in self.manifest['host_permissions']:
             self.mainUi.permissions.addItem(i)
-            
-        for i in self.manifest['content_scripts'][0]['js']:
-            self.mainUi.content_scripts.addItem(i)
+        
+        for script in self.manifest['content_scripts']:
+            for js_file in script['js']:
+                self.mainUi.content_scripts.addItem(js_file)
         
         self.mainUi.content_scripts.itemDoubleClicked.connect(
             lambda: utils.reviewFileinSrc(self.mainUi.content_scripts.currentItem().text(), config['path'])

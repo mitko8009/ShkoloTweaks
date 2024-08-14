@@ -120,7 +120,7 @@ $(".theme-option").click(function() {
     $("#theme-options").animate({opacity: 0}, 100, function() { $(this).hide(); });
     toggleOptionState($(`#theme_${themeElement.value}`), false)
     saveData()
-}) 
+})
 
 chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     const url = new URL(tabs[0].url)
