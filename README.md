@@ -5,6 +5,8 @@
 
 **Shkolo Tweaks** is a web extension for customising **[Shkolo]("https://www.shkolo.bg/")**. It features a dark theme, widgets, stats, and much more.
 
+> [!IMPORTANT]
+> **ShkoloTweak** is a software NOT affiliated with or endorsed by **Shkolo.bg**.
 
 ## Features
 
@@ -24,6 +26,8 @@
 
 - [@mitko8009](https://github.com/mitko8009)
 - [@DeyanVNikolov](https://github.com/DeyanVNikolov)
+
+## Official Links
 
 **[Official Website](https://shkolotweaks.xyz/) •**
 **[Chrome Web Store](https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc) •**
