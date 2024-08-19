@@ -33,6 +33,6 @@
 
 <div align="center">
   <strong><a href="https://shkolotweaks.xyz/">Official Website</a> •</strong>
-  <strong><a href="https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc">GitHub Wiki</a> •</strong>
+  <strong><a href="https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc">Google Web Store</a> •</strong>
   <strong><a href="https://github.com/mitko8009/ShkoloTweaks/wiki">GitHub Wiki</a></strong>
 </div>
