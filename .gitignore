@@ -3,7 +3,6 @@ temp*
 node_modules
 Presentation
 *.zip
-*.pyw
 *.log
 .firebaserc
 .history

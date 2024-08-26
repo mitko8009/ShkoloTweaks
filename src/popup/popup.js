@@ -113,14 +113,33 @@ $("#close_dev_panel").click(() => { $("#dev_panel").animate({opacity: 0}, 200, f
 //     })
 // });
 
-$("#themePopup").click(() => { $("#theme-options").show().css({opacity: 0}).animate({opacity: 1}, 100); })
 
-$(".theme-option").click(function() {
-    themeElement.value = $(this).attr("data-value")
-    $("#theme-options").animate({opacity: 0}, 100, function() { $(this).hide(); });
-    toggleOptionState($(`#theme_${themeElement.value}`), false)
-    saveData()
-})
+
+// Themes
+function themesInit() {
+    fetch(chrome.runtime.getURL("themes/themes.json"))
+    .then(response => response.json())
+    .then(data => {
+        for (const themeData in data["custom_themes"]) {
+            const themeDirectory = data["custom_themes"][themeData].directory
+            var tags = ""
+
+            if (data["custom_themes"][themeData].icon) tags += `<img src="${chrome.runtime.getURL(`themes/${themeDirectory}/${data["custom_themes"][themeData].icon}`)}" class="icon32">`
+            else tags += `<img src="${chrome.runtime.getURL(`assets/icon_x32.png`)}" class="icon32">`
+
+            $("#custom-themes").append(`<a type="button" class="option theme-option" aria-pressed="false" id="theme_${themeDirectory}" data-value="${themeDirectory}">${tags}</a>`)
+        }
+
+        $("#themePopup").click(() => { $("#theme-options").show().css({opacity: 0}).animate({opacity: 1}, 100); })
+
+        $(".theme-option").click(function() {
+            themeElement.value = $(this).attr("data-value")
+            $("#theme-options").animate({opacity: 0}, 100, function() { $(this).hide(); });
+            toggleOptionState($(`#theme_${themeElement.value}`), false)
+            saveData()
+        });
+    });
+}
 
 chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     const url = new URL(tabs[0].url)
@@ -130,9 +149,10 @@ chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     }
 });
 
-
 chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], (result) => {   
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
+
+    console.log(result)
 
     themeElement.value = theme
     toggleOptionState($(`#theme_${theme}`), false)
@@ -143,4 +163,6 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
 })
 
 label_version.innerHTML = `v${version}`
+
+themesInit();
 

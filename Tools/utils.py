@@ -76,3 +76,7 @@ def openFileWithExplorer(path):
 def reviewFileinSrc(file, path):
     openFileWithExplorer(getCurrentPath()+"\\"+path+file)
     
+if (__name__ == "__main__"):
+    clear()
+    print("This is a utility file. Please run the main.py file to execute the program.")
+    input("Press Enter to exit...")

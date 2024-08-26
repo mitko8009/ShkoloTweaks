@@ -1,0 +1,1 @@
+alert("Your are useing an example theme. Please use a different theme.")

@@ -1,0 +1,21 @@
+{
+	"default_themes": [
+		{
+			"name": "Dark",
+			"directory": "dark",
+			"author": "ITPG Studios",
+			"version": "1.0.0",
+			"description": "A dark theme for ShkoloTW",
+			"customJS": false
+		}
+	],
+	"custom_themes": [
+		{
+			"name": "Example Theme",
+			"directory": "example",
+			"author": "mitko8009 <3",
+			"version": "1.0.0",
+			"description": "An example theme for ShkoloTW"
+		}
+	]
+}

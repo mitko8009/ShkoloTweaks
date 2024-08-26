@@ -1,11 +1,14 @@
 {
 	"title": "Extension Editor",
 	"version": "1.0.2",
-	"path": "../src/",
+	"path": "..\\src\\",
 	"debug": false,
 	"settings": {
 		"minifyHTML": true,
 		"minifyCSS": true,
 		"minifyJS": true
-	}
+	},
+	"non_custom_themes": [
+		"dark"
+	]
 }

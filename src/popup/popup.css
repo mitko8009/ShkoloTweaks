@@ -45,7 +45,7 @@ body {
     position: absolute;
 
     width: 200px;
-    height: 150px;
+    height: 166px;
     top: 25%;
     left: 19%;
 
@@ -116,11 +116,8 @@ body {
     grid-template-columns: auto auto;
 }
 
-.title {
-    text-align: center;
-}
-
 .title, .label {
+    text-align: center;
     color: #fff;
 }
 

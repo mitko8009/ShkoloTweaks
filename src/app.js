@@ -86,7 +86,7 @@ function main() {
 
     $("#sc-name-lbl").html($("#sc-name-lbl").html() + ` | ${manifest.name} v` + version);
     $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
-}
+}  
 
 let globalResult;
 let theme, cleanUp, blurPfp, rounded, scheduleWidget // Global Variables

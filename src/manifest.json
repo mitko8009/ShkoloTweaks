@@ -3,7 +3,7 @@
 	"name": "ShkoloTweaks (BETA)",
 	"short_name": "ShkoloTW",
 	"description": "__MSG_extDescription__",
-	"version": "0.4.8.3",
+	"version": "0.4.8.4",
 	"author": "ITPG Web Studios",
 	"default_locale": "en",
 	"homepage_url": "https://shkolotweaks.web.app/",
@@ -45,7 +45,9 @@
 				"*://*.shkolo.bg/dashboard",
 				"*://*.shkolo.com/dashboard"
 			],
-			"js": [ "js/schedule_widget.js" ],
+			"js": [
+				"js/schedule_widget.js"
+			],
 			"run_at": "document_end"
 		}
 	],
