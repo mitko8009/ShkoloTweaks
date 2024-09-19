@@ -94,5 +94,14 @@
     },
     "customizations": {
         "message": "Персонализации"
+    },
+    "Share": {
+        "message": "Споделяне"
+    },
+    "CountdownTitle": {
+        "message": "{{DAYS}} дни до края на учебната година"
+    },
+    "CountdownFooter": {
+        "message": "Тази статистика НЕ ​​включва ваканции."
     }
 }

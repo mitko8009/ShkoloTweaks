@@ -1,9 +1,10 @@
 :root {
-    /* Special Variables */
+    /* Global Variables */
     --background-primary: hsl(0, 0%, 15%); /* Same as --dark-bg */
     --border-primary: hsl(0, 0%, 96%);
     --accent-primary: hsl(0, 0%, 22%);
     --text-primary: hsl(0, 0%, 96%);
+    --background-alternate: hsl(0, 0%, 23%);
     /* General Variables */
     --darker-bg: hsl(0, 0%, 8%);
     --darker2-bg: hsl(0, 0%, 10%);

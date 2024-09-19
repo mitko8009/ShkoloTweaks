@@ -94,5 +94,14 @@
     },
     "customizations": {
         "message": "Customizations"
+    },
+    "Share": {
+        "message": "Share"
+    },
+    "CountdownTitle": {
+        "message": "{{DAYS}} days until the end of the school year"
+    },
+    "CountdownFooter": {
+        "message": "This statistic does NOT include holidays."
     }
 }

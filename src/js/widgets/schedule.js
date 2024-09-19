@@ -1,3 +1,6 @@
+var scheduleWidgetTitle
+var scheduleWidgetContent
+
 function loadDiary() {
     const iframe = document.createElement("iframe")
     iframe.src = "https://app.shkolo.bg/diary#tab_schedule"
@@ -61,7 +64,7 @@ function sc_DisplayDay(day, data, widget) {
         if (Object.keys(dayData[i]).length > 0) {
             var classNode = document.createElement("div")
             classNode.classList.add("rounded", "scheduleClass")
-            classNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid #ffffff;"
+            classNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid var(--border-primary);"
     
             // Class Title (Ex. "Mathematics", "English", etc.)
             var classTitle = document.createElement("a")
@@ -97,8 +100,7 @@ function sc_DisplayDay(day, data, widget) {
         }
     }
 
-    var scheduleWidgetContentHeight = scheduleWidgetContent.offsetHeight + 100
-    widget.children[0].style.height = scheduleWidgetContentHeight + "px"
+    widget.children[0].style.height=scheduleWidgetContent.offsetHeight+100+"px"
 }
 
 function sc_main() {
@@ -106,11 +108,12 @@ function sc_main() {
 
     if (sc_Widget === undefined) return
 
-    var day = date.getDay() - 1
+    var day = today.getDay() - 1
     if (day < 0 || day > 4) day = 0
     var weekday = WEEKDAYS[day]
 
     sc_Widget.className = "col-sm-6"
+    sc_Widget.children[0].className=`portlet portlet-sortable light bordered`
 
     removeElements(sc_Widget.children[0].children[1].children) // Remove the content of the widget
     removeElements(sc_Widget.children[0].children[0].children[0].children[0].children)
@@ -127,9 +130,15 @@ function sc_main() {
     scheduleWidgetContent.style.height = "auto"
     scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("Loading")
 
-    var icon = document.createElement("i")
-    icon.classList.add("fal", "fa-table", "scIcon")
-    sc_Widget.children[0].children[0].children[0].appendChild(icon)
+    sc_Widget.children[0].children[0].children[0].appendChild(getIcon("table"))
+
+    //////////////////////////
+    // Schedule Share Button
+    // var scheduleShare = document.createElement("a")
+    // scheduleShare.innerHTML = chrome.i18n.getMessage("Share")
+    // scheduleShare.classList.add("sc_buttons", "pull-right", "rounded")
+    // sc_Widget.children[0].children[0].appendChild(scheduleShare)
+    //////////////////////////
 
     var scheduleViewMore = document.createElement("a")
     scheduleViewMore.innerHTML = chrome.i18n.getMessage("ViewMore")
@@ -143,7 +152,7 @@ function sc_main() {
     scheduleRefresh.onclick = () => {
         scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule")
         scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FetchSchedule")
-        sc_fetchAndSave(WEEKDAYS[date.getDay() - 1 > 4 ? 0 : date.getDay() - 1], sc_Widget)
+        sc_fetchAndSave(WEEKDAYS[today.getDay() - 1 > 4 ? 0 : today.getDay() - 1], sc_Widget)
     }
     sc_Widget.children[0].children[0].appendChild(scheduleRefresh)
 
@@ -193,8 +202,12 @@ function sc_main() {
         }
     });
     
-    if (!cleanUp) sc_Widget.children[0].children[2].remove()
+    if (!cleanUp) sc_Widget.children[0].children[2].remove() // Remove the widget footer
     WIDGETSROW.appendChild(sc_Widget)
 }
 
-sc_main()
+try {
+    sc_main()
+} catch (e) {
+    console.error("Failed to load the Schedule widget. Error: "+e)
+}

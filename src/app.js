@@ -5,10 +5,8 @@ const pageurl = window.location.href
 const WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 const WIDGETSROW = $(".col-md-12")[0].children[2]
 
-var date = new Date()
-
-var scheduleWidgetTitle
-var scheduleWidgetContent
+const today = new Date();
+const year = today.getFullYear();
 
 // Define jQuery
 var script = document.createElement("script")
