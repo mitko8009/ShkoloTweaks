@@ -1,11 +1,13 @@
 [![License](https://img.shields.io/badge/License-GPL_v3-red)](https://github.com/mitko8009/ShkoloTweaks/blob/main/LICENSE)
 
-![ShkoloTweaks](https://shkolotweaks.web.app/assets/thumb2.png)
+<img src="https://shkolotweaks.web.app/assets/thumb2.png" align="center" alt="ShkoloTweaks">
 
 **Shkolo Tweaks** is a web extension for customising **[Shkolo]("https://www.shkolo.bg/")**. It features a dark theme, widgets, stats, and much more.
 
 > [!IMPORTANT]
-> **ShkoloTweaks** operates with a single purpose and does not collect any sensitive information about you. We do not gather personal data or share it with third parties.
+> ## SHKOLO TWEAKS WILL BE DISCONTINUED BY VERSION 0.5
+> Due to a decision by the Ministry of Education in Bulgaria, Shkolo as a digital diary won't be used globally by schools by 2025/26.
+After the transition, schools will use the state e-diary.
 
 > [!WARNING]
 > **ShkoloTweak** is a software NOT affiliated with or endorsed by **Shkolo.bg**.
