@@ -34,7 +34,7 @@
 			],
 			"js": [
 				"lib/jquery.min.js",
-				"app.js",
+				"shkolo.js",
 				"js/add-ons/stats.js",
 				"js/add-ons/stas.js"
 			],
@@ -50,6 +50,15 @@
 				"js/widgets/countdown.js"
 			],
 			"run_at": "document_end"
+		},
+		{
+			"matches": [
+				"*://*.mon.bg/*"
+			],
+			"js": [
+				"mon.js"
+			],
+			"run_at": "document_end"
 		}
 	],
 	"web_accessible_resources": [
@@ -63,7 +72,8 @@
 			],
 			"matches": [
 				"*://*.shkolo.bg/*",
-				"*://*.shkolo.com/*"
+				"*://*.shkolo.com/*",
+				"*://*.mon.bg/*"
 			]
 		}
 	],

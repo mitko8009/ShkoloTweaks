@@ -122,7 +122,7 @@ function themesInit() {
     .then(data => {
         for (const themeData in data["custom_themes"]) {
             const themeDirectory = data["custom_themes"][themeData].directory
-            var tags = ""
+            let tags = ""
 
             if (data["custom_themes"][themeData].icon) tags += `<img src="${chrome.runtime.getURL(`themes/${themeDirectory}/${data["custom_themes"][themeData].icon}`)}" class="icon32">`
             else tags += `<img src="${chrome.runtime.getURL(`assets/icon_x32.png`)}" class="icon32">`

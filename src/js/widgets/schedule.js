@@ -1,5 +1,5 @@
-var scheduleWidgetTitle
-var scheduleWidgetContent
+let scheduleWidgetTitle
+let scheduleWidgetContent
 
 function loadDiary() {
     const iframe = document.createElement("iframe")
@@ -11,17 +11,17 @@ function loadDiary() {
 }
 
 function sc_saveLocaly(data) {
-    var scheduleData = {}
+    let scheduleData = {}
 
-    for (var i = 0; i < data.children.length; i++) { // Days
+    for (let i = 0; i < data.children.length; i++) { // Days
         scheduleData[WEEKDAYS[i]] = {}
 
-        for (var j = 0; j < data.children[i].children[1].children.length; j++) { // Classes
+        for (let j = 0; j < data.children[i].children[1].children.length; j++) { // Classes
             scheduleData[WEEKDAYS[i]][j] = {}
             if (data.children[i].children[1].children[j].children[0].children.length <= 0) {
                 scheduleData[WEEKDAYS[i]][j] = {}
             } else {
-                for (var m = 0; m < data.children[i].children[1].children[j].children[0].children[0].children.length; m++) { // Class Details
+                for (let m = 0; m < data.children[i].children[1].children[j].children[0].children[0].children.length; m++) { // Class Details
                     if (data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML.length > 0) {
                         //console.log(data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML + " / " + i + " / " + j + " / " + m); // Debugging
                         scheduleData[WEEKDAYS[i]][j][m] = data.children[i].children[1].children[j].children[0].children[0].children[m].innerHTML
@@ -38,7 +38,7 @@ function sc_saveLocaly(data) {
 function sc_fetchAndSave(displayDay, widget) {
     console.log("Fetching schedule data...")
 
-    var iframe = loadDiary()
+    let iframe = loadDiary()
 
     iframe.addEventListener("load", () => {
         scheduleWidgetContent.innerHTML = ""
@@ -60,37 +60,37 @@ function sc_DisplayDay(day, data, widget) {
 
     scheduleWidgetContent.innerHTML = ""
 
-    for (var i = 0; i < Object.keys(dayData).length; i++) {
+    for (let i = 0; i < Object.keys(dayData).length; i++) {
         if (Object.keys(dayData[i]).length > 0) {
-            var classNode = document.createElement("div")
+            let classNode = document.createElement("div")
             classNode.classList.add("rounded", "scheduleClass")
             classNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid var(--border-primary);"
     
             // Class Title (Ex. "Mathematics", "English", etc.)
-            var classTitle = document.createElement("a")
+            let classTitle = document.createElement("a")
             classTitle.innerHTML = dayData[i][0]
             classTitle.classList.add("scheduleCourse")
             if (dayData[i][0].includes("</i>")) {
-                var classTitleDetails = dayData[i][0].split("</i> ")[0]
+                let classTitleDetails = dayData[i][0].split("</i> ")[0]
                 classTitle.innerHTML = dayData[i][0].split("</i> ")[1].split("(")[0]
                 classTitle.innerHTML = classTitleDetails + "</i> " + classTitle.innerHTML
             }
             classNode.appendChild(classTitle)
     
             // Class Teacher (Ex. "Mrs. Raicheva", etc.)
-            var classTeacher = document.createElement("span")
+            let classTeacher = document.createElement("span")
             classTeacher.innerHTML = " | " + dayData[i][1]
             classTeacher.classList.add("scheduleSecondary", "secondaryFirst")
             classNode.appendChild(classTeacher)
     
             // Class Time (Ex. "08:00 - 09:00", "09:00 - 10:00", etc.)
-            var classTime = document.createElement("span")
+            let classTime = document.createElement("span")
             classTime.innerHTML = dayData[i][3] === undefined ? chrome.i18n.getMessage("NoRoom") : dayData[i][3]
             classTime.classList.add("scheduleSecondary", "pull-right")
             classNode.appendChild(classTime)
     
             // Class Room (Ex. "Room 103", "Room 404", etc.)
-            var classRoom = document.createElement("span")
+            let classRoom = document.createElement("span")
             classRoom.innerHTML = dayData[i][2]
             classRoom.style = "padding-right: 12px;"
             classRoom.classList.add("scheduleSecondary", "pull-right")
@@ -108,9 +108,9 @@ function sc_main() {
 
     if (sc_Widget === undefined) return
 
-    var day = today.getDay() - 1
+    let day = today.getDay() - 1
     if (day < 0 || day > 4) day = 0
-    var weekday = WEEKDAYS[day]
+    let weekday = WEEKDAYS[day]
 
     sc_Widget.className = "col-sm-6"
     sc_Widget.children[0].className=`portlet portlet-sortable light bordered`
@@ -140,13 +140,13 @@ function sc_main() {
     // sc_Widget.children[0].children[0].appendChild(scheduleShare)
     //////////////////////////
 
-    var scheduleViewMore = document.createElement("a")
+    let scheduleViewMore = document.createElement("a")
     scheduleViewMore.innerHTML = chrome.i18n.getMessage("ViewMore")
     scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
     scheduleViewMore.classList.add("pull-right", "sc_buttons", "rounded")
     sc_Widget.children[0].children[0].appendChild(scheduleViewMore)
 
-    var scheduleRefresh = document.createElement("a")
+    let scheduleRefresh = document.createElement("a")
     scheduleRefresh.innerHTML = chrome.i18n.getMessage("Refresh")
     scheduleRefresh.classList.add("pull-right", "sc_buttons", "rounded")
     scheduleRefresh.onclick = () => {
@@ -158,17 +158,18 @@ function sc_main() {
 
     chrome.storage.local.get(["scheduleData"], function(result) {
         const { scheduleData } = result
-        var refreshSchedule = false
+        let refreshSchedule = false
 
-        try { var data = JSON.parse(scheduleData); } catch (error) { refreshSchedule = true; }
+        let data = {}
+        try { data = JSON.parse(scheduleData); } catch (error) { refreshSchedule = true; }
 
         if (scheduleData === undefined || scheduleData === null || data === undefined) refreshSchedule = true
 
         // Next and Previous Day Buttons
-        var nextDay = document.createElement("a")
-        var icon = document.createElement("i")
-        icon.classList.add("fal", "fa-chevron-right")
-        nextDay.appendChild(icon)
+        let nextDay = document.createElement("a")
+        let rightIcon = document.createElement("i")
+        rightIcon.classList.add("fal", "fa-chevron-right")
+        nextDay.appendChild(rightIcon)
         nextDay.classList.add("sc_buttons", "pull-right", "rounded")
         nextDay.onclick = () => {
             day += 1
@@ -177,10 +178,10 @@ function sc_main() {
         }
         sc_Widget.children[0].children[0].appendChild(nextDay)
 
-        var previousDay = document.createElement("a")
-        var icon = document.createElement("i")
-        icon.classList.add("fal", "fa-chevron-left")
-        previousDay.appendChild(icon)
+        let previousDay = document.createElement("a")
+        let leftIcon = document.createElement("i")
+        leftIcon.classList.add("fal", "fa-chevron-left")
+        previousDay.appendChild(leftIcon)
         previousDay.classList.add("sc_buttons", "pull-right", "rounded")
         previousDay.onclick = () => {
             day -= 1

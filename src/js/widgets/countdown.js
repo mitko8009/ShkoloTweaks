@@ -1,5 +1,5 @@
-var countdownWidgetTitle
-var countdownWidgetContent
+let countdownWidgetTitle
+let countdownWidgetContent
 
 function getDaysUntilEndOfSchool() {
     const june30 = new Date(year, 5, 30)

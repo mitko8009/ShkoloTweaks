@@ -9,7 +9,7 @@ const today = new Date();
 const year = today.getFullYear();
 
 // Define jQuery
-var script = document.createElement("script")
+let script = document.createElement("script")
 script.src = chrome.runtime.getURL("lib/jquery.min.js")
 script.type = "text/javascript" 
 document.getElementsByTagName("head")[0].appendChild(script)
@@ -29,45 +29,51 @@ function removeElements(elements) {
 }
 
 function getIcon(subject) {
-    var icon = document.createElement("i")
+    let icon = document.createElement("i")
     icon.classList.add("fal", "fa-"+subject.toLowerCase(), "scIcon")
     return icon
 }
 
-loadCssFile("css/__global.css")
-
-function main() {
-        if (theme !== "light") { // Load Any Theme
+function checkTheme() {
+    if (theme !== "light") { // Load Any Theme
         loadCssFile(`themes/${theme}/style.css`)
 
         // Remove all element styles from all elements in the message-body
-        var messageBody = document.getElementsByClassName("message-body")[0]
+        let messageBody = document.getElementsByClassName("message-body")[0]
         if (messageBody !== undefined) {
-            for (var i = 0; i < messageBody.children.length; i++) {
+            for (let i = 0; i < messageBody.children.length; i++) {
                 messageBody.children[i].removeAttribute("style")
             }
         }
         
         try {
-            var script = document.createElement("script")
+            let script = document.createElement("script")
             script.src = chrome.runtime.getURL(`themes/${theme}/script.js`)
             script.type = "text/javascript"
             document.getElementsByTagName("head")[0].appendChild(script)
         } catch { console.warn("Failed to load script.js for the theme.") }
-    } else {
-        var topMenu = $(".nav.navbar-nav.pull-right")[0]
-        var option = topMenu.children[2].cloneNode(true)
-        removeElements(option.children[0].children)
-        option.children[0].innerHTML = "Apply Dark Theme"
-        option.children[0].style = "color: white !important; font-weight: bold;"
-        option.children[0].href = "javascript:void(0)"
-        option.children[0].onclick = () => {
-            chrome.storage.sync.set({theme: "dark"})
-            location.reload()
-        }
-        option.title = "Apply Dark Theme"
-        topMenu.prepend(option)
+
+        return
     }
+
+    let topMenu = $(".nav.navbar-nav.pull-right")[0]
+    let option = topMenu.children[2].cloneNode(true)
+    removeElements(option.children[0].children)
+    option.children[0].innerHTML = "Apply Dark Theme"
+    option.children[0].style = "color: white !important; font-weight: bold;"
+    option.children[0].href = "javascript:void(0)"
+    option.children[0].onclick = () => {
+        chrome.storage.sync.set({theme: "dark"})
+        location.reload()
+    }
+    option.title = "Apply Dark Theme"
+    topMenu.prepend(option)
+}
+
+loadCssFile("css/shkolo/__global.css")
+
+function main() {
+    checkTheme()
 
     if (cleanUp) { // Cleanup (aka. General Fixes)
         removeElements($(".btn.btn-lg.btn-e2e.red.huge"))
@@ -76,13 +82,14 @@ function main() {
         removeElements($(".mobile-app-link"))
         $("#help-link-in-menu").remove()
 
-        loadCssFile("css/cleanup.css")
+        loadCssFile("css/shkolo/cleanup.css")
     }
 
-    if(blurPfp) { loadCssFile("css/blurData.css") }
-    if(rounded) { loadCssFile("css/rounded.css") } 
+    if(blurPfp) { loadCssFile("css/shkolo/blurData.css") }
+    if(rounded) { loadCssFile("css/shkolo/rounded.css") } 
 
     $("#sc-name-lbl").html($("#sc-name-lbl").html() + ` | ${manifest.name} v` + version);
+
     $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
 }  
 

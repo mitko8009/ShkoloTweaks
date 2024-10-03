@@ -1,0 +1,71 @@
+:root {
+    /* Global Variables */
+    --background-primary: hsl(0, 0%, 15%); /* Same as --dark-bg */
+    --border-primary: hsl(0, 0%, 96%);
+    --accent-primary: hsl(0, 0%, 22%);
+    --text-primary: hsl(0, 0%, 96%);
+    --background-alternate: hsl(0, 0%, 23%);
+    /* General Variables */
+    --darker-bg: hsl(0, 0%, 8%);
+    --darker2-bg: hsl(0, 0%, 10%);
+    --dark-bg: hsl(0, 0%, 15%);
+    --dark2-bg: hsl(0, 0%, 17%);
+    --lightDark-bg: hsl(0, 0%, 22%);
+}
+
+* {
+    color: var(--text-primary) !important;
+    box-sizing: unset !important;
+}
+
+/* Tailwind Overrides */
+.w-64 {
+    width: 16rem !important;
+}
+
+.bg-blue-50 {
+    background-color: #285caf !important;
+}
+
+#twroot .lg\:pl-60 {
+    padding-left: 16rem !important;
+}
+
+/* Custom Theming */
+
+body, #twroot .max-w-screen-max, .sb-left-side, .bg-white{
+    background-color: var(--background-primary) !important;
+}
+
+tr, .sb-table, .sb-table-container, .mat-paginator-container, .sb-paginator, .sb-paginator-item, .mat-menu-content {
+    background-color: var(--accent-primary) !important;
+}
+
+/* Grade Table Colors (IN PROGRESS) */
+.bg-yellow-50 {
+    background-color: #b88312 !important;
+}
+
+/* Rounded Theme */
+sb-vertical-tabs, .border  {
+    border-radius: 8px !important;
+}
+
+#twroot > sb-root > sb-snackbar-root > sb-student > sb-app-chrome > header > div {
+    border-radius: 8px !important;
+    height: auto !important;
+}
+
+#twroot > sb-root > sb-snackbar-root > sb-student > sb-app-chrome > header {
+    height: 4rem !important;
+}
+
+#twroot > sb-root > sb-snackbar-root > sb-student > sb-app-chrome > div > div {
+    padding-top: 4rem !important;
+}
+
+#twroot > sb-root > sb-snackbar-root > sb-student > sb-app-chrome > div > nav {
+    top: 4rem !important;
+}
+
+
