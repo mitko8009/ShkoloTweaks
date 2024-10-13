@@ -27,7 +27,7 @@ After the transition, schools will use the state e-diary.
 
 ## Availability
 
-**Shkolo Tweaks** is available to download on all *Chromium Browsers* via the **[Google Web Store](https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc)**.
+**Shkolo Tweaks** is available to download on all *Chromium Browsers* via the **[Google Web Store](https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc)** and on Firefox vie the **[Firefox Browser ADD-ONS](https://addons.mozilla.org/en-US/firefox/addon/shkolotweaks-beta/)**.
 
 [![Google Chrome](https://img.shields.io/badge/Google%20Chrome-4285F4?style=for-the-badge&logo=GoogleChrome&logoColor=white)](https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc?hl=en&authuser=0)
 
