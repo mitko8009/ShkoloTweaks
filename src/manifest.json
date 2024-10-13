@@ -3,7 +3,7 @@
 	"name": "ShkoloTweaks (BETA)",
 	"short_name": "ShkoloTW",
 	"description": "__MSG_extDescription__",
-	"version": "0.4.9",
+	"version": "0.5",
 	"author": "ITPG Web Studios",
 	"default_locale": "en",
 	"homepage_url": "https://shkolotweaks.web.app/",
@@ -34,6 +34,7 @@
 			],
 			"js": [
 				"lib/jquery.min.js",
+				"utils.js",
 				"shkolo.js",
 				"js/add-ons/stats.js",
 				"js/add-ons/stas.js"
@@ -56,6 +57,8 @@
 				"*://*.mon.bg/*"
 			],
 			"js": [
+				"lib/jquery.min.js",
+				"utils.js",
 				"mon.js"
 			],
 			"run_at": "document_end"
@@ -79,7 +82,7 @@
 	],
 	"browser_specific_settings": {
 		"gecko": {
-			"id": "{d5d263ce-84a4-49b4-8052-18a19c8423d0}"
+			"id": "{d5d263ce-84a4-49b4-8052-69a19c8423d0}"
 		}
 	}
 }

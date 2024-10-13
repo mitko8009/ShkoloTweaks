@@ -1,0 +1,8 @@
+:root {
+    /* Global Variables */
+    --background-primary: hsl(233, 54%, 79%); /* Same as --dark-bg */
+    --border-primary: hsl(207, 74%, 62%);
+    --accent-primary: hsl(207, 100%, 50%);
+    --text-primary: hsl(0, 0%, 0%);
+    --background-alternate: hsl(195, 100%, 81%);
+}

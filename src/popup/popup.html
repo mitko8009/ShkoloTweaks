@@ -5,17 +5,16 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ShkoloTweaks</title>
-        <link rel="stylesheet" href="bulma.min.css" />
         <link rel="stylesheet" href="popup.css" />
     </head>
     <body>
-        <div id="dev_panel"> <!-- Dev Panel -->
+        <!-- <div id="dev_panel">
             <div class="centerItems" id="dev_flags"></div>
             <div id="close_dev_panel"></div>
-        </div>
+        </div> -->
 
         <div id="theme-options" value="dark">
-            <label class="label" style="font-size: 1.1em; margin-top: 8px;" id="themeLabel"></label>
+            <label style="font-size: 1.1em; margin-top: 8px;" id="themeLabel"></label>
             <div class="options-row">
                 <a type="button" class="option theme-option" aria-pressed="false" id="theme_dark" data-value="dark"><img src="../assets/moon.svg" class="icon32"></a>
                 <a type="button" class="option theme-option" aria-pressed="false" id="theme_light" data-value="light"><img src="../assets/sun.svg" class="icon32"></a>
@@ -24,30 +23,27 @@
         </div>
 
         <div class="grid-container">
-            <div style="width: 20em;">
-                <div class="container m-3" id="header"> <!-- Header -->
-                    <h1 class="title"><img src="../assets/icon_x128.png" style="height: 48px; margin-bottom: -10px; margin-right: 6px;">Shkolo Tweaks</h1>
-                    <a class="button is-fullwidth is-info is-light" id="shkoloBtn" href="https://app.shkolo.bg/dashboard" target="_blank"></a>
-                </div>
-                <div class="container m-3"> <!-- Customizations -->
-                    <div class="container-m1" style="display: grid; justify-content: center; align-items: center; text-align: center; gap: 8px;">
-                        <label class="label" id="customizations" style="font-size: 1.1em; margin-bottom: -2px;"></label>
-                        <div class="options-row">
-                            <a type="button" class="option" id="rounded" aria-pressed="false"><img src="../assets/rounded.svg" class="icon32"></a>
-                            <a type="button" class="option" id="cleanup" aria-pressed="false"><img src="../assets/clean.svg" class="icon32"></a>
-                            <a type="button" class="option" id="blurpfp" aria-pressed="false"><img src="../assets/user-not-tracked.svg" class="icon32"></a>
-                            <a type="button" class="option" id="scWidget" aria-pressed="false"><img src="../assets/schedule.svg" class="icon32"></a>
-                        </div>
-                        <div class="options-row">
-                            <a type="button" class="option" id="themePopup" aria-pressed="false"><img src="../assets/brush.svg" class="icon32"></a>
-                        </div>
+            <div class="container" id="header"> <!-- Header -->
+                <h1 class="title"><img src="../assets/icon_x128.png" style="height: 48px; margin-bottom: -10px; margin-right: 6px;">Shkolo Tweaks</h1>
+                <a class="button" id="shkoloBtn" href="https://app.shkolo.bg/dashboard" target="_blank"></a>
+            </div>
+            <div class="container"> <!-- Customizations -->
+                <div class="container-m1" style="display: grid; justify-content: center; align-items: center; text-align: center; gap: 8px;">
+                    <label id="customizations" style="font-size: 1.1em; margin-bottom: -2px;"></label>
+                    <div class="options-row">
+                        <a type="button" class="option" id="rounded" aria-pressed="false"><img src="../assets/rounded.svg" class="icon32"></a>
+                        <a type="button" class="option" id="cleanup" aria-pressed="false"><img src="../assets/clean.svg" class="icon32"></a>
+                        <a type="button" class="option" id="blurpfp" aria-pressed="false"><img src="../assets/user-not-tracked.svg" class="icon32"></a>
+                        <a type="button" class="option" id="scWidget" aria-pressed="false"><img src="../assets/schedule.svg" class="icon32"></a>
+                    </div>
+                    <div class="options-row">
+                        <a type="button" class="option" id="themePopup" aria-pressed="false"><img src="../assets/brush.svg" class="icon32"></a>
                     </div>
                 </div>
-                <div class="container m-3"> <!-- Footer -->
-                    <a class="button is-fullwidth" id="saveBtn"></a>
-                    <label class="label m-1" id="version"></label>
-                </div>
             </div>
+            <a class="button" id="saveBtn"></a>
+            <label id="version"></label>
+
         </div>
     </body>
     <script src="../lib/jquery.min.js"></script>

@@ -14,14 +14,6 @@ script.src = chrome.runtime.getURL("lib/jquery.min.js")
 script.type = "text/javascript" 
 document.getElementsByTagName("head")[0].appendChild(script)
 
-const AddCustomStyle = css => document.head.appendChild(document.createElement("style")).innerHTML = css
-
-function loadCssFile(fileName) {
-    fetch(chrome.runtime.getURL(fileName))
-    .then(response => response.text())
-    .then(data => { AddCustomStyle(data) });
-}
-
 function removeElements(elements) {
     Array.from(elements).forEach(function (element) {
         element.remove()

@@ -2,7 +2,7 @@
 // Adds a popup alert system to the dashboard for important messages
 
 // Init STAS (Shkolo Tweaks Alert System)
-loadCssFile("css/add-ons/stas.css")
+loadCssFile("css/shkolo/add-ons/stas.css")
 
 // STAS Popup Alert
 

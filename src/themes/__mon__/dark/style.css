@@ -15,20 +15,16 @@
 
 * {
     color: var(--text-primary) !important;
-    box-sizing: unset !important;
 }
 
 /* Tailwind Overrides */
-.w-64 {
-    width: 16rem !important;
-}
 
 .bg-blue-50 {
     background-color: #285caf !important;
 }
 
-#twroot .lg\:pl-60 {
-    padding-left: 16rem !important;
+.bg-red-50 {
+    background-color: #c53030 !important;
 }
 
 /* Custom Theming */
@@ -66,6 +62,23 @@ sb-vertical-tabs, .border  {
 
 #twroot > sb-root > sb-snackbar-root > sb-student > sb-app-chrome > div > nav {
     top: 4rem !important;
+}
+
+#twroot > sb-root > sb-snackbar-root > sb-student > sb-app-chrome > div > nav > nav > div > div > div {
+    flex-direction: column !important;
+}
+
+#twroot > sb-root > sb-snackbar-root > sb-student > sb-app-chrome > div > div > main > ng-component > sb-simple-page-skeleton-template > sb-book > sb-tabs > div {
+    border: none !important;
+}
+
+#twroot .mat-tab-link {
+    align-self: start !important;
+    width: 100% !important;
+}
+
+#twroot > sb-root > sb-snackbar-root > sb-student > sb-app-chrome > div > nav > nav > div > div > mat-ink-bar {
+    background-color: white !important;
 }
 
 

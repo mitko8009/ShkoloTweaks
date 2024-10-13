@@ -56,8 +56,8 @@ function cw_main() {
     countdownWidgetTitle.innerHTML = chrome.i18n.getMessage("CountdownTitle").replace("{{DAYS}}", daysUntilEndOfSchool)
     
     countdownWidgetContent.innerHTML = `<progress id="file" value="${fullyear-daysUntilEndOfSchool}" max="${fullyear}"></progress><p style="opacity: .8;">${chrome.i18n.getMessage("CountdownFooter")}<p>`
-    scheduleWidgetContent.style.fontSize = "14px"
-    scheduleWidgetContent.style.fontWeight = "bold"
+    countdownWidgetContent.style.fontSize = "14px"
+    countdownWidgetContent.style.fontWeight = "bold"
     countdownWidgetContent.style.height = "auto"
     
     if (!cleanUp) cw_Widget.children[0].children[2].remove()
