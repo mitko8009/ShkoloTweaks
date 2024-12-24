@@ -8,6 +8,10 @@ body {
     padding: 0 32px 0 16px;
 }
 
+[data-tooltip]:hover {
+    z-index: 10 !important;
+}
+
 [data-tooltip]:hover::after {
     display: block;
     position: absolute;
@@ -26,7 +30,6 @@ body {
     left: 50%;
     transform: translateX(-50%);
 
-    z-index: 10000 !important;
     pointer-events: none;
 }
 
