@@ -4,16 +4,6 @@
 
 **Shkolo Tweaks** is a web extension for customising **[Shkolo]("https://www.shkolo.bg/")**. It features a dark theme, widgets, stats, and much more.
 
-> [!IMPORTANT]
-> ## SHKOLO TWEAKS WILL BE DISCONTINUED BY VERSION 0.5
-> Due to a decision by the Ministry of Education in Bulgaria, Shkolo as a digital diary won't be used globally by schools by 2025/26.
-After the transition, schools will use the state e-diary.
-
-> [!IMPORTANT]
-> ## SHKOLO TWEAKS WILL BE REBRANDING
-> **SHKOLO Tweaks** will be rebranded to **MON Tweaks** as soon as MON disallows Shkolo nationally.
-> MON functionally will start working via the Shkolo Tweaks Preferences Popup since the release of v0.5 of the extension.
-
 > [!WARNING]
 > **ShkoloTweak** is a software NOT affiliated with or endorsed by **Shkolo.bg** or the **Ministry of Education and Science** *(MON for short in BG)* in Bulgaria.
 
@@ -35,16 +25,8 @@ After the transition, schools will use the state e-diary.
 
 - [@mitko8009](https://github.com/mitko8009)
 - [@DeyanVNikolov](https://github.com/DeyanVNikolov)
-
-## FAQ
-
-### Will Shkolo Tweaks support NEISPUO (НЕИСПУО)?
-
-> Yes! It will support basic functionality that was introduced in Shkolo Tweaks *(e.g., Dark Theme; Rounded Theme)*, but nothing special for now.
-
-### When Shkolo Tweaks is rebranding?
-
-> We expect the start of the next school year. When the ministry of education bans 3rd-party e-diaries. It will be rebranded as "MON Tweaks" or something like that.
+- [@Maximus019BG](https://github.com/Maximus019BG)
+- [@Crea7orX](https://github.com/Crea7orX)
 
 <hr>
 <div align="center">
