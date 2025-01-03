@@ -1,5 +1,8 @@
+html {
+    background-image: url("../assets/bg.png");
+}
+
 html, #theme, .button{
-    background-color: #141414; 
     color: #fff;
 }
 
@@ -33,10 +36,21 @@ body {
     pointer-events: none;
 }
 
+#main_container {
+    min-width: 250px;
+}
+
 #saveBtn {
     transition: .5s;
-    background-color: #ffffff00;
+    background-color: #e4e4e427;
     box-shadow: 0 0 0 0;
+    border: #ffffff 3px solid;
+}
+
+#saveBtn:hover {
+    background-color: #e4e4e463;
+    color: #fff;
+    box-shadow: 0 0 10px 0 #ffffff;
 }
 
 .icon32 {
@@ -71,7 +85,7 @@ body {
     width: 32px;
     height: 32px;
 
-    background-color: hsl(0, 0%, 22%) !important;
+    background-color: hsla(0, 0%, 22%, 0.5) !important;
     border: hsl(0, 0%, 90%) 1px solid;
     border-radius: 8px;
     outline: none;
@@ -81,13 +95,13 @@ body {
 
 .option:hover {
     outline: #cccccc 1px solid;
-    background-color: #444444 !important;
+    background-color: hsl(0, 0%, 27%, 0.7) !important;
     filter: brightness(1.1);
 }
 
 .option.active {
     outline: hsl(0, 0%, 90%) 1px solid;
-    background-color: #616161 !important;
+    background-color: hsl(0, 0%, 38%, 0.8) !important;
     filter: brightness(1.2);
 }
 
@@ -116,6 +130,10 @@ body {
     transition: 200ms;
 }
 
+.button:hover {
+    color: hsl(0, 0%, 80%);
+}
+
 .warning {
     color: rgb(185, 167, 0) !important;
     font-size: smaller;
@@ -138,10 +156,6 @@ body {
 .title, .label {
     text-align: center;
     color: #fff;
-}
-
-.button:hover {
-    color: hsl(0, 0%, 80%);
 }
 
 .checkbox:hover, .radio:hover {
@@ -199,4 +213,9 @@ body {
 
 .dev_flag:hover {
     color: #cccccc;
+}
+
+#version {
+    font-size: 1.2em;
+    font-weight: bold;
 }

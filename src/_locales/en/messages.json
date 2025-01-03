@@ -87,10 +87,10 @@
         "message": "Up to date"
     },
     "outdatedVersion": {
-        "message": "Update available"
+        "message": "Update available - %s"
     },
     "devVersion": {
-        "message": "Development version"
+        "message": "Development version - %s"
     },
     "customizations": {
         "message": "Customizations"
@@ -103,5 +103,14 @@
     },
     "CountdownFooter": {
         "message": "This statistic does NOT include holidays."
+    },
+    "githubLabel": {
+        "message": "GitHub"
+    },
+    "instagramLabel": {
+        "message": "Instagram"
+    },
+    "websiteLabel": {
+        "message": "Official Website"
     }
 }

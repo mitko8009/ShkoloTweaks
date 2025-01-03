@@ -31,7 +31,7 @@ function saveData() {
         scheduleWidget: $("#scWidget").attr("aria-pressed") === "true"
     }
 
-    $("#saveBtn").css("background", "none").css("box-shadow", "0 0 0 0");
+    // $("#saveBtn").css("background", "none").css("box-shadow", "0 0 0 0");
     chrome.storage.sync.set(prefs)
     refreshPage()
 }
@@ -62,49 +62,49 @@ function checkForUpdates() {
     .then(response => response.json())
     .then(data => {
         if (version < data.version) {
-            label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("outdatedVersion")})`
+            label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("outdatedVersion").replace("%s", data.version)})`
         } else if (version > data.version) {
-            label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("devVersion")})`
+            label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("devVersion").replace("%s", data.version)})`
         } else {
             label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("latestVersion")})`
         }
     });
 }
-setTimeout(() => { checkForUpdates() }, 5000);
+checkForUpdates();
 
 // Developer Panel
-function refreshDevPanel() {
-    chrome.storage.sync.get(["flags"], (result) => {
-        console.log(result)
-        const flags = result.flags
-        $("#dev_flags").empty()
-        for (const flag in flags) {
-            $("#dev_flags").append(`<div class="dev_flag${flags[flag].value?"active":""}" data-flag="${flags[flag].flag}">${flags[flag].display}</div>`)
-        }
-    });
+// function refreshDevPanel() {
+//     chrome.storage.sync.get(["flags"], (result) => {
+//         console.log(result)
+//         const flags = result.flags
+//         $("#dev_flags").empty()
+//         for (const flag in flags) {
+//             $("#dev_flags").append(`<div class="dev_flag${flags[flag].value?"active":""}" data-flag="${flags[flag].flag}">${flags[flag].display}</div>`)
+//         }
+//     });
 
-    // $("#dev_flags").append(`<div class="dev_flag" data-flag="test" id="test">Test</div>`)
-    // $("#dev_flag").click(() => { console.log("Clicked!"); })
-    // document.getElementById("#dev_flags").append(`<div class="dev_flag" data-flag="test">Test</div>`)
+//     // $("#dev_flags").append(`<div class="dev_flag" data-flag="test" id="test">Test</div>`)
+//     // $("#dev_flag").click(() => { console.log("Clicked!"); })
+//     // document.getElementById("#dev_flags").append(`<div class="dev_flag" data-flag="test">Test</div>`)
 
-    // $(".dev_flag").click(function() {
-    //     console.log("Clicked: "+$(this).attr("data-flag"))
-    //     const flag = $(this).attr("data-flag")
-    //     chrome.storage.sync.get(["flags"], (result) => {
-    //         const flags = result.flags
-    //         flags[flag].value = !flags[flag].value
-    //         chrome.storage.sync.set({flags: flags})
-    //         console.log(flags)
-    //     });
-    // });
-}
+//     // $(".dev_flag").click(function() {
+//     //     console.log("Clicked: "+$(this).attr("data-flag"))
+//     //     const flag = $(this).attr("data-flag")
+//     //     chrome.storage.sync.get(["flags"], (result) => {
+//     //         const flags = result.flags
+//     //         flags[flag].value = !flags[flag].value
+//     //         chrome.storage.sync.set({flags: flags})
+//     //         console.log(flags)
+//     //     });
+//     // });
+// }
 
-$(label_version).click(() => { 
-    checkForUpdates();
-    refreshDevPanel();
-    $("#dev_panel").css("opacity", 0).show().animate({opacity: 1}, 200);
-});
-$("#close_dev_panel").click(() => { $("#dev_panel").animate({opacity: 0}, 200, function() { $(this).hide(); }); });
+// $(label_version).click(() => { 
+//     checkForUpdates();
+//     refreshDevPanel();
+//     $("#dev_panel").css("opacity", 0).show().animate({opacity: 1}, 200);
+// });
+// $("#close_dev_panel").click(() => { $("#dev_panel").animate({opacity: 0}, 200, function() { $(this).hide(); }); });
 // $("#logging").click(function() {
 //     chrome.storage.sync.get(["logging"], (result) => {
 //         const logging = result.logging

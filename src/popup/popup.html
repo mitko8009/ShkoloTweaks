@@ -22,14 +22,14 @@
             <div id="custom-themes" class="options-row" style="margin-top: 8px;"></div>
         </div>
 
-        <div class="grid-container">
+        <div class="grid-container" id="main_container"> <!-- Main Container -->
             <div class="container" id="header"> <!-- Header -->
-                <h1 class="title"><img src="../assets/icon_x128.png" style="height: 48px; margin-bottom: -10px; margin-right: 6px;">Shkolo Tweaks</h1>
+                <h1 class="title"><img src="../assets/LogoBanner.png" style="height: 100px; margin-bottom: -16px; margin-right: 6px; margin-top: -16px;"></h1>
                 <a class="button" id="shkoloBtn" href="https://app.shkolo.bg/dashboard" target="_blank"></a>
             </div>
             <div class="container"> <!-- Customizations -->
-                <div class="container-m1" style="display: grid; justify-content: center; align-items: center; text-align: center; gap: 8px;">
-                    <label id="customizations" style="font-size: 1.1em; margin-bottom: -2px;"></label>
+                <div class="container-m1" style="display: grid; justify-content: center; align-items: center; text-align: center; gap: 8px; margin-right: -16px;">
+                    <label id="customizations" style="font-size: 1.3em; margin-bottom: -2px; font-weight: bold;"></label>
                     <div class="options-row">
                         <a type="button" class="option" id="rounded" aria-pressed="false"><img src="../assets/rounded.svg" class="icon32"></a>
                         <a type="button" class="option" id="cleanup" aria-pressed="false"><img src="../assets/clean.svg" class="icon32"></a>
@@ -42,6 +42,11 @@
                 </div>
             </div>
             <a class="button" id="saveBtn"></a>
+            <div style="display: grid; justify-content: center; align-items: center; text-align: center; gap: 8px; margin-right: -16px; grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
+                <a id="github" type="button" class="option" href="https://github.com/mitko8009/ShkoloTweaks" target="_blank"><img src="../assets/github-mark.svg" class="icon32"></a>
+                <a id="instagram" type="button" class="option" href="https://www.instagram.com/mitko8009_/" target="_blank" ><img src="../assets/Instagram_Glyph.svg" class="icon32"></a>
+                <a id="website" type="button" class="option" href="https://shkolotweaks.xyz/" target="_blank"><img src="../assets/icon_x48.png" class="icon32"></a>
+            </div>
             <label id="version"></label>
 
         </div>

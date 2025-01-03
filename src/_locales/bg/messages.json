@@ -87,10 +87,10 @@
         "message": "Актуалнa версия"
     },
     "outdatedVersion": {
-        "message": "Актуализация е налична"
+        "message": "Актуализация е налична - %s"
     },
     "devVersion": {
-        "message": "Разработчиска версия"
+        "message": "Разработчиска версия - %s"
     },
     "customizations": {
         "message": "Персонализации"
@@ -103,5 +103,14 @@
     },
     "CountdownFooter": {
         "message": "Тази статистика НЕ ​​включва ваканции."
+    },
+    "githubLabel": {
+        "message": "GitHub"
+    },
+    "instagramLabel": {
+        "message": "Instagram"
+    },
+    "websiteLabel": {
+        "message": "Официален Уебсайт"
     }
 }
