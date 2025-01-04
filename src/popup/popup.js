@@ -31,7 +31,7 @@ function saveData() {
         scheduleWidget: $("#scWidget").attr("aria-pressed") === "true"
     }
 
-    // $("#saveBtn").css("background", "none").css("box-shadow", "0 0 0 0");
+    $("#saveBtn").css("background-color", "hsla(0, 0%, 89%, 0.2)").css("box-shadow", "0 0 0 0");
     chrome.storage.sync.set(prefs)
     refreshPage()
 }
@@ -49,7 +49,7 @@ function toggleOptionState(option, state=null) {
         const state = option.attr("aria-pressed") === "true";
         state ? option.removeClass("active") : option.addClass("active");
         option.attr("aria-pressed", !state);
-        $("#saveBtn").css("background-color", "hsl(0, 0%, 22%)").css("box-shadow", "0 0 0 1px #fff");
+        $("#saveBtn").css("background-color", "hsla(0, 0%, 89%, 0.6)").css("box-shadow", "0 0 0 1px #fff");
     } else {                                                // Set State
         option.attr("aria-pressed", state);
         state ? option.addClass("active") : option.removeClass("active");

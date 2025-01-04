@@ -42,13 +42,13 @@ body {
 
 #saveBtn, #shkoloBtn {
     transition: .5s;
-    background-color: #e4e4e427;
+    background-color: hsla(0, 0%, 89%, 0.2);
     box-shadow: 0 0 0 0;
     border: #ffffff 3px solid;
 }
 
 #saveBtn:hover, #shkoloBtn:hover {
-    background-color: #e4e4e463;
+    background-color: hsla(0, 0%, 89%, 0.4);
     color: #fff;
     box-shadow: 0 0 10px 0 #ffffff;
 }
