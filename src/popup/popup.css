@@ -40,14 +40,14 @@ body {
     min-width: 250px;
 }
 
-#saveBtn {
+#saveBtn, #shkoloBtn {
     transition: .5s;
     background-color: #e4e4e427;
     box-shadow: 0 0 0 0;
     border: #ffffff 3px solid;
 }
 
-#saveBtn:hover {
+#saveBtn:hover, #shkoloBtn:hover {
     background-color: #e4e4e463;
     color: #fff;
     box-shadow: 0 0 10px 0 #ffffff;
