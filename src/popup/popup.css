@@ -41,10 +41,10 @@ body {
 }
 
 #saveBtn, #shkoloBtn {
-    transition: .5s;
+    transition: .3s;
     background-color: hsla(0, 0%, 89%, 0.2);
     box-shadow: 0 0 0 0;
-    border: #ffffff 3px solid;
+    border: #ffffff 2px solid;
 }
 
 #saveBtn:hover, #shkoloBtn:hover {

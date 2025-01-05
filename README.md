@@ -21,6 +21,16 @@
 
 [![Google Chrome](https://img.shields.io/badge/Google%20Chrome-4285F4?style=for-the-badge&logo=GoogleChrome&logoColor=white)](https://chromewebstore.google.com/detail/shkolotweaks/benlbhlopnomakndbgihpghghdcejpjc?hl=en&authuser=0)
 
+## Contributing
+
+If you want to hack on the extension, you'll need to install it manually by following the steps below:
+1. Clone or fork this repository.
+2. Go to your Chrome Extensions page and ensure **Developer** mode is enabled.
+3. You can then click the **Load unpacked extension...** button and browse to the `src` directory of this repository.
+
+> [!NOTE]
+> When you make changes to the extension, make sure to click the **Update** button to apply them.
+
 ## Authors
 
 - [@mitko8009](https://github.com/mitko8009)
