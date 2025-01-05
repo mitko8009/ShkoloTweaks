@@ -27,6 +27,8 @@ If you want to hack on the extension, you'll need to install it manually by foll
 1. Clone or fork this repository.
 2. Go to your Chrome Extensions page and ensure **Developer** mode is enabled.
 3. You can then click the **Load unpacked extension...** button and browse to the `src` directory of this repository.
+   
+![Screenshot 2025-01-05 194813](https://github.com/user-attachments/assets/45a383b6-1e1a-41be-8b34-8c926e539971)
 
 > [!NOTE]
 > When you make changes to the extension, make sure to click the **Update** button to apply them.
