@@ -3,6 +3,11 @@
     transition: all 0.4s;
 }
 
+.page-header.navbar .top-menu .navbar-nav>li.dropdown-user .dropdown-toggle>img:hover, .inbox-content .timeline .timeline-badge-userpic:hover {
+    filter: blur(0);
+}
+
+
 .profile-userpic img.avatar {
     filter: blur(5px);
     transition: all 0.4s;
@@ -12,26 +17,20 @@
     filter: blur(0);
 }
 
-.page-header.navbar .top-menu .navbar-nav>li.dropdown-user .dropdown-toggle>img:hover, .inbox-content .timeline .timeline-badge-userpic:hover {
-    filter: blur(0);
-}
-
-
 .username {
     filter: blur(5px);
     transition: all 0.4s;
-
-    &:hover {
-        filter: blur(0);
-    }
 }
 
+.username:hover {
+    filter: blur(0);
+}
 
 .form-group > div.col-sm-6 > p.form-control-static, .profile-usertitle-name {
     filter: blur(5px);
     transition: all 0.4s;
+}
 
-    &:hover {
-        filter: blur(0);
-    }
+.form-group > div.col-sm-6 > p.form-control-static, .profile-usertitle-name:hover {
+    filter: blur(0);
 }
