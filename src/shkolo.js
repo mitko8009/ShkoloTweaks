@@ -74,6 +74,44 @@ function main() {
         removeElements($(".mobile-app-link"))
         $("#help-link-in-menu").remove()
 
+        if (pageurl.endsWith("/profile") || pageurl.includes("/profile/data/view")) {
+            // mailto fix (issue #16)
+            let emailElement, telElement
+            if (pageurl.endsWith("/profile")) {
+                emailElement = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > div.profile-content > div > div.portlet-body > div > div > form > div:nth-child(6) > div > p")
+                telElement = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > div.profile-content > div > div.portlet-body > div > div > form > div:nth-child(5) > div > p")
+                console.log(emailElement)
+            } else if (pageurl.includes("/profile/data/view")) {
+                emailElement = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > div > div > div.portlet-body.form > form > div > div:nth-child(2) > div:nth-child(2) > div > div > p")
+                telElement = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > div > div > div.portlet-body.form > form > div > div:nth-child(4) > div:nth-child(2) > div > div > p")
+            }
+            console.log(emailElement)
+
+            if (emailElement !== null) {
+                email = emailElement.innerHTML
+                emailElement.innerHTML = `<a href="mailto:${email}">${email}</a>`
+            }
+
+            if (telElement !== null) {
+                let telIcon = telElement.children.length > 0 ? telElement.children[0].cloneNode(true) : null; // There might not be an icon
+                if (telIcon) {
+                    telElement.children[0].remove();
+                }
+
+                tel = telElement.innerHTML.trim()
+                console.log(tel)
+                if (tel.startsWith("+359")) {
+                    tel = "0" + tel.substring(4)
+                } else if (tel.startsWith("0")) {
+                    tel = tel
+                } else {
+                    console.warn("Unexpected phone number format: " + tel)
+                }
+
+                telElement.innerHTML = (telIcon != null ? telIcon.outerHTML : "") + ` <a href="tel:${tel}">${tel}</a>`
+            }
+        }
+
         loadCssFile("css/shkolo/cleanup.css")
     }
 
