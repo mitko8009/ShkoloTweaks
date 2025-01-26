@@ -99,15 +99,6 @@ function main() {
                 }
 
                 tel = telElement.innerHTML.trim()
-                console.log(tel)
-                if (tel.startsWith("+359")) {
-                    tel = "0" + tel.substring(4)
-                } else if (tel.startsWith("0")) {
-                    tel = tel
-                } else {
-                    console.warn("Unexpected phone number format: " + tel)
-                }
-
                 telElement.innerHTML = (telIcon != null ? telIcon.outerHTML : "") + ` <a href="tel:${tel}">${tel}</a>`
             }
         }

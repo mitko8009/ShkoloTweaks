@@ -1,6 +1,5 @@
 .page-header.navbar .top-menu .navbar-nav>li.dropdown-user .dropdown-toggle>img, .inbox-content .timeline .timeline-badge-userpic {
     filter: blur(3px);
-    transition: all 0.4s;
 }
 
 .page-header.navbar .top-menu .navbar-nav>li.dropdown-user .dropdown-toggle>img:hover, .inbox-content .timeline .timeline-badge-userpic:hover {
@@ -31,6 +30,6 @@
     transition: all 0.4s;
 }
 
-.form-group > div.col-sm-6 > p.form-control-static, .profile-usertitle-name:hover {
+.form-group > div.col-sm-6 > p.form-control-static:hover, .profile-usertitle-name:hover {
     filter: blur(0);
 }
