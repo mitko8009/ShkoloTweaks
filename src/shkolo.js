@@ -103,6 +103,15 @@ function main() {
             }
         }
 
+        if (pageurl.includes("/messages/")) {
+            let spans = document.querySelectorAll("span");
+            spans.forEach(span => {
+                if (span.style.backgroundColor === "rgb(255, 255, 255)") {
+                    span.style.backgroundColor = "";
+                }
+            });
+        }
+
         loadCssFile("css/shkolo/cleanup.css")
     }
 
