@@ -1,16 +1,16 @@
 :root {
     /* Global Variables */
-    --background-primary: hsl(0, 0%, 15%); /* Same as --dark-bg */
-    --border-primary: hsl(0, 0%, 96%);
-    --accent-primary: hsl(0, 0%, 22%);
-    --text-primary: hsl(0, 0%, 96%);
-    --background-alternate: hsl(0, 0%, 23%);
+    --background-primary: hsl(0, 0%, 15%) !important; /* Same as --dark-bg */
+    --border-primary: hsl(0, 0%, 96%) !important;
+    --accent-primary: hsl(0, 0%, 22%) !important;
+    --text-primary: hsl(0, 0%, 96%) !important;
+    --background-alternate: hsl(0, 0%, 23%) !important;
     /* General Variables */
-    --darker-bg: hsl(0, 0%, 8%);
-    --darker2-bg: hsl(0, 0%, 10%);
-    --dark-bg: hsl(0, 0%, 15%);
-    --dark2-bg: hsl(0, 0%, 17%);
-    --lightDark-bg: hsl(0, 0%, 22%);
+    --darker-bg: hsl(0, 0%, 8%) !important;
+    --darker2-bg: hsl(0, 0%, 10%) !important;
+    --dark-bg: hsl(0, 0%, 15%) !important;
+    --dark2-bg: hsl(0, 0%, 17%) !important;
+    --lightDark-bg: hsl(0, 0%, 22%) !important;
 }
 
 html, body, .form-control {
@@ -23,7 +23,7 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 }
 
 /* Darker bg */
-.page-header.navbar, .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover, .nav>li>a:focus, .nav>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .note-editor.note-frame .note-editing-area .note-editable, .panel-default>.panel-heading, .filtersContainer, .table-hover>tbody>tr:hover, .table-hover>tbody>tr:hover>td, .content-comment-section .content-comment, div.dt-button-collection, .select2-container--default .select2-selection--multiple .select2-selection__choice, .selectionTableCell.selected {
+.page-header.navbar, .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover, .nav>li>a:focus, .nav>li>a:hover, .note-editor.note-frame .note-editing-area .note-editable, .panel-default>.panel-heading, .filtersContainer, .table-hover>tbody>tr:hover, .table-hover>tbody>tr:hover>td, .content-comment-section .content-comment, div.dt-button-collection, .select2-container--default .select2-selection--multiple .select2-selection__choice, .selectionTableCell.selected {
     background-color: var(--darker-bg) !important;
     color: white;
 }
@@ -264,4 +264,19 @@ tspan {
 
 .modal .modal-header .close {
     filter: invert(1);
+}
+
+.btn.btn-outline.blue-steel.active, .btn.btn-outline.blue-steel:active, .btn.btn-outline.blue-steel:active:focus, .btn.btn-outline.blue-steel:active:hover, .btn.btn-outline.blue-steel:focus, .btn.btn-outline.blue-steel:hover {
+    border-color: #ffffff;
+    color: var(--darker-bg);
+    background-color: #ffffff;
+}
+
+.btn.btn-outline.blue-steel {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    background-color: hsl(0, 0%, 22%) !important;
 }

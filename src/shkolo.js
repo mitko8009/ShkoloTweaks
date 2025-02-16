@@ -74,6 +74,8 @@ function main() {
         removeElements($(".mobile-app-link"))
         $("#help-link-in-menu").remove()
 
+        loadCssFile("css/shkolo/cleanup.css")
+
         if (pageurl.endsWith("/profile") || pageurl.includes("/profile/data/view")) {
             // mailto fix (issue #16)
             let emailElement, telElement
@@ -111,8 +113,6 @@ function main() {
                 }
             });
         }
-
-        loadCssFile("css/shkolo/cleanup.css")
     }
 
     if(blurPfp) { loadCssFile("css/shkolo/blurData.css") }

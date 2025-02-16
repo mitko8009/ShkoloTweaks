@@ -20,3 +20,19 @@
 .portlet>.portlet-title>.caption, .inbox-nav-folder .inbox-nav-folder-info .inbox-nav-folder-name, .dashboard-stat .details .number, .dashboard-stat .details .desc {
     font-weight: bold;
 }
+
+@media (min-width: 768px) {
+    .col-sm-2 {
+        width: 11% !important;
+    }
+
+    .col-sm-3 {
+        width: 15% !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-4 {
+        width: 54% !important;
+    }
+}
