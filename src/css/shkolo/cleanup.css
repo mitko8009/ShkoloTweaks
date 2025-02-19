@@ -22,17 +22,20 @@
 }
 
 @media (min-width: 768px) {
+    /* Participants and Date */
     .col-sm-2 {
         width: 11% !important;
     }
 
+    /* Author */
     .col-sm-3 {
-        width: 15% !important;
+        width: 20% !important;
     }
 }
 
 @media (min-width: 992px) {
+    /* Topic */
     .col-md-4 {
-        width: 54% !important;
+        width: 48% !important;
     }
 }
