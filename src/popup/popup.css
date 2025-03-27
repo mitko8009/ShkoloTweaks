@@ -9,6 +9,7 @@ html, #theme, .button{
 body {
     width: fit-content;
     padding: 0 32px 0 16px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 [data-tooltip]:hover {

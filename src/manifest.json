@@ -3,7 +3,7 @@
 	"name": "ShkoloTweaks (BETA)",
 	"short_name": "ShkoloTW",
 	"description": "__MSG_extDescription__",
-	"version": "0.6.5",
+	"version": "0.6.6",
 	"author": "ITPG Web Studios",
 	"default_locale": "en",
 	"homepage_url": "https://shkolotweaks.web.app/",
@@ -35,6 +35,7 @@
 			"js": [
 				"lib/jquery.min.js",
 				"utils.js",
+				"js/requests.js",
 				"shkolo.js",
 				"js/add-ons/stats.js",
 				"js/add-ons/stas.js"

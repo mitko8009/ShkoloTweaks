@@ -1,14 +1,8 @@
 let scheduleWidgetTitle
 let scheduleWidgetContent
 
-function loadDiary() {
-    const iframe = document.createElement("iframe")
-    iframe.src = "https://app.shkolo.bg/diary#tab_schedule"
-    iframe.sandbox = "allow-scripts allow-same-origin"
-    iframe.style.display = 'none'
-    document.body.appendChild(iframe)
-    return iframe
-}
+const sc_Widget = WIDGETSROW.children[0].cloneNode(true);
+let sc_Data = {}
 
 function sc_saveLocaly(data) {
     let scheduleData = {}
@@ -32,24 +26,20 @@ function sc_saveLocaly(data) {
     }
     
     scheduleData = JSON.stringify(scheduleData)
-    chrome.storage.local.set({scheduleData: scheduleData})
+    return scheduleData
 }
 
 function sc_fetchAndSave(displayDay, widget) {
-    console.log("Fetching schedule data...")
+    pupil_id = JSON.parse(localStorage.getItem("diary_filters_supports_/diary"))["pupil_id"]
+    class_year_id = JSON.parse(localStorage.getItem("diary_filters_supports_/diary"))["class_year_id"]
+    ajax(`https://app.shkolo.bg/ajax/diary/getScheduleForClass?pupil_id=${pupil_id}&year=${year.toString().slice(-2)}&week=${getWeekNumber().toString()}&class_year_id=${class_year_id}`, 'GET', '', function(response) {
+        const parser = new DOMParser();
+        response = parser.parseFromString(response, 'text/html');
+        response = response.getElementsByClassName('scheduleTable')[0];
 
-    let iframe = loadDiary()
-
-    iframe.addEventListener("load", () => {
         scheduleWidgetContent.innerHTML = ""
-        setTimeout(() => {
-            sc_saveLocaly(iframe.contentWindow.document.getElementsByClassName("scheduleTable")[0].cloneNode(true))
-
-            chrome.storage.local.get(["scheduleData"], (result) => {
-                result.scheduleData = JSON.parse(result.scheduleData)
-                sc_DisplayDay(displayDay, result.scheduleData, widget)
-            });
-        }, 1000);
+        sc_Data = JSON.parse(sc_saveLocaly(response))
+        sc_DisplayDay(displayDay, sc_Data, widget)
     });
 }
 
@@ -104,8 +94,6 @@ function sc_DisplayDay(day, data, widget) {
 }
 
 function sc_main() {
-    const sc_Widget = WIDGETSROW.children[0].cloneNode(true)
-
     if (sc_Widget === undefined) return
 
     let day = today.getDay() - 1
@@ -146,62 +134,48 @@ function sc_main() {
     scheduleViewMore.classList.add("pull-right", "sc_buttons", "rounded")
     sc_Widget.children[0].children[0].appendChild(scheduleViewMore)
 
-    let scheduleRefresh = document.createElement("a")
-    scheduleRefresh.innerHTML = chrome.i18n.getMessage("Refresh")
-    scheduleRefresh.classList.add("pull-right", "sc_buttons", "rounded")
-    scheduleRefresh.onclick = () => {
-        scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule")
-        scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FetchSchedule")
-        sc_fetchAndSave(WEEKDAYS[today.getDay() - 1 > 4 ? 0 : today.getDay() - 1], sc_Widget)
+    // let scheduleRefresh = document.createElement("a")
+    // scheduleRefresh.innerHTML = chrome.i18n.getMessage("Refresh")
+    // scheduleRefresh.classList.add("pull-right", "sc_buttons", "rounded")
+    // scheduleRefresh.onclick = () => {
+    //     scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule")
+    //     scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FetchSchedule")
+    //     sc_fetchAndSave(WEEKDAYS[today.getDay() - 1 > 4 ? 0 : today.getDay() - 1], sc_Widget)
+    // }
+    // sc_Widget.children[0].children[0].appendChild(scheduleRefresh)
+
+    try {
+        sc_fetchAndSave(weekday, sc_Widget) // Fetch and save the schedule data
+    } catch (e) {
+        console.error("Failed to fetch the Schedule data. Error: "+e)
+        scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FailedToFetchSchedule")
     }
-    sc_Widget.children[0].children[0].appendChild(scheduleRefresh)
 
-    chrome.storage.local.get(["scheduleData"], function(result) {
-        const { scheduleData } = result
-        let refreshSchedule = false
+    // Next and Previous Day Buttons
+    let nextDay = document.createElement("a")
+    let rightIcon = document.createElement("i")
+    rightIcon.classList.add("fal", "fa-chevron-right")
+    nextDay.appendChild(rightIcon)
+    nextDay.classList.add("sc_buttons", "pull-right", "rounded")
+    nextDay.onclick = () => {
+        day += 1
+        if (day > 4) day = 0
+        sc_DisplayDay(WEEKDAYS[day], sc_Data, sc_Widget)
+    }
+    sc_Widget.children[0].children[0].appendChild(nextDay)
 
-        let data = {}
-        try { data = JSON.parse(scheduleData); } catch (error) { refreshSchedule = true; }
+    let previousDay = document.createElement("a")
+    let leftIcon = document.createElement("i")
+    leftIcon.classList.add("fal", "fa-chevron-left")
+    previousDay.appendChild(leftIcon)
+    previousDay.classList.add("sc_buttons", "pull-right", "rounded")
+    previousDay.onclick = () => {
+        day -= 1
+        if (day < 0) day = 4
+        sc_DisplayDay(WEEKDAYS[day], sc_Data, sc_Widget)
+    }
+    sc_Widget.children[0].children[0].appendChild(previousDay)
 
-        if (scheduleData === undefined || scheduleData === null || data === undefined) refreshSchedule = true
-
-        // Next and Previous Day Buttons
-        let nextDay = document.createElement("a")
-        let rightIcon = document.createElement("i")
-        rightIcon.classList.add("fal", "fa-chevron-right")
-        nextDay.appendChild(rightIcon)
-        nextDay.classList.add("sc_buttons", "pull-right", "rounded")
-        nextDay.onclick = () => {
-            day += 1
-            if (day > 4) day = 0
-            sc_DisplayDay(WEEKDAYS[day], data, sc_Widget)
-        }
-        sc_Widget.children[0].children[0].appendChild(nextDay)
-
-        let previousDay = document.createElement("a")
-        let leftIcon = document.createElement("i")
-        leftIcon.classList.add("fal", "fa-chevron-left")
-        previousDay.appendChild(leftIcon)
-        previousDay.classList.add("sc_buttons", "pull-right", "rounded")
-        previousDay.onclick = () => {
-            day -= 1
-            if (day < 0) day = 4
-            sc_DisplayDay(WEEKDAYS[day], data, sc_Widget)
-        }
-        sc_Widget.children[0].children[0].appendChild(previousDay)
-        
-
-        try {
-            if (refreshSchedule) {
-                sc_fetchAndSave(weekday, sc_Widget)
-            } else {
-                sc_DisplayDay(weekday, data, sc_Widget)
-            }
-        } catch (error) {
-            console.error("If you see this error. Please report it to the developer.\n"+error)
-            scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FetchScheduleError") + "<br>" + error
-        }
-    });
     
     if (!cleanUp) sc_Widget.children[0].children[2].remove() // Remove the widget footer
     WIDGETSROW.appendChild(sc_Widget)
