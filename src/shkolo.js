@@ -67,7 +67,8 @@ loadCssFile("css/shkolo/__global.css")
 function main() {
     checkTheme()
 
-    if (cleanUp) { // Cleanup (aka. General Fixes)
+    // if (cleanUp) { // Cleanup (aka. General Fixes)
+    if (true) {
         removeElements($(".btn.btn-lg.btn-e2e.red.huge"))
         removeElements($(".rank-descr"))
         removeElements($(".mobile-app-badges"))
