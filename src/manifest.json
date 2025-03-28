@@ -35,7 +35,6 @@
 			"js": [
 				"lib/jquery.min.js",
 				"utils.js",
-				"js/requests.js",
 				"shkolo.js",
 				"js/add-ons/stats.js",
 				"js/add-ons/stas.js"
