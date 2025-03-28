@@ -29,6 +29,7 @@
 .sc_buttons {
     font-weight: bold;
     border: 1px solid var(--shkolo-primary);
+    background-color: var(--background-primary);
     padding: 8px;
     display: inline-block;
     margin-right: 8px;
@@ -42,6 +43,12 @@
 
 .scIcon {
     color: var(--shkolo-primary) !important;
+}
+
+.sc_buttons_row {
+    position: absolute;
+    top: 15px;
+    right: 30px;
 }
 
 progress[value] {

@@ -72,19 +72,26 @@ function sc_DisplayDay(day, data, widget) {
             classTeacher.innerHTML = " | " + dayData[i][1]
             classTeacher.classList.add("scheduleSecondary", "secondaryFirst")
             classNode.appendChild(classTeacher)
-    
+            
+            let rightInfo = document.createElement("span")
+            rightInfo.classList.add("pull-right")
+
             // Class Time (Ex. "08:00 - 09:00", "09:00 - 10:00", etc.)
-            let classTime = document.createElement("span")
-            classTime.innerHTML = dayData[i][3] === undefined ? chrome.i18n.getMessage("NoRoom") : dayData[i][3]
-            classTime.classList.add("scheduleSecondary", "pull-right")
-            classNode.appendChild(classTime)
+            if (dayData[i][3] !== undefined) {
+                let classTime = document.createElement("span")
+                classTime.innerHTML = dayData[i][3]
+                classTime.classList.add("scheduleSecondary", "pull-right")
+                rightInfo.appendChild(classTime)
+            }
     
             // Class Room (Ex. "Room 103", "Room 404", etc.)
             let classRoom = document.createElement("span")
             classRoom.innerHTML = dayData[i][2]
             classRoom.style = "padding-right: 12px;"
             classRoom.classList.add("scheduleSecondary", "pull-right")
-            classNode.appendChild(classRoom)
+            rightInfo.appendChild(classRoom)
+
+            classNode.appendChild(rightInfo)
     
             scheduleWidgetContent.appendChild(classNode)
         }
@@ -112,13 +119,16 @@ function sc_main() {
     sc_Widget.children[0].children[0].children[0].children[0].remove()
 
     scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule")
-
+    
     scheduleWidgetContent.style.fontSize = "14px"
     scheduleWidgetContent.style.fontWeight = "bold"
     scheduleWidgetContent.style.height = "auto"
     scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("Loading")
-
+    
     sc_Widget.children[0].children[0].children[0].appendChild(getIcon("table"))
+    
+    let headerButtons = document.createElement("div")
+    headerButtons.classList.add("pull-right", "sc_buttons_row", "rounded")
 
     //////////////////////////
     // Schedule Share Button
@@ -132,7 +142,7 @@ function sc_main() {
     scheduleViewMore.innerHTML = chrome.i18n.getMessage("ViewMore")
     scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
     scheduleViewMore.classList.add("pull-right", "sc_buttons", "rounded")
-    sc_Widget.children[0].children[0].appendChild(scheduleViewMore)
+    headerButtons.appendChild(scheduleViewMore)
 
     // let scheduleRefresh = document.createElement("a")
     // scheduleRefresh.innerHTML = chrome.i18n.getMessage("Refresh")
@@ -162,7 +172,7 @@ function sc_main() {
         if (day > 4) day = 0
         sc_DisplayDay(WEEKDAYS[day], sc_Data, sc_Widget)
     }
-    sc_Widget.children[0].children[0].appendChild(nextDay)
+    headerButtons.appendChild(nextDay)
 
     let previousDay = document.createElement("a")
     let leftIcon = document.createElement("i")
@@ -174,11 +184,13 @@ function sc_main() {
         if (day < 0) day = 4
         sc_DisplayDay(WEEKDAYS[day], sc_Data, sc_Widget)
     }
-    sc_Widget.children[0].children[0].appendChild(previousDay)
+    headerButtons.appendChild(previousDay)
 
     
     if (!cleanUp) sc_Widget.children[0].children[2].remove() // Remove the widget footer
     WIDGETSROW.appendChild(sc_Widget)
+
+    sc_Widget.children[0].children[0].appendChild(headerButtons)
 }
 
 try {

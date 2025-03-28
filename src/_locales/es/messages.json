@@ -47,9 +47,6 @@
     "Loading": {
         "message": "Cargando..."
     },
-    "NoRoom": {
-        "message": "No hay sala especificada"
-    },
     "themeLabel": {
         "message": "Tema de color"
     },
