@@ -66,6 +66,6 @@ if (pageurl.includes("//app.shkolo.bg/stats/pupil/")) {
         if (LTO === undefined) LTO = 0
         LTO += 1
         chrome.storage.sync.set({LTO: LTO})
-    });
+    })
 }
 

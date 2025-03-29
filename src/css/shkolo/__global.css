@@ -27,7 +27,11 @@
     filter: blur(0);
 }
 
-.sc_buttons {
+.stats-rank-portlet-body {
+    height: auto !important;
+}
+
+.widget_buttons {
     font-weight: bold;
     border: 1px solid var(--shkolo-primary);
     background-color: var(--background-primary);
@@ -37,7 +41,7 @@
     transition: .3s background;
 }
 
-.sc_buttons:hover {
+.widget_buttons:hover {
     background: var(--shkolo-primary);
     color: white;
 }

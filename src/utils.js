@@ -21,19 +21,19 @@ function moveElementWithRecursion(element, target, checkElement) {
 }
 
 ajax = function(url, method, data, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    var xhr = new XMLHttpRequest()
+    xhr.open(method, url, true)
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            callback(xhr.responseText);
+            callback(xhr.responseText)
         }
     }
-    xhr.send(data);
+    xhr.send(data)
 }
 
 function getWeekNumber(date = new Date()) {
-    let startOfYear = new Date(date.getFullYear(), 0, 1);
-    let pastDays = (date - startOfYear) / (1000 * 60 * 60 * 24);
-    return Math.ceil((pastDays + startOfYear.getDay() + 1) / 7);
+    let startOfYear = new Date(date.getFullYear(), 0, 1)
+    let pastDays = (date - startOfYear) / (1000 * 60 * 60 * 24)
+    return Math.ceil((pastDays + startOfYear.getDay() + 1) / 7)
 }

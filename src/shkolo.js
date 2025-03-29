@@ -76,9 +76,6 @@ function main() {
         }
     }
 
-    if(blurPfp) { loadCssFile("css/shkolo/blurData.css") }
-    if(rounded) { loadCssFile("css/shkolo/rounded.css") } 
-
     $("#sc-name-lbl").html($("#sc-name-lbl").html() + ` | ${manifest.name} v` + version);
 
     $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");

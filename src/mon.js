@@ -54,7 +54,7 @@ function main() {
     if (cleanUp) CleanUp()
 }
 
-let globalResult;
+let globalResult
 let theme, cleanUp, blurPfp, rounded, scheduleWidget // Global Variables
 chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], (result) => {
     globalResult = result
@@ -65,5 +65,5 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
     rounded = result.rounded
     scheduleWidget = result.scheduleWidget
 
-    main();
-});
+    main()
+})

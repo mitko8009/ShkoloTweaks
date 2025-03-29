@@ -1,1 +1,1 @@
-let theme = "dark";
+let theme = "dark"

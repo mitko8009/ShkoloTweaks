@@ -29,7 +29,7 @@ function sc_saveLocaly(data) {
     return scheduleData
 }
 
-function sc_fetchAndSave(displayDay, widget) {
+function sc_fetchAndSave(displayDay) {
     pupil_id = JSON.parse(localStorage.getItem("diary_filters_supports_/diary"))["pupil_id"]
     class_year_id = JSON.parse(localStorage.getItem("diary_filters_supports_/diary"))["class_year_id"]
     weekDay = getWeekNumber().toString()
@@ -41,11 +41,11 @@ function sc_fetchAndSave(displayDay, widget) {
 
         scheduleWidgetContent.innerHTML = ""
         sc_Data = JSON.parse(sc_saveLocaly(response))
-        sc_DisplayDay(displayDay, sc_Data, widget)
+        sc_DisplayDay(displayDay, sc_Data)
     });
 }
 
-function sc_DisplayDay(day, data, widget) {
+function sc_DisplayDay(day, data) {
     dayData = data[day]
     
     scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule") + " | " + chrome.i18n.getMessage(day)
@@ -105,7 +105,7 @@ function sc_DisplayDay(day, data, widget) {
         }
     }
 
-    widget.children[0].style.height=scheduleWidgetContent.offsetHeight+100+"px"
+    // sc_Widget.children[0].style.height=scheduleWidgetContent.offsetHeight+100+"px"
 }
 
 function sc_main() {
@@ -117,23 +117,22 @@ function sc_main() {
 
     sc_Widget.className = "col-sm-6"
     sc_Widget.children[0].className=`portlet portlet-sortable light bordered`
-
-    removeElements(sc_Widget.children[0].children[1].children) // Remove the content of the widget
-    removeElements(sc_Widget.children[0].children[0].children[0].children[0].children)
-
+    
     scheduleWidgetTitle = sc_Widget.children[0].children[0].children[0].children[1]
     scheduleWidgetContent = sc_Widget.children[0].children[1]
 
+    // Remove the copied content of the widget
+    removeElements(sc_Widget.children[0].children[1].children) // Remove the content of the widget
+    removeElements(sc_Widget.children[0].children[0].children[0].children[0].children)
     sc_Widget.children[0].children[0].children[0].children[0].remove()
 
     scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule")
+    sc_Widget.children[0].children[0].children[0].appendChild(getIcon("table"))
     
     scheduleWidgetContent.style.fontSize = "14px"
     scheduleWidgetContent.style.fontWeight = "bold"
     scheduleWidgetContent.style.height = "auto"
     scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("Loading")
-    
-    sc_Widget.children[0].children[0].children[0].appendChild(getIcon("table"))
     
     let headerButtons = document.createElement("div")
     headerButtons.classList.add("pull-right", "sc_buttons_row", "rounded")
@@ -141,12 +140,12 @@ function sc_main() {
     let scheduleViewMore = document.createElement("a")
     scheduleViewMore.innerHTML = chrome.i18n.getMessage("ViewMore")
     scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
-    scheduleViewMore.classList.add("pull-right", "sc_buttons", "rounded")
+    scheduleViewMore.classList.add("pull-right", "widget_buttons", "rounded")
     headerButtons.appendChild(scheduleViewMore)
 
     // let scheduleRefresh = document.createElement("a")
     // scheduleRefresh.innerHTML = chrome.i18n.getMessage("Refresh")
-    // scheduleRefresh.classList.add("pull-right", "sc_buttons", "rounded")
+    // scheduleRefresh.classList.add("pull-right", "widget_buttons", "rounded")
     // scheduleRefresh.onclick = () => {
     //     scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule")
     //     scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FetchSchedule")
@@ -155,7 +154,7 @@ function sc_main() {
     // headerButtons.appendChild(scheduleRefresh)
 
     try {
-        sc_fetchAndSave(weekday, sc_Widget) // Fetch and save the schedule data
+        sc_fetchAndSave(weekday) // Fetch and save the schedule data
     } catch (e) {
         console.error("Failed to fetch the Schedule data. Error: "+e)
         scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FailedToFetchSchedule")
@@ -166,11 +165,11 @@ function sc_main() {
     let rightIcon = document.createElement("i")
     rightIcon.classList.add("fal", "fa-chevron-right")
     nextDay.appendChild(rightIcon)
-    nextDay.classList.add("sc_buttons", "pull-right", "rounded")
+    nextDay.classList.add("widget_buttons", "pull-right", "rounded")
     nextDay.onclick = () => {
         day += 1
         if (day > 4) day = 0
-        sc_DisplayDay(WEEKDAYS[day], sc_Data, sc_Widget)
+        sc_DisplayDay(WEEKDAYS[day], sc_Data)
     }
     headerButtons.appendChild(nextDay)
 
@@ -178,7 +177,7 @@ function sc_main() {
     let leftIcon = document.createElement("i")
     leftIcon.classList.add("fal", "fa-chevron-left")
     previousDay.appendChild(leftIcon)
-    previousDay.classList.add("sc_buttons", "pull-right", "rounded")
+    previousDay.classList.add("widget_buttons", "pull-right", "rounded")
     previousDay.onclick = () => {
         day -= 1
         if (day < 0) day = 4
@@ -186,11 +185,10 @@ function sc_main() {
     }
     headerButtons.appendChild(previousDay)
 
+    sc_Widget.children[0].children[0].appendChild(headerButtons)
     
     if (!cleanUp) sc_Widget.children[0].children[2].remove() // Remove the widget footer
     WIDGETSROW.appendChild(sc_Widget)
-
-    sc_Widget.children[0].children[0].appendChild(headerButtons)
 }
 
 try {

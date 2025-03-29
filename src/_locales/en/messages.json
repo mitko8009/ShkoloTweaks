@@ -109,5 +109,8 @@
     },
     "websiteLabel": {
         "message": "Official Website"
+    },
+    "ControlTestsTitle": {
+        "message": "Control Tests"
     }
 }

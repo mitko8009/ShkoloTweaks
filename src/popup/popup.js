@@ -1,26 +1,26 @@
 const manifest = chrome.runtime.getManifest()
 const version = manifest.version
-const label_version = document.getElementById('version');
+const label_version = document.getElementById('version')
 
-const themeElement = document.getElementById("theme-options");
-const cleanUpShkolo = document.getElementById('cleanUpShkolo');
-const blurPfpCheck = document.getElementById('blurPfp');
-const roundedCheckbox = document.getElementById('roundedCheckbox');
-const scheduleWidgetCheckbox = document.getElementById('scheduleWidget');
-const saveBtn = document.getElementById('saveBtn');
+const themeElement = document.getElementById("theme-options")
+const cleanUpShkolo = document.getElementById('cleanUpShkolo')
+const blurPfpCheck = document.getElementById('blurPfp')
+const roundedCheckbox = document.getElementById('roundedCheckbox')
+const scheduleWidgetCheckbox = document.getElementById('scheduleWidget')
+const saveBtn = document.getElementById('saveBtn')
 
 $("#theme-options").hide()
-$("#dev_panel").hide();
+$("#dev_panel").hide()
 
-$("#saveBtn").click(() => { saveData(); })
+$("#saveBtn").click(() => { saveData() })
 
 chrome.storage.sync.set({flags: {}})
 chrome.storage.sync.get(["flags"], (result) => {
     flags = result.flags
     fetch(chrome.runtime.getURL("data/dev_flags.json"))
     .then(response => response.json())
-    .then(data => { chrome.storage.sync.set({flags: Object.assign({}, data, flags)}); })
-});
+    .then(data => { chrome.storage.sync.set({flags: Object.assign({}, data, flags)}) })
+})
 
 function saveData() {
     const prefs = {
@@ -31,7 +31,7 @@ function saveData() {
         scheduleWidget: $("#scWidget").attr("aria-pressed") === "true"
     }
 
-    $("#saveBtn").css("background-color", "hsla(0, 0%, 89%, 0.2)").css("box-shadow", "0 0 0 0");
+    $("#saveBtn").css("background-color", "hsla(0, 0%, 89%, 0.2)").css("box-shadow", "0 0 0 0")
     chrome.storage.sync.set(prefs)
     refreshPage()
 }
@@ -39,20 +39,20 @@ function saveData() {
 function refreshPage() {
     console.log("Refreshing page")
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        chrome.tabs.reload(tabs[0].id);
-    });
+        chrome.tabs.reload(tabs[0].id)
+    })
 }
 
-$(".option").click(function() { toggleOptionState($(this)); });
+$(".option").click(function() { toggleOptionState($(this)) })
 function toggleOptionState(option, state=null) {
     if (state === null) {                                   // Toggle State
-        const state = option.attr("aria-pressed") === "true";
-        state ? option.removeClass("active") : option.addClass("active");
-        option.attr("aria-pressed", !state);
-        $("#saveBtn").css("background-color", "hsla(0, 0%, 89%, 0.6)").css("box-shadow", "0 0 0 1px #fff");
+        const state = option.attr("aria-pressed") === "true"
+        state ? option.removeClass("active") : option.addClass("active")
+        option.attr("aria-pressed", !state)
+        $("#saveBtn").css("background-color", "hsla(0, 0%, 89%, 0.6)").css("box-shadow", "0 0 0 1px #fff")
     } else {                                                // Set State
-        option.attr("aria-pressed", state);
-        state ? option.addClass("active") : option.removeClass("active");
+        option.attr("aria-pressed", state)
+        state ? option.addClass("active") : option.removeClass("active")
     }
 }
 
@@ -68,9 +68,9 @@ function checkForUpdates() {
         } else {
             label_version.innerHTML = `v${version} (${chrome.i18n.getMessage("latestVersion")})`
         }
-    });
+    })
 }
-checkForUpdates();
+checkForUpdates()
 
 // Developer Panel
 // function refreshDevPanel() {
@@ -81,10 +81,10 @@ checkForUpdates();
 //         for (const flag in flags) {
 //             $("#dev_flags").append(`<div class="dev_flag${flags[flag].value?"active":""}" data-flag="${flags[flag].flag}">${flags[flag].display}</div>`)
 //         }
-//     });
+//     })
 
 //     // $("#dev_flags").append(`<div class="dev_flag" data-flag="test" id="test">Test</div>`)
-//     // $("#dev_flag").click(() => { console.log("Clicked!"); })
+//     // $("#dev_flag").click(() => { console.log("Clicked!") })
 //     // document.getElementById("#dev_flags").append(`<div class="dev_flag" data-flag="test">Test</div>`)
 
 //     // $(".dev_flag").click(function() {
@@ -95,23 +95,23 @@ checkForUpdates();
 //     //         flags[flag].value = !flags[flag].value
 //     //         chrome.storage.sync.set({flags: flags})
 //     //         console.log(flags)
-//     //     });
-//     // });
+//     //     })
+//     // })
 // }
 
 // $(label_version).click(() => { 
-//     checkForUpdates();
-//     refreshDevPanel();
-//     $("#dev_panel").css("opacity", 0).show().animate({opacity: 1}, 200);
-// });
-// $("#close_dev_panel").click(() => { $("#dev_panel").animate({opacity: 0}, 200, function() { $(this).hide(); }); });
+//     checkForUpdates()
+//     refreshDevPanel()
+//     $("#dev_panel").css("opacity", 0).show().animate({opacity: 1}, 200)
+// })
+// $("#close_dev_panel").click(() => { $("#dev_panel").animate({opacity: 0}, 200, function() { $(this).hide() }) })
 // $("#logging").click(function() {
 //     chrome.storage.sync.get(["logging"], (result) => {
 //         const logging = result.logging
 //         chrome.storage.sync.set({logging: !logging})
 //         toggleOptionState($(this), !logging)
 //     })
-// });
+// })
 
 
 
@@ -130,15 +130,15 @@ function themesInit() {
             $("#custom-themes").append(`<a type="button" class="option theme-option" aria-pressed="false" id="theme_${themeDirectory}" data-value="${themeDirectory}">${tags}</a>`)
         }
 
-        $("#themePopup").click(() => { $("#theme-options").show().css({opacity: 0}).animate({opacity: 1}, 100); })
+        $("#themePopup").click(() => { $("#theme-options").show().css({opacity: 0}).animate({opacity: 1}, 100) })
 
         $(".theme-option").click(function() {
             themeElement.value = $(this).attr("data-value")
-            $("#theme-options").animate({opacity: 0}, 100, function() { $(this).hide(); });
+            $("#theme-options").animate({opacity: 0}, 100, function() { $(this).hide() })
             toggleOptionState($(`#theme_${themeElement.value}`), false)
             saveData()
-        });
-    });
+        })
+    })
 }
 
 chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
@@ -147,7 +147,7 @@ chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     if (url.hostname.includes("shkolo.bg")) {
         $("#shkoloBtn").remove()
     }
-});
+})
 
 chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidget"], (result) => {   
     const { theme, cleanUp, blurPfp, rounded, scheduleWidget } = result
@@ -164,5 +164,5 @@ chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded", "scheduleWidg
 
 label_version.innerHTML = `v${version}`
 
-themesInit();
+themesInit()
 

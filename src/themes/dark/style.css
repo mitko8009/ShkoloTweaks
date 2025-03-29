@@ -235,7 +235,7 @@ tspan {
     stroke-width: 0px;
 }
 
-.sc_buttons {
+.widget_buttons {
     font-weight: bold;
     border: 1px solid white !important;
     padding: 8px;
@@ -243,7 +243,7 @@ tspan {
     margin-right: 8px;
 }
 
-.sc_buttons:hover {
+.widget_buttons:hover {
     background: white;
     color: black !important;
     text-decoration: none;
