@@ -4,6 +4,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import sys, os
+import asyncio
 import shutil
 import random
 import logging
@@ -63,8 +64,8 @@ class window(QMainWindow):
         self.mainUi.minifyJS.setChecked(config['settings']['minifyJS'])
         
         self.mainUi.Save.clicked.connect(self.save)
-        self.mainUi.actionSave.triggered.connect(self.save)
-        self.mainUi.Build.clicked.connect(self.build)
+        self.mainUi.Build.clicked.connect(lambda: asyncio.run(self.build()))
+        self.mainUi.actionBuild.triggered.connect(lambda: asyncio.run(self.build()))
         self.mainUi.actionBuild.triggered.connect(self.build)
         self.mainUi.iconBtn1.clicked.connect(lambda: self.openFile(self.mainUi.icon1))
         self.mainUi.iconBtn2.clicked.connect(lambda: self.openFile(self.mainUi.icon2))
@@ -136,25 +137,25 @@ class window(QMainWindow):
         config['settings']['minifyJS'] = self.mainUi.minifyJS.isChecked()
         saveConfig()
         
-    def build(self):
+    async def build(self):
         st = time.time()
         self.save()
-        config['path'] = createCopy(config['path'], f"../temp_{random.randint(10000000000, 99999999999)}/")
+        loop = asyncio.get_event_loop()
+        config['path'] = await loop.run_in_executor(None, createCopy, config['path'], f"../temp_{random.randint(10000000000, 99999999999)}/")
         self.loadManifest()
         
         if self.mainUi.OptionChromium.isChecked():
             del self.manifest['browser_specific_settings']
-        
-        if self.mainUi.minifyHTML.isChecked(): utils.minifyHTML(config['path'])
-        if self.mainUi.minifyCSS.isChecked(): utils.minifyCSS(config['path'])
-        if self.mainUi.minifyJS.isChecked(): utils.minifyJS(config['path'])
-            
-        SaveManifest(config['path'] + "manifest.json", self.manifest)
-        
-        shutil.make_archive("../"+self.manifest['name'], 'zip', config['path'], owner=self.manifest['author'], group=self.manifest['author'])
+        if self.mainUi.minifyHTML.isChecked(): await loop.run_in_executor(None, utils.minifyHTML, config['path'])
+        if self.mainUi.minifyCSS.isChecked(): await loop.run_in_executor(None, utils.minifyCSS, config['path'])
+        if self.mainUi.minifyJS.isChecked(): await loop.run_in_executor(None, utils.minifyJS, config['path'])
+        if self.mainUi.minifyJS.isChecked(): await loop.run_in_executor(None, utils.minifyJS, config['path'])
+        await loop.run_in_executor(None, SaveManifest, config['path'] + "manifest.json", self.manifest)
+        await loop.run_in_executor(None, shutil.make_archive, "../"+self.manifest['name'], 'zip', config['path'])
+        await loop.run_in_executor(None, shutil.make_archive, "../"+self.manifest['name'], 'zip', config['path'])
         
         print(f"Succesfully built extension at ../{self.manifest['name']}.zip")
-        shutil.rmtree(config['path'])
+        await loop.run_in_executor(None, shutil.rmtree, config['path'])
         
         et = time.time()
         print(f"Time taken to build: {round(et-st, 2)} seconds")

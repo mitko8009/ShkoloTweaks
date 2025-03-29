@@ -68,7 +68,15 @@
 			],
 			"js": [
 				"lib/jquery.min.js",
-				"utils.js",
+				"utils.js"
+			],
+			"run_at": "document_start"
+		},
+		{
+			"matches": [
+				"*://*.mon.bg/*"
+			],
+			"js": [
 				"mon.js"
 			],
 			"run_at": "document_end"
