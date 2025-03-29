@@ -64,8 +64,8 @@ function cw_main() {
     WIDGETSROW.appendChild(cw_Widget)
 }
 
-try {
-    cw_main()
-} catch (e) {
-    console.error("Failed to load the Countdown widget. Error: "+e)
-}
+// try {
+//     cw_main()
+// } catch (e) {
+//     console.error("Failed to load the Countdown widget. Error: "+e)
+// }

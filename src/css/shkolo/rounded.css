@@ -3,7 +3,7 @@
 }
 
 .btn:not(.btn-sm):not(.btn-lg), .messageThread:hover, .portlet.portlet-sortable.light, .rounded, .dashboard-stat, .btn.green:not(.btn-outline), .popupText, .highcharts-menu, .btn.red:not(.btn-outline), .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .note.note-info, .btn.blue:not(.btn-outline), .form-control, .modal-content, .label, .alert-info, .page-sidebar .page-sidebar-menu>li.active>a, .dropdown-menu>li>a:hover, .iradio_square-blue, div.dt-button-collection, a.dt-button.buttons-columnVisibility.active:not(.disabled), div.dt-button-collection button.dt-button, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button, .inbox .inbox-body, .inbox .inbox-sidebar, .new-message-recipients-box > span > span > span, .select2-dropdown, .select2-container--default .select2-selection--multiple .select2-selection__choice, .page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a, .profile-usermenu ul li.active a, .profile-usermenu ul li a:hover, .filtersContainer, .inbox-folder-options-btn:hover, .inbox-folder-options-btn:focus, .inbox-folder-options-btn.focus, .inbox-folder-options-btn:active, .inbox-folder-options-btn.active, .open > .dropdown-toggle.inbox-folder-options-btn, .cc_container {
-    border-radius: 8px !important;
+    border-radius: var(--radius) !important;
 }
 
 rect {
@@ -11,28 +11,28 @@ rect {
 }
 
 .nav-item > a {
-    border-radius: 8px !important;
+    border-radius: var(--radius) !important;
     border: 0 !important;
 }
 
 /* Top */
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover, .nav-tabs>li>a:hover, .scheduleTable .scheduleTableHeading {
-    border-radius: 8px 8px 0 0 !important;
+    border-radius: var(--radius) var(--radius) 0 0 !important;
 }
 
 /* Bottom */
 .page-content, .dropdown-menu {
-    border-radius: 0 0 8px 8px !important;
+    border-radius: 0 0 var(--radius) var(--radius) !important;
 }
 
 /* Left */
 .pagination>li:first-child>a, .pagination>li:first-child>span, .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
-    border-radius: 8px 0 0 8px !important;
+    border-radius: var(--radius) 0 0 var(--radius) !important;
 }
 
 /* Right */
 .pagination>li:last-child>a, .pagination>li:last-child>span, .message-table-head > div:last-child, .btn-group>.btn:last-child:not(:first-child), .btn-group>.btn:not(:first-child):not(:last-child) {
-    border-radius: 0 8px 8px 0 !important;
+    border-radius: 0 var(--radius) var(--radius) 0 !important;
 }
 
 .input-group-addon {
@@ -45,7 +45,7 @@ rect {
 }   
 
 #tab_control_test > .portlet > table, #tab_parent_meeting > .portlet > table {
-    border-radius: 8px !important;
+    border-radius: var(--radius) !important;
     border-collapse: unset !important;
 }
 
@@ -69,7 +69,7 @@ rect {
 }
 
 #tableGrades:not(#tableGrades >  *), #tableAbsences:not(#tableAbsences >  *), #tableFeedbacks:not(#tableFeedbacks >  *), .onOffSwitch-handle, .onOffSwitch {
-    border-radius: 8px !important;
+    border-radius: var(--radius) !important;
 }
 
 .big, tfoot .annualAssessment.solid-left-border, thead .thinTableColumn:first-of-type, .numVal:not(.term1):not(.term2):not(.solid-left-border) .thinTableColumn {
@@ -81,8 +81,8 @@ rect {
 }
 
 .scheduleTableBody .scheduleTableCell:last-child {
-    border-bottom-right-radius: 8px !important;
-    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: var(--radius) !important;
+    border-bottom-left-radius: var(--radius) !important;
 }
 
 .profile-usermenu ul li {
@@ -91,13 +91,13 @@ rect {
 }
 
 .inbox .inbox-nav>li>a {
-    border-radius: 8px !important;
+    border-radius: var(--radius) !important;
     margin-top: 3px !important;
     margin-bottom: 3px !important;
 }
 
 .message-table-head > div:first-child {
-    border-radius: 8px 0 0 8px !important;
+    border-radius: var(--radius) 0 0 var(--radius) !important;
     margin-bottom: 5px !important;
 }
 

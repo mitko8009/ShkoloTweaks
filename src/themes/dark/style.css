@@ -5,6 +5,7 @@
     --accent-primary: hsl(0, 0%, 22%) !important;
     --text-primary: hsl(0, 0%, 96%) !important;
     --background-alternate: hsl(0, 0%, 23%) !important;
+    --button-primary: hsl(0, 0%, 96%) !important;
     /* General Variables */
     --darker-bg: hsl(0, 0%, 8%) !important;
     --darker2-bg: hsl(0, 0%, 10%) !important;
@@ -29,15 +30,21 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 }
 
 /* Dark bg */
-.page-content, .portlet.portlet-sortable.light, .highcharts-background, .portlet.light, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu, .detailsRow, .table-hover > tbody > tr.detailsRow:hover, .table-hover > tbody > tr.detailsRow:hover > td, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover, .page-header.navbar .hor-menu.hor-menu-light.year-selector .navbar-nav > li.open > a, .page-header.navbar .hor-menu.hor-menu-light.app-switcher .navbar-nav > li.open > a, .messageThread, .panel, .dropdown-menu, .modal-content, .dropdown-menu>li.active:hover>a, .dropdown-menu>li.active>a, .dropdown-menu>li:hover>a, .inbox-folder-options-btn, .inbox-folder-options-btn:focus, .inbox-folder-options-btn.focus, .inbox-folder-options-btn:active, .inbox-folder-options-btn.active, .open > .dropdown-toggle.inbox-folder-options-btn, .empty-cell:hover, .table-hover > tbody > tr:hover > td.empty-cell, .empty-cell, .bootstrap-select.btn-group .no-results, table.dataTable tbody tr, .bg-default, .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .page-sidebar .page-sidebar-menu>li:hover>a, .note-btn:hover, .note-btn:hover, .panel-heading.note-toolbar .note-color .note-btn-group:hover > .note-btn, .panel-heading.note-toolbar .note-color .note-btn-group:hover > .note-btn, .note-popover .popover-content .note-color .dropdown-menu .note-palette .note-color-reset, .panel-heading.note-toolbar .note-color .dropdown-menu .note-palette .note-color-reset, .note-popover .popover-content .note-color .dropdown-menu .note-palette .note-color-select, .panel-heading.note-toolbar .note-color .dropdown-menu .note-palette .note-color-select, .bg-white, .portlet.box>.portlet-body, .select2-container--default .select2-selection--single .select2-selection__rendered {
+.page-content, .portlet.portlet-sortable.light, .highcharts-background, .portlet.light, .page-sidebar .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu, .detailsRow, .table-hover > tbody > tr.detailsRow:hover, .table-hover > tbody > tr.detailsRow:hover > td, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li:hover>a, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li>a:hover, .page-header.navbar .hor-menu.hor-menu-light.year-selector .navbar-nav > li.open > a, .page-header.navbar .hor-menu.hor-menu-light.app-switcher .navbar-nav > li.open > a, .messageThread, .panel, .dropdown-menu, .modal-content, .dropdown-menu>li.active:hover>a, .dropdown-menu>li.active>a, .dropdown-menu>li:hover>a, .inbox-folder-options-btn, .inbox-folder-options-btn:focus, .inbox-folder-options-btn.focus, .inbox-folder-options-btn:active, .inbox-folder-options-btn.active, .open > .dropdown-toggle.inbox-folder-options-btn, .empty-cell:hover, .table-hover > tbody > tr:hover > td.empty-cell, .empty-cell, .bootstrap-select.btn-group .no-results, table.dataTable tbody tr, .bg-default, .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu .dropdown-menu-list>li>a .time, .page-sidebar .page-sidebar-menu>li:hover>a, .note-btn:hover, .note-btn:hover, .panel-heading.note-toolbar .note-color .note-btn-group:hover > .note-btn, .panel-heading.note-toolbar .note-color .note-btn-group:hover > .note-btn, .note-popover .popover-content .note-color .dropdown-menu .note-palette .note-color-reset, .panel-heading.note-toolbar .note-color .dropdown-menu .note-palette .note-color-reset, .note-popover .popover-content .note-color .dropdown-menu .note-palette .note-color-select, .panel-heading.note-toolbar .note-color .dropdown-menu .note-palette .note-color-select, .bg-white, .portlet.box>.portlet-body, .select2-container--default .select2-selection--single .select2-selection__rendered, .tab-content {
     background-color: var(--dark-bg) !important;
     color: white !important;
 }
 
 /* Light Dark bg */
-.taken-shi, .pagination>.active>a, .messageThread:hover, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled), .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple, .select2-dropdown, .dropzone, .table-highlight-td > tbody > tr > td:not(.emptySelectionCell):hover, .select2-container--default .select2-search--dropdown .select2-search__field, .portlet.blue-soft, .portlet.box.blue-soft>.portlet-title, .portlet>.portlet-body.blue-soft, .portlet.blue-madison, .portlet.box.blue-madison>.portlet-title, .portlet>.portlet-body.blue-madison {
+.taken-shi, .pagination>.active>a, .messageThread:hover, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled), .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple, .select2-dropdown, .dropzone, .table-highlight-td > tbody > tr > td:not(.emptySelectionCell):hover, .select2-container--default .select2-search--dropdown .select2-search__field, .portlet.blue-soft, .portlet.box.blue-soft>.portlet-title, .portlet>.portlet-body.blue-soft, .portlet.blue-madison, .portlet.box.blue-madison>.portlet-title, .portlet>.portlet-body.blue-madison, .auth-tabs.nav.nav-tabs>li>a {
     background-color: var(--lightDark-bg) !important;
     color: white !important;
+}
+
+.login .content .form-actions .btn, .phone-label, a.btn-custom-primary, .or-login-text h4 span {
+    background-color: var(--button-primary) !important;
+    color: var(--dark-bg) !important;
+    border: 0 !important;
 }
 
 /* Hover for Text */
@@ -108,29 +115,13 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
     border-color: hsl(0, 0%, 90%);
 }
 
-.dashboard-stat.blue, .label-success {
-    background-color: #095082 !important;
-}
-
-.dashboard-stat.green {
-    background-color: #19757d !important;
-}
-
-.dashboard-stat.red, .btn.red:not(.btn-outline) {
-    background-color: #912a31;
-}
-
-.dashboard-stat.yellow, .label-warning {
-    background-color: #96772f;
-}
-
-.dashboard-stat.purple {
-    background-color: #7a3796;
-}
-
-.dashboard-stat.green-jungle {
-    background-color: #196545;
-}
+/* Dashboard Stat Colors */
+.dashboard-stat.blue { background-color: #095082 !important; }
+.dashboard-stat.green { background-color: #19757d !important; }
+.dashboard-stat.red { background-color: #912a31 !important; }
+.dashboard-stat.yellow { background-color: #96772f !important; }
+.dashboard-stat.purple { background-color: #7a3796 !important; }
+.dashboard-stat.green-jungle { background-color: #196545 !important; }
 
 .portlet>.portlet-title {
     border-bottom: 0;
