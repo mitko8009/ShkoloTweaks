@@ -138,14 +138,6 @@ function sc_main() {
     let headerButtons = document.createElement("div")
     headerButtons.classList.add("pull-right", "sc_buttons_row", "rounded")
 
-    //////////////////////////
-    // Schedule Share Button
-    // var scheduleShare = document.createElement("a")
-    // scheduleShare.innerHTML = chrome.i18n.getMessage("Share")
-    // scheduleShare.classList.add("sc_buttons", "pull-right", "rounded")
-    // headerButtons.appendChild(scheduleShare)
-    //////////////////////////
-
     let scheduleViewMore = document.createElement("a")
     scheduleViewMore.innerHTML = chrome.i18n.getMessage("ViewMore")
     scheduleViewMore.href = "https://app.shkolo.bg/diary#tab_schedule"
