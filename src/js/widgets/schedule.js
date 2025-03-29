@@ -32,7 +32,9 @@ function sc_saveLocaly(data) {
 function sc_fetchAndSave(displayDay, widget) {
     pupil_id = JSON.parse(localStorage.getItem("diary_filters_supports_/diary"))["pupil_id"]
     class_year_id = JSON.parse(localStorage.getItem("diary_filters_supports_/diary"))["class_year_id"]
-    ajax(`https://app.shkolo.bg/ajax/diary/getScheduleForClass?pupil_id=${pupil_id}&year=${year.toString().slice(-2)}&week=${getWeekNumber().toString()}&class_year_id=${class_year_id}`, 'GET', '', function(response) {
+    weekDay = getWeekNumber().toString()
+    weekDay = "13"
+    ajax(`https://app.shkolo.bg/ajax/diary/getScheduleForClass?pupil_id=${pupil_id}&year=${year.toString().slice(-2)}&week=${weekDay}&class_year_id=${class_year_id}`, 'GET', '', function(response) {
         const parser = new DOMParser();
         response = parser.parseFromString(response, 'text/html');
         response = response.getElementsByClassName('scheduleTable')[0];
@@ -55,7 +57,10 @@ function sc_DisplayDay(day, data, widget) {
             let classNode = document.createElement("div")
             classNode.classList.add("rounded", "scheduleClass")
             classNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid var(--border-primary);"
-    
+            
+            let classInfo = document.createElement("div")
+            classInfo.classList.add("scheduleClassInfo")
+
             // Class Title (Ex. "Mathematics", "English", etc.)
             let classTitle = document.createElement("a")
             classTitle.innerHTML = dayData[i][0]
@@ -65,35 +70,38 @@ function sc_DisplayDay(day, data, widget) {
                 classTitle.innerHTML = dayData[i][0].split("</i> ")[1].split("(")[0]
                 classTitle.innerHTML = classTitleDetails + "</i> " + classTitle.innerHTML
             }
-            classNode.appendChild(classTitle)
+            classInfo.appendChild(classTitle)
     
             // Class Teacher (Ex. "Mrs. Raicheva", etc.)
             let classTeacher = document.createElement("span")
             classTeacher.innerHTML = " | " + dayData[i][1]
             classTeacher.classList.add("scheduleSecondary", "secondaryFirst")
-            classNode.appendChild(classTeacher)
+            classInfo.appendChild(classTeacher)
+
+            classNode.appendChild(classInfo)
             
             let rightInfo = document.createElement("span")
             rightInfo.classList.add("pull-right")
 
+            // Class Room (Ex. "Room 103", "Room 404", etc.)
+            let classRoom = document.createElement("span");
+            classRoom.innerHTML = dayData[i][2];
+            classRoom.style.paddingRight = "12px";
+            classRoom.classList.add("scheduleSecondary");
+            rightInfo.appendChild(classRoom);
+
             // Class Time (Ex. "08:00 - 09:00", "09:00 - 10:00", etc.)
             if (dayData[i][3] !== undefined) {
-                let classTime = document.createElement("span")
-                classTime.innerHTML = dayData[i][3]
-                classTime.classList.add("scheduleSecondary", "pull-right")
-                rightInfo.appendChild(classTime)
+                let classTime = document.createElement("span");
+                classTime.innerHTML = dayData[i][3];
+                classTime.classList.add("scheduleSecondary");
+                rightInfo.appendChild(classTime);
             }
-    
-            // Class Room (Ex. "Room 103", "Room 404", etc.)
-            let classRoom = document.createElement("span")
-            classRoom.innerHTML = dayData[i][2]
-            classRoom.style = "padding-right: 12px;"
-            classRoom.classList.add("scheduleSecondary", "pull-right")
-            rightInfo.appendChild(classRoom)
 
-            classNode.appendChild(rightInfo)
-    
-            scheduleWidgetContent.appendChild(classNode)
+            // Wrap both elements in a flex container
+            rightInfo.classList.add("rightInfo");
+            classNode.appendChild(rightInfo);
+            scheduleWidgetContent.appendChild(classNode);
         }
     }
 
@@ -135,7 +143,7 @@ function sc_main() {
     // var scheduleShare = document.createElement("a")
     // scheduleShare.innerHTML = chrome.i18n.getMessage("Share")
     // scheduleShare.classList.add("sc_buttons", "pull-right", "rounded")
-    // sc_Widget.children[0].children[0].appendChild(scheduleShare)
+    // headerButtons.appendChild(scheduleShare)
     //////////////////////////
 
     let scheduleViewMore = document.createElement("a")
@@ -152,7 +160,7 @@ function sc_main() {
     //     scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FetchSchedule")
     //     sc_fetchAndSave(WEEKDAYS[today.getDay() - 1 > 4 ? 0 : today.getDay() - 1], sc_Widget)
     // }
-    // sc_Widget.children[0].children[0].appendChild(scheduleRefresh)
+    // headerButtons.appendChild(scheduleRefresh)
 
     try {
         sc_fetchAndSave(weekday, sc_Widget) // Fetch and save the schedule data

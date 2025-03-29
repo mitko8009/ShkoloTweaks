@@ -51,6 +51,48 @@
     right: 30px;
 }
 
+.scheduleClass {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    min-width: 0;
+}
+
+.scheduleClassInfo {
+    display: flex;
+    flex-wrap: nowrap;
+    min-width: 0;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.scheduleCourse, .scheduleSecondary {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.rightInfo {
+    display: flex;
+    gap: 8px;
+    max-width: 40%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    justify-content: flex-end;
+}
+
+.scheduleSecondary {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex-shrink: 1;
+}
+
 progress[value] {
     -webkit-appearance: none;
     appearance: none;
