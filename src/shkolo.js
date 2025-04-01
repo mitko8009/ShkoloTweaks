@@ -8,6 +8,9 @@ const WIDGETSROW = $(".col-md-12")[0].children[2]
 const today = new Date();
 const year = today.getFullYear();
 
+// User Details
+const pupil_id = JSON.parse(localStorage.getItem("diary_filters_grades_/diary"))["pupil_id"]
+
 // Define jQuery
 let script = document.createElement("script")
 script.src = chrome.runtime.getURL("lib/jquery.min.js")

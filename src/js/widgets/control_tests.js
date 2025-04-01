@@ -25,8 +25,6 @@ function ct_parseData(data) {
 }
 
 function ct_getData() {
-    pupil_id = JSON.parse(localStorage.getItem("diary_filters_supports_/diary"))["pupil_id"]
-
     ajax(`https://app.shkolo.bg/ajax/diary/getControlTests?pupil_id=${pupil_id}`, 'GET', '', function(response) {
         const parser = new DOMParser()
         response = parser.parseFromString(response, 'text/html')
