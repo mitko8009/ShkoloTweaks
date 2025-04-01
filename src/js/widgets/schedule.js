@@ -33,7 +33,6 @@ function sc_fetchAndSave(displayDay) {
     pupil_id = JSON.parse(localStorage.getItem("diary_filters_supports_/diary"))["pupil_id"]
     class_year_id = JSON.parse(localStorage.getItem("diary_filters_supports_/diary"))["class_year_id"]
     weekDay = getWeekNumber().toString()
-    weekDay = "13"
     ajax(`https://app.shkolo.bg/ajax/diary/getScheduleForClass?pupil_id=${pupil_id}&year=${year.toString().slice(-2)}&week=${weekDay}&class_year_id=${class_year_id}`, 'GET', '', function(response) {
         const parser = new DOMParser();
         response = parser.parseFromString(response, 'text/html');
