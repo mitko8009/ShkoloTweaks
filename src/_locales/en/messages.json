@@ -112,5 +112,8 @@
     },
     "ControlTestsTitle": {
         "message": "Control Tests"
+    },
+    "reordermode": {
+        "message": "Reorder mode"
     }
 }

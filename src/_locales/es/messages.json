@@ -88,5 +88,8 @@
     },
     "customizations": {
         "message": "Personalizaciones"
+    },
+    "reordermode": {
+        "message": "Modo de reordenar"
     }
 }
