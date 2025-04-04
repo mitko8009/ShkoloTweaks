@@ -304,6 +304,9 @@
           li.addEventListener('dragover', handleDragOver);
           li.addEventListener('dragleave', handleDragLeave);
           li.addEventListener('drop', handleDrop);
+  
+          // Disable click actions
+          li.addEventListener('click', preventClick, true);
         } else {
           if (icon) icon.className = li.dataset.originalIconClass;
           li.removeEventListener('dragstart', handleDragStart);
@@ -311,8 +314,16 @@
           li.removeEventListener('dragover', handleDragOver);
           li.removeEventListener('dragleave', handleDragLeave);
           li.removeEventListener('drop', handleDrop);
+  
+          // Re-enable click actions
+          li.removeEventListener('click', preventClick, true);
         }
       });
+    }
+  
+    function preventClick(e) {
+      e.preventDefault();
+      e.stopPropagation();
     }
     
     function saveOrder() {
