@@ -48,8 +48,8 @@ jobs:
           LATEST=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' || echo "none")
           echo "Latest release tag: $LATEST"
           
-          BASE_VERSION=$(echo $LATEST | sed -E 's/-auto.*//')
-          echo "Base version (without '-auto-*'): $BASE_VERSION"
+          BASE_VERSION=$(echo $LATEST | sed -E 's/^v//;s/-auto.*//')
+          echo "Base version (without 'v' and '-auto-*'): $BASE_VERSION"
           echo "latest=$BASE_VERSION" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -57,7 +57,10 @@ jobs:
       - name: Check if version changed
         id: check_version
         run: |
-          if [[ "${{ steps.manifest.outputs.version }}" == "${{ steps.latest_release.outputs.latest }}" ]]; then
+          MANIFEST_VERSION="${{ steps.manifest.outputs.version }}"
+          MANIFEST_VERSION="${MANIFEST_VERSION/v/}"
+          
+          if [[ "$MANIFEST_VERSION" == "${{ steps.latest_release.outputs.latest }}" ]]; then
             echo "Version unchanged, skipping release."
             echo "release=false" >> $GITHUB_OUTPUT
           else
