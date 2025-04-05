@@ -25,8 +25,8 @@ jobs:
 
       - name: Build Chrome Extension
         run: |
-          cd tools
-          python build_extension.py
+          ls -R
+          python tools\build_extension.py
 
       - name: Zip extension files
         run: |
