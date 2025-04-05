@@ -2,9 +2,6 @@ const manifest = chrome.runtime.getManifest()
 const version = manifest.version
 const pageurl = window.location.href
 
-const WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-const WIDGETSROW = $(".col-md-12")[0].children[2]
-
 const today = new Date();
 const year = today.getFullYear();
 
@@ -79,9 +76,13 @@ function main() {
         }
     }
 
-    $("#sc-name-lbl").html($("#sc-name-lbl").html() + ` | ${manifest.name} v` + version);
+    try {
+        $("#sc-name-lbl").html($("#sc-name-lbl").html() + ` | ${manifest.name} v` + version);
+        $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
+    } catch {
+        console.log("Login page footer fix failed")
+    }
 
-    $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
 }  
 
 let globalResult;

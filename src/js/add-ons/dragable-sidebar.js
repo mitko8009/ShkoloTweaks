@@ -1,6 +1,8 @@
 (function() {
     "use strict";
     
+    if (pageurl.includes("#login-tab")) return; // Don't run on login page
+
     const MENU_SELECTOR = '.page-sidebar-menu';
     const ORDER_KEY = 'SHKOLOTWEAKS_SIDEBAR_ORDER_OVERRIDE';
     const DRAG_ICON_CLASS = 'fas fa-grip-lines';
