@@ -2,6 +2,7 @@ from init import *
 
 def main():
     initConfig()
+    config['path'] = "src/"
     manifest = LoadManifest(config['path'] + "manifest.json")
     
     config['path'] = createCopy(config['path'], f"../dist/extension/")
