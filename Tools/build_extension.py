@@ -1,8 +1,4 @@
-import shutil
-import os
-
 from init import *
-import utils
 
 def main():
     initConfig()
