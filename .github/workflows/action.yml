@@ -68,7 +68,7 @@ jobs:
           zip -r ../../extension.zip .
           cd ../..
 
-      - name: Delete all AUTO releases
+      - name: Delete all AUTO releases and tags
         if: steps.check_version.outputs.release == 'true'
         run: |
           echo "Looking for old AUTO releases..."
@@ -78,7 +78,11 @@ jobs:
           for RELEASE in $RELEASES; do
             if [[ $RELEASE == *-auto ]]; then
               echo "Found AUTO release with tag: $RELEASE, deleting..."
+              
               gh release delete $RELEASE --yes
+              
+              git tag -d $RELEASE
+              git push origin --delete $RELEASE
             fi
           done
         env:
