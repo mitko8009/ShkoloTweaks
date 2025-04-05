@@ -1,4 +1,5 @@
 from init import *
+import utils
 
 def main():
     initConfig()
@@ -9,6 +10,10 @@ def main():
     LoadManifest(config['path'] + "manifest.json")
     
     del manifest['browser_specific_settings']
+    
+    utils.minifyHTML(config['path'])
+    utils.minifyCSS(config['path'])
+    utils.minifyJS(config['path'])
     
     SaveManifest(config['path'] + "manifest.json", manifest)
     
