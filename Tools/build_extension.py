@@ -5,7 +5,7 @@ def main():
     config['path'] = "src/"
     manifest = LoadManifest(config['path'] + "manifest.json")
     
-    config['path'] = createCopy(config['path'], f"../dist/extension/")
+    config['path'] = createCopy(config['path'], f"dist/extension/")
     LoadManifest(config['path'] + "manifest.json")
     
     del manifest['browser_specific_settings']
