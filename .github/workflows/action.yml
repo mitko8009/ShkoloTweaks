@@ -67,8 +67,9 @@ jobs:
         if: steps.check_version.outputs.release == 'true'
         uses: softprops/action-gh-release@v2
         with:
-          name: Release v${{ steps.manifest.outputs.version }}
-          tag_name: v${{ steps.manifest.outputs.version }}
+          name: v${{ steps.manifest.outputs.version }} - Auto Release - ${{ github.sha }}
+          tag_name: v${{ steps.manifest.outputs.version }}-auto-${{ github.sha }}
           files: extension.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
