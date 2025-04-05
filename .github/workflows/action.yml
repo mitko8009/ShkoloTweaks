@@ -71,11 +71,11 @@ jobs:
       - name: Delete old AUTO release if exists
         if: steps.check_version.outputs.release == 'true'
         run: |
-          OLD_TAG="v${{ steps.manifest.outputs.version }}-auto-${{ github.sha }}"
+          OLD_TAG="v${{ steps.manifest.outputs.version }}-auto"
           echo "Looking for old release with tag: $OLD_TAG"
 
-          # Fetch release by tag name
-          RELEASE_ID=$(gh release view $OLD_TAG --json id -q ".id" || echo "none")
+          RELEASE_ID=$(gh release list --json tagName --jq ".[] | select(.tagName == \"$OLD_TAG\") | .id" || echo "none")
+          
           if [ "$RELEASE_ID" != "none" ]; then
             echo "Found old release with ID: $RELEASE_ID, deleting..."
             gh release delete $OLD_TAG --yes
