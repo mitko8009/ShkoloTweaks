@@ -76,7 +76,7 @@ jobs:
           RELEASES=$(gh release list --json tagName --jq '.[].tagName')
           
           for RELEASE in $RELEASES; do
-            if [[ $RELEASE == *- Auto* ]]; then
+            if [[ $RELEASE == *-auto ]]; then
               echo "Found AUTO release with tag: $RELEASE, deleting..."
               gh release delete $RELEASE --yes
             fi
