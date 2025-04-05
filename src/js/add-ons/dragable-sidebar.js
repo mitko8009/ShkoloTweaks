@@ -77,10 +77,6 @@
       </a>
     `;
     menu.insertBefore(toggleLi, menu.firstElementChild);
-
-    console.log("ShkoloTweaks v" + chrome.runtime.getManifest().version + " - Dragable Sidebar loaded");
-    console.log("Dragable Sidebar - Drag and drop to reorder items");
-
     
     function getTopLevelLis() {
       return Array.from(menu.querySelectorAll(':scope > li'))

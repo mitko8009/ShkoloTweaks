@@ -36,7 +36,7 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 }
 
 /* Light Dark bg */
-.taken-shi, .pagination>.active>a, .messageThread:hover, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled), .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple, .select2-dropdown, .dropzone, .table-highlight-td > tbody > tr > td:not(.emptySelectionCell):hover, .select2-container--default .select2-search--dropdown .select2-search__field, .portlet.blue-soft, .portlet.box.blue-soft>.portlet-title, .portlet>.portlet-body.blue-soft, .portlet.blue-madison, .portlet.box.blue-madison>.portlet-title, .portlet>.portlet-body.blue-madison, .auth-tabs.nav.nav-tabs>li>a {
+.taken-shi, .pagination>.active>a, .messageThread:hover, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled), .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple, .select2-dropdown, .dropzone, .table-highlight-td > tbody > tr > td:not(.emptySelectionCell):hover, .select2-container--default .select2-search--dropdown .select2-search__field, .portlet.blue-soft, .portlet.box.blue-soft>.portlet-title, .portlet>.portlet-body.blue-soft, .portlet.blue-madison, .portlet.box.blue-madison>.portlet-title, .portlet>.portlet-body.blue-madison, .auth-tabs.nav.nav-tabs>li>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
     background-color: var(--lightDark-bg) !important;
     color: white !important;
 }
@@ -61,6 +61,11 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
     border-color: var(--lightDark-bg) !important;
 }
 
+table > thead > tr {
+    background-color: var(--dark-bg) !important;
+    color: white !important;
+}
+
 /* Odd List Items Color */
 .table-striped>tbody>tr:nth-of-type(odd) {
     background-color: var(--dark2-bg) !important;
@@ -69,6 +74,26 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 
 .table-striped>tbody>tr:nth-of-type(odd):hover {
     background-color: var(--darker2-bg) !important;
+}
+
+/* Even List Items Color */
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: var(--dark-bg) !important;
+    color: white;
+}
+
+.table-striped>tbody>tr:nth-of-type(even):hover {
+    background-color: var(--darker-bg) !important;
+}
+
+.btn.btn-outline.dark {
+    color: white !important;
+    border-color: hsl(0, 0%, 90%);
+}
+
+.btn.btn-outline.dark:hover {
+    background-color: hsl(0, 0%, 90%);
+    color: var(--dark-bg) !important;
 }
 
 .grade, .btn.green-haze:not(.btn-outline), .table td, .table th {
@@ -116,12 +141,12 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 }
 
 /* Dashboard Stat Colors */
-.dashboard-stat.blue { background-color: #095082 !important; }
-.dashboard-stat.green { background-color: #19757d !important; }
-.dashboard-stat.red { background-color: #912a31 !important; }
-.dashboard-stat.yellow { background-color: #96772f !important; }
-.dashboard-stat.purple { background-color: #7a3796 !important; }
-.dashboard-stat.green-jungle { background-color: #196545 !important; }
+.dashboard-stat.blue { background-color: #0c5c96 !important; }
+.dashboard-stat.green { background-color: #1c8892 !important; }
+.dashboard-stat.red { background-color: #aa333b !important; }
+.dashboard-stat.yellow { background-color: #a58539 !important; }
+.dashboard-stat.purple { background-color: #8c40ad !important; }
+.dashboard-stat.green-jungle { background-color: #489748 !important; }
 
 .portlet>.portlet-title {
     border-bottom: 0;
@@ -266,8 +291,4 @@ tspan {
 .btn.btn-outline.blue-steel {
     border-color: #ffffff;
     color: #ffffff;
-}
-
-.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
-    background-color: hsl(0, 0%, 22%) !important;
 }
