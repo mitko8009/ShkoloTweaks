@@ -68,20 +68,19 @@ jobs:
           zip -r ../../extension.zip .
           cd ../..
 
-      - name: Delete old AUTO release if exists
+      - name: Delete all AUTO releases
         if: steps.check_version.outputs.release == 'true'
         run: |
-          OLD_TAG="v${{ steps.manifest.outputs.version }}-auto"
-          echo "Looking for old release with tag: $OLD_TAG"
-
-          RELEASE_ID=$(gh release list --json tagName --jq ".[] | select(.tagName == \"$OLD_TAG\") | .id" || echo "none")
+          echo "Looking for old AUTO releases..."
           
-          if [ "$RELEASE_ID" != "none" ]; then
-            echo "Found old release with ID: $RELEASE_ID, deleting..."
-            gh release delete $OLD_TAG --yes
-          else
-            echo "No old release found for tag: $OLD_TAG"
-          fi
+          RELEASES=$(gh release list --json tagName --jq '.[].tagName')
+          
+          for RELEASE in $RELEASES; do
+            if [[ $RELEASE == *- Auto* ]]; then
+              echo "Found AUTO release with tag: $RELEASE, deleting..."
+              gh release delete $RELEASE --yes
+            fi
+          done
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
