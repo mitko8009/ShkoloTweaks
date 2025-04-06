@@ -102,7 +102,7 @@ body {
 .switch {
     position: relative;
     display: inline-block;
-    margin-bottom: -5px;
+    margin-bottom: -4px;
     width: 40px;
     height: 20px;
 }
@@ -139,5 +139,8 @@ input:checked + .switch::after {
 }
 .options>label {
     font-size: 16px;
-    color: hsl(0, 0%, 10%);
+    color: hsl(0, 0%, 2%);
+}
+.options>p {
+    font-size: 14px;
 }
