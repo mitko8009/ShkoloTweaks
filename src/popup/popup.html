@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shkolo Tweaks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo has-text-centered mb-5">
+            <img src="../assets/LogoBanner.png" style="width: 200px; margin-bottom: -25px; margin-top: -16px;" alt="Shkolo Tweaks Logo">
+        </div>
+        <div class="box">
+            <h1 class="is-4 has-text-centered" style="margin-bottom: 8px; font-weight: bold;">Customization Options</h1>
+            <div class="theme-toggle">
+                <button id="lightTheme" class="active">Light</button>
+                <span>|</span>
+                <button id="darkTheme">Dark</button>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="toggle1">
+                <label for="toggle1">Enable Feature 1</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="toggle2">
+                <label for="toggle2">Enable Feature 2</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="toggle3">
+                <label for="toggle3">Enable Feature 3</label>
+            </div>
+        </div>
+        <button class="button is-fullwidth save-btn mt-4">Save</button>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

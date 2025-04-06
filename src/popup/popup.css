@@ -1,0 +1,99 @@
+body {
+    background: linear-gradient(135deg, #5d8bf7, #a3c1fc);
+    color: #fff;
+    padding: 20px;
+}
+.box {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.save-btn {
+    background-color: #fff;
+    color: #5d8bf7;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    border: none;
+}
+.save-btn:hover {
+    background-color: #f1f1f1;
+}
+/* Fancy checkbox styles */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.checkbox-container input[type="checkbox"] {
+    display: none;
+}
+.checkbox-container label {
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 1rem;
+    user-select: none;
+}
+.checkbox-container label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    background-color: transparent;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.checkbox-container input[type="checkbox"]:checked + label::before {
+    background-color: #fff;
+    transform: scale(1.1);
+}
+.checkbox-container label::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    background-color: #5d8bf7;
+    border-radius: 2px;
+    opacity: 0.5;
+    transform: scale(0.5);
+    transition: opacity 0.3s, transform 0.2s;
+}
+.checkbox-container input[type="checkbox"]:checked + label::after {
+    opacity: 1;
+    transform: scale(1.5);
+}
+/* Theme toggle button styles */
+.theme-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.theme-toggle button {
+    background-color: #fff;
+    border: none;
+    width: 100px;
+    color: #000000;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s, border 0.3s;
+}
+.theme-toggle button.active {
+    background-color: hsl(0, 0%, 86%);
+    border: 1px solid hsl(0, 0%, 80%);
+}
+.theme-toggle button:hover {
+    background-color: hsl(0, 0%, 90%);
+}
+.theme-toggle button::before {
+    background-color: #fff;
+}
+.theme-toggle button::after {
+    background-color: hsl(0, 0%, 86%);
+}
