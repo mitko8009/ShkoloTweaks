@@ -1,7 +1,7 @@
 (function() {
     "use strict";
     
-    if (pageurl.includes("#login-tab") || pageurl.includes("#register-tab")) return; // Don't run on login page
+    if (document.body.classList.contains('login')) return; 
 
     const MENU_SELECTOR = '.page-sidebar-menu';
     const ORDER_KEY = 'SHKOLOTWEAKS_SIDEBAR_ORDER_OVERRIDE';
