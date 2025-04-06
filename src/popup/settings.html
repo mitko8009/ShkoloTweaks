@@ -6,12 +6,48 @@
     <title>Shkolo Tweaks</title>
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
     <link rel="stylesheet" href="popup.css">
+    <style>
+        .container {
+            width: 100%;
+        }
+
+        .box-wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: start;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 0 auto;
+            padding: 0 20px;            
+        }
+    </style>
 </head>
-<body style="width: 400px;">
+<body style="width: 100%; height: 100%;">
+    <div class="background"></div>
     <div class="bg_overlay"></div>
-    <div class="container">
+    <div class="container" style="height: 100%;">
         <div class="logo has-text-centered mb-5">
             <img src="../assets/LogoBanner.png" style="width: 200px; margin-bottom: -25px; margin-top: -16px;" alt="Shkolo Tweaks Logo">
+        </div>
+    <div class="box-wrapper" style="width: 100%;">
+        <div class="box">
+            <h1 class="has-text-centered" style="margin-bottom: 8px; font-weight: bold; font-size: 16px;">Customizations</h1>
+            <div class="theme-toggle">
+                <button id="lightTheme" class="active">Light</button>
+                <span>|</span>
+                <button id="darkTheme">Dark</button>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 12px;">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="rounded">
+                    <label for="rounded"><img src="../assets/rounded.svg"></label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="blur-data">
+                    <label for="blur-data"><img src="../assets/user-not-tracked.svg"></label>
+                </div>
+            </div>
         </div>
         <div class="box">
             <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;">Popup settings</h1>
@@ -24,17 +60,30 @@
         </div>
         <div class="box">
             <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;">Shkolo settings</h1>
-            <h1>No shkolo settings to show yet</h1>
+            <div class="options">
+                <input id="schedule" type="checkbox">
+                <label for="schedule" class="switch"></label>
+                <label for="schedule">Schedule Widget</label>
+                <p>Enable the Schedule Widget on the dashboard</p>
+            </div>
+            <div class="options">
+                <input id="control_tests" type="checkbox">
+                <label for="control_tests" class="switch"></label>
+                <label for="control_tests">Control Tests Widget</label>
+                <p>Enable the Control Tests Widget on the dashboard</p>
+            </div>
+            <div class="options">
+                <input id="reorder_sidebar" type="checkbox">
+                <label for="reorder_sidebar" class="switch"></label>
+                <label for="reorder_sidebar">Reorder Sidebar</label>
+                <p>Option to reorder the sidebar items</p>
+            </div>
         </div>
         <div class="box">
             <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;">Developer settings</h1>
             <h1>No developer settings to show yet</h1>
         </div>
-        <div class="box">
-            <div class="footer" style="font-size: 14px; font-family: monospace; justify-content: center;">
-                <p><a href="popup.html" style="font-size: 16px; font-weight: bold;">Back</a></p>
-            </div>
-        </div>
+    </div>
     </div>
 
     <script src="../lib/jquery.min.js"></script>

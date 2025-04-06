@@ -190,7 +190,13 @@ function sc_main() {
 }
 
 try {
-    sc_main()
+    chrome.storage.sync.get(['schedule'], (result) => {
+        if (result.schedule === undefined || result.schedule === true) {
+            sc_main()
+        } else {
+            sc_Widget.remove()
+        }
+    })
 } catch (e) {
     console.error("Failed to load the Schedule widget. Error: "+e)
 }

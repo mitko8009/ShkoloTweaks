@@ -137,7 +137,13 @@ function ct_main() {
 }
 
 try {
-    ct_main()
+    chrome.storage.sync.get(['control_tests'], (result) => {
+        if (result.control_tests === undefined || result.control_tests === true) {
+            ct_main()
+        } else {
+            ct_Widget.remove()
+        }
+    })
 } catch (e) {
     console.error("Control Tests Widget Error: ", e)
 }
