@@ -3,8 +3,12 @@ const version = manifest.version
 const label_version = document.getElementById('version')
 
 function refresh_page() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.reload(tabs[0].id)
+    chrome.storage.sync.get(['autoRefresh'], (result) => {
+        if (result.autoRefresh) {
+            chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+                chrome.tabs.reload(tabs[0].id)
+            })
+        }
     })
 }
 

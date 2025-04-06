@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
     <link rel="stylesheet" href="popup.css">
 </head>
-<body>
+<body style="width: 300px;">
     <div class="bg_overlay"></div>
     <div class="container">
         <div class="logo has-text-centered mb-5">
@@ -20,7 +20,7 @@
                 <span>|</span>
                 <button id="darkTheme">Dark</button>
             </div>
-            <div style="display: flex; justify-content: flex-start; align-items: center; margin-top: 20px; gap: 12px;">
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 12px;">
                 <div class="checkbox-container">
                     <input type="checkbox" id="rounded">
                     <label for="rounded"><img src="../assets/rounded.svg"></label>
@@ -32,9 +32,9 @@
             </div>
         </div>
         <div class="box">
-            <div class="footer">
+            <div class="footer" style="font-size: 14px; font-family: monospace;">
                 <p><span id="version">?</span></p>
-                <div></div>
+                <p><a href="settings.html">Advanced settings</a></p>
             </div>
         </div>
     </div>
