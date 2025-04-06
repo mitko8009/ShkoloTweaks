@@ -1,57 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ShkoloTweaks</title>
-        <link rel="stylesheet" href="popup.css" />
-    </head>
-    <body>
-        <!-- <div id="dev_panel">
-            <div class="centerItems" id="dev_flags"></div>
-            <div id="close_dev_panel"></div>
-        </div> -->
-
-        <div id="theme-options" value="dark">
-            <label style="font-size: 1.1em; margin-top: 8px;" id="themeLabel"></label>
-            <div class="options-row">
-                <a type="button" class="option theme-option" aria-pressed="false" id="theme_dark" data-value="dark"><img src="../assets/moon.svg" class="icon32"></a>
-                <a type="button" class="option theme-option" aria-pressed="false" id="theme_light" data-value="light"><img src="../assets/sun.svg" class="icon32"></a>
-            </div>
-            <div id="custom-themes" class="options-row" style="margin-top: 8px;"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shkolo Tweaks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body style="width: 300px;">
+    <div class="background"></div>
+    <div class="bg_overlay"></div>
+    <div class="container">
+        <div class="logo has-text-centered mb-5">
+            <img src="../assets/LogoBanner.png" style="width: 200px; margin-bottom: -25px; margin-top: -16px;" alt="Shkolo Tweaks Logo">
         </div>
-
-        <div class="grid-container" id="main_container"> <!-- Main Container -->
-            <div class="container" id="header"> <!-- Header -->
-                <h1 class="title"><img src="../assets/LogoBanner.png" style="height: 100px; margin-bottom: -16px; margin-right: 6px; margin-top: -16px;"></h1>
-                <a class="button" id="shkoloBtn" href="https://app.shkolo.bg/dashboard" target="_blank"></a>
+        <div class="box">
+            <h1 class="has-text-centered" style="margin-bottom: 8px; font-weight: bold; font-size: 16px;" id="Customizations"></h1>
+            <div class="theme-toggle">
+                <button id="lightTheme" class="active"></button>
+                <span>|</span>
+                <button id="darkTheme"></button>
             </div>
-            <div class="container"> <!-- Customizations -->
-                <div class="container-m1" style="display: grid; justify-content: center; align-items: center; text-align: center; gap: 8px; margin-right: -16px;">
-                    <label id="customizations" style="font-size: 1.3em; margin-bottom: -2px; font-weight: bold;"></label>
-                    <div class="options-row">
-                        <a type="button" class="option" id="rounded" aria-pressed="false"><img src="../assets/rounded.svg" class="icon32"></a>
-                        <!-- <a type="button" class="option" id="cleanup" aria-pressed="false"><img src="../assets/clean.svg" class="icon32"></a> --> <!-- Disabled for now -->
-                        <a type="button" class="option" id="blurpfp" aria-pressed="false"><img src="../assets/user-not-tracked.svg" class="icon32"></a>
-                        <a type="button" class="option" id="scWidget" aria-pressed="false"><img src="../assets/schedule.svg" class="icon32"></a>
-                        <a type="button" class="option" id="themePopup" aria-pressed="false"><img src="../assets/brush.svg" class="icon32"></a>
-                    </div>
-                    <!-- <div class="options-row">
-                    </div> -->
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 12px;">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="rounded">
+                    <label for="rounded"><img src="../assets/rounded.svg"></label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="blur-data">
+                    <label for="blur-data"><img src="../assets/user-not-tracked.svg"></label>
                 </div>
             </div>
-            <a class="button" id="saveBtn"></a>
-            <div style="display: grid; justify-content: center; align-items: center; text-align: center; gap: 8px; margin-right: -16px; grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
-                <a id="github" type="button" class="option" href="https://github.com/mitko8009/ShkoloTweaks" target="_blank"><img src="../assets/github-mark.svg" class="icon32"></a>
-                <a id="website" type="button" class="option" href="https://shkolotweaks.xyz/" target="_blank"><img src="../assets/icon_x48_white.png" class="icon32"></a>
-                <a id="instagram" type="button" class="option" href="https://www.instagram.com/mitko8009_/" target="_blank" ><img src="../assets/Instagram_Glyph.svg" class="icon32"></a>
-            </div>
-            <label id="version"></label>
-
         </div>
-    </body>
+        <div class="box">
+            <div class="footer" style="font-size: 14px; font-family: monospace;">
+                <p><span id="version">?</span></p>
+                <p><a href="settings.html" target="_blank" id="advanced_settings"></a></p>
+            </div>
+        </div>
+    </div>
+    
     <script src="../lib/jquery.min.js"></script>
     <script src="popup.js"></script>
-    <script src="popup-i18n.js"></script>
+    <script src="i18n.js"></script>
+</body>
 </html>
