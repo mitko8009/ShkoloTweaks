@@ -190,7 +190,6 @@ function sc_main() {
 }
 
 try {
-    // if (scheduleWidget) sc_main()
     sc_main()
 } catch (e) {
     console.error("Failed to load the Schedule widget. Error: "+e)
