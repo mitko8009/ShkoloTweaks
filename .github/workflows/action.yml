@@ -9,9 +9,11 @@ permissions:
   contents: write
 
 jobs:
-  build-release:
+  check-version:
     runs-on: ubuntu-latest
-
+    outputs:
+      release: ${{ steps.check_version.outputs.release }}
+      version: ${{ steps.manifest.outputs.version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,7 +29,7 @@ jobs:
           VERSION=$(jq -r .version src/manifest.json)
           echo "Extension version: $VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-  
+
       - name: Get latest GitHub release version
         id: latest_release
         run: |
@@ -57,36 +59,54 @@ jobs:
             echo "release=true" >> $GITHUB_OUTPUT
           fi
 
+  build-release:
+    needs: check-version
+    if: needs.check-version.outputs.release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Set up Python
-        if: steps.check_version.outputs.release == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
       - name: Install dependencies
-        if: steps.check_version.outputs.release == 'true'
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
       - name: Build Chrome Extension
-        if: steps.check_version.outputs.release == 'true'
         run: |
           python Tools/build_extension.py
 
       - name: Zip extension files
-        if: steps.check_version.outputs.release == 'true'
         run: |
           cd dist/extension
           zip -r ../../extension.zip .
           cd ../..
 
+      - name: Delete all AUTO releases and tags
+        run: |
+          echo "Looking for old AUTO releases..."
+          RELEASES=$(gh release list --json tagName --jq '.[].tagName')
+          for RELEASE in $RELEASES; do
+            if [[ $RELEASE == *-auto ]]; then
+              echo "Found AUTO release with tag: $RELEASE, deleting..."
+              gh release delete $RELEASE --yes
+              git tag -d $RELEASE
+              git push origin --delete $RELEASE
+            fi
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create GitHub Release
-        if: steps.check_version.outputs.release == 'true'
         uses: softprops/action-gh-release@v2
         with:
-          name: v${{ steps.manifest.outputs.version }} - Auto Release - ${{ github.sha }}
-          tag_name: v${{ steps.manifest.outputs.version }}-auto-${{ github.sha }}
+          name: v${{ needs.check-version.outputs.version }} - Auto Release - ${{ github.sha }}
+          tag_name: v${{ needs.check-version.outputs.version }}-auto-${{ github.sha }}
           files: extension.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
