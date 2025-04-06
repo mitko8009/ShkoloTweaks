@@ -1,9 +1,9 @@
 loadCssFile("css/shkolo/__global.css")
 
 function checkTheme() {
-    chrome.storage.sync.get(['theme', 'blurPfp', 'rounded'], (result) => {
+    chrome.storage.sync.get(['theme', 'blur_data', 'rounded'], (result) => {
         theme = result.theme
-        blurPfp = result.blurPfp
+        blur_data = result.blur_data
         rounded = result.rounded
 
         if (theme !== "light") { // Load Any Theme
@@ -38,7 +38,7 @@ function checkTheme() {
             topMenu.prepend(option)
         }
         
-        if(blurPfp) { loadCssFile("css/shkolo/blurData.css") }
+        if(blur_data) { loadCssFile("css/shkolo/blurData.css") }
         if(rounded) { loadCssFile("css/shkolo/rounded.css") } 
     })
 }

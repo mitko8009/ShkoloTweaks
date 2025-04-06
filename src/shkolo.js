@@ -82,12 +82,12 @@ function main() {
 }  
 
 let globalResult;
-let theme, cleanUp, blurPfp, rounded // Global Variables
-chrome.storage.sync.get(["theme", "cleanUp", "blurPfp", "rounded"], (result) => {
+let theme, cleanUp, blur_data, rounded // Global Variables
+chrome.storage.sync.get(["theme", "cleanUp", "blur_data", "rounded"], (result) => {
     globalResult = result
 
     theme = result.theme
-    blurPfp = result.blurPfp
+    blur_data = result.blur_data
     rounded = result.rounded
 
     main();

@@ -6,16 +6,6 @@ body {
 .box {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.save-btn {
-    background-color: #fff;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 18px;
-    border: none;
-}
-.save-btn:hover {
-    background-color: #f1f1f1;
-}
 /* Hide default checkbox */
 .checkbox-container input[type="checkbox"] {
     display: none;
