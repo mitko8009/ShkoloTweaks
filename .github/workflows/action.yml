@@ -87,21 +87,6 @@ jobs:
           zip -r ../../extension.zip .
           cd ../..
 
-      - name: Delete all AUTO releases and tags
-        run: |
-          echo "Looking for old AUTO releases..."
-          RELEASES=$(gh release list --json tagName --jq '.[].tagName')
-          for RELEASE in $RELEASES; do
-            if [[ $RELEASE == *-auto ]]; then
-              echo "Found AUTO release with tag: $RELEASE, deleting..."
-              gh release delete $RELEASE --yes
-              git tag -d $RELEASE
-              git push origin --delete $RELEASE
-            fi
-          done
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
