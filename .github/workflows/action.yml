@@ -16,20 +16,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
-
-      - name: Build Chrome Extension
-        run: |
-          python Tools/build_extension.py
-
       - name: Install jq & GitHub CLI
         run: |
           sudo apt-get update
@@ -49,50 +35,51 @@ jobs:
           echo "Latest release tag: $LATEST"
           
           BASE_VERSION=$(echo $LATEST | sed -E 's/^v//;s/-auto.*//')
-          echo "Base version (without 'v' and '-auto-*'): $BASE_VERSION"
-          echo "latest=$BASE_VERSION" >> $GITHUB_OUTPUT
+          BASE_MINOR=$(echo "$BASE_VERSION" | cut -d. -f1,2)
+          echo "Base minor version: $BASE_MINOR"
+          echo "latest_minor=$BASE_MINOR" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check if version changed
+      - name: Check if minor version changed
         id: check_version
         run: |
           MANIFEST_VERSION="${{ steps.manifest.outputs.version }}"
-          MANIFEST_VERSION="${MANIFEST_VERSION/v/}"
-          
-          if [[ "$MANIFEST_VERSION" == "${{ steps.latest_release.outputs.latest }}" ]]; then
-            echo "Version unchanged, skipping release."
+          MANIFEST_MINOR=$(echo "$MANIFEST_VERSION" | cut -d. -f1,2)
+
+          echo "Manifest minor version: $MANIFEST_MINOR"
+
+          if [[ "$MANIFEST_MINOR" == "${{ steps.latest_release.outputs.latest_minor }}" ]]; then
+            echo "Minor version unchanged, skipping release."
             echo "release=false" >> $GITHUB_OUTPUT
           else
-            echo "New version detected."
+            echo "New minor version detected."
             echo "release=true" >> $GITHUB_OUTPUT
           fi
 
+      - name: Set up Python
+        if: steps.check_version.outputs.release == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        if: steps.check_version.outputs.release == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Build Chrome Extension
+        if: steps.check_version.outputs.release == 'true'
+        run: |
+          python Tools/build_extension.py
+
       - name: Zip extension files
+        if: steps.check_version.outputs.release == 'true'
         run: |
           cd dist/extension
           zip -r ../../extension.zip .
           cd ../..
-
-      - name: Delete all AUTO releases and tags
-        if: steps.check_version.outputs.release == 'true'
-        run: |
-          echo "Looking for old AUTO releases..."
-          
-          RELEASES=$(gh release list --json tagName --jq '.[].tagName')
-          
-          for RELEASE in $RELEASES; do
-            if [[ $RELEASE == *-auto ]]; then
-              echo "Found AUTO release with tag: $RELEASE, deleting..."
-              
-              gh release delete $RELEASE --yes
-              
-              git tag -d $RELEASE
-              git push origin --delete $RELEASE
-            fi
-          done
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         if: steps.check_version.outputs.release == 'true'
