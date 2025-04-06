@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-	 width="800px" height="800px" viewBox="0 0 483.48 483.48"
-	 xml:space="preserve">
-<g>
-	<g>
-		<path d="M361.08,0H122.4C54.799,0,0,54.798,0,122.4v238.68c0,67.602,54.799,122.4,122.4,122.4h238.68
-			c67.602,0,122.4-54.799,122.4-122.4V122.4C483.48,54.798,428.682,0,361.08,0z"/>
-	</g>
-</g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg fill="#fff" width="800px" height="800px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<title>square-rounded</title>
+<path d="M26 0.75h-20c-2.898 0.004-5.246 2.352-5.25 5.25v20c0.004 2.898 2.352 5.246 5.25 5.25h20c2.898-0.004 5.246-2.352 5.25-5.25v-20c-0.004-2.898-2.352-5.246-5.25-5.25h-0zM28.75 26c-0.002 1.518-1.232 2.748-2.75 2.75h-20c-1.518-0.002-2.748-1.232-2.75-2.75v-20c0.002-1.518 1.232-2.748 2.75-2.75h20c1.518 0.002 2.748 1.232 2.75 2.75v0z"></path>
 </svg>

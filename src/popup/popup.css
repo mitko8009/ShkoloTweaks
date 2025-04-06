@@ -8,7 +8,6 @@ body {
 }
 .save-btn {
     background-color: #fff;
-    color: #5d8bf7;
     font-weight: bold;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-size: 18px;
@@ -17,55 +16,46 @@ body {
 .save-btn:hover {
     background-color: #f1f1f1;
 }
-/* Fancy checkbox styles */
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
+/* Hide default checkbox */
 .checkbox-container input[type="checkbox"] {
     display: none;
 }
+
+/* Style the toggle switch */
 .checkbox-container label {
     position: relative;
-    padding-left: 35px;
+    display: inline-block;
+    width: 46px;
+    height: 46px;
+    background-color: #ccc;
+    border-radius: 6px;
+    transition: background-color 0.3s;
     cursor: pointer;
-    font-size: 1rem;
-    user-select: none;
 }
+
 .checkbox-container label::before {
-    content: '';
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #fff;
-    border-radius: 4px;
-    background-color: transparent;
-    transition: background-color 0.3s, transform 0.3s;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: transparent;
+    transition: color 0.3s ease;
+}
+.checkbox-container input[type="checkbox"]:checked + label {
+    background-color: #5d8bf7;
 }
 .checkbox-container input[type="checkbox"]:checked + label::before {
-    background-color: #fff;
-    transform: scale(1.1);
+    color: #fff;
 }
-.checkbox-container label::after {
-    content: '';
-    position: absolute;
-    left: 6px;
-    top: 8px;
-    width: 8px;
-    height: 8px;
-    background-color: #5d8bf7;
-    border-radius: 2px;
-    opacity: 0.5;
-    transform: scale(0.5);
-    transition: opacity 0.3s, transform 0.2s;
+
+.checkbox-container label {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
-.checkbox-container input[type="checkbox"]:checked + label::after {
-    opacity: 1;
-    transform: scale(1.5);
+.checkbox-container label>img {
+    padding: 6px;
 }
+
 /* Theme toggle button styles */
 .theme-toggle {
     display: flex;
