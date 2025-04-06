@@ -75,16 +75,16 @@
         "message": "Тъмна"
     },
     "StatsLTO": {
-        "message": "oтваряния на Shkolo"
+        "message": "пъти Shkolo е отварян"
     },
     "StatsLTOPopup": {
         "message": "Това е броят отваряния на началната страница на Shkolo, откакто сте инсталирали <b>ShkoloTweaks</b>."
     },
     "latestVersion": {
-        "message": "Актуалнa версия"
+        "message": "Актуално"
     },
     "outdatedVersion": {
-        "message": "Актуализация е налична - %s"
+        "message": "Налична е актуализация - %s"
     },
     "devVersion": {
         "message": "Разработчиска версия - %s"
@@ -99,7 +99,7 @@
         "message": "{{DAYS}} дни до края на учебната година"
     },
     "CountdownFooter": {
-        "message": "Тази статистика НЕ ​​включва ваканции."
+        "message": "Тази статистика НЕ включва ваканциите."
     },
     "githubLabel": {
         "message": "GitHub"
@@ -108,12 +108,48 @@
         "message": "Instagram"
     },
     "websiteLabel": {
-        "message": "Официален Уебсайт"
+        "message": "Официален уебсайт"
     },
     "ControlTestsTitle": {
-        "message": "Контролни Тестове"
+        "message": "Контролни работи"
     },
     "reordermode": {
         "message": "Режим на пренареждане"
+    },
+    "advanced_settings": {
+        "message": "Разширени настройки"
+    },
+    "popup_settings": {
+        "message": "Настройки на настроен прозорец"
+    },
+    "auto_refresh": {
+        "message": "Автоматично обновяване"
+    },
+    "auto_refresh_description": {
+        "message": "Автоматично обновяване на страницата при промяна на настройките"
+    },
+    "shkolo_settings": {
+        "message": "Shkolo настройки"
+    },
+    "schedule_widget": {
+        "message": "Панел за разписание"
+    },
+    "schedule_widget_description": {
+        "message": "Показване на панел за разписание на главното таблото"
+    },
+    "control_tests_widget": {
+        "message": "Панел за контролни"
+    },
+    "control_tests_widget_description": {
+        "message": "Показване на панел за контролни работи на главното таблото"
+    },
+    "reorderSidebar": {
+        "message": "Пренареждане на страничното меню"
+    },
+    "reorder_sidebar_description": {
+        "message": "Пренареждане на елементите в страничното меню"
+    },
+    "developer_settings": {
+        "message": "Настройки за разработчици"
     }
 }
