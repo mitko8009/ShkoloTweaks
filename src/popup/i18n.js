@@ -16,8 +16,3 @@ $("#reorderSidebar").html(chrome.i18n.getMessage("reorderSidebar"))
 $("#reorder_sidebar_description").html(chrome.i18n.getMessage("reorder_sidebar_description"))
 
 $("#developer_settings").html(chrome.i18n.getMessage("developer_settings"))
-$("#").html(chrome.i18n.getMessage(""))
-$("#").html(chrome.i18n.getMessage(""))
-$("#").html(chrome.i18n.getMessage(""))
-$("#").html(chrome.i18n.getMessage(""))
-// $("#").html(chrome.i18n.getMessage(""))
