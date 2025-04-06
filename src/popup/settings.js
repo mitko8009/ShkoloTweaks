@@ -12,7 +12,7 @@ chrome.storage.sync.get(['theme'], (result) => {
 })
 
 chrome.storage.sync.get(['autoRefresh', 'schedule', 'control_tests', 'reorder_sidebar'], (result) => {
-    const autoRefresh = result.autoRefresh
+    const autoRefresh = result.autoRefresh ?? true
     $("#autoRefresh").prop("checked", autoRefresh)
 
     const schedule = result.schedule ?? true
