@@ -2,9 +2,6 @@ const manifest = chrome.runtime.getManifest()
 const version = manifest.version
 const pageurl = window.location.href
 
-const WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-const WIDGETSROW = $(".col-md-12")[0].children[2]
-
 const today = new Date();
 const year = today.getFullYear();
 
@@ -65,20 +62,24 @@ function main() {
             tel = telElement.innerHTML.trim()
             telElement.innerHTML = (telIcon != null ? telIcon.outerHTML : "") + ` <a href="tel:${tel}">${tel}</a>`
         }
+
+        if (pageurl.includes("/messages/")) {
+            let spans = document.querySelectorAll("span");
+            spans.forEach(span => {
+                if (span.style.backgroundColor === "rgb(255, 255, 255)") {
+                    span.style.backgroundColor = "";
+                }
+            });
+        }
     }
 
-    if (pageurl.includes("/messages/")) {
-        let spans = document.querySelectorAll("span");
-        spans.forEach(span => {
-            if (span.style.backgroundColor === "rgb(255, 255, 255)") {
-                span.style.backgroundColor = "";
-            }
-        });
+    try {
+        $("#sc-name-lbl").html($("#sc-name-lbl").html() + ` | ${manifest.name} v` + version);
+        $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
+    } catch {
+        console.log("Login page footer fix failed")
     }
 
-    $("#sc-name-lbl").html($("#sc-name-lbl").html() + ` | ${manifest.name} v` + version);
-
-    $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
 }  
 
 let globalResult;

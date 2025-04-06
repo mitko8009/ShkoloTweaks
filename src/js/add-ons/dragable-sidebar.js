@@ -1,5 +1,7 @@
 (function() {
     "use strict";
+    
+    if (document.body.classList.contains('login')) return; 
 
     chrome.storage.sync.get(['reorder_sidebar'], (result) => {
       if (result.reorder_sidebar === undefined || result.reorder_sidebar === true) {
@@ -10,9 +12,9 @@
 
         const MENU_SELECTOR = '.page-sidebar-menu';
         const ORDER_KEY = 'SHKOLOTWEAKS_SIDEBAR_ORDER_OVERRIDE';
-        const DRAG_ICON_CLASS = 'fas fa-grip-lines';
-        
         const style = document.createElement('style');
+        
+        const DRAG_ICON_CLASS = 'fas fa-grip-lines';
         style.textContent = `
           ${MENU_SELECTOR} {
             position: relative;
@@ -65,13 +67,13 @@
           }
         `;
         document.head.appendChild(style);
-        
         const menu = document.querySelector(MENU_SELECTOR);
+        
         if (!menu) return;
         
         const toggleLi = document.createElement('li');
-        toggleLi.className = 'nav-item';
         toggleLi.id = 'dragModeToggleItem';
+        toggleLi.className = 'nav-item';
         toggleLi.innerHTML = `
           <a href="javascript:" class="nav-link">
             <i class="${DRAG_ICON_CLASS}"></i>

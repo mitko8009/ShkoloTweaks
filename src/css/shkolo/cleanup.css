@@ -21,6 +21,10 @@
     font-weight: bold;
 }
 
+.btn.btn-outline.purple {
+    padding: 4px 8px 4px 8px !important;
+}
+
 @media (min-width: 768px) {
     /* Participants and Date */
     .col-sm-2 {
