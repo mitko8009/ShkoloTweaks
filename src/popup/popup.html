@@ -15,11 +15,11 @@
             <img src="../assets/LogoBanner.png" style="width: 200px; margin-bottom: -25px; margin-top: -16px;" alt="Shkolo Tweaks Logo">
         </div>
         <div class="box">
-            <h1 class="has-text-centered" style="margin-bottom: 8px; font-weight: bold; font-size: 16px;">Customizations</h1>
+            <h1 class="has-text-centered" style="margin-bottom: 8px; font-weight: bold; font-size: 16px;" id="Customizations"></h1>
             <div class="theme-toggle">
-                <button id="lightTheme" class="active">Light</button>
+                <button id="lightTheme" class="active"></button>
                 <span>|</span>
-                <button id="darkTheme">Dark</button>
+                <button id="darkTheme"></button>
             </div>
             <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 12px;">
                 <div class="checkbox-container">
@@ -35,12 +35,13 @@
         <div class="box">
             <div class="footer" style="font-size: 14px; font-family: monospace;">
                 <p><span id="version">?</span></p>
-                <p><a href="settings.html" target="_blank">Advanced settings</a></p>
+                <p><a href="settings.html" target="_blank" id="advanced_settings"></a></p>
             </div>
         </div>
     </div>
-
+    
     <script src="../lib/jquery.min.js"></script>
     <script src="popup.js"></script>
+    <script src="i18n.js"></script>
 </body>
 </html>

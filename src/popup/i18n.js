@@ -1,0 +1,23 @@
+$("#Customizations").html(chrome.i18n.getMessage("customizations"))
+$("#lightTheme").html(chrome.i18n.getMessage("lightTheme"))
+$("#darkTheme").html(chrome.i18n.getMessage("darkTheme"))
+$("#advanced_settings").html(chrome.i18n.getMessage("advanced_settings"))
+
+$("#popup_settings").html(chrome.i18n.getMessage("popup_settings"))
+$("#auto_refresh").html(chrome.i18n.getMessage("auto_refresh"))
+$("#auto_refresh_description").html(chrome.i18n.getMessage("auto_refresh_description"))
+
+$("#shkolo_settings").html(chrome.i18n.getMessage("shkolo_settings"))
+$("#schedule_widget").html(chrome.i18n.getMessage("schedule_widget"))
+$("#schedule_widget_description").html(chrome.i18n.getMessage("schedule_widget_description"))
+$("#control_tests_widget").html(chrome.i18n.getMessage("control_tests_widget"))
+$("#control_tests_widget_description").html(chrome.i18n.getMessage("control_tests_widget_description"))
+$("#reorderSidebar").html(chrome.i18n.getMessage("reorderSidebar"))
+$("#reorder_sidebar_description").html(chrome.i18n.getMessage("reorder_sidebar_description"))
+
+$("#developer_settings").html(chrome.i18n.getMessage("developer_settings"))
+$("#").html(chrome.i18n.getMessage(""))
+$("#").html(chrome.i18n.getMessage(""))
+$("#").html(chrome.i18n.getMessage(""))
+$("#").html(chrome.i18n.getMessage(""))
+// $("#").html(chrome.i18n.getMessage(""))

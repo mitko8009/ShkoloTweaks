@@ -115,5 +115,41 @@
     },
     "reordermode": {
         "message": "Reorder mode"
+    },
+    "advanced_settings": {
+        "message": "Advanced settings"
+    },
+    "popup_settings": {
+        "message": "Popup settings"
+    },
+    "auto_refresh": {
+        "message": "Auto-refresh"
+    },
+    "auto_refresh_description": {
+        "message": "Auto-refresh the page when settings are changed"
+    },
+    "shkolo_settings": {
+        "message": "Shkolo settings"
+    },
+    "schedule_widget": {
+        "message": "Schedule widget"
+    },
+    "schedule_widget_description": {
+        "message": "Show the schedule widget on the dashboard"
+    },
+    "control_tests_widget": {
+        "message": "Control tests widget"
+    },
+    "control_tests_widget_description": {
+        "message": "Show the control tests widget on the dashboard"
+    },
+    "reorderSidebar": {
+        "message": "Reorder sidebar"
+    },
+    "reorder_sidebar_description": {
+        "message": "Reorder the sidebar items"
+    },
+    "developer_settings": {
+        "message": "Developer settings"
     }
 }

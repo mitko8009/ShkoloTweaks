@@ -32,11 +32,11 @@
         </div>
     <div class="box-wrapper" style="width: 100%;">
         <div class="box">
-            <h1 class="has-text-centered" style="margin-bottom: 8px; font-weight: bold; font-size: 16px;">Customizations</h1>
+            <h1 class="has-text-centered" style="margin-bottom: 8px; font-weight: bold; font-size: 16px;" id="Customizations"></h1>
             <div class="theme-toggle">
-                <button id="lightTheme" class="active">Light</button>
+                <button id="lightTheme" class="active"></button>
                 <span>|</span>
-                <button id="darkTheme">Dark</button>
+                <button id="darkTheme"></button>
             </div>
             <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 12px;">
                 <div class="checkbox-container">
@@ -50,37 +50,37 @@
             </div>
         </div>
         <div class="box">
-            <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;">Popup settings</h1>
+            <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;" id="popup_settings"></h1>
             <div class="options">
                 <input id="autoRefresh" type="checkbox">
                 <label for="autoRefresh" class="switch"></label>
-                <label for="autoRefresh">Auto-refresh</label>
-                <p>Auto-refresh the page when settings are changed</p>
+                <label for="autoRefresh" id="auto_refresh"></label>
+                <p id="auto_refresh_description"></p>
             </div>
         </div>
         <div class="box">
-            <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;">Shkolo settings</h1>
+            <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;" id="shkolo_settings"></h1>
             <div class="options">
                 <input id="schedule" type="checkbox">
                 <label for="schedule" class="switch"></label>
-                <label for="schedule">Schedule Widget</label>
-                <p>Enable the Schedule Widget on the dashboard</p>
+                <label for="schedule" id="schedule_widget"></label>
+                <p id="schedule_widget_description"></p>
             </div>
             <div class="options">
                 <input id="control_tests" type="checkbox">
                 <label for="control_tests" class="switch"></label>
-                <label for="control_tests">Control Tests Widget</label>
-                <p>Enable the Control Tests Widget on the dashboard</p>
+                <label for="control_tests" id="control_tests_widget"></label>
+                <p id="control_tests_widget_description"></p>
             </div>
             <div class="options">
                 <input id="reorder_sidebar" type="checkbox">
                 <label for="reorder_sidebar" class="switch"></label>
-                <label for="reorder_sidebar">Reorder Sidebar</label>
-                <p>Option to reorder the sidebar items</p>
+                <label for="reorder_sidebar" id="reorderSidebar"></label>
+                <p id="reorder_sidebar_description"></p>
             </div>
         </div>
         <div class="box">
-            <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;">Developer settings</h1>
+            <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;" id="developer_settings"></h1>
             <h1>No developer settings to show yet</h1>
         </div>
     </div>
@@ -88,5 +88,6 @@
 
     <script src="../lib/jquery.min.js"></script>
     <script src="settings.js"></script>
+    <script src="i18n.js"></script>
 </body>
 </html>
