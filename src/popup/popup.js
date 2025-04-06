@@ -1,8 +1,14 @@
+const manifest = chrome.runtime.getManifest()
+const version = manifest.version
+const label_version = document.getElementById('version')
+
 function refresh_page() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         chrome.tabs.reload(tabs[0].id)
     })
 }
+
+$("#version").text("v"+version)
 
 // Theme Switcher
 const lightThemeBtn = document.getElementById('lightTheme')
@@ -13,12 +19,12 @@ let theme = 'light' // Default theme
 
 function applyTheme(theme) {
     if (theme === 'dark') {
-        body.style.background = 'linear-gradient(135deg, #1e1e1e, #3a3a3a)'
+        $(".bg_overlay").show()
         body.style.color = '#ccc'
         darkThemeBtn.classList.add('active')
         lightThemeBtn.classList.remove('active')
     } else {
-        body.style.background = 'linear-gradient(135deg, #5d8bf7, #a3c1fc)'
+        $(".bg_overlay").hide()
         body.style.color = '#fff'
         lightThemeBtn.classList.add('active')
         darkThemeBtn.classList.remove('active')
