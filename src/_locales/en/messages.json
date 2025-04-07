@@ -166,5 +166,11 @@
     },
     "statsPanel_description": {
         "message": "Show statistics that Shkolo Tweaks collects in Shkolo's statistics page."
+    },
+    "devTools": {
+        "message": "DevTools"
+    },
+    "devTools_description": {
+        "message": "Show debug information and tools in the app."
     }
 }

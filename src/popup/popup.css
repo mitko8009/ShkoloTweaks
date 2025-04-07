@@ -174,7 +174,7 @@ input:checked + .switch::after {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .tag.beta {
-    background: repeating-linear-gradient(45deg, #000000, #000000 5px, #a88009 5px, #a88009 10px);
+    background: repeating-linear-gradient(45deg, #000000, #000000 5px, #b98b01 5px, #b98b01 10px);
     color: #fff;
 }
 .options>.description {

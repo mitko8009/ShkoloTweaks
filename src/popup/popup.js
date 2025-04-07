@@ -72,3 +72,11 @@ $("#blur-data").click(() => {
     chrome.storage.sync.set({ blur_data: blur_data })
     refresh_page()
 })
+
+chrome.storage.sync.get(['dev_tools'], (result) => {
+    fetch("https://raw.githubusercontent.com/mitko8009/ShkoloTweaks/refs/heads/main/src/manifest.json")
+    .then(response => response.json())
+    .then(data => {
+        $("#dev").html("Lastest: v" + data.version)
+    })
+})

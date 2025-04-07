@@ -5,8 +5,6 @@
 
     chrome.storage.sync.get(['reorder_sidebar'], (result) => {
       if (result.reorder_sidebar === undefined || result.reorder_sidebar === true) {
-        console.log("Reorder Sidebar enabled");
-        
         const reorderSidebarEnabled = true;
         if (!reorderSidebarEnabled) return;
 
@@ -86,11 +84,9 @@
           </a>
         `;
         menu.insertBefore(toggleLi, menu.firstElementChild);
-    
-        console.log("ShkoloTweaks v" + chrome.runtime.getManifest().version + " - Dragable Sidebar loaded");
-        console.log("Dragable Sidebar - Drag and drop to reorder items");
-    
         
+        if (DEBUG) console.debug("DEBUG: ShkoloTweaks v" + chrome.runtime.getManifest().version + " - Dragable Sidebar loaded");
+
         function getTopLevelLis() {
           return Array.from(menu.querySelectorAll(':scope > li'))
             .filter(li => li !== toggleLi && !li.classList.contains('placeholder'));
@@ -129,10 +125,10 @@
               });
             }
     
-            console.log('Sidebar order restored from localStorage:', savedOrder);
+            if (DEBUG) console.debug('DEBUG: Sidebar order restored from localStorage:', savedOrder);
           }
         } catch (e) {
-          console.error('Error reading saved order', e);
+          if (DEBUG) console.error('Error reading saved order', e);
         }
         
         const placeholder = document.createElement('li');
@@ -340,7 +336,7 @@
           try {
             localStorage.setItem(ORDER_KEY, JSON.stringify(order));
           } catch (e) {
-            console.error('Error saving order', e);
+            if (DEBUG) console.error('Error saving order', e);
           }
         }
         

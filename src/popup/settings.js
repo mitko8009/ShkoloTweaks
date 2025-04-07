@@ -11,7 +11,7 @@ chrome.storage.sync.get(['theme'], (result) => {
     applyTheme(theme)
 })
 
-chrome.storage.sync.get(['autoRefresh', 'schedule', 'control_tests', 'reorder_sidebar', 'year_countdown', 'stats_panel'], (result) => {
+chrome.storage.sync.get(['autoRefresh', 'schedule', 'control_tests', 'reorder_sidebar', 'year_countdown', 'stats_panel', 'dev_tools'], (result) => {
     const autoRefresh = result.autoRefresh ?? true
     $("#autoRefresh").prop("checked", autoRefresh)
 
@@ -29,6 +29,9 @@ chrome.storage.sync.get(['autoRefresh', 'schedule', 'control_tests', 'reorder_si
 
     const stats_panel = result.stats_panel ?? false
     $("#stats_panel").prop("checked", stats_panel)
+
+    const dev_tools = result.dev_tools ?? false
+    $("#dev_tools").prop("checked", dev_tools)
 })
 
 $(".options").click(function() {

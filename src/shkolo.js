@@ -83,13 +83,14 @@ function main() {
 }  
 
 let globalResult;
-let theme, blur_data, rounded // Global Variables
-chrome.storage.sync.get(["theme", "blur_data", "rounded"], (result) => {
+let theme, blur_data, rounded, DEBUG // Global Variables
+chrome.storage.sync.get(["theme", "blur_data", "rounded", "dev_tools"], (result) => {
     globalResult = result
 
     theme = result.theme
     blur_data = result.blur_data
     rounded = result.rounded
+    DEBUG = result.dev_tools
 
     main();
 });
