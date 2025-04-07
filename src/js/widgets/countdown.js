@@ -60,12 +60,18 @@ function cw_main() {
     countdownWidgetContent.style.fontWeight = "bold"
     countdownWidgetContent.style.height = "auto"
     
-    if (!cleanUp) cw_Widget.children[0].children[2].remove()
+    // cw_Widget.children[0].children[2].remove()
     WIDGETSROW.appendChild(cw_Widget)
 }
 
-// try {
-//     cw_main()
-// } catch (e) {
-//     console.error("Failed to load the Countdown widget. Error: "+e)
-// }
+try {
+    chrome.storage.sync.get(['year_countdown'], (result) => {
+        if (result.year_countdown === undefined || result.year_countdown === true) {
+            cw_main()
+        } else {
+            WIDGETSROW.children[0].remove()
+        }
+    })
+} catch (e) {
+    console.error("Failed to load the Countdown widget. Error: "+e)
+}

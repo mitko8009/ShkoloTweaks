@@ -60,8 +60,8 @@
 			"js": [
 				"js/widgets/__init__.js",
 				"js/widgets/schedule.js",
-				"js/widgets/countdown.js",
-				"js/widgets/control_tests.js"
+				"js/widgets/control_tests.js",
+				"js/widgets/countdown.js"
 			],
 			"run_at": "document_end"
 		},

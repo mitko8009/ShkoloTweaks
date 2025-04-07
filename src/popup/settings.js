@@ -11,7 +11,7 @@ chrome.storage.sync.get(['theme'], (result) => {
     applyTheme(theme)
 })
 
-chrome.storage.sync.get(['autoRefresh', 'schedule', 'control_tests', 'reorder_sidebar'], (result) => {
+chrome.storage.sync.get(['autoRefresh', 'schedule', 'control_tests', 'reorder_sidebar', 'year_countdown'], (result) => {
     const autoRefresh = result.autoRefresh ?? true
     $("#autoRefresh").prop("checked", autoRefresh)
 
@@ -23,6 +23,18 @@ chrome.storage.sync.get(['autoRefresh', 'schedule', 'control_tests', 'reorder_si
 
     const reorder_sidebar = result.reorder_sidebar ?? true
     $("#reorder_sidebar").prop("checked", reorder_sidebar)
+
+    const year_countdown = result.year_countdown ?? true
+    $("#year_countdown").prop("checked", year_countdown)
+})
+
+$(".options").click(function() {
+    this.children[0].checked = !this.children[0].checked
+
+    const option = this.children[0].id
+    const optionElement = $("#"+option)
+    const optionValue = optionElement.prop("checked")
+    chrome.storage.sync.set({ [option]: optionValue })
 })
 
 // General Settings
@@ -81,26 +93,4 @@ $("#rounded").click(() => {
 $("#blur-data").click(() => {
     const blur_data = $("#blur-data").prop("checked")
     chrome.storage.sync.set({ blur_data: blur_data })
-})
-
-// Popup Settings
-$("#autoRefresh").click(() => {
-    const autoRefresh = $("#autoRefresh").prop("checked")
-    chrome.storage.sync.set({ autoRefresh: autoRefresh })
-})
-
-// Shkolo Settings
-$("#schedule").click(() => {
-    const schedule = $("#schedule").prop("checked")
-    chrome.storage.sync.set({ schedule: schedule })
-})
-
-$("#control_tests").click(() => {
-    const control_tests = $("#control_tests").prop("checked")
-    chrome.storage.sync.set({ control_tests: control_tests })
-})
-
-$("#reorder_sidebar").click(() => {
-    const reorder_sidebar = $("#reorder_sidebar").prop("checked")
-    chrome.storage.sync.set({ reorder_sidebar: reorder_sidebar })
 })

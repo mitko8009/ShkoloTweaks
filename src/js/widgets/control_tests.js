@@ -131,7 +131,7 @@ function ct_main() {
 
     /////////////////////////////////
     // Append the widget to the widgets row
-    if (!cleanUp) ct_Widget.children[0].children[2].remove() // Remove the widget footer if cleanUp is disabled
+    ct_Widget.children[0].children[2].remove() // Remove the widget footer if cleanUp is disabled
     ct_Widget.children[0].children[0].appendChild(headerButtons)
     WIDGETSROW.appendChild(ct_Widget)
 }

@@ -185,7 +185,7 @@ function sc_main() {
 
     sc_Widget.children[0].children[0].appendChild(headerButtons)
     
-    if (!cleanUp) sc_Widget.children[0].children[2].remove() // Remove the widget footer
+    sc_Widget.children[0].children[2].remove() // Remove the widget footer
     WIDGETSROW.appendChild(sc_Widget)
 }
 

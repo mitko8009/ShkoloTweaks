@@ -146,10 +146,19 @@
     "reorderSidebar": {
         "message": "Reorder sidebar"
     },
-    "reorder_sidebar_description": {
+    "reorderSidebar_description": {
         "message": "Reorder the sidebar items"
     },
     "developer_settings": {
         "message": "Developer settings"
+    },
+    "beta": {
+        "message": "Beta"
+    },
+    "yearCountdown": {
+        "message": "Year countdown widget"
+    },
+    "yearCountdown_description": {
+        "message": "Show the year countdown widget on the dashboard"
     }
 }

@@ -8,11 +8,24 @@ $("#auto_refresh").html(chrome.i18n.getMessage("auto_refresh"))
 $("#auto_refresh_description").html(chrome.i18n.getMessage("auto_refresh_description"))
 
 $("#shkolo_settings").html(chrome.i18n.getMessage("shkolo_settings"))
-$("#schedule_widget").html(chrome.i18n.getMessage("schedule_widget"))
-$("#schedule_widget_description").html(chrome.i18n.getMessage("schedule_widget_description"))
-$("#control_tests_widget").html(chrome.i18n.getMessage("control_tests_widget"))
-$("#control_tests_widget_description").html(chrome.i18n.getMessage("control_tests_widget_description"))
-$("#reorderSidebar").html(chrome.i18n.getMessage("reorderSidebar"))
-$("#reorder_sidebar_description").html(chrome.i18n.getMessage("reorder_sidebar_description"))
-
 $("#developer_settings").html(chrome.i18n.getMessage("developer_settings"))
+
+$(".options").each(function() {
+    const element = this.children[2]
+    const id = element.id
+    const message = chrome.i18n.getMessage(id)
+    if (message) {
+        element.innerHTML = message
+    }
+
+    const description = this.querySelector(".description");
+    const descriptionId = description ? description.id : null;
+    const descriptionMessage = chrome.i18n.getMessage(descriptionId)
+    if (descriptionMessage) {
+        description.innerHTML = descriptionMessage
+    }
+})
+
+$(".tag.beta").each(function() {
+    $(this).html(chrome.i18n.getMessage("beta"));
+});

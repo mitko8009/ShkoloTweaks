@@ -51,16 +51,15 @@ function main() {
     loadCssFile("css/mon/__global.css")
 
     checkTheme()
-    if (cleanUp) CleanUp()
+    CleanUp()
 }
 
 let globalResult
-let theme, cleanUp, blur_data, rounded, scheduleWidget // Global Variables
-chrome.storage.sync.get(["theme", "cleanUp", "blur_data", "rounded", "scheduleWidget"], (result) => {
+let theme, blur_data, rounded, scheduleWidget // Global Variables
+chrome.storage.sync.get(["theme", "blur_data", "rounded", "scheduleWidget"], (result) => {
     globalResult = result
 
     theme = result.theme
-    cleanUp = result.cleanUp
     blur_data = result.blur_data
     rounded = result.rounded
     scheduleWidget = result.scheduleWidget
