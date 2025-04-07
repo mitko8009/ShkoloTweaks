@@ -174,6 +174,9 @@ input:checked + .switch::after {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .tag.beta {
-    background-color: #ffca28;
-    color: #000000;
+    background: repeating-linear-gradient(45deg, #000000, #000000 5px, #a88009 5px, #a88009 10px);
+    color: #fff;
+}
+.options>.description {
+    text-wrap-style: pretty;
 }

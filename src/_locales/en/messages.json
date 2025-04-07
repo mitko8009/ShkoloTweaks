@@ -153,12 +153,18 @@
         "message": "Developer settings"
     },
     "beta": {
-        "message": "Beta"
+        "message": "Beta Feature"
     },
     "yearCountdown": {
         "message": "Year countdown widget"
     },
     "yearCountdown_description": {
         "message": "Show the year countdown widget on the dashboard"
+    },
+    "statsPanel": {
+        "message": "Stats panel"
+    },
+    "statsPanel_description": {
+        "message": "Show statistics that Shkolo Tweaks collects in Shkolo's statistics page."
     }
 }

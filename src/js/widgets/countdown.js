@@ -68,8 +68,6 @@ try {
     chrome.storage.sync.get(['year_countdown'], (result) => {
         if (result.year_countdown === undefined || result.year_countdown === true) {
             cw_main()
-        } else {
-            WIDGETSROW.children[0].remove()
         }
     })
 } catch (e) {
