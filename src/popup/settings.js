@@ -100,3 +100,87 @@ $("#blur-data").click(() => {
     const blur_data = $("#blur-data").prop("checked")
     chrome.storage.sync.set({ blur_data: blur_data })
 })
+
+$("#chrome_storage").click(() => {
+    showPopup($("#chrome_storage_popup"))
+
+    chrome.storage.sync.get(null, (result) => {
+        updateStorageTable(result)
+    })
+})
+
+$("#chrome_storage_update_button").click(() => {
+    chrome.storage.sync.get(null, (result) => {
+        updateStorageTable(result)
+    })
+})
+
+$("#chrome_storage_set_button").click(() => {
+    const key = $("#chrome_storage_key").val().trim()
+    const value = $("#chrome_storage_value").val().trim()
+
+    if (key) {
+        chrome.storage.sync.set({ [key]: value }, () => {
+            $("#chrome_storage_key").val("")
+            $("#chrome_storage_value").val("")
+            chrome.storage.sync.get(null, (result) => {
+                updateStorageTable(result)
+            })
+        })
+    }
+})
+
+$("#chrome_storage_remove_button").click(() => {
+    const key = $("#chrome_storage_key").val().trim()
+
+    if (key) {
+        chrome.storage.sync.remove([key], () => {
+            $("#chrome_storage_key").val("")
+            chrome.storage.sync.get(null, (result) => {
+                updateStorageTable(result)
+            })
+        })
+    }
+})
+
+$("#chrome_storage_clear_button").click(() => {
+    if (confirm("Are you sure you want to clear all Chrome storage data? This action cannot be undone.")) {
+        chrome.storage.sync.clear(() => {
+            chrome.storage.sync.get(null, (result) => {
+                updateStorageTable(result)
+            })
+        })
+    }
+})
+
+function updateStorageTable(data) {
+    let tableContent = "<table><thead><tr><th>Key</th><th>Value</th></tr></thead><tbody>"
+    for (const [key, value] of Object.entries(data)) {
+        tableContent += `<tr><td>${key}</td><td>${JSON.stringify(value)}</td></tr>`
+    }
+    tableContent += "</tbody></table>"
+    $("#chrome_storage_result").html(tableContent)
+}
+
+//popup system
+let activePopup = null
+
+function hideAllPopups() {
+    $("#box_popup_overlay").hide()
+    $("#chrome_storage_popup").hide()
+}
+
+$("#box_popup_overlay").click(() => {
+    if (activePopup) {
+        activePopup.hide()
+        $("#box_popup_overlay").hide()
+        activePopup = null
+    }
+})
+
+function showPopup(popup) {
+    hideAllPopups()
+    $("#box_popup_overlay").show()
+    popup.show()
+    activePopup = popup
+}

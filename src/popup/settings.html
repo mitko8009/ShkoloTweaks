@@ -26,85 +26,105 @@
 <body style="width: 100%; height: 100%;">
     <div class="background"></div>
     <div class="bg_overlay"></div>
+    <div id="box_popup_overlay" style="display: none;"></div>
     <div class="container" style="height: 100%;">
         <div class="logo has-text-centered mb-5">
             <img src="../assets/LogoBanner.png" style="width: 200px; margin-bottom: -25px; margin-top: -16px;" alt="Shkolo Tweaks Logo">
         </div>
-    <div class="box-wrapper" style="width: 100%;">
-        <div class="box">
-            <h1 class="has-text-centered" style="margin-bottom: 8px; font-weight: bold; font-size: 16px;" id="Customizations"></h1>
-            <div class="theme-toggle">
-                <button id="lightTheme" class="active"></button>
-                <span>|</span>
-                <button id="darkTheme"></button>
-            </div>
-            <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 12px;">
-                <div class="checkbox-container">
-                    <input type="checkbox" id="rounded">
-                    <label for="rounded"><img src="../assets/rounded.svg"></label>
-                </div>
-                <div class="checkbox-container">
-                    <input type="checkbox" id="blur-data">
-                    <label for="blur-data"><img src="../assets/user-not-tracked.svg"></label>
-                </div>
-            </div>
-        </div>
-        <div>
+        <div class="box-wrapper" style="width: 100%;">
             <div class="box">
-                <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;" id="popup_settings"></h1>
-                <div class="options">
-                    <input id="autoRefresh" type="checkbox">
-                    <label for="autoRefresh" class="switch"></label>
-                    <label for="autoRefresh" id="auto_refresh"></label>
-                    <p class="description" id="auto_refresh_description"></p>
+                <h1 class="has-text-centered" style="margin-bottom: 8px; font-weight: bold; font-size: 16px;" id="Customizations"></h1>
+                <div class="theme-toggle">
+                    <button id="lightTheme" class="active"></button>
+                    <span>|</span>
+                    <button id="darkTheme"></button>
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 12px;">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="rounded">
+                        <label for="rounded"><img src="../assets/rounded.svg"></label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="blur-data">
+                        <label for="blur-data"><img src="../assets/user-not-tracked.svg"></label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="box">
+                    <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;" id="popup_settings"></h1>
+                    <div class="options">
+                        <input id="autoRefresh" type="checkbox">
+                        <label for="autoRefresh" class="switch"></label>
+                        <label for="autoRefresh" id="auto_refresh"></label>
+                        <p class="description" id="auto_refresh_description"></p>
+                    </div>
+                </div>
+                <div class="box">
+                    <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;" id="developer_settings"></h1>
+                    <div class="options">
+                        <input id="dev_tools" type="checkbox">
+                        <label for="dev_tools" class="switch"></label>
+                        <label for="dev_tools" id="devTools"></label>
+                        <p class="description" id="devTools_description"></p>
+                    </div>
+                    <div style="display: flex; margin-top: 16px;"><p class="settings-button" id="chrome_storage">Chrome Storage Editor</p></div>
                 </div>
             </div>
             <div class="box">
-                <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;" id="developer_settings"></h1>
+                <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;" id="shkolo_settings"></h1>
                 <div class="options">
-                    <input id="dev_tools" type="checkbox">
-                    <label for="dev_tools" class="switch"></label>
-                    <label for="dev_tools" id="devTools"></label>
-                    <p class="description" id="devTools_description"></p>
+                    <input id="schedule" type="checkbox">
+                    <label for="schedule" class="switch"></label>
+                    <label for="schedule" id="schedule_widget"></label>
+                    <p class="description" id="schedule_widget_description"></p>
+                </div>
+                <div class="options">
+                    <input id="control_tests" type="checkbox">
+                    <label for="control_tests" class="switch"></label>
+                    <label for="control_tests" id="control_tests_widget"></label>
+                    <p class="description" id="control_tests_widget_description"></p>
+                </div>
+                <div class="options">
+                    <input id="reorder_sidebar" type="checkbox">
+                    <label for="reorder_sidebar" class="switch"></label>
+                    <label for="reorder_sidebar" id="reorderSidebar"></label>
+                    <p class="description" id="reorderSidebar_description"></p>
+                </div>
+                <div class="options beta">
+                    <input id="year_countdown" type="checkbox">
+                    <label for="year_countdown" class="switch"></label>
+                    <label for="year_countdown" id="yearCountdown"></label>
+                    <p class="tag beta"></p>
+                    <p class="description" id="yearCountdown_description"></p>
+                </div>
+                <div class="options beta">
+                    <input id="stats_panel" type="checkbox">
+                    <label for="stats_panel" class="switch"></label>
+                    <label for="stats_panel" id="statsPanel"></label>
+                    <p class="tag beta"></p>
+                    <p class="description" id="statsPanel_description"></p>
                 </div>
             </div>
         </div>
-        <div class="box">
-            <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;" id="shkolo_settings"></h1>
-            <div class="options">
-                <input id="schedule" type="checkbox">
-                <label for="schedule" class="switch"></label>
-                <label for="schedule" id="schedule_widget"></label>
-                <p class="description" id="schedule_widget_description"></p>
+        <div class="box popup" id="chrome_storage_popup" style="display: none;">
+            <div class="popup-header">
+                <h1 class="popup-title">Chrome Storage Editor</h1>
             </div>
-            <div class="options">
-                <input id="control_tests" type="checkbox">
-                <label for="control_tests" class="switch"></label>
-                <label for="control_tests" id="control_tests_widget"></label>
-                <p class="description" id="control_tests_widget_description"></p>
-            </div>
-            <div class="options">
-                <input id="reorder_sidebar" type="checkbox">
-                <label for="reorder_sidebar" class="switch"></label>
-                <label for="reorder_sidebar" id="reorderSidebar"></label>
-                <p class="description" id="reorderSidebar_description"></p>
-            </div>
-            <div class="options beta">
-                <input id="year_countdown" type="checkbox">
-                <label for="year_countdown" class="switch"></label>
-                <label for="year_countdown" id="yearCountdown"></label>
-                <p class="tag beta"></p>
-                <p class="description" id="yearCountdown_description"></p>
-            </div>
-            <div class="options beta">
-                <input id="stats_panel" type="checkbox">
-                <label for="stats_panel" class="switch"></label>
-                <label for="stats_panel" id="statsPanel"></label>
-                <p class="tag beta"></p>
-                <p class="description" id="statsPanel_description"></p>
+            <div class="popup-content" id="chrome_storage_content">
+                <div class="popup-inputs" style="display: flex; flex-direction: column; gap: 8px;">
+                    <input type="text" id="chrome_storage_key" placeholder="Key" class="input">
+                    <input type="text" id="chrome_storage_value" placeholder="Value" class="input">
+                </div>
+                <div class="popup-buttons" style="margin-top: 8px; margin-bottom: 4px;">
+                    <button id="chrome_storage_update_button" class="button is-info">Refresh Table</button>
+                    <button id="chrome_storage_set_button" class="button is-primary">Set</button>
+                    <button id="chrome_storage_remove_button" class="button is-danger">Remove</button>
+                    <button id="chrome_storage_clear_button" class="button is-warning">Delete All Data</button>
+                </div>
+                <div id="chrome_storage_result"></div>
             </div>
         </div>
-    </div>
     </div>
 
     <script src="../lib/jquery.min.js"></script>

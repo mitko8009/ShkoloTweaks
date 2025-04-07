@@ -74,9 +74,11 @@ $("#blur-data").click(() => {
 })
 
 chrome.storage.sync.get(['dev_tools'], (result) => {
-    fetch("https://raw.githubusercontent.com/mitko8009/ShkoloTweaks/refs/heads/main/src/manifest.json")
-    .then(response => response.json())
-    .then(data => {
-        $("#dev").html("Lastest: v" + data.version)
-    })
+    if (result.dev_tools) {
+        fetch("https://raw.githubusercontent.com/mitko8009/ShkoloTweaks/refs/heads/main/src/manifest.json")
+        .then(response => response.json())
+        .then(data => {
+            $("#dev").html("Lastest: v" + data.version)
+        })
+    }
 })

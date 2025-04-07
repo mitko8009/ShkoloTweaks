@@ -26,6 +26,40 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-width: 450px;
 }
+.box.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+    max-width: none;
+}
+#box_popup_overlay {
+    background: #000b2c;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    z-index: 1000;
+}
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+.popup-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
 .footer {
     background: none;
     display: flex;
@@ -174,9 +208,49 @@ input:checked + .switch::after {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .tag.beta {
-    background: repeating-linear-gradient(45deg, #000000, #000000 5px, #b98b01 5px, #b98b01 10px);
-    color: #fff;
+    background-color: #ffcc00;
+    color: #000;
 }
 .options>.description {
     text-wrap-style: pretty;
+}
+/* Settings Buttons */
+.settings-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #5d8bf7, #a3c1fc);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    user-select: none;
+}
+
+.settings-button:hover {
+    background: linear-gradient(135deg, #4a7ae6, #91b5f5);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.settings-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+#chrome_storage_result {
+    overflow-y: auto;
+    max-height: 60vh;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
 }
