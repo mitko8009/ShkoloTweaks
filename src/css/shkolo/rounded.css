@@ -23,7 +23,7 @@
 }
 
 /* Right rounded */
-.pagination>li:last-child>a, .pagination>li:last-child>span, .message-table-head > div:last-child, .btn-group>.btn:last-of-type:not(:first-of-type):not(.dropdown-toggle) {
+.pagination>li:last-child>a, .pagination>li:last-child>span, .message-table-head > div:last-child, .btn-group>.btn:last-of-type:not(:first-of-type):not(.dropdown-toggle), #showTopicsListBtn {
     border-radius: 0 var(--radius) var(--radius) 0 !important;
 }
 
