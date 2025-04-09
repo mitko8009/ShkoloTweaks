@@ -8,7 +8,7 @@
 }
 
 /* Top rounded */
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover, .nav-tabs>li>a:hover, .select2-results__options .select2-results__option:first-of-type, .scheduleTable .scheduleTableHeading, .dashboardBestClassesPanel .panel-heading, .dashboardBestStudentsPanel .panel-heading, .dashboardBestTeachersPanel .panel-heading, .portlet-body .list-group-item:first-child, .portlet .portlet-title, .accordion .panel:has(.panel-collapse[aria-expanded="true"]) > .panel-heading, .accordion .panel-heading .panel-title, .accordion .panel-heading .panel-title a, .note-toolbar {
+.nav-tabs:not(.auth-tabs)>li.active>a, .nav-tabs:not(.auth-tabs)>li.active>a:focus, .nav-tabs:not(.auth-tabs)>li.active>a:hover, .nav-tabs:not(.auth-tabs)>li>a:hover, .select2-results__options .select2-results__option:first-of-type, .scheduleTable .scheduleTableHeading, .dashboardBestClassesPanel .panel-heading, .dashboardBestStudentsPanel .panel-heading, .dashboardBestTeachersPanel .panel-heading, .portlet-body .list-group-item:first-child, .portlet .portlet-title, .accordion .panel:has(.panel-collapse[aria-expanded="true"]) > .panel-heading, .accordion .panel-heading .panel-title, .accordion .panel-heading .panel-title a, .note-toolbar {
     border-radius: var(--radius) var(--radius) 0 0 !important;
 }
 
@@ -175,4 +175,21 @@ rect {
 .table-bordered tbody tr:last-child td:last-child,
 .table-bordered tfoot tr:last-child td:last-child {
     border-bottom-right-radius: var(--radius) !important;
+}
+
+/* Login page */
+.auth-tabs a[data-value="login-tab"] {
+    border-radius: var(--radius) 0 0 0 !important;
+}
+
+.auth-tabs a[data-value="register-tab"] {
+    border-radius: 0 var(--radius) 0 0 !important;
+}
+
+.login-form .btn, .forget-form .btn, .or-login-text span {
+    border-radius: var(--radius) !important;
+}
+
+.auth-tabs-content .tab-content {
+    border-radius: 0 0 var(--radius) var(--radius) !important;
 }
