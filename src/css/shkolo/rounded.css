@@ -122,40 +122,40 @@ rect {
 }
 
 /* Rounded tables */
-
 .table-bordered {
-    border-collapse: separate !important; 
+    border-collapse: separate !important;
     border-spacing: 0 !important;
     border-radius: var(--radius) !important;
 }
 
-/* Remove all borders initially to prevent double border effect */
+/* Remove all borders initially */
 .table-bordered > thead > tr > th,
-.table-bordered > tbody > tr > th,
-.table-bordered > tfoot > tr > th,
-.table-bordered > thead > tr > td,
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
-    border: none !important; 
+    border: none !important;
 }
 
-/* Add right border to all but last column */
+/* Add right border to all cells except last column */
 .table-bordered > thead > tr > th:not(:last-child),
 .table-bordered > tbody > tr > td:not(:last-child),
 .table-bordered > tfoot > tr > td:not(:last-child) {
     border-right: 1px solid #e7ecf1 !important;
 }
 
-/* Add bottom border to all rows/cells except the last row */
+/* Add bottom border to all rows except last */
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr:not(:last-child) > td,
 .table-bordered > tfoot > tr:not(:last-child) > td {
-    border-bottom: 1px solid #e7ecf1 !important; 
+    border-bottom: 1px solid #e7ecf1 !important;
 }
 
 /* Special case for header bottom border if tbody/tfoot might be empty */
 .table-bordered > thead > tr:not(:last-child) > th {
-    border-bottom: 1px solid #e7ecf1 !important; 
+    border-bottom: 1px solid #e7ecf1 !important;
+}
+
+.table-bordered > tfoot > tr:first-child > td {
+    border-top: 1px solid #e7ecf1 !important;
 }
 
 /* Round corners for collapsed tables by targeting corner cells */
