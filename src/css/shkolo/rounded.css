@@ -16,7 +16,7 @@ rect {
 }
 
 /* Top */
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover, .nav-tabs>li>a:hover, .scheduleTable .scheduleTableHeading {
+.nav-tabs:not(.auth-tabs)>li.active>a, .nav-tabs:not(.auth-tabs)>li.active>a:focus, .nav-tabs:not(.auth-tabs)>li.active>a:hover, .nav-tabs:not(.auth-tabs)>li>a:hover, .scheduleTable .scheduleTableHeading {
     border-radius: var(--radius) var(--radius) 0 0 !important;
 }
 
@@ -103,4 +103,21 @@ rect {
 
 .messageThread, .profile-usermenu ul li.active a, .profile-usermenu ul li a {
     border: none !important;
+}
+
+/* Login page */
+.auth-tabs a[data-value="login-tab"] {
+    border-radius: var(--radius) 0 0 0 !important;
+}
+
+.auth-tabs a[data-value="register-tab"] {
+    border-radius: 0 var(--radius) 0 0 !important;
+}
+
+.login-form .btn, .forget-form .btn, .or-login-text span {
+    border-radius: var(--radius) !important;
+}
+
+.auth-tabs-content .tab-content {
+    border-radius: 0 0 var(--radius) var(--radius) !important;
 }
