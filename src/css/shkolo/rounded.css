@@ -82,13 +82,23 @@ rect {
     border: 0 !important;
 }
 
-.scheduleTableColumn {
-    padding: 3px;
-}
-
+/* Schedule table */
 .scheduleTableBody .scheduleTableCell:last-child {
     border-bottom-right-radius: var(--radius) !important;
     border-bottom-left-radius: var(--radius) !important;
+}
+
+.scheduleTableColumn:first-child {
+    padding-right: 3px;
+}
+
+.scheduleTableColumn:last-child {
+    padding-left: 3px;
+}
+
+.scheduleTableColumn:not(:first-child):not(:last-child) {
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 .profile-usermenu ul li {
