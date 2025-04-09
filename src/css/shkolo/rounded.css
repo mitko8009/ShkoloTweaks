@@ -7,15 +7,6 @@
     border-radius: var(--radius) !important;
 }
 
-rect {
-    rx: 8px;
-}
-
-.nav-item > a {
-    border-radius: var(--radius) !important;
-    border: 0 !important;
-}
-
 /* Top rounded */
 .nav-tabs:not(.auth-tabs)>li.active>a, .nav-tabs:not(.auth-tabs)>li.active>a:focus, .nav-tabs:not(.auth-tabs)>li.active>a:hover, .nav-tabs:not(.auth-tabs)>li>a:hover, .select2-results__options .select2-results__option:first-of-type, .scheduleTable .scheduleTableHeading, .dashboardBestClassesPanel .panel-heading, .dashboardBestStudentsPanel .panel-heading, .dashboardBestTeachersPanel .panel-heading, .portlet-body .list-group-item:first-child, .portlet .portlet-title, .accordion .panel:has(.panel-collapse[aria-expanded="true"]) > .panel-heading, .accordion .panel-heading .panel-title, .accordion .panel-heading .panel-title a, .note-toolbar {
     border-radius: var(--radius) var(--radius) 0 0 !important;
