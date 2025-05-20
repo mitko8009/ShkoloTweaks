@@ -209,7 +209,7 @@ $("#logo").click(() => {
         })
     }    
 
-    if (clickCount <= 2) $("#logo").css({
+    if (!(clickCount <= 2)) $("#logo").css({
         "transition": "transform 0.2s",
         "transform": "rotate(" + ((clickCount - 2) * 7) + "deg)"
     })
