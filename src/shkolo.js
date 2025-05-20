@@ -35,6 +35,8 @@ function main() {
 
     loadCssFile("css/shkolo/cleanup.css")
 
+    if (compatibility_mode) { loadCssFile("css/shkolo/compatibility.css") }
+
     if (pageurl.endsWith("/profile") || pageurl.includes("/profile/data/view")) {
         // mailto fix (issue #16)
         let emailElement, telElement
@@ -83,14 +85,15 @@ function main() {
 }  
 
 let globalResult;
-let theme, blur_data, rounded, DEBUG // Global Variables
-chrome.storage.sync.get(["theme", "blur_data", "rounded", "dev_tools"], (result) => {
+let theme, blur_data, rounded, DEBUG, compatibility_mode // Global Variables
+chrome.storage.sync.get(["theme", "blur_data", "rounded", "dev_tools", "compatibility_mode"], (result) => {
     globalResult = result
 
     theme = result.theme
     blur_data = result.blur_data
     rounded = result.rounded
     DEBUG = result.dev_tools
+    compatibility_mode = result.compatibility_mode
 
     main();
 });

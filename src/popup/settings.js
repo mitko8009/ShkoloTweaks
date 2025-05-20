@@ -184,3 +184,33 @@ function showPopup(popup) {
     popup.show()
     activePopup = popup
 }
+
+// Compatibility Settings
+var clickCount = 0
+$("#logo").click(() => {
+    clickCount++
+
+    if (clickCount >= 10) {
+        clickCount = 0
+        chrome.storage.sync.get("compatibility_mode" , (result) => {
+            chrome.storage.sync.set({ compatibility_mode: !result.compatibility_mode }, () => {
+                const compatibilityMode = !result.compatibility_mode
+                if (compatibilityMode) {
+                    alert("Compatibility mode enabled.")
+                } else {
+                    alert("Compatibility mode disabled.")
+                }
+            })
+        })
+
+        $("#logo").css({
+            "transition": "transform 1s",
+            "transform": "rotate(0deg)"
+        })
+    }    
+
+    if (clickCount <= 2) $("#logo").css({
+        "transition": "transform 0.2s",
+        "transform": "rotate(" + ((clickCount - 2) * 7) + "deg)"
+    })
+})
