@@ -1,4 +1,4 @@
 body {
-    transform: rotate(7deg) !important;
+    transform: rotate(-7deg) !important;
     scale: 0.8 !important;
 }
