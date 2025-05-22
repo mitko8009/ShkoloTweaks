@@ -36,7 +36,7 @@ label, .stats-label, a, tspan, .scIcon, .font-blue-dark, .font-blue-steel,.sched
 }
 
 /* Light Dark bg */
-.taken-shi, .pagination>.active>a, .messageThread:hover, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled), .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple, .select2-dropdown, .dropzone, .table-highlight-td > tbody > tr > td:not(.emptySelectionCell):hover, .select2-container--default .select2-search--dropdown .select2-search__field, .portlet.blue-soft, .portlet.box.blue-soft>.portlet-title, .portlet>.portlet-body.blue-soft, .portlet.blue-madison, .portlet.box.blue-madison>.portlet-title, .portlet>.portlet-body.blue-madison, .auth-tabs.nav.nav-tabs>li:not(.active)>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+.taken-shi, .pagination>.active>a, .messageThread:hover, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover, .inbox-content .timeline .timeline-body, .btn.default:not(.btn-outline), .btn-default, .stats-ranking-table .highlight, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu>li.external, .highcharts-menu, .popupText, .page-header.navbar .hor-menu.hor-menu-light .navbar-nav>li .dropdown-menu li:hover>a, .page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu .dropdown-menu-list>li>a:hover, .profile-usermenu ul li.active a, .note.note-info, a.dt-button.buttons-columnVisibility.active:not(.disabled), .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple, .select2-dropdown, .dropzone, .table-highlight-td > tbody > tr > td:not(.emptySelectionCell):hover, .select2-container--default .select2-search--dropdown .select2-search__field, .portlet.blue-soft, .portlet.box.blue-soft>.portlet-title, .portlet>.portlet-body.blue-soft, .portlet.blue-madison, .portlet.box.blue-madison>.portlet-title, .portlet>.portlet-body.blue-madison, .auth-tabs.nav.nav-tabs>li:not(.active)>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .tabs-left.nav-tabs>li>a:focus, .tabs-left.nav-tabs>li>a:hover {
     background-color: var(--lightDark-bg) !important;
     color: white !important;
 }
@@ -218,8 +218,8 @@ tspan {
 }
 
 .badges-type-1 .badge-details-holder {
-    background: #748f60;
-    border-top: 1px solid #c0ff8e;
+    background: none !important;
+    border: none !important;
 }
 
 .rating:not(:hover) > input:checked ~ label, .rating > label:hover, .rating > label:hover ~ label {
@@ -301,4 +301,22 @@ tspan {
 .green_back, .green_back * a:not(.btn), .green_back * a:not(.btn):hover, .green_back * a:not(.btn):focus, .green_back > td > a:not(.btn), .green_back > td > a:not(.btn):hover, .green_back > td > a:not(.btn):focus, .table-hover > tbody > tr.green_back:hover > td, .table-hover > tbody > tr.green_back:hover {
     background: #214d38 !important;
     color: white !important;
+}
+
+.btn.yellow-haze:not(.btn-outline) {
+    background-color: #ab8424 !important;
+    border-color: #ab8424 !important;
+    font-weight: bold;
+}
+
+.btn.yellow-casablanca:not(.btn-outline) {
+    background-color: #e74f59 !important;
+    border-color: #e74f59 !important;
+    font-weight: bold;
+}
+
+.btn.red:not(.btn-outline) {
+    background-color: #b61c26 !important;
+    border-color: #b61c26 !important;
+    font-weight: bold;
 }
