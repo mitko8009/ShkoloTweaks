@@ -11,7 +11,7 @@ chrome.storage.sync.get(['theme'], (result) => {
     applyTheme(theme)
 })
 
-chrome.storage.sync.get(['autoRefresh', 'schedule', 'control_tests', 'reorder_sidebar', 'year_countdown', 'stats_panel', 'dev_tools'], (result) => {
+chrome.storage.sync.get(null, (result) => {
     const autoRefresh = result.autoRefresh ?? true
     $("#autoRefresh").prop("checked", autoRefresh)
 
@@ -26,21 +26,36 @@ chrome.storage.sync.get(['autoRefresh', 'schedule', 'control_tests', 'reorder_si
 
     const year_countdown = result.year_countdown ?? false
     $("#year_countdown").prop("checked", year_countdown)
+    tagSetting("year_countdown", "Beta Feature", "#ffcc00")
 
     const stats_panel = result.stats_panel ?? false
     $("#stats_panel").prop("checked", stats_panel)
+    tagSetting("stats_panel", "Beta Feature", "#ffcc00")
 
     const dev_tools = result.dev_tools ?? false
     $("#dev_tools").prop("checked", dev_tools)
+    tagSetting("dev_tools", "Dev", "#6d48a5")
+})
+
+chrome.storage.local.get(null, (result) => {
+    if (result.disablePupilIDFeatures) {
+        tagSetting("schedule", "UNAVALIABLE", "#ff4f4f")
+        tagSetting("control_tests", "UNAVALIABLE", "#ff4f4f")
+    }
 })
 
 $(".options").click(function() {
     this.children[0].checked = !this.children[0].checked
 
     const option = this.children[0].id
-    const optionElement = $("#"+option)
+    const optionElement = $("#" + option)
     const optionValue = optionElement.prop("checked")
     chrome.storage.sync.set({ [option]: optionValue })
+
+    $(this).addClass("clicked")
+    setTimeout(() => {
+        $(this).removeClass("clicked")
+    }, 300)
 })
 
 // General Settings
@@ -214,3 +229,12 @@ $("#logo").click(() => {
         "transform": "rotate(" + ((clickCount - 2) * 7) + "deg)"
     })
 })
+
+// Tag a Setting | Add a tag for more information to a setting
+function tagSetting(setting, text, color) {
+    const fontColor = isColorLight(color) ? '#000' : '#fff'
+    const settingElement = $("#" + setting).parent()
+    const tag = $("<p class='tag' style='background-color: " + color + "; color: " + fontColor + "'>" + text + "</p>")
+    settingElement.children().eq(2).after(tag)
+    console.log("Tagging setting: " + setting)
+}

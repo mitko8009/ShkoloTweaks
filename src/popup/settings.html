@@ -95,14 +95,12 @@
                     <input id="year_countdown" type="checkbox">
                     <label for="year_countdown" class="switch"></label>
                     <label for="year_countdown" id="yearCountdown"></label>
-                    <p class="tag beta"></p>
                     <p class="description" id="yearCountdown_description"></p>
                 </div>
                 <div class="options beta">
                     <input id="stats_panel" type="checkbox">
                     <label for="stats_panel" class="switch"></label>
                     <label for="stats_panel" id="statsPanel"></label>
-                    <p class="tag beta"></p>
                     <p class="description" id="statsPanel_description"></p>
                 </div>
             </div>
@@ -113,6 +111,7 @@
             <div class="popup-header">
                 <h1 class="popup-title">Chrome Storage Editor</h1>
             </div>
+            <p>Warning: This only shows the sync storage of the extension.</p>
             <div class="popup-content" id="chrome_storage_content">
                 <div class="popup-inputs" style="display: flex; flex-direction: column; gap: 8px;">
                     <input type="text" id="chrome_storage_key" placeholder="Key" class="input">
@@ -131,6 +130,7 @@
 
     <script src="../lib/jquery.min.js"></script>
     <script src="settings.js"></script>
+    <script src="../utils.js"></script>
     <script src="i18n.js"></script>
 </body>
 </html>

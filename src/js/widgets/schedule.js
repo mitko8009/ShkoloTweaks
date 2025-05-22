@@ -107,6 +107,7 @@ function sc_DisplayDay(day, data) {
 }
 
 function sc_main() {
+    if (disablePupilIDFeatures) return // Disable the widget if the Pupil ID features are disabled
     if (sc_Widget === undefined) return
 
     let day = today.getDay() - 1
@@ -188,6 +189,11 @@ function sc_main() {
     sc_Widget.children[0].children[2].remove() // Remove the widget footer
     WIDGETSROW.appendChild(sc_Widget)
 }
+
+var disablePupilIDFeatures = false // Disable pupil ID features if there is no pupil ID
+chrome.storage.local.get(null, (result) => { // WARNING: This is LOCAL storage, not SYNC
+    disablePupilIDFeatures = result.disablePupilIDFeatures
+})
 
 try {
     chrome.storage.sync.get(['schedule'], (result) => {

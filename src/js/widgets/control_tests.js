@@ -94,6 +94,7 @@ function ct_DisplayData(data) {
 }
 
 function ct_main() {
+    if (disablePupilIDFeatures) return // Disable the widget if the Pupil ID features are disabled
     if (ct_Widget === undefined) return
 
     ct_Widget.className = `col-sm-6`
@@ -125,16 +126,19 @@ function ct_main() {
     viewMore.classList.add("pull-right", "widget_buttons", "rounded")
     headerButtons.appendChild(viewMore)
     
-    
     ct_getData()
     
-
     /////////////////////////////////
     // Append the widget to the widgets row
     ct_Widget.children[0].children[2].remove() // Remove the widget footer if cleanUp is disabled
     ct_Widget.children[0].children[0].appendChild(headerButtons)
     WIDGETSROW.appendChild(ct_Widget)
 }
+
+var disablePupilIDFeatures = false // Disable pupil ID features if there is no pupil ID
+chrome.storage.local.get(null, (result) => { // WARNING: This is LOCAL storage, not SYNC
+    disablePupilIDFeatures = result.disablePupilIDFeatures
+})
 
 try {
     chrome.storage.sync.get(['control_tests'], (result) => {

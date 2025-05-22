@@ -25,7 +25,3 @@ $(".options").each(function() {
         description.innerHTML = descriptionMessage
     }
 })
-
-$(".tag.beta").each(function() {
-    $(this).html(chrome.i18n.getMessage("beta"));
-});
