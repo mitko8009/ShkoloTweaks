@@ -40,9 +40,9 @@ chrome.storage.sync.get(null, (result) => {
 chrome.storage.local.get(null, (result) => {
     if (result.disablePupilIDFeatures) {
         tagSetting("schedule", "UNAVALIABLE", "#ff4f4f")
-        $("#schedule").classList.add("disabled")
+        $("#schedule").parent().addClass("disabled")
         tagSetting("control_tests", "UNAVALIABLE", "#ff4f4f")
-        $("#control_tests").classList.add("disabled")
+        $("#control_tests").parent().addClass("disabled")
     }
 })
 

@@ -251,6 +251,12 @@ input:checked + .switch::after {
     will-change: transform, filter;
 }
 
+.options.disabled {
+    pointer-events: none;
+    background-color: hsl(0, 0%, 84%);
+    outline: 3px solid hsla(0, 100%, 72%, 0.5);
+}
+
 /* Settings Buttons */
 .settings-button {
     display: inline-block;
