@@ -13,6 +13,14 @@ body {
     z-index: -1;
 }
 
+.logo {
+    transition: scale 0.3s ease-in-out;
+}
+
+.logo:hover {
+    scale: 1.05;
+}
+
 .bg_overlay,
 #box_popup_overlay {
     background: #000b2c;
