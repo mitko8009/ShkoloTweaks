@@ -254,7 +254,7 @@ input:checked + .switch::after {
 .options.disabled {
     pointer-events: none;
     background-color: hsl(0, 0%, 84%);
-    outline: 3px solid hsla(0, 100%, 72%, 0.5);
+    outline: 3px solid #db01017e;
 }
 
 /* Settings Buttons */

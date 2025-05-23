@@ -41,8 +41,12 @@ chrome.storage.local.get(null, (result) => {
     if (result.disablePupilIDFeatures) {
         tagSetting("schedule", "UNAVALIABLE", "#ff4f4f")
         $("#schedule").parent().addClass("disabled")
+
         tagSetting("control_tests", "UNAVALIABLE", "#ff4f4f")
         $("#control_tests").parent().addClass("disabled")
+
+        tagSetting("stats_panel", "UNAVALIABLE", "#ff4f4f")
+        $("#stats_panel").parent().addClass("disabled")
     }
 })
 

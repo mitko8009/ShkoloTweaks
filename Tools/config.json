@@ -4,9 +4,9 @@
 	"path": "..\\src\\",
 	"debug": false,
 	"settings": {
-		"minifyHTML": false,
-		"minifyCSS": false,
-		"minifyJS": false
+		"minifyHTML": true,
+		"minifyCSS": true,
+		"minifyJS": true
 	},
 	"non_custom_themes": [
 		"dark"

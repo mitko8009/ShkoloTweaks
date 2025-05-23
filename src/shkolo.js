@@ -34,6 +34,7 @@ function getIcon(subject) {
 }
 
 function main() {
+    stat_tracking() // Track stats
     removeElements($(".btn.btn-lg.btn-e2e.red.huge"))
     removeElements($(".rank-descr"))
     removeElements($(".mobile-app-badges"))
