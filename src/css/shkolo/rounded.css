@@ -193,3 +193,8 @@ rect {
 .auth-tabs-content .tab-content {
     border-radius: 0 0 var(--radius) var(--radius) !important;
 }
+
+.icheckbox_square-blue, .iradio_square-blue {
+    outline: 2px solid var(--border-primary) !important;
+    outline-offset: -2px !important;
+}
