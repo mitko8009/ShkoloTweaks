@@ -21,18 +21,6 @@ script.src = chrome.runtime.getURL("lib/jquery.min.js")
 script.type = "text/javascript" 
 document.getElementsByTagName("head")[0].appendChild(script)
 
-function removeElements(elements) {
-    Array.from(elements).forEach(function (element) {
-        element.remove()
-    })
-}
-
-function getIcon(subject) {
-    let icon = document.createElement("i")
-    icon.classList.add("fal", "fa-"+subject.toLowerCase(), "scIcon")
-    return icon
-}
-
 function main() {
     stat_tracking() // Track stats
 

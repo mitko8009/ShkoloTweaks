@@ -49,3 +49,16 @@ function isColorLight(hex) {
 
     return (r*0.299 + g*0.587 + b*0.114) > 186
 }
+
+function removeElements(elements) {
+    Array.from(elements).forEach(function (element) {
+        element.remove()
+    })
+}
+
+function getIcon(subject) {
+    let icon = document.createElement("i")
+    icon.classList.add("fal", "fa-"+subject.toLowerCase(), "scIcon")
+    return icon
+}
+
