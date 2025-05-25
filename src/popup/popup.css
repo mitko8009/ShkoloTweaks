@@ -244,6 +244,8 @@ input:checked + .switch::after {
 
 .options > .description {
     text-wrap-style: pretty;
+    margin-top: .1rem;
+    margin-right: .3rem;
 }
 
 .options.clicked {
@@ -255,6 +257,12 @@ input:checked + .switch::after {
     pointer-events: none;
     background-color: hsl(0, 0%, 84%);
     outline: 3px solid #db01017e;
+}
+
+.options > .more-options > img {
+    width: 3rem;
+    height: 3rem;
+    vertical-align: middle;
 }
 
 /* Settings Buttons */

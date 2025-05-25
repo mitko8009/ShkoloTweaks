@@ -8,6 +8,10 @@ function QoL() {
 
         // Extras
         if (compatibility_mode) { loadCssFile("/css/shkolo/compatibility.css") }
+
+        chrome.storage.sync.get(null, (result) => {
+            if (result.colored_icons) loadCssFile("/css/shkolo/misc/colored_icons.css")
+        })
     }
 
     this.loadQoLCss = function() {

@@ -35,6 +35,10 @@ chrome.storage.sync.get(null, (result) => {
     const dev_tools = result.dev_tools ?? false
     $("#dev_tools").prop("checked", dev_tools)
     tagSetting("dev_tools", "Dev", "#6d48a5")
+
+    const colored_icons = result.colored_icons ?? false
+    $("#colored_icons").prop("checked", colored_icons)
+    tagSetting("colored_icons", "New", "#0d50e2")
 })
 
 chrome.storage.local.get(null, (result) => {

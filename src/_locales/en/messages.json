@@ -175,5 +175,11 @@
     },
     "DaysAgo": {
         "message": "%s days ago"
+    },
+    "coloredIcons": {
+        "message": "Colored Icons"
+    },
+    "coloredIcons_description": {
+        "message": "Use colored icons instead of monochrome ones."
     }
 }
