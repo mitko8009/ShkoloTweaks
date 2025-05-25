@@ -43,3 +43,12 @@
         width: 48% !important;
     }
 }
+
+/* Colored icons */
+.fab.fa-android {
+    color: #3DDC84 !important;
+}
+
+.fab.fa-windows {
+    color: #00A4EF !important;
+}

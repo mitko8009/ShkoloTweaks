@@ -4,6 +4,7 @@ function QoL() {
         this.loadQoLCss();
         this.emailAndTel();
         this.messagesBackgroundFix();
+        this.detailsDate();
 
         // Extras
         if (compatibility_mode) { loadCssFile("/css/shkolo/compatibility.css") }
@@ -69,6 +70,29 @@ function QoL() {
                     span.style.backgroundColor = "";
                 }
             });
+        }
+    }
+
+    this.detailsDate = function() {
+        if (pageurl.includes("/profile/logins")) {
+            try { 
+                const table = $("#tab_logins > div:nth-child(2) > table > tbody > tr")
+                for (let i = 0; i < table.length; i++) {
+                    const dateElement = table[i].children[0].cloneNode(true)
+                    dateElement.children[0].remove()
+                    let dateElementText = dateElement.innerHTML
+                    dateElementText = dateElement.innerHTML.substring(1)
+                    dateElementText = dateElementText.replace(/\./g, "/")
+                    let UnixTimestamp = convertToUnixTimestamp(dateElementText)
+                    let daysSinceTimestamp = Math.floor((Date.now() / 1000 - UnixTimestamp) / 86400);
+                    console.log(dateElementText, UnixTimestamp, daysSinceTimestamp)
+                    
+                    table[i].children[0].innerHTML += `<span style="margin-left: .8rem; filter: brightness(0.8);">(${chrome.i18n.getMessage("DaysAgo").replace("%s", daysSinceTimestamp)})</span>`
+                }
+                console.log("[QoL] Details date fix is not implemented yet. Please report this issue on GitHub if you need this feature.");
+            } catch (error) {
+                console.error(`[${manifest.name} v${version}][QoL]: Failed to fix details date. ERROR: ${error}`)
+            }
         }
     }
 }

@@ -172,5 +172,8 @@
     },
     "devTools_description": {
         "message": "Show debug information and tools in the app."
+    },
+    "DaysAgo": {
+        "message": "%s days ago"
     }
 }

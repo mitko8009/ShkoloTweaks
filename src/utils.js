@@ -62,3 +62,17 @@ function getIcon(subject) {
     return icon
 }
 
+function convertToUnixTimestamp(dateString) {
+    const parts = dateString.split(" ");
+    const dateParts = parts[0].split("/");
+    const timeParts = parts[1].split(":");
+
+    const day = parseInt(dateParts[0], 10);
+    const month = parseInt(dateParts[1], 10) - 1; // Months are zero-based
+    const year = parseInt(dateParts[2], 10);
+    const hours = parseInt(timeParts[0], 10);
+    const minutes = parseInt(timeParts[1], 10);
+
+    return Math.floor(new Date(year, month, day, hours, minutes).getTime() / 1000);
+}
+

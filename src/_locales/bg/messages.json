@@ -151,5 +151,8 @@
     },
     "developer_settings": {
         "message": "Настройки за разработчици"
+    },
+    "DaysAgo": {
+        "message": "преди %s дни"
     }
 }
