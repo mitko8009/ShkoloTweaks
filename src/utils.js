@@ -70,11 +70,11 @@ function convertToUnixTimestamp(dateString) {
     const day = parseInt(dateParts[0], 10);
     const month = parseInt(dateParts[1], 10) - 1; // Months are zero-based
     const year = parseInt(dateParts[2], 10);
-    const hours = parseInt(timeParts[0], 10);
-    const minutes = parseInt(timeParts[1], 10);
-    const seconds = timeParts.length > 2 ? parseInt(timeParts[2], 10) : 0;
+    const hours = timeParts.length > 0 ? parseInt(timeParts[0], 10) : 0
+    const minutes = timeParts.length > 1 ? parseInt(timeParts[1], 10) : 0
+    const seconds = timeParts.length > 2 ? parseInt(timeParts[2], 10) : 0
 
-    return Math.floor(new Date(year, month, day, hours, minutes, seconds).getTime() / 1000);
+    return Math.floor(new Date(year, month, day, hours, minutes, seconds).getTime() / 1000)
 }
 
 function clamp(value, min, max) {
