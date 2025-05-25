@@ -85,11 +85,9 @@ function QoL() {
                     dateElementText = dateElementText.replace(/\./g, "/")
                     let UnixTimestamp = convertToUnixTimestamp(dateElementText)
                     let daysSinceTimestamp = Math.floor((Date.now() / 1000 - UnixTimestamp) / 86400);
-                    console.log(dateElementText, UnixTimestamp, daysSinceTimestamp)
                     
                     table[i].children[0].innerHTML += `<span style="margin-left: .8rem; filter: brightness(0.8);">(${chrome.i18n.getMessage("DaysAgo").replace("%s", daysSinceTimestamp)})</span>`
                 }
-                console.log("[QoL] Details date fix is not implemented yet. Please report this issue on GitHub if you need this feature.");
             } catch (error) {
                 console.error(`[${manifest.name} v${version}][QoL]: Failed to fix details date. ERROR: ${error}`)
             }
