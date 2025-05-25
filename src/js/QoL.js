@@ -74,23 +74,84 @@ function QoL() {
     }
 
     this.detailsDate = function() {
+        const dotRegex = /\./g
+        const dashRegex = /\-/g
+
         if (pageurl.includes("/profile/logins")) {
             try { 
                 const table = $("#tab_logins > div:nth-child(2) > table > tbody > tr")
                 for (let i = 0; i < table.length; i++) {
-                    const dateElement = table[i].children[0].cloneNode(true)
-                    dateElement.children[0].remove()
-                    let dateElementText = dateElement.innerHTML
-                    dateElementText = dateElement.innerHTML.substring(1)
-                    dateElementText = dateElementText.replace(/\./g, "/")
-                    let UnixTimestamp = convertToUnixTimestamp(dateElementText)
-                    let daysSinceTimestamp = Math.floor((Date.now() / 1000 - UnixTimestamp) / 86400);
-                    
-                    table[i].children[0].innerHTML += `<span style="margin-left: .8rem; filter: brightness(0.8);">(${chrome.i18n.getMessage("DaysAgo").replace("%s", daysSinceTimestamp)})</span>`
+                    this.detailsDate_element(table, i, 0, dotRegex);
                 }
             } catch (error) {
                 console.error(`[${manifest.name} v${version}][QoL]: Failed to fix details date. ERROR: ${error}`)
             }
         }
+
+        if (pageurl.includes("/profile/pendingprofilepic")) {
+            try {
+                const table = $("body > div.page-container > div.page-content-wrapper > div > div > div > div.profile-content > div > div.portlet-body > div:nth-child(2) > div > table > tbody > tr")
+                for (let i = 0; i < table.length; i++) {
+                    this.detailsDate_element(table, i, 1, dashRegex, false);
+                }
+            } catch (error) {
+                console.error(`[${manifest.name} v${version}][QoL]: Failed to fix pending profile picture date. ERROR: ${error}`)
+            }
+        }
+    }
+
+    this.detailsDate_element = function(table, i, columnIndex, char_to_replace, hasIcon = true) {
+        const dateElement = table[i].children[columnIndex].cloneNode(true)
+        if (hasIcon) dateElement.children[0].remove()
+        let dateElementText = dateElement.innerHTML.trim().replace(/^\s+|\s+$/g, '').replace(/\s{2,}/g, ' ')
+        if (dateElementText.length && !/\d/.test(dateElementText[0])) {
+            dateElementText = dateElementText.substring(1).trim()
+        }
+        dateElementText = dateElementText.replace(char_to_replace, "/")
+
+        // Identify date format and convert to DD/MM/YYYY HH:mm:ss
+        let formattedDate = dateElementText;
+        let dateObj = null;
+
+        // Try to match YYYY/MM/DD or DD/MM/YYYY with optional time
+        const ymdRegex = /^(\d{4})\/(\d{1,2})\/(\d{1,2})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/
+        const dmyRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/
+
+        if (ymdRegex.test(dateElementText)) {
+            // Format: YYYY/MM/DD [HH:mm[:ss]]
+            const match = dateElementText.match(ymdRegex);
+            dateObj = new Date(
+                Number(match[1]), // year
+                Number(match[2]) - 1, // month (0-based)
+                Number(match[3]), // day
+                Number(match[4] || 0), // hour
+                Number(match[5] || 0), // minute
+                Number(match[6] || 0)  // second
+            );
+        } else if (dmyRegex.test(dateElementText)) {
+            // Format: DD/MM/YYYY [HH:mm[:ss]]
+            const match = dateElementText.match(dmyRegex);
+            dateObj = new Date(
+                Number(match[3]), // year
+                Number(match[2]) - 1, // month (0-based)
+                Number(match[1]), // day
+                Number(match[4] || 0), // hour
+                Number(match[5] || 0), // minute
+                Number(match[6] || 0)  // second
+            );
+        }
+
+        if (dateObj && !isNaN(dateObj.getTime())) {
+            // Format to DD/MM/YYYY HH:mm:ss
+            const pad = n => n.toString().padStart(2, '0');
+            formattedDate = `${pad(dateObj.getDate())}/${pad(dateObj.getMonth() + 1)}/${dateObj.getFullYear()} ${pad(dateObj.getHours())}:${pad(dateObj.getMinutes())}:${pad(dateObj.getSeconds())}`
+        }
+
+        let UnixTimestamp = dateObj ? Math.floor(dateObj.getTime() / 1000) : convertToUnixTimestamp(dateElementText);
+        let daysSinceTimestamp = Math.floor((Date.now() / 1000 - UnixTimestamp) / 86400);
+
+        console.debug(`[${manifest.name} v${version}][QoL]: Converting date "${dateElementText}" to "${formattedDate}" to Unix Timestamp: ${UnixTimestamp} (${daysSinceTimestamp} days ago)`);
+
+        table[i].children[columnIndex].innerHTML += `<span style="margin-left: .8rem; filter: brightness(0.8);">(${chrome.i18n.getMessage("DaysAgo").replace("%s", daysSinceTimestamp)})</span>`;
     }
 }

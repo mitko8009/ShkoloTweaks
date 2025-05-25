@@ -45,10 +45,13 @@
 }
 
 /* Colored icons */
-.fab.fa-android {
-    color: #3DDC84 !important;
-}
+.fab.fa-android { color: #3DDC84 !important; }
 
-.fab.fa-windows {
-    color: #00A4EF !important;
-}
+.fab.fa-windows { color: #00A4EF !important; }
+
+.fas.fa-exclamation-circle { color: #f44336 !important; }
+
+.fas.fa-pencil { color: #2196F3 !important; }
+
+.icon-badge { color: #fbc118 !important; }
+
