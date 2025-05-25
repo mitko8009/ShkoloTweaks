@@ -1,0 +1,15 @@
+.resizable-sidebar.resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    cursor: ew-resize;
+    transition: background-color 0.4s ease-in-out;
+    filter: brightness(0.7);
+    z-index: 1000;
+}
+
+.resizable-sidebar.resizer:hover {
+    background-color: var(--border-primary);
+}

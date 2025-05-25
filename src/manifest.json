@@ -3,7 +3,7 @@
 	"name": "ShkoloTweaks (BETA)",
 	"short_name": "ShkoloTW",
 	"description": "__MSG_extDescription__",
-	"version": "0.9.11",
+	"version": "0.10.0",
 	"author": "ITPG Web Studios",
 	"default_locale": "en",
 	"homepage_url": "https://shkolotweaks.web.app/",
@@ -48,7 +48,8 @@
 				"shkolo.js",
 				"js/QoL.js",
 				"js/add-ons/stats.js",
-				"js/add-ons/dragable-sidebar.js"
+				"js/add-ons/dragable-sidebar.js",
+				"js/add-ons/resizable-sidebar.js"
 			],
 			"run_at": "document_end"
 		},

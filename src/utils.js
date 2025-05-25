@@ -76,3 +76,7 @@ function convertToUnixTimestamp(dateString) {
     return Math.floor(new Date(year, month, day, hours, minutes).getTime() / 1000);
 }
 
+function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+}
+
