@@ -35,7 +35,7 @@ function main() {
 
 let globalResult;
 let theme, blur_data, rounded, DEBUG, compatibility_mode // Global Variables
-chrome.storage.sync.get(["theme", "blur_data", "rounded", "dev_tools", "compatibility_mode"], (result) => {
+chrome.storage.sync.get(null, (result) => {
     globalResult = result
 
     theme = result.theme

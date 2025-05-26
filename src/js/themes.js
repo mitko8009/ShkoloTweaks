@@ -25,8 +25,8 @@ function checkTheme() {
             } catch { console.warn("Failed to load script.js for the theme.") }
         }
         
-        if(blur_data) { loadCssFile("css/shkolo/blurData.css") }
-        if(rounded) { loadCssFile("css/shkolo/rounded.css") } 
+        if(blur_data || blur_data === undefined) { loadCssFile("css/shkolo/blurData.css") }
+        if(rounded || rounded === undefined) { loadCssFile("css/shkolo/rounded.css") } 
     })
 }
 
