@@ -54,6 +54,7 @@ chrome.storage.local.get(null, (result) => {
     }
 })
 
+// Settings Click Event
 $(".options").click(function() {
     this.children[0].checked = !this.children[0].checked
 
@@ -246,5 +247,4 @@ function tagSetting(setting, text, color) {
     const settingElement = $("#" + setting).parent()
     const tag = $("<p class='tag' style='background-color: " + color + "; color: " + fontColor + "'>" + text + "</p>")
     settingElement.children().eq(2).after(tag)
-    console.log("Tagging setting: " + setting)
 }

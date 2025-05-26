@@ -8,18 +8,7 @@
     <link rel="stylesheet" href="popup.css">
     <style>
         .container {
-            width: 100%;
-        }
-
-        .box-wrapper {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: start;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 0 auto;
-            padding: 0 20px;            
+            width: 45%;
         }
     </style>
 </head>
@@ -32,25 +21,7 @@
             <img src="../assets/LogoBanner.png" style="width: 200px; margin-bottom: -25px; margin-top: -16px;" alt="Shkolo Tweaks Logo" id="logo">
         </div>
         <div class="box-wrapper" style="width: 100%;">
-            <div class="box">
-                <h1 class="has-text-centered" style="margin-bottom: 8px; font-weight: bold; font-size: 16px;" id="Customizations"></h1>
-                <div class="theme-toggle">
-                    <button id="lightTheme" class="active"></button>
-                    <span>|</span>
-                    <button id="darkTheme"></button>
-                </div>
-                <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 12px;">
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="rounded">
-                        <label for="rounded"><img src="../assets/rounded.svg"></label>
-                    </div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="blur-data">
-                        <label for="blur-data"><img src="../assets/user-not-tracked.svg"></label>
-                    </div>
-                </div>
-            </div>
-            <div>
+            <div style="display: flex; flex-direction: row; gap: 16px; width: 100%;">
                 <div class="box">
                     <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;" id="popup_settings"></h1>
                     <div class="options">
@@ -70,44 +41,64 @@
                     </div>
                     <div style="display: flex; margin-top: 16px;"><p class="settings-button" id="chrome_storage" style="width: 100%; text-align: center;">Chrome Storage Editor</p></div>
                 </div>
+                <div class="box">
+                    <h1 class="has-text-centered" style="margin-bottom: 8px; font-weight: bold; font-size: 16px;" id="Customizations"></h1>
+                    <div class="theme-toggle">
+                        <button id="lightTheme" class="active"></button>
+                        <span>|</span>
+                        <button id="darkTheme"></button>
+                    </div>
+                    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 12px;">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="rounded">
+                        <label for="rounded"><img src="../assets/rounded.svg"></label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="blur-data">
+                        <label for="blur-data"><img src="../assets/user-not-tracked.svg"></label>
+                    </div>
+                </div>
+            </div>
             </div>
             <div class="box">
                 <h1 style="font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #000;" id="shkolo_settings"></h1>
-                <div class="options">
-                    <input id="schedule" type="checkbox">
-                    <label for="schedule" class="switch"></label>
-                    <label for="schedule" id="schedule_widget"></label>
-                    <p class="description" id="schedule_widget_description"></p>
-                </div>
-                <div class="options">
-                    <input id="control_tests" type="checkbox">
-                    <label for="control_tests" class="switch"></label>
-                    <label for="control_tests" id="control_tests_widget"></label>
-                    <p class="description" id="control_tests_widget_description"></p>
-                </div>
-                <div class="options">
-                    <input id="reorder_sidebar" type="checkbox">
-                    <label for="reorder_sidebar" class="switch"></label>
-                    <label for="reorder_sidebar" id="reorderSidebar"></label>
-                    <p class="description" id="reorderSidebar_description"></p>
-                </div>
-                <div class="options">
-                    <input id="colored_icons" type="checkbox">
-                    <label for="colored_icons" class="switch"></label>
-                    <label for="colored_icons" id="coloredIcons"></label>
-                    <p class="description" id="coloredIcons_description"></p>
-                </div>
-                <div class="options">
-                    <input id="year_countdown" type="checkbox">
-                    <label for="year_countdown" class="switch"></label>
-                    <label for="year_countdown" id="yearCountdown"></label>
-                    <p class="description" id="yearCountdown_description"></p>
-                </div>
-                <div class="options">
-                    <input id="stats_panel" type="checkbox">
-                    <label for="stats_panel" class="switch"></label>
-                    <label for="stats_panel" id="statsPanel"></label>
-                    <p class="description" id="statsPanel_description"></p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: .6rem;">
+                    <div class="options">
+                        <input id="schedule" type="checkbox">
+                        <label for="schedule" class="switch"></label>
+                        <label for="schedule" id="schedule_widget"></label>
+                        <p class="description" id="schedule_widget_description"></p>
+                    </div>
+                    <div class="options">
+                        <input id="control_tests" type="checkbox">
+                        <label for="control_tests" class="switch"></label>
+                        <label for="control_tests" id="control_tests_widget"></label>
+                        <p class="description" id="control_tests_widget_description"></p>
+                    </div>
+                    <div class="options">
+                        <input id="reorder_sidebar" type="checkbox">
+                        <label for="reorder_sidebar" class="switch"></label>
+                        <label for="reorder_sidebar" id="reorderSidebar"></label>
+                        <p class="description" id="reorderSidebar_description"></p>
+                    </div>
+                    <div class="options">
+                        <input id="colored_icons" type="checkbox">
+                        <label for="colored_icons" class="switch"></label>
+                        <label for="colored_icons" id="coloredIcons"></label>
+                        <p class="description" id="coloredIcons_description"></p>
+                    </div>
+                    <div class="options">
+                        <input id="year_countdown" type="checkbox">
+                        <label for="year_countdown" class="switch"></label>
+                        <label for="year_countdown" id="yearCountdown"></label>
+                        <p class="description" id="yearCountdown_description"></p>
+                    </div>
+                    <div class="options">
+                        <input id="stats_panel" type="checkbox">
+                        <label for="stats_panel" class="switch"></label>
+                        <label for="stats_panel" id="statsPanel"></label>
+                        <p class="description" id="statsPanel_description"></p>
+                    </div>
                 </div>
             </div>
         </div>

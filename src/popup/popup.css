@@ -43,7 +43,7 @@ body {
 
 .box {
     box-shadow: 0 .25rem .5rem rgba(0, 0, 0, 0.2);
-    max-width: 450px;
+    width: 100%;
     transition: transform 0.2s;
 }
 
@@ -63,6 +63,21 @@ body {
     z-index: 1000;
     transition: all 0.3s ease-in-out;
     max-width: none;
+}
+
+.box-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.box:not(:last-child) {
+    margin-bottom: 0 !important;
 }
 
 .popup-header,
@@ -137,7 +152,7 @@ body {
 .theme-toggle button {
     background-color: hsl(0, 0%, 94%);
     border: none;
-    width: 100px;
+    width: 100%;
     color: #000;
     font-size: 16px;
     cursor: pointer;
@@ -165,7 +180,6 @@ body {
 
 /* Switch */
 .options {
-    margin-top: 8px;
     background-color: hsl(0, 0%, 94%);
     padding: 7px;
     border-radius: 6px;
