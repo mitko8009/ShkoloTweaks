@@ -142,7 +142,7 @@ chrome.storage.local.get(null, (result) => { // WARNING: This is LOCAL storage, 
 
 try {
     chrome.storage.sync.get(['control_tests'], (result) => {
-        if (result.control_tests === undefined || result.control_tests === true) {
+        if (result.control_tests === true) {
             ct_main()
         } else {
             ct_Widget.remove()

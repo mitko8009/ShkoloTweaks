@@ -73,7 +73,7 @@ chrome.storage.local.get(null, (result) => { // WARNING: This is LOCAL storage, 
 
 try {
     chrome.storage.sync.get(['stats_panel'], (result) => {
-        if (result.stats_panel === undefined || result.stats_panel === true) {
+        if (result.stats_panel === true) {
             stats_main()
         }
     })

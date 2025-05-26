@@ -197,7 +197,7 @@ chrome.storage.local.get(null, (result) => { // WARNING: This is LOCAL storage, 
 
 try {
     chrome.storage.sync.get(['schedule'], (result) => {
-        if (result.schedule === undefined || result.schedule === true) {
+        if (result.schedule === true) {
             sc_main()
         } else {
             sc_Widget.remove()

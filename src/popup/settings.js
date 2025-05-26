@@ -12,16 +12,16 @@ chrome.storage.sync.get(['theme'], (result) => {
 })
 
 chrome.storage.sync.get(null, (result) => {
-    const autoRefresh = result.autoRefresh ?? true
+    const autoRefresh = result.autoRefresh ?? false
     $("#autoRefresh").prop("checked", autoRefresh)
 
-    const schedule = result.schedule ?? true
+    const schedule = result.schedule ?? false
     $("#schedule").prop("checked", schedule)
 
-    const control_tests = result.control_tests ?? true
+    const control_tests = result.control_tests ?? false
     $("#control_tests").prop("checked", control_tests)
 
-    const reorder_sidebar = result.reorder_sidebar ?? true
+    const reorder_sidebar = result.reorder_sidebar ?? false
     $("#reorder_sidebar").prop("checked", reorder_sidebar)
 
     const year_countdown = result.year_countdown ?? false
@@ -34,16 +34,15 @@ chrome.storage.sync.get(null, (result) => {
 
     const dev_tools = result.dev_tools ?? false
     $("#dev_tools").prop("checked", dev_tools)
-    tagSetting("dev_tools", "Dev", "#6d48a5")
+    tagSetting("dev_tools", "Dev", "#5d0087")
 
-    const colored_icons = result.colored_icons ?? true
+    const colored_icons = result.colored_icons ?? false
     $("#colored_icons").prop("checked", colored_icons)
     tagSetting("colored_icons", "New", "#0d50e2")
 })
 
 chrome.storage.local.get(null, (result) => {
     if (result.disablePupilIDFeatures) {
-        result.disablePupilIDFeatures = true
         tagSetting("schedule", "UNAVALIABLE", "#ff4f4f")
         $("#schedule").parent().addClass("disabled")
 

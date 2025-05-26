@@ -4,7 +4,7 @@
   if (document.body.classList.contains('login')) return; 
 
   chrome.storage.sync.get(['reorder_sidebar'], (result) => {
-    if (result.reorder_sidebar === undefined || result.reorder_sidebar === true) {
+    if (result.reorder_sidebar === true) {
     const reorderSidebarEnabled = true;
     if (!reorderSidebarEnabled) return;
 
