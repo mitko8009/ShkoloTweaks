@@ -43,6 +43,7 @@ chrome.storage.sync.get(null, (result) => {
 
 chrome.storage.local.get(null, (result) => {
     if (result.disablePupilIDFeatures) {
+        result.disablePupilIDFeatures = true
         tagSetting("schedule", "UNAVALIABLE", "#ff4f4f")
         $("#schedule").parent().addClass("disabled")
 
