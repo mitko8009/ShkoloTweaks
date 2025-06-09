@@ -8,7 +8,19 @@ const year = today.getFullYear();
 // User Details
 var pupil_id = null
 try {
-    pupil_id = JSON.parse(localStorage.getItem("diary_filters_grades_/diary"))["pupil_id"]
+    const allLocalStorage = {};
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
+        allLocalStorage[key] = value;
+        try {
+            const parsed = JSON.parse(value);
+            if (parsed && typeof parsed === "object" && parsed.hasOwnProperty("pupil_id")) {
+                pupil_id = parsed["pupil_id"];
+                break;
+            }
+        } catch (e) {}
+    }
     chrome.storage.local.set({ disablePupilIDFeatures: false })
 } catch (e) {
     console.warn(`[${manifest.name} v${version}]: Failed to get pupil_id from localStorage. This may result in some features not working properly or complitely disabled. If you think this is a bug, please report it on GitHub with the flollowing information: ${e}`)

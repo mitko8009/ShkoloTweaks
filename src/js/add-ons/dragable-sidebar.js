@@ -16,7 +16,7 @@
     style.textContent = `
       ${MENU_SELECTOR} {
       position: relative;
-      z-index: 9999;
+      z-index: 9994;
       min-height: 150px;
       }
       .drag-mode-on > li.draggable {
@@ -58,7 +58,7 @@
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.7);
-      z-index: 9998;
+      z-index: 9993;
       pointer-events: none;
       transition: opacity 0.5s ease;
       opacity: 0;
