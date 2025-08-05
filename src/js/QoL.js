@@ -5,6 +5,7 @@ function QoL() {
         this.emailAndTel();
         this.messagesBackgroundFix();
         this.detailsDate();
+        this.settingsButton();
 
         // Extras
         if (compatibility_mode) { loadCssFile("/css/shkolo/compatibility.css") }
@@ -158,4 +159,19 @@ function QoL() {
 
         table[i].children[columnIndex].innerHTML += `<span style="margin-left: .8rem; filter: brightness(0.8);">(${chrome.i18n.getMessage("DaysAgo").replace("%s", daysSinceTimestamp)})</span>`;
     }
+
+        this.settingsButton = function () {
+        try {
+            const settingNav = document.querySelector(
+                "body > div.page-container > div.page-content-wrapper > div > div > div > div.profile-sidebar > div > div.profile-usermenu > ul"
+            );
+            let shtwButton = document.createElement("li");
+            settingNav.appendChild(shtwButton);
+            shtwButton.innerHTML = `<a href="${chrome.runtime.getURL("popup/settings.html")}" target="_blank"><img src=${chrome.runtime.getURL("assets/icon_x48_white.png")} style="height: 20px; width: 20px; margin-top: -4px; margin-left: -4px;"> ShkoloTweaks </a>`;
+        } catch (error) {
+            console.error(
+                `[${manifest.name} v${version}][QoL]: Failed to add settings button. ERROR: ${error}`
+            );
+        }
+    };
 }
