@@ -99,7 +99,7 @@
         "message": "{{DAYS}} days until the end of the school year"
     },
     "CountdownFooter": {
-        "message": "This statistic does NOT include holidays."
+        "message": "This statistic does NOT include holidays"
     },
     "githubLabel": {
         "message": "GitHub"
@@ -165,13 +165,13 @@
         "message": "Stats panel"
     },
     "statsPanel_description": {
-        "message": "Show statistics that Shkolo Tweaks collects in Shkolo's statistics page."
+        "message": "Show statistics that Shkolo Tweaks collects in Shkolo's statistics page"
     },
     "devTools": {
         "message": "DevTools"
     },
     "devTools_description": {
-        "message": "Show debug information and tools in the app."
+        "message": "Show debug information and tools in the app"
     },
     "DaysAgo": {
         "message": "%s days ago"
@@ -180,6 +180,18 @@
         "message": "Colored Icons"
     },
     "coloredIcons_description": {
-        "message": "Use colored icons instead of monochrome ones."
+        "message": "Use colored icons instead of monochrome ones"
+    },
+    "disclaimer_settings_reload": {
+        "message": "Some settings may require a page reload to take effect. <b><a href=''>[Reload]</a></b>"
+    },
+    "disclaimer_settings_more": {
+        "message": "This is <b>NOT</b> the full list of settings. Some settings are available in the <b>More Settings</b> section in the popup."
+    },
+    "appearanceSettingsTitle": {
+        "message": "Appearance Settings"
+    },
+    "DashboardModules": {
+        "message": "Dashboard Modules"
     }
 }

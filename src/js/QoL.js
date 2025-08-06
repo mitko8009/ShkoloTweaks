@@ -5,7 +5,7 @@ function QoL() {
         this.emailAndTel();
         this.messagesBackgroundFix();
         this.detailsDate();
-        this.settingsButton();
+        this.InAppExtSettings();
 
         // Extras
         if (compatibility_mode) { loadCssFile("/css/shkolo/compatibility.css") }
@@ -160,18 +160,118 @@ function QoL() {
         table[i].children[columnIndex].innerHTML += `<span style="margin-left: .8rem; filter: brightness(0.8);">(${chrome.i18n.getMessage("DaysAgo").replace("%s", daysSinceTimestamp)})</span>`;
     }
 
-        this.settingsButton = function () {
-        try {
-            const settingNav = document.querySelector(
-                "body > div.page-container > div.page-content-wrapper > div > div > div > div.profile-sidebar > div > div.profile-usermenu > ul"
-            );
-            let shtwButton = document.createElement("li");
-            settingNav.appendChild(shtwButton);
-            shtwButton.innerHTML = `<a href="${chrome.runtime.getURL("popup/settings.html")}" target="_blank"><img src=${chrome.runtime.getURL("assets/icon_x48_white.png")} style="height: 20px; width: 20px; margin-top: -4px; margin-left: -4px;"> ShkoloTweaks </a>`;
-        } catch (error) {
-            console.error(
-                `[${manifest.name} v${version}][QoL]: Failed to add settings button. ERROR: ${error}`
-            );
+    this.InAppExtSettings = function() {
+        if (pageurl.includes("/profile/settings")) {
+            try {
+                // Create settings container
+                const settingsContainer = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > form > div");
+                if (!settingsContainer) return;
+
+                const settingsContainerPortlet = document.createElement("div");
+                settingsContainerPortlet.className = "portlet";
+                
+                const settingsContainerPortletBody = document.createElement("div");
+                settingsContainerPortletBody.className = "portlet-body";
+
+                const settingsContainerPortletTitle = document.createElement("div");
+                settingsContainerPortletTitle.className = "portlet-title";
+                settingsContainerPortletTitle.innerHTML = `<div class="caption"><img src="${chrome.runtime.getURL("assets/icon_x48_white.png")}" alt="ShkoloTweaks Icon" style="width: 24px; height: 24px;"> ShkoloTweaks</div>`;
+
+                // Discaimer
+                const disclaimer = document.createElement("div");
+                disclaimer.className = "alert alert-info";
+                disclaimer.innerHTML = chrome.i18n.getMessage("disclaimer_settings_reload");
+                settingsContainerPortletBody.appendChild(disclaimer);
+
+                const disclaimer2 = document.createElement("div");
+                disclaimer2.className = "alert alert-info";
+                disclaimer2.innerHTML = chrome.i18n.getMessage("disclaimer_settings_more");
+                settingsContainerPortletBody.appendChild(disclaimer2);
+
+                // Append settings
+                settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("appearanceSettingsTitle");
+                settingsContainerPortletBody.appendChild(document.createElement("hr"));
+                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("roundedLabel"), "rounded-corners", rounded));
+                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("blurLabel"), "blur-background", blur_data));
+                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("coloredIcons_description"), "colored-icons", globalResult.colored_icons));
+
+                settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("DashboardModules");
+                settingsContainerPortletBody.appendChild(document.createElement("hr"));
+                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("schedule_widget_description"), "show-schedule-module", globalResult.schedule));
+                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("control_tests_widget_description"), "control-tests-widget", globalResult.control_tests));
+
+
+                // Listener for saving settings
+                settingsContainerPortletBody.querySelectorAll('input[type="checkbox"]').forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        const keyMap = {
+                            "rounded-corners": "rounded",
+                            "blur-background": "blur_data",
+                            "colored-icons": "colored_icons",
+                            "show-schedule-module": "schedule",
+                            "control-tests-widget": "control_tests"
+                        };
+                        const key = keyMap[e.target.id];
+                        if (key) {
+                            if (key in globalResult) {
+                                globalResult[key] = e.target.checked;
+                            } else {
+                                window[key] = e.target.checked;
+                            }
+                            chrome.storage.sync.set({ [key]: e.target.checked });
+                        }
+                    });
+                });
+
+                // Append the settings container to the main settings container
+                settingsContainerPortlet.appendChild(settingsContainerPortletTitle);
+                settingsContainerPortlet.appendChild(settingsContainerPortletBody);
+                settingsContainer.appendChild(settingsContainerPortlet);
+            } catch (error) {
+                console.error(`[${manifest.name} v${version}][QoL]: Failed to access settings container. ERROR: ${error}`);
+            }
         }
-    };
+    }
+
+    function createCheckbox(labelText, id, chekced = false) {
+        const formGroup = document.createElement("div");
+        formGroup.className = "form-group";
+
+        const label = document.createElement("label");
+        label.setAttribute("for", id);
+        label.className = "control-label col-md-6";
+        label.textContent = labelText;
+
+        const inputGroup = document.createElement("div");
+        inputGroup.className = "input-group col-md-3";
+
+        const onOffSwitch = document.createElement("label");
+        onOffSwitch.className = "onOffSwitch neutral-colors";
+
+        const checkbox = document.createElement("input");
+        checkbox.className = "onOffSwitch-input";
+        checkbox.type = "checkbox";
+        checkbox.name = id;
+        checkbox.id = id;
+        if (chekced) checkbox.checked = true;
+
+        const switchLabel = document.createElement("span");
+        switchLabel.className = "onOffSwitch-label";
+        switchLabel.setAttribute("data-on", "Yes");
+        switchLabel.setAttribute("data-off", "No");
+
+        const switchHandle = document.createElement("span");
+        switchHandle.className = "onOffSwitch-handle";
+
+        onOffSwitch.appendChild(checkbox);
+        onOffSwitch.appendChild(switchLabel);
+        onOffSwitch.appendChild(switchHandle);
+
+        inputGroup.appendChild(onOffSwitch);
+
+        formGroup.appendChild(label);
+        formGroup.appendChild(inputGroup);
+
+        return formGroup;
+    }
 }
