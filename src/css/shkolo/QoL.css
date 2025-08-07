@@ -6,6 +6,7 @@
 .profile-userpic img.avatar {
     width: 150px;
     height: 150px;
+    transition: none !important;
 }
 
 .select2-container, .inbox-compose .controls>input {
@@ -23,6 +24,10 @@
 
 .btn.btn-outline.purple {
     padding: 4px 8px 4px 8px !important;
+}
+
+.onOffSwitch-handle {
+    scale: 120%;
 }
 
 @media (min-width: 768px) {
