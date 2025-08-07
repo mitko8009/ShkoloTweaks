@@ -191,7 +191,10 @@
     "appearanceSettingsTitle": {
         "message": "Appearance Settings"
     },
-    "DashboardModules": {
-        "message": "Dashboard Modules"
+    "extendingFunctionalityTitle": {
+        "message": "Extending Functionality"
+    },
+    "Miscellaneous": {
+        "message": "Miscellaneous"
     }
 }

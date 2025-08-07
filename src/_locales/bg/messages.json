@@ -164,7 +164,10 @@
     "appearanceSettingsTitle": {
         "message": "Настройки на външния вид"
     },
-    "DashboardModules": {
-        "message": "Модули на таблото"
+    "extendingFunctionalityTitle": {
+        "message": "Разширяване на функционалността"
+    },
+    "Miscellaneous": {
+        "message": "Разни"
     }
 }

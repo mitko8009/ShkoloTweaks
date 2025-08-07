@@ -189,17 +189,25 @@ function QoL() {
                 settingsContainerPortletBody.appendChild(disclaimer2);
 
                 // Append settings
+                // Appearance Settings
                 settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("appearanceSettingsTitle");
-                settingsContainerPortletBody.appendChild(document.createElement("hr"));
+                settingsContainerPortletBody.appendChild(Object.assign(document.createElement("hr"), { style: "margin-top:-0.5rem" }));
                 settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("roundedLabel"), "rounded-corners", rounded));
                 settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("blurLabel"), "blur-background", blur_data));
                 settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("coloredIcons_description"), "colored-icons", globalResult.colored_icons));
 
-                settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("DashboardModules");
-                settingsContainerPortletBody.appendChild(document.createElement("hr"));
+                // Extening Functionality
+                settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("extendingFunctionalityTitle");
+                settingsContainerPortletBody.appendChild(Object.assign(document.createElement("hr"), { style: "margin-top:-0.5rem" }));
                 settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("schedule_widget_description"), "show-schedule-module", globalResult.schedule));
                 settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("control_tests_widget_description"), "control-tests-widget", globalResult.control_tests));
+                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("yearCountdown_description"), "year-countdown", globalResult.year_countdown));
+                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("statsPanel_description"), "stats-panel", globalResult.stats_panel));
 
+                // Miscellaneous
+                settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("Miscellaneous");
+                settingsContainerPortletBody.appendChild(Object.assign(document.createElement("hr"), { style: "margin-top:-0.5rem" }));
+                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("devTools_description"), "dev-tools", globalResult.dev_tools));
 
                 // Listener for saving settings
                 settingsContainerPortletBody.querySelectorAll('input[type="checkbox"]').forEach(input => {
@@ -209,7 +217,10 @@ function QoL() {
                             "blur-background": "blur_data",
                             "colored-icons": "colored_icons",
                             "show-schedule-module": "schedule",
-                            "control-tests-widget": "control_tests"
+                            "control-tests-widget": "control_tests",
+                            "year-countdown": "year_countdown",
+                            "stats-panel": "stats_panel",
+                            "dev-tools": "dev_tools"
                         };
                         const key = keyMap[e.target.id];
                         if (key) {
