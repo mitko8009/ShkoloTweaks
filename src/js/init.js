@@ -5,6 +5,7 @@ chrome.storage.sync.get(null, (result) => {
             initialized: true,
             theme: 'dark',
             blur_data: true,
+            no_avatars: false,
             rounded: true,
             autoRefresh: true,
             schedule: true,

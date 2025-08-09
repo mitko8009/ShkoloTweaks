@@ -175,7 +175,7 @@ function QoL() {
 
                 const settingsContainerPortletTitle = document.createElement("div");
                 settingsContainerPortletTitle.className = "portlet-title";
-                settingsContainerPortletTitle.innerHTML = `<div class="caption"><img src="${chrome.runtime.getURL("assets/icon_x48_white.png")}" alt="ShkoloTweaks Icon" style="width: 24px; height: 24px;"> ShkoloTweaks</div>`;
+                settingsContainerPortletTitle.innerHTML = `<div class="caption"><img src="${chrome.runtime.getURL("assets/icon_x48_white.png")}" alt="ShkoloTweaks Icon" style="width: 24px; height: 24px;"> ShkoloTweaks BETA</div>`;
 
                 // Discaimer
                 const disclaimer = document.createElement("div");

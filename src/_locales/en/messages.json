@@ -202,5 +202,11 @@
     },
     "version": {
         "message": "Version"
+    },
+    "noAvatars": {
+        "message": "No Avatars"
+    },
+    "noAvatars_description": {
+        "message": "Hide user avatars in the Shkolo interface"
     }
 }

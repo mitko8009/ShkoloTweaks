@@ -1,0 +1,3 @@
+.profile-userpic img.avatar, body > div.page-header.navbar.navbar-fixed-top > div > div.top-menu > ul > li.dropdown.dropdown-user > a > img, .avatar {
+    display: none;
+}
