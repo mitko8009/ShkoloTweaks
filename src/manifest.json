@@ -3,10 +3,10 @@
 	"name": "ShkoloTweaks (BETA)",
 	"short_name": "ShkoloTW",
 	"description": "__MSG_extDescription__",
-	"version": "0.10.10",
+	"version": "0.10.11",
 	"author": "ITPG Web Studios",
 	"default_locale": "en",
-	"homepage_url": "https://shkolotweaks.web.app/",
+	"homepage_url": "https://pishkisoriz.com/",
 	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwA/QFSNdP+DLYSw03MBR/G5tjMiBWnkM+/EiB+pioR559CAD8V/cbzj1XEdN5Gm+C7MB0pRGaPQtwu0gdKKYfX1DJZY2+eCFv+0hCfuxbUvNWo07dloGlNbN78jqhtvFegxy//TDeyF+Fsssv+j2FSUsPhobuzxHq90u7kikFBFMydNUKKbt4OZT0BnFbfdUV16LCI0t1GveetSyYaABUusIbn+yyOw0DQUvztpfQkseKfbxUv3rSbdGS5BFiBwX+1rI0fqMrZ0kP5VbxJtNyKUBdONZte1NmotaBqcwilKnq48jNTz0RT7T6U02qqPBpU+Dvs7uhFPOfbw8FI+KZwIDAQAB",
 	"action": {
 		"default_popup": "popup/popup.html",
@@ -24,7 +24,7 @@
 	],
 	"host_permissions": [
 		"*://*.shkolotweaks.xyz/*",
-		"*://*.shkolotweaks.web.app/*"
+		"*://*.pishkisoriz.com/*"
 	],
 	"content_scripts": [
 		{

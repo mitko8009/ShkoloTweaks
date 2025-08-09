@@ -6,7 +6,7 @@
         "message": "ShkoloTweaks"
     },
     "FooterDisclaimer": {
-        "message": "ShkoloTweaks was created by the <b>ITPG Web Studios</b> team and is software not affiliated with or endorsed by Shkolo.bg."
+        "message": "ShkoloTweaks was created by <b>ITPG Students</b> and is software not affiliated with or endorsed by <b><i>Shkolo.bg</i></b>."
     },
     "Monday": {
         "message": "Monday"
@@ -196,5 +196,11 @@
     },
     "Miscellaneous": {
         "message": "Miscellaneous"
+    },
+    "information": {
+        "message": "Information"
+    },
+    "version": {
+        "message": "Version"
     }
 }

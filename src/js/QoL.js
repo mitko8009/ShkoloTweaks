@@ -179,7 +179,7 @@ function QoL() {
 
                 // Discaimer
                 const disclaimer = document.createElement("div");
-                disclaimer.className = "alert alert-info";
+                disclaimer.className = "alert alert-warning";
                 disclaimer.innerHTML = chrome.i18n.getMessage("disclaimer_settings_reload");
                 settingsContainerPortletBody.appendChild(disclaimer);
 
@@ -207,7 +207,7 @@ function QoL() {
                 // Miscellaneous
                 settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("Miscellaneous");
                 settingsContainerPortletBody.appendChild(Object.assign(document.createElement("hr"), { style: "margin-top:-0.5rem" }));
-                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("devTools_description"), "dev-tools", globalResult.dev_tools));
+                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("devTools"), "dev-tools", globalResult.dev_tools));
 
                 // Listener for saving settings
                 settingsContainerPortletBody.querySelectorAll('input[type="checkbox"]').forEach(input => {
@@ -234,6 +234,41 @@ function QoL() {
                     });
                 });
 
+                // Version and information
+                settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("information");
+                settingsContainerPortletBody.appendChild(Object.assign(document.createElement("hr"), { style: "margin-top:-0.5rem" }));
+
+                const disclaimerParagraph = document.createElement("div");
+                disclaimerParagraph.className = "alert alert-warning";
+                disclaimerParagraph.innerHTML = chrome.i18n.getMessage("FooterDisclaimer");
+                settingsContainerPortletBody.appendChild(disclaimerParagraph);
+
+                const versionParagraph = document.createElement("div");
+                versionParagraph.className = "alert alert-info";
+                versionParagraph.innerHTML = `${chrome.i18n.getMessage("version")}: <b>${version}</b>`;
+
+                const btnContainer = document.createElement("div");
+                btnContainer.style.marginTop = "0.5rem";
+
+                const websiteBtn = document.createElement("a");
+                websiteBtn.href = manifest.homepage_url;
+                websiteBtn.target = "_blank";
+                websiteBtn.className = "btn btn-default";
+                websiteBtn.style.marginRight = "0.5rem";
+                websiteBtn.innerHTML = `<img src="${chrome.runtime.getURL("assets/icon_x48_white.png")}" alt="Website" style="width:22px;vertical-align:middle;margin-right:2px;margin-top:-0.3rem;margin-left:-0.4rem;"> Official Website`;
+
+                const githubBtn = document.createElement("a");
+                githubBtn.href = "https://github.com/mitko8009/ShkoloTweaks";
+                githubBtn.target = "_blank";
+                githubBtn.className = "btn btn-default";
+                githubBtn.innerHTML = `<img src="${chrome.runtime.getURL("assets/github-mark.svg")}" alt="GitHub" style="width:22px;vertical-align:middle;margin-right:2px;margin-top:-0.3rem;margin-left:-0.4rem;"> GitHub`;
+
+                btnContainer.appendChild(websiteBtn);
+                btnContainer.appendChild(githubBtn);
+
+                versionParagraph.appendChild(btnContainer);
+                settingsContainerPortletBody.appendChild(versionParagraph);
+
                 // Append the settings container to the main settings container
                 settingsContainerPortlet.appendChild(settingsContainerPortletTitle);
                 settingsContainerPortlet.appendChild(settingsContainerPortletBody);
@@ -247,7 +282,7 @@ function QoL() {
     function createCheckbox(labelText, id, chekced = false) {
         const formGroup = document.createElement("div");
         formGroup.className = "form-group";
-
+        
         const label = document.createElement("label");
         label.setAttribute("for", id);
         label.className = "control-label col-md-6";
