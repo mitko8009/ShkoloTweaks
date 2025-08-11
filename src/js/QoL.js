@@ -6,6 +6,7 @@ function QoL() {
         this.messagesBackgroundFix();
         this.detailsDate();
         this.InAppExtSettings();
+        this.moveLogOutButton();
 
         // Extras
         if (compatibility_mode) { loadCssFile("/css/shkolo/compatibility.css") }
@@ -194,6 +195,7 @@ function QoL() {
                 settingsContainerPortletBody.appendChild(Object.assign(document.createElement("hr"), { style: "margin-top:-0.5rem" }));
                 settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("roundedLabel"), "rounded-corners", rounded));
                 settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("blurLabel"), "blur-background", blur_data));
+                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("noAvatars"), "no-avatars", globalResult.no_avatars));
                 settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("coloredIcons_description"), "colored-icons", globalResult.colored_icons));
 
                 // Extening Functionality
@@ -215,6 +217,7 @@ function QoL() {
                         const keyMap = {
                             "rounded-corners": "rounded",
                             "blur-background": "blur_data",
+                            "no-avatars": "no_avatars",
                             "colored-icons": "colored_icons",
                             "show-schedule-module": "schedule",
                             "control-tests-widget": "control_tests",
@@ -319,5 +322,28 @@ function QoL() {
         formGroup.appendChild(inputGroup);
 
         return formGroup;
+    }
+
+    this.moveLogOutButton = function() {
+        try {
+            const logoutButton = document.querySelector(`body > div.page-header.navbar.navbar-fixed-top > div > div.top-menu > ul > li.hidden-xs.hidden-sm.dropdown.dropdown-quick-sidebar-toggler`).cloneNode(true);
+
+            if (pageurl.includes("/profile") && logoutButton) {
+                const anchor = logoutButton.querySelector("a");
+                if (anchor) {
+                    const icon = anchor.querySelector("i");
+                    if (icon) {
+                        icon.insertAdjacentText("afterend", " Logout");
+                    }
+                }
+                const profileList = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > div.profile-sidebar > div > div.profile-usermenu > ul");
+                if (profileList) { profileList.appendChild(logoutButton); }
+            }
+
+            const oldLogoutButton = document.querySelector("body > div.page-header.navbar.navbar-fixed-top > div > div.top-menu > ul > li.hidden-xs.hidden-sm.dropdown.dropdown-quick-sidebar-toggler");
+            if (oldLogoutButton) { oldLogoutButton.remove(); }
+        } catch (error) {
+            console.error(`[${manifest.name} v${version}][QoL]: Failed to move logout button. ERROR: ${error}`);
+        }
     }
 }
