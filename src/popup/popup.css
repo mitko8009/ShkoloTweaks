@@ -80,6 +80,13 @@ body {
     margin-bottom: 0 !important;
 }
 
+.box h1 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #000;
+}
+
 .popup-header,
 .footer {
     display: flex;
