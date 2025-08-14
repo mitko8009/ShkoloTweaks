@@ -3,7 +3,7 @@
 	"name": "ShkoloTweaks (BETA)",
 	"short_name": "ShkoloTW",
 	"description": "__MSG_extDescription__",
-	"version": "0.10.16",
+	"version": "0.10.17",
 	"author": "ITPG Web Studios",
 	"default_locale": "en",
 	"homepage_url": "https://pishkisoriz.com/",
@@ -23,7 +23,6 @@
 		"activeTab"
 	],
 	"host_permissions": [
-		"*://*.shkolotweaks.xyz/*",
 		"*://*.pishkisoriz.com/*"
 	],
 	"content_scripts": [

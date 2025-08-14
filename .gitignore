@@ -9,3 +9,5 @@ Presentation
 .vscode
 .idea
 dist
+*.pem
+*.crx

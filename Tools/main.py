@@ -11,6 +11,7 @@ import time
 
 from init import *
 import utils
+import subprocess
 
 class window(QMainWindow):
     def __init__(self): # Initialize the window
@@ -73,6 +74,11 @@ class window(QMainWindow):
         self.mainUi.actionCopyPublicKey.triggered.connect(lambda: self.copy_text_to_clipboard(self.mainUi.PublicKey))
         self.mainUi.ThemeEditor.clicked.connect(lambda: os.system('python ThemeEditor.pyw'))
         self.mainUi.actionTheme_Editor.triggered.connect(lambda: os.system('python ThemeEditor.pyw'))
+        
+        # CRX checkbox and prv_key_button logic
+        self.mainUi.CRX.stateChanged.connect(self.handle_crx_checkbox)
+        self.mainUi.prv_key_button.clicked.connect(self.select_prv_key_file)
+        self.handle_crx_checkbox()
 
         for i in self.manifest['permissions']:
             self.mainUi.permissions.addItem(i)
@@ -141,26 +147,50 @@ class window(QMainWindow):
         self.save()
         config['path'] = createCopy(config['path'], f"../temp_{random.randint(10000000000, 99999999999)}/")
         self.loadManifest()
-        
+
         if self.mainUi.OptionChromium.isChecked():
-            del self.manifest['browser_specific_settings']
-        
+            if 'browser_specific_settings' in self.manifest:
+                del self.manifest['browser_specific_settings']
+
         if self.mainUi.minifyHTML.isChecked(): utils.minifyHTML(config['path'])
         if self.mainUi.minifyCSS.isChecked(): utils.minifyCSS(config['path'])
         if self.mainUi.minifyJS.isChecked(): utils.minifyJS(config['path'])
-            
+
         SaveManifest(config['path'] + "manifest.json", self.manifest)
-        
-        shutil.make_archive("../"+self.manifest['name'], 'zip', config['path'], owner=self.manifest['author'], group=self.manifest['author'])
-        
-        print(f"Succesfully built extension at ../{self.manifest['name']}.zip")
+
+        if self.mainUi.CRX.isChecked():
+            chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+            extension_path = os.path.abspath(config['path'])
+            key_path = self.mainUi.prv_key.text()
+            if not key_path or not os.path.isfile(key_path):
+                QMessageBox.warning(self.mainUi, "Private Key Missing", "Please select a valid private key file.")
+                shutil.rmtree(config['path'])
+                return
+            # Build CRX using Chrome's pack-extension
+            try:
+                subprocess.check_call([
+                    chrome_path,
+                    f'--pack-extension={extension_path}',
+                    f'--pack-extension-key={key_path}'
+                ])
+                crx_file = extension_path + '.crx'
+                if os.path.exists(crx_file):
+                    dest_crx = os.path.join("..", f"{self.manifest['name']}.crx")
+                    shutil.move(crx_file, dest_crx)
+                    print(f"Successfully built CRX at {dest_crx}")
+            except Exception as e:
+                print(f"Failed to build CRX: {e}")
+        else:
+            shutil.make_archive("../"+self.manifest['name'], 'zip', config['path'], owner=self.manifest['author'], group=self.manifest['author'])
+            print(f"Successfully built extension at ../{self.manifest['name']}.zip")
+
         shutil.rmtree(config['path'])
-        
+
         et = time.time()
         print(f"Time taken to build: {round(et-st, 2)} seconds")
         self.logger.info(f"Time taken to build: {round(et-st, 2)} seconds")
         self.logger.info(f"Extension build information: {self.manifest['name']} v{self.manifest['version']} by {self.manifest['author']}")
-        
+
         self.loadConfig()
         self.loadManifest()
         
@@ -168,6 +198,27 @@ class window(QMainWindow):
         clipboard = QApplication.clipboard()
         clipboard.setText(text_box.text())
         return True
+    
+    def handle_crx_checkbox(self):
+        checked = self.mainUi.CRX.isChecked()
+        # Enable/disable prv_key_button and prv_key field
+        self.mainUi.prv_key_button.setEnabled(checked)
+        self.mainUi.prv_key.setEnabled(checked)
+        # Disable/enable minify checkboxes and Firefox option
+        self.mainUi.minifyHTML.setEnabled(not checked)
+        self.mainUi.minifyCSS.setEnabled(not checked)
+        self.mainUi.minifyJS.setEnabled(not checked)
+        self.mainUi.OptionFirefox.setEnabled(not checked)
+        if not checked:
+            self.mainUi.prv_key.clear()
+
+    def select_prv_key_file(self):
+        file_path, _ = QFileDialog.getOpenFileName(
+            self.mainUi, "Select Private Key File", "", "Key Files (*.pem *.key);;All Files (*)"
+        )
+        if file_path:
+            self.mainUi.prv_key.setText(file_path)
+
             
 
 if __name__ == "__main__":
