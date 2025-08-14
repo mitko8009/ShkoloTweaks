@@ -155,6 +155,9 @@
     "beta": {
         "message": "Beta Feature"
     },
+    "new": {
+        "message": "New"
+    },
     "yearCountdown": {
         "message": "Year countdown widget"
     },

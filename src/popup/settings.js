@@ -26,11 +26,11 @@ chrome.storage.sync.get(null, (result) => {
 
     const year_countdown = result.year_countdown ?? false
     $("#year_countdown").prop("checked", year_countdown)
-    tagSetting("year_countdown", "Beta Feature", "#ffcc00")
+    tagSetting("year_countdown", chrome.i18n.getMessage("beta"), "#ffcc00")
 
     const stats_panel = result.stats_panel ?? false
     $("#stats_panel").prop("checked", stats_panel)
-    tagSetting("stats_panel", "Beta Feature", "#ffcc00")
+    tagSetting("stats_panel", chrome.i18n.getMessage("beta"), "#ffcc00")
 
     const dev_tools = result.dev_tools ?? false
     $("#dev_tools").prop("checked", dev_tools)
@@ -38,11 +38,11 @@ chrome.storage.sync.get(null, (result) => {
 
     const colored_icons = result.colored_icons ?? false
     $("#colored_icons").prop("checked", colored_icons)
-    tagSetting("colored_icons", "New", "#0d50e2")
+    tagSetting("colored_icons", chrome.i18n.getMessage("new"), "#0d50e2")
 
     const no_avatars = result.no_avatars ?? false
     $("#no_avatars").prop("checked", no_avatars)
-    tagSetting("no_avatars", "New", "#0d50e2")
+    tagSetting("no_avatars", chrome.i18n.getMessage("new"), "#0d50e2")
 })
 
 chrome.storage.local.get(null, (result) => {

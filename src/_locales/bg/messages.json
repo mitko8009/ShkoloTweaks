@@ -146,14 +146,44 @@
     "reorderSidebar": {
         "message": "Пренареждане на лента за навигация"
     },
-    "reorder_sidebar_description": {
+    "reorderSidebar_description": {
         "message": "Позволява пренареждането на елементите от лентата за навигация"
     },
     "developer_settings": {
         "message": "Настройки за разработчици"
     },
+    "beta": {
+        "message": "Бета функция"
+    },
+    "new": {
+        "message": "Ново"
+    },
+    "yearCountdown": {
+        "message": "Уиджет за обратно броене до края на учебната година"
+    },
+    "yearCountdown_description": {
+        "message": "Показване на уиджет за обратно броене до края на учебната година на началното табло"
+    },
+    "statsPanel": {
+        "message": "Панел за статистика"
+    },
+    "statsPanel_description": {
+        "message": "Показване на статистиките, които Shkolo Tweaks събира на страницата за статистика на Shkolo"
+    },
+    "devTools": {
+        "message": "DevTools"
+    },
+    "devTools_description": {
+        "message": "Показване на информация и инструменти за отстраняване на грешки в приложението"
+    },
     "DaysAgo": {
         "message": "преди %s дни"
+    },
+    "coloredIcons": {
+        "message": "Цветни икони"
+    },
+    "coloredIcons_description": {
+        "message": "Използвайте цветни икони вместо монохромни"
     },
     "disclaimer_settings_reload": {
         "message": "Някои настройки може да изискват презареждане на страницата, за да влязат в сила. <a href=''>[Презареди]</a>"
@@ -169,5 +199,14 @@
     },
     "Miscellaneous": {
         "message": "Разни"
+    },
+    "version": {
+        "message": "Версия"
+    },
+    "noAvatars": {
+        "message": "Без аватари"
+    },
+    "noAvatars_description": {
+        "message": "Скриване на аватарите на потребителите в интерфейса на Shkolo"
     }
 }
