@@ -12,15 +12,6 @@ function checkTheme() {
                     messageBody.children[i].removeAttribute("style");
                 }
             }
-
-            try {
-                let script = document.createElement("script");
-                script.src = chrome.runtime.getURL(`themes/${storage.theme}/script.js`);
-                script.type = "text/javascript";
-                document.getElementsByTagName("head")[0].appendChild(script);
-            } catch {
-                console.warn("Failed to load script.js for the theme.");
-            }
         }
 
         if (storage.blur_data) { loadCssFile("css/shkolo/blurData.css"); }
