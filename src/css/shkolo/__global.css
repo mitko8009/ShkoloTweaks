@@ -120,3 +120,7 @@ background-image:
     border-radius: var(--radius);
     background-size: 35px 30px, 100% 100%, 100% 100%;
 }
+
+.page-header.navbar .top-menu .navbar-nav>li.dropdown .dropdown-toggle>i {
+    color: #6BA1D1 !important
+}

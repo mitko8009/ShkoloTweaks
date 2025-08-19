@@ -30,6 +30,22 @@
     scale: 120%;
 }
 
+.onOffSwitch-handle {
+    background-color: #245783;
+}
+
+.onOffSwitch-input:checked ~ .onOffSwitch-handle {
+    background-color: #53a661;
+}
+
+.page-sidebar .page-sidebar-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a>i, .page-sidebar .page-sidebar-menu .sub-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu>li>a>i {
+    color: inherit !important;
+}
+
+.filtersContainer {
+    margin-top: 1rem;
+}
+
 @media (min-width: 768px) {
     /* Participants and Date */
     .col-sm-2 {
