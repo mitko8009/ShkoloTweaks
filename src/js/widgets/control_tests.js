@@ -7,6 +7,11 @@ let ct_Data = {}
 function ct_parseData(data) {
     let parsedData = {}
 
+    // Check if data there is any data
+    if (!data || !data.children || data.children.length === 0 || data.children[0].children[0].children.length === 0) {
+        return JSON.stringify(parsedData)
+    }
+
     for (let j = 0; j < data.children.length; j++) { // Tests
         parsedData[j] = {}
         parsedData[j]["title"] = data.children[j].children[0].children[0].innerHTML

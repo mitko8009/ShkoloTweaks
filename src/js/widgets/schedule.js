@@ -30,9 +30,8 @@ function sc_saveLocaly(data) {
 }
 
 function sc_fetchAndSave(displayDay) {
-    class_year_id = JSON.parse(localStorage.getItem("diary_filters_supports_/diary"))["class_year_id"]
     weekDay = getWeekNumber().toString()
-    ajax(`https://app.shkolo.bg/ajax/diary/getScheduleForClass?pupil_id=${pupil_id}&year=${year.toString().slice(-2)}&week=${weekDay}&class_year_id=${class_year_id}`, 'GET', '', function(response) {
+    ajax(`https://app.shkolo.bg/ajax/diary/getScheduleForClass?pupil_id=${pupil_id}&year=${year.toString().slice(-2)}&week=${weekDay}`, 'GET', '', function(response) {
         const parser = new DOMParser();
         response = parser.parseFromString(response, 'text/html');
         response = response.getElementsByClassName('scheduleTable')[0];
