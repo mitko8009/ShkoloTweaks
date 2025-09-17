@@ -46,6 +46,10 @@
     margin-top: 1rem;
 }
 
+.form-horizontal .control-label {
+    text-align: left !important;
+}
+
 @media (min-width: 768px) {
     /* Participants and Date */
     .col-sm-2 {
