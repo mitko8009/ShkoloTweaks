@@ -208,5 +208,11 @@
     },
     "noAvatars_description": {
         "message": "Скриване на аватарите на потребителите в интерфейса на Shkolo"
+    },
+    "NoUpcomingTests": {
+        "message": "Opps... Няма предстоящи контролни."
+    },
+    "NoScheduleData": {
+        "message": "Opps... Няма данни за разписанието за този ден."
     }
 }

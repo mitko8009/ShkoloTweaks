@@ -44,7 +44,13 @@ function sc_fetchAndSave(displayDay) {
 
 function sc_DisplayDay(day, data) {
     dayData = data[day]
-    
+
+    if (!dayData || Object.keys(dayData).length === 0) {
+        scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule") + " | " + chrome.i18n.getMessage(day)
+        scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("NoScheduleData")
+        return
+    }
+
     scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule") + " | " + chrome.i18n.getMessage(day)
 
     scheduleWidgetContent.innerHTML = ""

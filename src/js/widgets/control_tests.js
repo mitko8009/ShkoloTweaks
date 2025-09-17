@@ -9,7 +9,7 @@ function ct_parseData(data) {
 
     // Check if data there is any data
     if (!data || !data.children || data.children.length === 0 || data.children[0].children[0].children.length === 0) {
-        return JSON.stringify(parsedData)
+        return JSON.stringify(parsedData) // Return empty object
     }
 
     for (let j = 0; j < data.children.length; j++) { // Tests
@@ -43,6 +43,11 @@ function ct_getData() {
 
 function ct_DisplayData(data) {
     ctWidgetContent.innerHTML = ""
+
+    if (Object.keys(data).length === 0) {
+        ctWidgetContent.innerHTML = chrome.i18n.getMessage("NoUpcomingTests")
+        return
+    }
 
     const maxItems = 5; // Limit the number of items displayed
     let itemCount = 0;
