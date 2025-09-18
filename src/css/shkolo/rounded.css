@@ -55,7 +55,7 @@ rect {
     border-collapse: unset !important;
 }
 
-#tab_control_test > .portlet > table > thead > tr > .thinTableColumn, #tab_parent_meeting > .portlet > table > thead > tr > .thinTableColumn, .annualAssessment, #tableAbsences > thead > tr > .thinTableColumn, #tableFeedbacks > thead > tr > .thinTableColumn {
+#tab_control_test > .portlet > table > thead > tr > .thinTableColumn, #tab_parent_meeting > .portlet > .table > thead > tr > .thinTableColumn, .annualAssessment, #tableAbsences > thead > tr > .thinTableColumn, #tableFeedbacks >thead > tr > .thinTableColumn {
     border-left: 0 !important;
     border-right: 0 !important;
 }
@@ -197,4 +197,20 @@ rect {
 .icheckbox_square-blue, .iradio_square-blue {
     outline: 2px solid var(--border-primary) !important;
     outline-offset: -2px !important;
+}
+
+.save-model-btn, .save-browser-btn {
+	border-radius: var(--radius) !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	min-width: 30px !important;
+	min-height: 28px !important;
+	padding: 4px 6px !important;
+	box-sizing: border-box !important;
+}
+
+.save-model-btn .fa, .save-browser-btn .fa {
+	margin: 0 !important;
+	line-height: 1 !important;
 }

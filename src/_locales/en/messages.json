@@ -217,5 +217,8 @@
     },
     "NoScheduleData": {
         "message": "Opps... There is no schedule data for this day."
+    },
+    "suspiciousLabel": {
+        "message": "Suspicious"
     }
 }

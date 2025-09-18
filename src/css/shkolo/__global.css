@@ -124,3 +124,26 @@ background-image:
 .page-header.navbar .top-menu .navbar-nav>li.dropdown .dropdown-toggle>i {
     color: #6BA1D1 !important
 }
+
+.suspicious-item, td.suspicious-item, tr.suspicious-item {
+    background-color: rgba(231, 89, 89, 0.18) !important;
+    border-left: 4px solid #e75959 !important;
+    color: #111 !important;
+    padding-left: 0.5rem !important;
+}
+
+.suspicious-item a, .suspicious-item i, .suspicious-item .fa {
+    color: #c52626 !important;
+    opacity: 0.95 !important;
+}
+
+.save-model-btn, .save-browser-btn {
+    color: var(--text-primary) !important;
+}
+.save-model-btn .fa, .save-browser-btn .fa {
+    color: #3b4a57 !important;
+}
+
+.rounded {
+    border-radius: var(--radius) !important;
+}

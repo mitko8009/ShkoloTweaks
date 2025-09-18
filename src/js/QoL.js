@@ -1,5 +1,5 @@
 function QoL() {
-    this.initialize = function() {
+    this.initialize = function () {
         this.removeAds();
         this.loadQoLCss();
         this.emailAndTel();
@@ -7,20 +7,22 @@ function QoL() {
         this.detailsDate();
         this.InAppExtSettings();
         this.moveLogOutButton();
+        this.trustedDevicesLogins();
 
         // Extras
         if (compatibility_mode) { loadCssFile("/css/shkolo/compatibility.css") }
 
         chrome.storage.sync.get(null, (result) => {
             if (result.colored_icons || result.colored_icons === undefined) loadCssFile("/css/shkolo/misc/colored_icons.css")
+            if (result.rounded) loadCssFile("/css/shkolo/rounded.css");
         })
     }
 
-    this.loadQoLCss = function() {
+    this.loadQoLCss = function () {
         loadCssFile("/css/shkolo/QoL.css");
     }
 
-    this.removeAds = function() {
+    this.removeAds = function () {
         try {
             removeElements($(".btn.btn-lg.btn-e2e.red.huge"));
             removeElements($(".rank-descr"));
@@ -32,7 +34,7 @@ function QoL() {
         }
     }
 
-    this.emailAndTel = function() {
+    this.emailAndTel = function () {
         try {
             if (pageurl.endsWith("/profile") || pageurl.includes("/profile/data/view")) {
                 // mailto fix (issue #16)
@@ -46,29 +48,29 @@ function QoL() {
                     telElement = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > div > div > div.portlet-body.form > form > div > div:nth-child(4) > div:nth-child(2) > div > div > p")
                 }
                 console.log(emailElement)
-                
+
                 if (emailElement !== null) {
                     email = emailElement.innerHTML
                     emailElement.innerHTML = `<a href="mailto:${email}">${email}</a>`
                 }
-        
+
                 if (telElement !== null) {
                     let telIcon = telElement.children.length > 0 ? telElement.children[0].cloneNode(true) : null; // There might not be an icon
                     if (telIcon) {
                         telElement.children[0].remove();
                     }
-        
+
                     tel = telElement.innerHTML.trim()
                     telElement.innerHTML = (telIcon != null ? telIcon.outerHTML : "") + ` <a href="tel:${tel}">${tel}</a>`
                 }
             }
-    
+
         } catch (error) {
             console.error(`[${manifest.name} v${version}][QoL]: Failed to fix email and phone links. ERROR: ${error}`);
         }
     }
 
-    this.messagesBackgroundFix = function() {
+    this.messagesBackgroundFix = function () {
         if (pageurl.includes("/messages/")) {
             let spans = document.querySelectorAll("span");
             spans.forEach(span => {
@@ -79,12 +81,12 @@ function QoL() {
         }
     }
 
-    this.detailsDate = function() {
+    this.detailsDate = function () {
         const dotRegex = /\./g
         const dashRegex = /\-/g
 
         if (pageurl.includes("/profile/logins")) {
-            try { 
+            try {
                 const table = $("#tab_logins > div:nth-child(2) > table > tbody > tr")
                 for (let i = 0; i < table.length; i++) {
                     this.detailsDate_element(table, i, 0, dotRegex);
@@ -106,7 +108,7 @@ function QoL() {
         }
     }
 
-    this.detailsDate_element = function(table, i, columnIndex, char_to_replace, hasIcon = true) {
+    this.detailsDate_element = function (table, i, columnIndex, char_to_replace, hasIcon = true) {
         const dateElement = table[i].children[columnIndex].cloneNode(true)
         if (hasIcon) dateElement.children[0].remove()
         let dateElementText = dateElement.innerHTML.trim().replace(/^\s+|\s+$/g, '').replace(/\s{2,}/g, ' ')
@@ -161,7 +163,7 @@ function QoL() {
         table[i].children[columnIndex].innerHTML += `<span style="margin-left: .8rem; filter: brightness(0.8);">(${chrome.i18n.getMessage("DaysAgo").replace("%s", daysSinceTimestamp)})</span>`;
     }
 
-    this.InAppExtSettings = function() {
+    this.InAppExtSettings = function () {
         if (pageurl.includes("/profile/settings")) {
             try {
                 // Create settings container
@@ -170,7 +172,7 @@ function QoL() {
 
                 const settingsContainerPortlet = document.createElement("div");
                 settingsContainerPortlet.className = "portlet";
-                
+
                 const settingsContainerPortletBody = document.createElement("div");
                 settingsContainerPortletBody.className = "portlet-body";
 
@@ -232,7 +234,22 @@ function QoL() {
                             } else {
                                 window[key] = e.target.checked;
                             }
-                            chrome.storage.sync.set({ [key]: e.target.checked });
+                            chrome.storage.sync.set({ [key]: e.target.checked }, () => {
+                                // If rounded was toggled, add/remove the CSS dynamically
+                                if (key === "rounded") {
+                                    if (e.target.checked) {
+                                        loadCssFile("/css/shkolo/rounded.css");
+                                    } else {
+                                        // removeCssFile is expected to exist in the project; fall back to removing link tag if needed
+                                        try { removeCssFile("/css/shkolo/rounded.css"); } catch (err) {
+                                            // fallback: remove any matching <link> elements
+                                            document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+                                                if (link.href && link.href.includes("/css/shkolo/rounded.css")) link.remove();
+                                            });
+                                        }
+                                    }
+                                }
+                            });
                         }
                     });
                 });
@@ -285,7 +302,7 @@ function QoL() {
     function createCheckbox(labelText, id, chekced = false) {
         const formGroup = document.createElement("div");
         formGroup.className = "form-group";
-        
+
         const label = document.createElement("label");
         label.setAttribute("for", id);
         label.className = "control-label col-md-6";
@@ -324,7 +341,7 @@ function QoL() {
         return formGroup;
     }
 
-    this.moveLogOutButton = function() {
+    this.moveLogOutButton = function () {
         try {
             const logoutButton = document.querySelector(`body > div.page-header.navbar.navbar-fixed-top > div > div.top-menu > ul > li.hidden-xs.hidden-sm.dropdown.dropdown-quick-sidebar-toggler`).cloneNode(true);
 
@@ -345,5 +362,316 @@ function QoL() {
         } catch (error) {
             console.error(`[${manifest.name} v${version}][QoL]: Failed to move logout button. ERROR: ${error}`);
         }
+    }
+
+    function normalizeKey(s) {
+        if (s === null || s === undefined) return "";
+        return String(s).replace(/\s+/g, " ").trim().toLowerCase();
+    }
+
+    function renderSaveButton(btn, state) {
+        if (!btn) return;
+        switch (state) {
+            case "saving":
+                btn.setAttribute("aria-busy", "true");
+                btn.innerHTML = '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>';
+                break;
+            case "saved":
+                btn.removeAttribute("aria-busy");
+                btn.innerHTML = '<i class="fa fa-check" style="color:green" aria-hidden="true"></i>';
+                break;
+            default:
+                btn.removeAttribute("aria-busy");
+                btn.innerHTML = '<i class="fa fa-save" aria-hidden="true"></i>';
+                break;
+        }
+    }
+
+    this.trustedDevicesLogins = function () {
+        if (pageurl.includes("/profile/logins")) {
+            try {
+                const container = document.querySelector("#tab_logins > div:nth-child(2)");
+                if (!container) return;
+
+                const table = container.querySelector("table.table");
+                if (!table) return;
+
+                const rows = table.querySelectorAll("tbody > tr");
+
+                chrome.storage.sync.get({ saved_device_models: [], saved_browsers: [] }, (res) => {
+                    const savedModels = res.saved_device_models || [];
+                    const savedBrowsers = res.saved_browsers || [];
+
+                    const savedModelKeys = new Set((savedModels || []).map(normalizeKey));
+                    const savedBrowserKeys = new Set((savedBrowsers || []).map(normalizeKey));
+
+                    let toolbar = container.querySelector(".saved-models-toolbar");
+                    if (!toolbar) {
+                        toolbar = document.createElement("div");
+                        toolbar.className = "saved-models-toolbar";
+                        toolbar.style.margin = "0.5rem 0; display:flex; gap:.5rem; align-items:center";
+
+                        const modelsBtn = document.createElement("button");
+                        modelsBtn.className = "btn btn-sm btn-default saved-models-btn";
+                        modelsBtn.textContent = (chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("savedModels") || "Saved models") : "Saved models";
+
+                        const browsersBtn = document.createElement("button");
+                        browsersBtn.className = "btn btn-sm btn-default saved-browsers-btn";
+                        browsersBtn.textContent = (chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("savedBrowsers") || "Saved browsers") : "Saved browsers";
+
+                        modelsBtn.addEventListener("click", () => openSavedListModal("models", container));
+                        browsersBtn.addEventListener("click", () => openSavedListModal("browsers", container));
+
+                        toolbar.appendChild(modelsBtn);
+                        toolbar.appendChild(browsersBtn);
+
+                        container.insertBefore(toolbar, container.firstChild);
+                    }
+
+                    rows.forEach(row => {
+                        const cells = row.children;
+                        if (!cells || cells.length === 0) return;
+
+                        const browserCell = cells[4];
+                        const modelCell = cells[cells.length - 1];
+
+                        if (browserCell) {
+                            const browserText = browserCell.textContent.trim();
+                            if (browserText) {
+                                let existing = browserCell.querySelector(".save-browser-btn");
+                                if (!existing) {
+                                    const key = normalizeKey(browserText);
+                                    const isSaved = savedBrowserKeys.has(key);
+                                    const btn = document.createElement("button");
+                                    btn.type = "button";
+                                    btn.className = "btn btn-xs btn-default save-browser-btn";
+                                    btn.style.marginLeft = "0.4rem";
+                                    btn.dataset.browser = browserText;
+                                    btn.dataset.browserKey = key;
+                                    btn.dataset.saved = isSaved ? "1" : "0";
+
+                                    renderSaveButton(btn, isSaved ? "saved" : "unsaved");
+
+                                    if (!isSaved) browserCell.classList.add("suspicious-item");
+                                    else browserCell.classList.remove("suspicious-item");
+
+                                    btn.addEventListener("click", () => {
+                                        const b = btn.dataset.browser;
+                                        if (!b || btn.dataset.saved === "1") return;
+                                        renderSaveButton(btn, "saving");
+                                        saveBrowser(b, () => {
+                                            btn.dataset.saved = "1";
+                                            renderSaveButton(btn, "saved");
+                                            // remove unsaved marker from cell
+                                            const td = btn.closest("td");
+                                            if (td) td.classList.remove("suspicious-item");
+                                            refreshBadges(container);
+                                        });
+                                    });
+
+                                    browserCell.appendChild(btn);
+                                }
+                            }
+                        }
+
+                        // --- Model save button ---
+                        if (modelCell) {
+                            const modelText = modelCell.textContent.trim();
+                            if (modelText) {
+                                let existingModelBtn = modelCell.querySelector(".save-model-btn");
+                                if (!existingModelBtn) {
+                                    const key = normalizeKey(modelText);
+                                    const isSavedModel = savedModelKeys.has(key);
+                                    const btn = document.createElement("button");
+                                    btn.type = "button";
+                                    btn.className = "btn btn-xs btn-default save-model-btn";
+                                    btn.style.marginLeft = "0.4rem";
+                                    btn.dataset.model = modelText;
+                                    btn.dataset.modelKey = key;
+                                    btn.dataset.saved = isSavedModel ? "1" : "0";
+
+                                    renderSaveButton(btn, isSavedModel ? "saved" : "unsaved");
+
+                                    if (!isSavedModel) modelCell.classList.add("suspicious-item");
+                                    else modelCell.classList.remove("suspicious-item");
+
+                                    btn.addEventListener("click", () => {
+                                        const m = btn.dataset.model;
+                                        if (!m || btn.dataset.saved === "1") return;
+                                        renderSaveButton(btn, "saving");
+                                        saveDeviceModel(m, () => {
+                                            btn.dataset.saved = "1";
+                                            renderSaveButton(btn, "saved");
+                                            const td = btn.closest("td");
+                                            if (td) td.classList.remove("suspicious-item");
+                                            refreshBadges(container);
+                                        });
+                                    });
+
+                                    modelCell.appendChild(btn);
+                                }
+                            }
+                        }
+                    });
+
+                    refreshBadges(container);
+                });
+            } catch (error) {
+                console.error(`[${manifest.name} v${version}][QoL]: Failed to fix trusted devices logins. ERROR: ${error}`);
+            }
+        }
+    }
+
+    function saveDeviceModel(model, callback) {
+        if (!model || model.length === 0) {
+            if (typeof callback === "function") callback();
+            return;
+        }
+        const key = normalizeKey(model);
+        chrome.storage.sync.get({ saved_device_models: [] }, (res) => {
+            let arr = res.saved_device_models || [];
+            const arrKeys = arr.map(normalizeKey);
+            if (!arrKeys.includes(key)) {
+                arr.push(model);
+                chrome.storage.sync.set({ saved_device_models: arr }, () => {
+                    console.debug(`[${manifest.name} v${version}][QoL]: Saved device model "${model}"`);
+                    if (typeof callback === "function") callback();
+                });
+            } else {
+                if (typeof callback === "function") callback();
+            }
+        });
+    }
+
+    function saveBrowser(browser, callback) {
+        if (!browser || browser.length === 0) {
+            if (typeof callback === "function") callback();
+            return;
+        }
+        const key = normalizeKey(browser);
+        chrome.storage.sync.get({ saved_browsers: [] }, (res) => {
+            let arr = res.saved_browsers || [];
+            const arrKeys = arr.map(normalizeKey);
+            if (!arrKeys.includes(key)) {
+                arr.push(browser);
+                chrome.storage.sync.set({ saved_browsers: arr }, () => {
+                    console.debug(`[${manifest.name} v${version}][QoL]: Saved browser "${browser}"`);
+                    if (typeof callback === "function") callback();
+                });
+            } else {
+                if (typeof callback === "function") callback();
+            }
+        });
+    }
+
+    function removeSavedItem(type, value, callback) {
+        const keyName = type === "browsers" ? "saved_browsers" : "saved_device_models";
+        const norm = normalizeKey(value);
+        chrome.storage.sync.get({ [keyName]: [] }, (res) => {
+            let arr = res[keyName] || [];
+            const newArr = arr.filter(item => normalizeKey(item) !== norm);
+            if (newArr.length !== arr.length) {
+                chrome.storage.sync.set({ [keyName]: newArr }, () => {
+                    console.debug(`[${manifest.name} v${version}][QoL]: Removed ${type.slice(0, -1)} "${value}"`);
+                    if (typeof callback === "function") callback();
+                });
+            } else {
+                if (typeof callback === "function") callback();
+            }
+        });
+    }
+
+    function openSavedListModal(type, container) {
+        const key = type === "browsers" ? "saved_browsers" : "saved_device_models";
+        chrome.storage.sync.get({ [key]: [] }, (res) => {
+            const items = res[key] || [];
+
+            let existingModal = container.querySelector(".saved-list-modal");
+            if (existingModal) existingModal.remove();
+
+            const modal = document.createElement("div");
+            modal.className = "saved-list-modal";
+            modal.style.position = "relative";
+            modal.style.background = "#fff";
+            modal.style.border = "1px solid #ddd";
+            modal.style.padding = ".6rem";
+            modal.style.maxHeight = "300px";
+            modal.style.overflow = "auto";
+            modal.style.boxShadow = "0 2px 8px rgba(0,0,0,0.15)";
+            modal.style.marginBottom = ".5rem";
+
+            const title = document.createElement("div");
+            title.style.fontWeight = "600";
+            title.style.marginBottom = ".4rem";
+            title.textContent = (type === "browsers") ? ((chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("savedBrowsersList") || "Saved browsers") : "Saved browsers") : ((chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("savedModelsList") || "Saved models") : "Saved models");
+            modal.appendChild(title);
+
+            if (!items.length) {
+                const empty = document.createElement("div");
+                empty.textContent = "(none)";
+                empty.style.color = "#666";
+                modal.appendChild(empty);
+            } else {
+                items.forEach(it => {
+                    const row = document.createElement("div");
+                    row.style.display = "flex";
+                    row.style.justifyContent = "space-between";
+                    row.style.alignItems = "center";
+                    row.style.padding = "0.2rem 0";
+
+                    const t = document.createElement("div");
+                    t.textContent = it;
+                    t.style.flex = "1";
+
+                    const removeBtn = document.createElement("button");
+                    removeBtn.className = "btn btn-xs btn-danger";
+                    removeBtn.textContent = (chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("remove") || "Remove") : "Remove";
+                    removeBtn.style.marginLeft = "0.5rem";
+
+                    const normKey = normalizeKey(it);
+                    removeBtn.dataset.key = normKey;
+
+                    removeBtn.addEventListener("click", () => {
+                        removeSavedItem(type, it, () => {
+                            row.remove();
+                            if (type === "browsers") {
+                                container.querySelectorAll(`.save-browser-btn[data-browser-key="${CSS.escape(normKey)}"]`).forEach(b => {
+                                    b.dataset.saved = "0";
+                                    renderSaveButton(b, "unsaved");
+                                    const td = b.closest("td");
+                                    if (td) td.classList.add("suspicious-item");
+                                });
+                            } else {
+                                container.querySelectorAll(`.save-model-btn[data-model-key="${CSS.escape(normKey)}"]`).forEach(b => {
+                                    b.dataset.saved = "0";
+                                    renderSaveButton(b, "unsaved");
+                                    const td = b.closest("td");
+                                    if (td) td.classList.add("suspicious-item");
+                                });
+                            }
+                            refreshBadges(container);
+                        });
+                    });
+
+                    row.appendChild(t);
+                    row.appendChild(removeBtn);
+                    modal.appendChild(row);
+                });
+            }
+
+            const close = document.createElement("div");
+            close.style.textAlign = "right";
+            close.style.marginTop = ".4rem";
+            const closeBtn = document.createElement("button");
+            closeBtn.className = "btn btn-xs btn-default";
+            closeBtn.textContent = (chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("close") || "Close") : "Close";
+            closeBtn.addEventListener("click", () => {
+                modal.remove();
+            });
+            close.appendChild(closeBtn);
+            modal.appendChild(close);
+
+            container.insertBefore(modal, container.firstChild.nextSibling);
+        });
     }
 }

@@ -214,5 +214,8 @@
     },
     "NoScheduleData": {
         "message": "Opps... Няма данни за разписанието за този ден."
+    },
+    "suspiciousLabel": {
+        "message": "Подозрително"
     }
 }
