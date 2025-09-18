@@ -378,7 +378,7 @@ function QoL() {
                 break;
             case "saved":
                 btn.removeAttribute("aria-busy");
-                btn.innerHTML = '<i class="fa fa-check" style="color:green" aria-hidden="true"></i>';
+                btn.innerHTML = '<i class="fa fa-check" style="color:#3ddc84 !important;" aria-hidden="true"></i>';
                 break;
             default:
                 btn.removeAttribute("aria-busy");
