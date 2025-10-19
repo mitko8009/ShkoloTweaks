@@ -1,224 +1,293 @@
 {
-    "extDescription": {
-        "message": "Customize your Shkolo experience with ShkoloTweaks! Dark mode, Custom widgets, Cool Stats, and more!"
-    },
-    "extName": {
-        "message": "ShkoloTweaks"
-    },
-    "FooterDisclaimer": {
-        "message": "ShkoloTweaks was created by <b>ITPG Students</b> and is software not affiliated with or endorsed by <b><i>Shkolo.bg</i></b>."
-    },
-    "Monday": {
-        "message": "Monday"
-    },
-    "Tuesday": {
-        "message": "Tuesday"
-    },
-    "Wednesday": {
-        "message": "Wednesday"
-    },
-    "Thursday": {
-        "message": "Thursday"
-    },
-    "Friday": {
-        "message": "Friday"
-    },
-    "Saturday": {
-        "message": "Saturday"
-    },
-    "Sunday": {
-        "message": "Sunday"
-    },
-    "Schedule": {
-        "message": "Schedule"
-    },
-    "Refresh": {
-        "message": "Refresh"
-    },
-    "ViewMore": {
-        "message": "View More"
-    },
-    "FetchSchedule": {
-        "message": "Fetching schedule data..."
-    },
-    "FetchScheduleError": {
-        "message": "An error occurred while fetching the schedule data.<br> Try again by clinking the <b>refresh</b> button.<br><br>If the problem persists, please contact the developer."
-    },
-    "Loading": {
-        "message": "Loading..."
-    },
-    "themeLabel": {
-        "message": "Color Theme"
-    },
-    "saveBtn": {
-        "message": "Save"
-    },
-    "shkoloBtn": {
-        "message": "Open Shkolo.bg"
-    },
-    "cleanUpLabel": {
-        "message": "General Fixes"
-    },
-    "roundedLabel": {
-        "message": "Rounded edges"
-    },
-    "blurLabel": {
-        "message": "Blur Personal Info"
-    },
-    "scLabel": {
-        "message": "Schedule Widget"
-    },
-    "lightTheme": {
-        "message": "Light"
-    },
-    "darkTheme": {
-        "message": "Dark"
-    },
-    "StatsLTO": {
-        "message": "times Shkolo was opened"
-    },
-    "StatsLTOPopup": {
-        "message": "This is the number of times you've opened the<br>Shkolo Dashboard since you've installed <b>ShkoloTweaks</b>.<br><b>Note:</b> This number is stored locally you may lose it if you clear your browser data."
-    },
-    "latestVersion": {
-        "message": "Up to date"
-    },
-    "outdatedVersion": {
-        "message": "Update available - %s"
-    },
-    "devVersion": {
-        "message": "Development version - %s"
-    },
-    "customizations": {
-        "message": "Customizations"
-    },
-    "Share": {
-        "message": "Share"
-    },
-    "CountdownTitle": {
-        "message": "{{DAYS}} days until the end of the school year"
-    },
-    "CountdownFooter": {
-        "message": "This statistic does NOT include holidays"
-    },
-    "githubLabel": {
-        "message": "GitHub"
-    },
-    "instagramLabel": {
-        "message": "Instagram"
-    },
-    "websiteLabel": {
-        "message": "Official Website"
-    },
-    "ControlTestsTitle": {
-        "message": "Control Tests"
-    },
-    "reordermode": {
-        "message": "Reorder mode"
-    },
-    "advanced_settings": {
-        "message": "More settings"
-    },
-    "popup_settings": {
-        "message": "Popup settings"
-    },
-    "auto_refresh": {
-        "message": "Auto-refresh"
-    },
-    "auto_refresh_description": {
-        "message": "Auto-refresh the page when settings are changed"
-    },
-    "shkolo_settings": {
-        "message": "Shkolo settings"
-    },
-    "schedule_widget": {
-        "message": "Schedule widget"
-    },
-    "schedule_widget_description": {
-        "message": "Show the schedule widget on the dashboard"
-    },
-    "control_tests_widget": {
-        "message": "Control tests widget"
-    },
-    "control_tests_widget_description": {
-        "message": "Show the control tests widget on the dashboard"
-    },
-    "reorderSidebar": {
-        "message": "Reorder sidebar"
-    },
-    "reorderSidebar_description": {
-        "message": "Reorder the sidebar items"
-    },
-    "developer_settings": {
-        "message": "Developer"
-    },
-    "beta": {
-        "message": "Beta Feature"
-    },
-    "new": {
-        "message": "New"
-    },
-    "yearCountdown": {
-        "message": "Year countdown widget"
-    },
-    "yearCountdown_description": {
-        "message": "Show the year countdown widget on the dashboard"
-    },
-    "statsPanel": {
-        "message": "Stats panel"
-    },
-    "statsPanel_description": {
-        "message": "Show statistics that Shkolo Tweaks collects in Shkolo's statistics page"
-    },
-    "devTools": {
-        "message": "DevTools"
-    },
-    "devTools_description": {
-        "message": "Show debug information and tools in the app"
-    },
-    "DaysAgo": {
-        "message": "%s days ago"
-    },
-    "coloredIcons": {
-        "message": "Colored Icons"
-    },
-    "coloredIcons_description": {
-        "message": "Use colored icons instead of monochrome ones"
-    },
-    "disclaimer_settings_reload": {
-        "message": "Some settings may require a page reload to take effect. <b><a href=''>[Reload]</a></b>"
-    },
-    "disclaimer_settings_more": {
-        "message": "This is <b>NOT</b> the full list of settings. Some settings are available in the <b>More Settings</b> section in the popup."
-    },
-    "appearanceSettingsTitle": {
-        "message": "Appearance Settings"
-    },
-    "extendingFunctionalityTitle": {
-        "message": "Extending Functionality"
-    },
-    "Miscellaneous": {
-        "message": "Miscellaneous"
-    },
-    "information": {
-        "message": "Information"
-    },
-    "version": {
-        "message": "Version"
-    },
-    "noAvatars": {
-        "message": "No Avatars"
-    },
-    "noAvatars_description": {
-        "message": "Hide user avatars in the Shkolo interface"
-    },
-    "NoUpcomingTests": {
-        "message": "Opps... There are no upcoming tests."
-    },
-    "NoScheduleData": {
-        "message": "Opps... There is no schedule data for this day."
-    },
-    "suspiciousLabel": {
-        "message": "Suspicious"
-    }
+  "extDescription": {
+    "message": "Customize your Shkolo experience with ShkoloTweaks! Dark mode, Custom widgets, Cool Stats, and more!"
+  },
+  "extName": {
+    "message": "ShkoloTweaks"
+  },
+  "FooterDisclaimer": {
+    "message": "ShkoloTweaks was created by <b>ITPG Students</b> and is software not affiliated with or endorsed by <b><i>Shkolo.bg</i></b>."
+  },
+  "Monday": {
+    "message": "Monday"
+  },
+  "Tuesday": {
+    "message": "Tuesday"
+  },
+  "Wednesday": {
+    "message": "Wednesday"
+  },
+  "Thursday": {
+    "message": "Thursday"
+  },
+  "Friday": {
+    "message": "Friday"
+  },
+  "Saturday": {
+    "message": "Saturday"
+  },
+  "Sunday": {
+    "message": "Sunday"
+  },
+  "Schedule": {
+    "message": "Schedule"
+  },
+  "Refresh": {
+    "message": "Refresh"
+  },
+  "ViewMore": {
+    "message": "View More"
+  },
+  "FetchSchedule": {
+    "message": "Fetching schedule data..."
+  },
+  "FetchScheduleError": {
+    "message": "An error occurred while fetching the schedule data.<br> Try again by clinking the <b>refresh</b> button.<br><br>If the problem persists, please contact the developer."
+  },
+  "Loading": {
+    "message": "Loading..."
+  },
+  "themeLabel": {
+    "message": "Color Theme"
+  },
+  "saveBtn": {
+    "message": "Save"
+  },
+  "shkoloBtn": {
+    "message": "Open Shkolo.bg"
+  },
+  "cleanUpLabel": {
+    "message": "General Fixes"
+  },
+  "roundedLabel": {
+    "message": "Rounded edges"
+  },
+  "blurLabel": {
+    "message": "Blur Personal Info"
+  },
+  "scLabel": {
+    "message": "Schedule Widget"
+  },
+  "lightTheme": {
+    "message": "Light"
+  },
+  "darkTheme": {
+    "message": "Dark"
+  },
+  "StatsLTO": {
+    "message": "times Shkolo was opened"
+  },
+  "StatsLTOPopup": {
+    "message": "This is the number of times you've opened the<br>Shkolo Dashboard since you've installed <b>ShkoloTweaks</b>.<br><b>Note:</b> This number is stored locally you may lose it if you clear your browser data."
+  },
+  "latestVersion": {
+    "message": "Up to date"
+  },
+  "outdatedVersion": {
+    "message": "Update available - %s"
+  },
+  "devVersion": {
+    "message": "Development version - %s"
+  },
+  "customizations": {
+    "message": "Customizations"
+  },
+  "Share": {
+    "message": "Share"
+  },
+  "CountdownTitle": {
+    "message": "{{DAYS}} days until the end of the school year"
+  },
+  "CountdownFooter": {
+    "message": "This statistic does NOT include holidays"
+  },
+  "githubLabel": {
+    "message": "GitHub"
+  },
+  "instagramLabel": {
+    "message": "Instagram"
+  },
+  "websiteLabel": {
+    "message": "Official Website"
+  },
+  "ControlTestsTitle": {
+    "message": "Control Tests"
+  },
+  "reordermode": {
+    "message": "Reorder mode"
+  },
+  "advanced_settings": {
+    "message": "More settings"
+  },
+  "popup_settings": {
+    "message": "Popup settings"
+  },
+  "auto_refresh": {
+    "message": "Auto-refresh"
+  },
+  "auto_refresh_description": {
+    "message": "Auto-refresh the page when settings are changed"
+  },
+  "shkolo_settings": {
+    "message": "Shkolo settings"
+  },
+  "schedule_widget": {
+    "message": "Schedule widget"
+  },
+  "schedule_widget_description": {
+    "message": "Show the schedule widget on the dashboard"
+  },
+  "control_tests_widget": {
+    "message": "Control tests widget"
+  },
+  "control_tests_widget_description": {
+    "message": "Show the control tests widget on the dashboard"
+  },
+  "reorderSidebar": {
+    "message": "Reorder sidebar"
+  },
+  "reorderSidebar_description": {
+    "message": "Reorder the sidebar items"
+  },
+  "developer_settings": {
+    "message": "Developer"
+  },
+  "beta": {
+    "message": "Beta Feature"
+  },
+  "new": {
+    "message": "New"
+  },
+  "yearCountdown": {
+    "message": "Year countdown widget"
+  },
+  "yearCountdown_description": {
+    "message": "Show the year countdown widget on the dashboard"
+  },
+  "statsPanel": {
+    "message": "Stats panel"
+  },
+  "statsPanel_description": {
+    "message": "Show statistics that Shkolo Tweaks collects in Shkolo's statistics page"
+  },
+  "devTools": {
+    "message": "DevTools"
+  },
+  "devTools_description": {
+    "message": "Show debug information and tools in the app"
+  },
+  "DaysAgo": {
+    "message": "%s days ago"
+  },
+  "coloredIcons": {
+    "message": "Colored Icons"
+  },
+  "coloredIcons_description": {
+    "message": "Use colored icons instead of monochrome ones"
+  },
+  "disclaimer_settings_reload": {
+    "message": "Some settings may require a page reload to take effect. <b><a href=''>[Reload]</a></b>"
+  },
+  "disclaimer_settings_more": {
+    "message": "This is <b>NOT</b> the full list of settings. Some settings are available in the <b>More Settings</b> section in the popup."
+  },
+  "appearanceSettingsTitle": {
+    "message": "Appearance Settings"
+  },
+  "extendingFunctionalityTitle": {
+    "message": "Extending Functionality"
+  },
+  "Miscellaneous": {
+    "message": "Miscellaneous"
+  },
+  "information": {
+    "message": "Information"
+  },
+  "version": {
+    "message": "Version"
+  },
+  "noAvatars": {
+    "message": "No Avatars"
+  },
+  "noAvatars_description": {
+    "message": "Hide user avatars in the Shkolo interface"
+  },
+  "NoUpcomingTests": {
+    "message": "Opps... There are no upcoming tests."
+  },
+  "NoScheduleData": {
+    "message": "Opps... There is no schedule data for this day."
+  },
+  "suspiciousLabel": {
+    "message": "Suspicious"
+  },
+  "QoLSettings": {
+    "message": "QoL Settings"
+  },
+  "removeAds": {
+    "message": "Remove Ads"
+  },
+  "removeAds_description": {
+    "message": "Hide promotional elements where possible"
+  },
+  "loadQoLCss": {
+    "message": "Load QoL CSS"
+  },
+  "loadQoLCss_description": {
+    "message": "Inject QoL stylesheet"
+  },
+  "emailAndTel": {
+    "message": "Email & Phone Links"
+  },
+  "emailAndTel_description": {
+    "message": "Make email and phone clickable"
+  },
+  "messagesBackgroundFix": {
+    "message": "Messages BG Fix"
+  },
+  "messagesBackgroundFix_description": {
+    "message": "Fix white-background spans in messages"
+  },
+  "detailsDate": {
+    "message": "Details Date Fix"
+  },
+  "detailsDate_description": {
+    "message": "Normalize and augment date displays"
+  },
+  "inAppExtSettings": {
+    "message": "In-app Extension Settings"
+  },
+  "inAppExtSettings_description": {
+    "message": "Add extension settings inside profile"
+  },
+  "moveLogOutButton": {
+    "message": "Move Logout Button"
+  },
+  "moveLogOutButton_description": {
+    "message": "Add logout to profile sidebar"
+  },
+  "trustedDevicesLogins": {
+    "message": "Trusted Devices / Logins"
+  },
+  "trustedDevicesLogins_description": {
+    "message": "Save/mark known device models and browsers"
+  },
+  "savedModels": {
+    "message": "Saved models"
+  },
+  "savedBrowsers": {
+    "message": "Saved browsers"
+  },
+  "savedModelsList": {
+    "message": "Saved models"
+  },
+  "savedBrowsersList": {
+    "message": "Saved browsers"
+  },
+  "remove": {
+    "message": "Remove"
+  },
+  "close": {
+    "message": "Close"
+  }
 }

@@ -1,21 +1,39 @@
 function QoL() {
     this.initialize = function () {
-        this.removeAds();
-        this.loadQoLCss();
-        this.emailAndTel();
-        this.messagesBackgroundFix();
-        this.detailsDate();
-        this.InAppExtSettings();
-        this.moveLogOutButton();
-        this.trustedDevicesLogins();
+        // load feature flags from sync storage with defaults
+        chrome.storage.sync.get({
+            remove_ads: true,
+            load_qol_css: true,
+            email_and_tel: true,
+            messages_background_fix: true,
+            details_date: true,
+            inapp_ext_settings: true,
+            move_logout_button: true,
+            trusted_devices_logins: true,
+            colored_icons: true,
+            rounded: false
+        }, (result) => {
+            if (result.load_qol_css) this.loadQoLCss();
+            if (result.remove_ads) this.removeAds();
+            if (result.email_and_tel) this.emailAndTel();
+            if (result.messages_background_fix) this.messagesBackgroundFix();
+            if (result.details_date) this.detailsDate();
+            if (result.inapp_ext_settings) this.InAppExtSettings();
+            if (result.move_logout_button) this.moveLogOutButton();
+            if (result.trusted_devices_logins) this.trustedDevicesLogins();
 
-        // Extras
-        if (compatibility_mode) { loadCssFile("/css/shkolo/compatibility.css") }
+            // Extras
+            if (typeof compatibility_mode !== 'undefined' && compatibility_mode) {
+                loadCssFile("/css/shkolo/compatibility.css");
+            }
 
-        chrome.storage.sync.get(null, (result) => {
-            if (result.colored_icons || result.colored_icons === undefined) loadCssFile("/css/shkolo/misc/colored_icons.css")
-            if (result.rounded) loadCssFile("/css/shkolo/rounded.css");
-        })
+            if (result.colored_icons || result.colored_icons === undefined) {
+                loadCssFile("/css/shkolo/misc/colored_icons.css");
+            }
+            if (result.rounded) {
+                loadCssFile("/css/shkolo/rounded.css");
+            }
+        });
     }
 
     this.loadQoLCss = function () {

@@ -43,6 +43,31 @@ chrome.storage.sync.get(null, (result) => {
     const no_avatars = result.no_avatars ?? false
     $("#no_avatars").prop("checked", no_avatars)
     tagSetting("no_avatars", chrome.i18n.getMessage("new"), "#0d50e2")
+
+    // QoL settings (new)
+    const remove_ads = result.remove_ads ?? true
+    $("#remove_ads").prop("checked", remove_ads)
+
+    const load_qol_css = result.load_qol_css ?? true
+    $("#load_qol_css").prop("checked", load_qol_css)
+
+    const email_and_tel = result.email_and_tel ?? true
+    $("#email_and_tel").prop("checked", email_and_tel)
+
+    const messages_background_fix = result.messages_background_fix ?? true
+    $("#messages_background_fix").prop("checked", messages_background_fix)
+
+    const details_date = result.details_date ?? true
+    $("#details_date").prop("checked", details_date)
+
+    const inapp_ext_settings = result.inapp_ext_settings ?? true
+    $("#inapp_ext_settings").prop("checked", inapp_ext_settings)
+
+    const move_logout_button = result.move_logout_button ?? true
+    $("#move_logout_button").prop("checked", move_logout_button)
+
+    const trusted_devices_logins = result.trusted_devices_logins ?? true
+    $("#trusted_devices_logins").prop("checked", trusted_devices_logins)
 })
 
 chrome.storage.local.get(null, (result) => {
