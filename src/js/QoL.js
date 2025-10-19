@@ -416,12 +416,14 @@ function QoL() {
 
                 const rows = table.querySelectorAll("tbody > tr");
 
-                chrome.storage.sync.get({ saved_device_models: [], saved_browsers: [] }, (res) => {
+                chrome.storage.sync.get({ saved_device_models: [], saved_browsers: [], saved_ips: [] }, (res) => {
                     const savedModels = res.saved_device_models || [];
                     const savedBrowsers = res.saved_browsers || [];
+                    const savedIps = res.saved_ips || [];
 
                     const savedModelKeys = new Set((savedModels || []).map(normalizeKey));
                     const savedBrowserKeys = new Set((savedBrowsers || []).map(normalizeKey));
+                    const savedIpKeys = new Set((savedIps || []).map(normalizeKey));
 
                     let toolbar = container.querySelector(".saved-models-toolbar");
                     if (!toolbar) {
@@ -437,11 +439,17 @@ function QoL() {
                         browsersBtn.className = "btn btn-sm btn-default saved-browsers-btn";
                         browsersBtn.textContent = (chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("savedBrowsers") || "Saved browsers") : "Saved browsers";
 
+                        const ipsBtn = document.createElement("button");
+                        ipsBtn.className = "btn btn-sm btn-default saved-ips-btn";
+                        ipsBtn.textContent = (chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("savedIPs") || "Saved IPs") : "Saved IPs";
+
                         modelsBtn.addEventListener("click", () => openSavedListModal("models", container));
                         browsersBtn.addEventListener("click", () => openSavedListModal("browsers", container));
+                        ipsBtn.addEventListener("click", () => openSavedListModal("ips", container));
 
                         toolbar.appendChild(modelsBtn);
                         toolbar.appendChild(browsersBtn);
+                        toolbar.appendChild(ipsBtn);
 
                         container.insertBefore(toolbar, container.firstChild);
                     }
@@ -450,9 +458,50 @@ function QoL() {
                         const cells = row.children;
                         if (!cells || cells.length === 0) return;
 
+                        const ipCell = cells[1]; // 2nd column (index 1)
                         const browserCell = cells[4];
                         const modelCell = cells[cells.length - 1];
 
+                        // --- IP save button ---
+                        if (ipCell) {
+                            const ipText = ipCell.textContent.trim();
+                            if (ipText) {
+                                let existingIpBtn = ipCell.querySelector(".save-ip-btn");
+                                if (!existingIpBtn) {
+                                    const key = normalizeKey(ipText);
+                                    const isSavedIp = savedIpKeys.has(key);
+                                    const btn = document.createElement("button");
+                                    btn.type = "button";
+                                    btn.className = "btn btn-xs btn-default save-ip-btn";
+                                    btn.style.marginLeft = "0.4rem";
+                                    btn.dataset.ip = ipText;
+                                    btn.dataset.ipKey = key;
+                                    btn.dataset.saved = isSavedIp ? "1" : "0";
+
+                                    renderSaveButton(btn, isSavedIp ? "saved" : "unsaved");
+
+                                    if (!isSavedIp) ipCell.classList.add("suspicious-item");
+                                    else ipCell.classList.remove("suspicious-item");
+
+                                    btn.addEventListener("click", () => {
+                                        const v = btn.dataset.ip;
+                                        if (!v || btn.dataset.saved === "1") return;
+                                        renderSaveButton(btn, "saving");
+                                        saveIP(v, () => {
+                                            btn.dataset.saved = "1";
+                                            renderSaveButton(btn, "saved");
+                                            const td = btn.closest("td");
+                                            if (td) td.classList.remove("suspicious-item");
+                                            refreshBadges(container);
+                                        });
+                                    });
+
+                                    ipCell.appendChild(btn);
+                                }
+                            }
+                        }
+
+                        // --- Browser save button ---
                         if (browserCell) {
                             const browserText = browserCell.textContent.trim();
                             if (browserText) {
@@ -582,8 +631,31 @@ function QoL() {
         });
     }
 
+    // New: save IP
+    function saveIP(ip, callback) {
+        if (!ip || ip.length === 0) {
+            if (typeof callback === "function") callback();
+            return;
+        }
+        const key = normalizeKey(ip);
+        chrome.storage.sync.get({ saved_ips: [] }, (res) => {
+            let arr = res.saved_ips || [];
+            const arrKeys = arr.map(normalizeKey);
+            if (!arrKeys.includes(key)) {
+                arr.push(ip);
+                chrome.storage.sync.set({ saved_ips: arr }, () => {
+                    console.debug(`[${manifest.name} v${version}][QoL]: Saved IP "${ip}"`);
+                    if (typeof callback === "function") callback();
+                });
+            } else {
+                if (typeof callback === "function") callback();
+            }
+        });
+    }
+
     function removeSavedItem(type, value, callback) {
-        const keyName = type === "browsers" ? "saved_browsers" : "saved_device_models";
+        // map type to storage key
+        const keyName = (type === "browsers") ? "saved_browsers" : (type === "ips") ? "saved_ips" : "saved_device_models";
         const norm = normalizeKey(value);
         chrome.storage.sync.get({ [keyName]: [] }, (res) => {
             let arr = res[keyName] || [];
@@ -600,7 +672,11 @@ function QoL() {
     }
 
     function openSavedListModal(type, container) {
-        const key = type === "browsers" ? "saved_browsers" : "saved_device_models";
+        let key;
+        if (type === "browsers") key = "saved_browsers";
+        else if (type === "ips") key = "saved_ips";
+        else key = "saved_device_models";
+
         chrome.storage.sync.get({ [key]: [] }, (res) => {
             const items = res[key] || [];
 
@@ -621,7 +697,9 @@ function QoL() {
             const title = document.createElement("div");
             title.style.fontWeight = "600";
             title.style.marginBottom = ".4rem";
-            title.textContent = (type === "browsers") ? ((chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("savedBrowsersList") || "Saved browsers") : "Saved browsers") : ((chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("savedModelsList") || "Saved models") : "Saved models");
+            title.textContent = (type === "browsers") ? ((chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("savedBrowsersList") || "Saved browsers") : "Saved browsers")
+                : (type === "ips") ? ((chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("savedIPsList") || "Saved IPs") : "Saved IPs")
+                    : ((chrome && chrome.i18n && chrome.i18n.getMessage) ? (chrome.i18n.getMessage("savedModelsList") || "Saved models") : "Saved models");
             modal.appendChild(title);
 
             if (!items.length) {
@@ -654,6 +732,13 @@ function QoL() {
                             row.remove();
                             if (type === "browsers") {
                                 container.querySelectorAll(`.save-browser-btn[data-browser-key="${CSS.escape(normKey)}"]`).forEach(b => {
+                                    b.dataset.saved = "0";
+                                    renderSaveButton(b, "unsaved");
+                                    const td = b.closest("td");
+                                    if (td) td.classList.add("suspicious-item");
+                                });
+                            } else if (type === "ips") {
+                                container.querySelectorAll(`.save-ip-btn[data-ip-key="${CSS.escape(normKey)}"]`).forEach(b => {
                                     b.dataset.saved = "0";
                                     renderSaveButton(b, "unsaved");
                                     const td = b.closest("td");
