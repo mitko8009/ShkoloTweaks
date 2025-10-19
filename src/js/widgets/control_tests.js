@@ -20,7 +20,7 @@ function ct_parseData(data) {
         let [datePart, timePart] = date.split(" ")
         let [_day, _month, _year] = datePart.split(".").map(Number);
         let [hours, minutes] = timePart.split(":").map(Number);
-        date = new Date(_year, _month-1, _day, hours, minutes)
+        date = new Date(_year, _month - 1, _day, hours, minutes)
         date = Math.floor(date.getTime() / 1000); // Get Unix timestamp (in seconds)
         parsedData[j]['date'] = date
     }
@@ -30,7 +30,7 @@ function ct_parseData(data) {
 }
 
 function ct_getData() {
-    ajax(`https://app.shkolo.bg/ajax/diary/getControlTests?pupil_id=${pupil_id}`, 'GET', '', function(response) {
+    ajax(`https://app.shkolo.bg/ajax/diary/getControlTests?pupil_id=${pupil_id}`, 'GET', '', function (response) {
         const parser = new DOMParser()
         response = parser.parseFromString(response, 'text/html')
         response = response.getElementsByClassName('controlTestBody')[0].children[1].children[1]
@@ -64,7 +64,7 @@ function ct_DisplayData(data) {
             if (testDateTimestamp > currentTime) { // Only show upcoming tests
                 let testNode = document.createElement("div");
                 testNode.classList.add("rounded", "controlTest");
-                testNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid var(--border-primary);";
+                testNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid var(--primary-fg);";
 
                 let testTitle = document.createElement("a");
                 testTitle.innerHTML = sortedData[i]['title'];
@@ -129,15 +129,15 @@ function ct_main() {
     // Header buttons
     let headerButtons = document.createElement("div")
     headerButtons.classList.add("pull-right", "widget_buttons_row", "rounded")
-    
+
     let viewMore = document.createElement("a")
     viewMore.innerHTML = chrome.i18n.getMessage("ViewMore")
     viewMore.href = "https://app.shkolo.bg/diary#tab_control_test"
     viewMore.classList.add("pull-right", "widget_buttons", "rounded")
     headerButtons.appendChild(viewMore)
-    
+
     ct_getData()
-    
+
     /////////////////////////////////
     // Append the widget to the widgets row
     ct_Widget.children[0].children[2].remove() // Remove the widget footer if cleanUp is disabled

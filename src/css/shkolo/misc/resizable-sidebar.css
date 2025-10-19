@@ -11,5 +11,5 @@
 }
 
 .resizable-sidebar.resizer:hover {
-    background-color: var(--border-primary);
+    background-color: var(--primary-fg);
 }

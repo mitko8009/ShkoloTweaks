@@ -24,14 +24,14 @@ function sc_saveLocaly(data) {
             }
         }
     }
-    
+
     scheduleData = JSON.stringify(scheduleData)
     return scheduleData
 }
 
 function sc_fetchAndSave(displayDay) {
     weekDay = getWeekNumber().toString()
-    ajax(`https://app.shkolo.bg/ajax/diary/getScheduleForClass?pupil_id=${pupil_id}&year=${year.toString().slice(-2)}&week=${weekDay}`, 'GET', '', function(response) {
+    ajax(`https://app.shkolo.bg/ajax/diary/getScheduleForClass?pupil_id=${pupil_id}&year=${year.toString().slice(-2)}&week=${weekDay}`, 'GET', '', function (response) {
         const parser = new DOMParser();
         response = parser.parseFromString(response, 'text/html');
         response = response.getElementsByClassName('scheduleTable')[0];
@@ -59,8 +59,8 @@ function sc_DisplayDay(day, data) {
         if (Object.keys(dayData[i]).length > 0) {
             let classNode = document.createElement("div")
             classNode.classList.add("rounded", "scheduleClass")
-            classNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid var(--border-primary);"
-            
+            classNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid var(--primary-fg);"
+
             let classInfo = document.createElement("div")
             classInfo.classList.add("scheduleClassInfo")
 
@@ -74,7 +74,7 @@ function sc_DisplayDay(day, data) {
                 classTitle.innerHTML = classTitleDetails + "</i> " + classTitle.innerHTML
             }
             classInfo.appendChild(classTitle)
-    
+
             // Class Teacher (Ex. "Mrs. Raicheva", etc.)
             let classTeacher = document.createElement("span")
             classTeacher.innerHTML = " | " + dayData[i][1]
@@ -82,7 +82,7 @@ function sc_DisplayDay(day, data) {
             classInfo.appendChild(classTeacher)
 
             classNode.appendChild(classInfo)
-            
+
             let rightInfo = document.createElement("span")
             rightInfo.classList.add("pull-right")
 
@@ -120,8 +120,8 @@ function sc_main() {
     let weekday = WEEKDAYS[day]
 
     sc_Widget.className = "col-sm-6"
-    sc_Widget.children[0].className=`portlet portlet-sortable light bordered`
-    
+    sc_Widget.children[0].className = `portlet portlet-sortable light bordered`
+
     scheduleWidgetTitle = sc_Widget.children[0].children[0].children[0].children[1]
     scheduleWidgetContent = sc_Widget.children[0].children[1]
 
@@ -132,12 +132,12 @@ function sc_main() {
 
     scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule")
     sc_Widget.children[0].children[0].children[0].appendChild(getIcon("table"))
-    
+
     scheduleWidgetContent.style.fontSize = "14px"
     scheduleWidgetContent.style.fontWeight = "bold"
     scheduleWidgetContent.style.height = "auto"
     scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("Loading")
-    
+
     let headerButtons = document.createElement("div")
     headerButtons.classList.add("pull-right", "sc_buttons_row", "rounded")
 
@@ -160,7 +160,7 @@ function sc_main() {
     try {
         sc_fetchAndSave(weekday) // Fetch and save the schedule data
     } catch (e) {
-        console.error("Failed to fetch the Schedule data. Error: "+e)
+        console.error("Failed to fetch the Schedule data. Error: " + e)
         scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FailedToFetchSchedule")
     }
 
@@ -190,7 +190,7 @@ function sc_main() {
     headerButtons.appendChild(previousDay)
 
     sc_Widget.children[0].children[0].appendChild(headerButtons)
-    
+
     sc_Widget.children[0].children[2].remove() // Remove the widget footer
     WIDGETSROW.appendChild(sc_Widget)
 }
@@ -209,5 +209,5 @@ try {
         }
     })
 } catch (e) {
-    console.error("Failed to load the Schedule widget. Error: "+e)
+    console.error("Failed to load the Schedule widget. Error: " + e)
 }

@@ -1,11 +1,11 @@
 :root {
     /* Global Variables */
     --background-primary: #f5f5f5;
-    --border-primary: #4b77be;
+    --primary-fg: #4b77be;
     --background-alternate: #d3d3d3;
     --shkolo-primary: #4b77be;
     --accent-primary: #285caf;
-    --text-primary: #4b77be;
+    --primary-fg: #4b77be;
     --radius: 0;
 }
 

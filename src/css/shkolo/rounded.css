@@ -195,7 +195,7 @@ rect {
 }
 
 .icheckbox_square-blue, .iradio_square-blue {
-    outline: 2px solid var(--border-primary) !important;
+    outline: 2px solid var(--primary-fg) !important;
     outline-offset: -2px !important;
 }
 
