@@ -41,7 +41,7 @@
 }
 
 .widget_buttons:hover {
-    background: var(--shkolo-primary);
+    background: var(--primary-fg);
     color: white;
 }
 

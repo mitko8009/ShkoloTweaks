@@ -25,3 +25,22 @@ $(".options").each(function() {
         description.innerHTML = descriptionMessage
     }
 })
+
+// Theme label & description
+if ($("#theme_label").length) {
+    $("#theme_label").text(chrome.i18n.getMessage("theme") || "Theme")
+}
+if ($("#theme_description").length) {
+    $("#theme_description").text(chrome.i18n.getMessage("theme_description") || "")
+}
+
+// Search input i18n
+if ($("#settings_search").length) {
+    const placeholder = chrome.i18n.getMessage("search_settings") || "Search settings..."
+    $("#settings_search").attr("placeholder", placeholder)
+}
+if ($("#settings_search_clear").length) {
+    const txt = chrome.i18n.getMessage("clear") || "Clear"
+    $("#settings_search_clear").text("×")
+    $("#settings_search_clear").attr("title", txt)
+}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,13 +13,15 @@
         }
     </style>
 </head>
+
 <body style="width: 100%; height: 100%;">
     <div class="background"></div>
     <div class="bg_overlay"></div>
     <div id="box_popup_overlay" style="display: none;"></div>
     <div class="container" style="height: 100%;">
         <div class="logo has-text-centered mb-5">
-            <img src="../assets/LogoBanner.png" style="width: 200px; margin-bottom: -25px; margin-top: -16px;" alt="Shkolo Tweaks Logo" id="logo">
+            <img src="../assets/LogoBanner.png" style="width: 200px; margin-bottom: -25px; margin-top: -16px;"
+                alt="Shkolo Tweaks Logo" id="logo">
         </div>
         <div class="box-wrapper" style="width: 100%;">
             <div style="display: flex; flex-direction: row; gap: 16px; width: 100%;">
@@ -32,24 +35,6 @@
                     </div>
                 </div>
                 <div class="box">
-                    <h1 class="has-text-centered" style="margin-bottom: 8px; font-weight: bold; font-size: 16px;" id="Customizations"></h1>
-                    <div class="theme-toggle">
-                        <button id="lightTheme" class="active"></button>
-                        <span>|</span>
-                        <button id="darkTheme"></button>
-                    </div>
-                    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 12px;">
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="rounded">
-                            <label for="rounded"><img src="../assets/rounded.svg"></label>
-                        </div>
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="blur-data">
-                            <label for="blur-data"><img src="../assets/user-not-tracked.svg"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="box">
                     <h1 id="developer_settings"></h1>
                     <div class="options">
                         <input id="dev_tools" type="checkbox">
@@ -57,12 +42,66 @@
                         <label for="dev_tools" id="devTools"></label>
                         <p class="description" id="devTools_description"></p>
                     </div>
-                    <div style="display: flex; margin-top: 16px;"><p class="settings-button" id="chrome_storage" style="width: 100%; text-align: center;">Chrome Storage Editor</p></div>
+                    <div style="display: flex; margin-top: 16px;">
+                        <p class="settings-button" id="chrome_storage" style="width: 100%; text-align: center;">Chrome
+                            Storage Editor</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Search for settings -->
+            <div class="settings-search">
+                <div class="search-input-wrapper" role="search" aria-label="Search settings">
+                    <span class="search-icon" aria-hidden="true">🔍</span>
+                    <input id="settings_search" type="text" placeholder="Search settings..." autocomplete="off" />
+                    <button id="settings_search_clear" class="clear-btn" aria-label="Clear search"
+                        title="Clear">✕</button>
+                    <div id="settings_search_count" class="search-count empty" aria-live="polite"></div>
                 </div>
             </div>
             <div class="box">
                 <h1 id="shkolo_settings"></h1>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: .6rem;">
+                <div class="options no-toggle">
+                    <input id="theme_dummy" type="checkbox" style="display:none">
+                    <label for="theme_dummy" class="switch" style="display:none;"></label>
+                    <label id="theme_label" style="width: fit-content; margin-right: 0;"></label>
+                    <button id="open_custom_css" class="custom-css-btn" title="Custom CSS"
+                        aria-label="Open Custom CSS editor" style="margin-left:8px; vertical-align:middle;">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path
+                                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" />
+                        </svg>
+                        <span class="label" style="text-wrap: nowrap;">Custom CSS</span>
+                    </button>
+                    <p class="description" style="width: 100%;"></p>
+                    <div>
+                        <div class="theme-toggle-wrapper" style="display:flex; align-items:center; gap:8px;">
+                            <div class="theme-toggle" aria-label="Theme toggle" role="tablist">
+                                <button id="lightTheme" class="active" role="tab" aria-pressed="true"
+                                    title="Light theme"></button>
+                                <button id="darkTheme" role="tab" aria-pressed="false" title="Dark theme"></button>
+                            </div>
+                            <div class="custom-themes-inline"
+                                style="display:flex; gap:8px; flex-wrap:nowrap; align-items:center; text-wrap: nowrap;">
+                            </div>
+                            <button id="custom_themes_more_btn" class="custom-theme-more-btn"
+                                style="display:none; margin-left:6px;">More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="horizontal-options">
+                    <div class="options">
+                        <input id="rounded" type="checkbox">
+                        <label for="rounded" class="switch"></label>
+                        <label for="rounded" id="roundedLabel"></label>
+                        <p class="description" id="rounded_description"></p>
+                    </div>
+                    <div class="options">
+                        <input id="blur-data" type="checkbox">
+                        <label for="blur-data" class="switch"></label>
+                        <label for="blur-data" id="blurLabel"></label>
+                        <p class="description" id="blur_data_description"></p>
+                    </div>
                     <div class="options">
                         <input id="schedule" type="checkbox">
                         <label for="schedule" class="switch"></label>
@@ -111,7 +150,7 @@
             <!-- QoL Settings -->
             <div class="box">
                 <h1 id="qol_settings_title">QoL Settings</h1>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: .5rem;">
+                <div class="horizontal-options" style="margin-top: .5rem;">
                     <div class="options">
                         <input id="remove_ads" type="checkbox">
                         <label for="remove_ads" class="switch"></label>
@@ -163,7 +202,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Chrome Storage Editor -->
         <div class="box popup" id="chrome_storage_popup" style="display: none;">
             <div class="popup-header">
@@ -184,6 +223,56 @@
                 <div id="chrome_storage_result"></div>
             </div>
         </div>
+
+        <!-- Custom CSS Editor -->
+        <div class="box popup" id="custom_css_popup" style="display: none; max-width: 600px;">
+            <div class="popup-header">
+                <h1 class="popup-title">Custom Styles (CSS)</h1>
+            </div>
+            <p style="margin-bottom:8px;">Add custom CSS for the extension. Save to persist; Apply to preview in this
+                popup.</p>
+            <div class="popup-content" id="custom_css_content">
+                <textarea id="custom_css_textarea" placeholder="/* your css here */"
+                    style="width:100%; height:250px; font-family: monospace; font-size:13px; padding:8px; box-sizing:border-box;"></textarea>
+                <div style="display:flex; gap:8px; margin-top:8px;">
+                    <button id="custom_css_apply" class="button is-info">Apply</button>
+                    <button id="custom_css_save" class="button is-primary">Save</button>
+                    <button id="custom_css_reset" class="button is-warning">Reset</button>
+                    <button id="custom_css_export" class="button">Export</button>
+                    <button id="custom_css_close" class="button">Close</button>
+                </div>
+                <!-- Import file input (hidden) -->
+                <input id="custom_css_import_file" type="file" accept=".css,text/css" style="display:none" />
+                <div style="margin-top:8px; display:flex; gap:8px; align-items:center;">
+                    <button id="custom_css_import_btn" class="button is-light">WIP: Import .css</button>
+                    <span style="color:#666; font-size:12px;">You can import a .css file into the editor</span>
+                </div>
+                <!-- Export panel (hidden by default) -->
+                <div id="custom_css_export_panel"
+                    style="display:none; margin-top:10px; border-top:1px dashed #ddd; padding-top:10px;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <div style="font-weight:600;">Export custom theme</div>
+                    </div>
+                    <div style="display:flex; gap:8px;">
+                        <button id="custom_css_export_add" class="button is-primary">Add as custom theme</button>
+                        <button id="custom_css_export_file" class="button is-link">Download .css</button>
+                        <button id="custom_css_export_cancel" class="button">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- All Custom Themes Popup -->
+        <div class="box popup" id="custom_themes_popup" style="display: none; max-width: 600px;">
+            <div class="popup-header">
+                <h1 class="popup-title">Custom Themes</h1>
+                <button id="custom_themes_popup_close" class="button is-light">Close</button>
+            </div>
+            <div class="popup-content" id="custom_themes_list_popup"
+                style="display:flex; flex-wrap:wrap; gap:8px; padding-top:8px;">
+                <!-- Filled dynamically -->
+            </div>
+        </div>
     </div>
 
     <script src="../lib/jquery.min.js"></script>
@@ -191,4 +280,5 @@
     <script src="i18n.js"></script>
     <script src="settings.js"></script>
 </body>
+
 </html>
