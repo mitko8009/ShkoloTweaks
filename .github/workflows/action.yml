@@ -13,6 +13,7 @@ jobs:
     outputs:
       release: ${{ steps.check_version.outputs.release }}
       version: ${{ steps.manifest.outputs.version }}
+      latest_tag: ${{ steps.latest_release.outputs.latest_tag }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -38,6 +39,7 @@ jobs:
           BASE_VERSION=$(echo $LATEST | sed -E 's/^v//;s/-auto.*//')
           echo "Base version: $BASE_VERSION"
           echo "latest_version=$BASE_VERSION" >> $GITHUB_OUTPUT
+          echo "latest_tag=$LATEST" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -68,6 +70,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -89,11 +93,29 @@ jobs:
           zip -r ../../extension.zip .
           cd ../..
 
+      - name: Get commits since last release
+        id: commits
+        run: |
+          LAST_TAG="${{ needs.check-version.outputs.latest_tag }}"
+          if [ -z "$LAST_TAG" ] || [ "$LAST_TAG" == "none" ]; then
+            echo "No previous tag, listing all commits"
+            git --no-pager log --pretty=format:'- %s (%h) by %an' HEAD > /tmp/commits.txt || true
+          else
+            echo "Listing commits since $LAST_TAG"
+            git --no-pager log "${LAST_TAG}..HEAD" --pretty=format:'- %s (%h) by %an' > /tmp/commits.txt || true
+          fi
+          echo "commits<<EOF" >> $GITHUB_OUTPUT
+          cat /tmp/commits.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           name: v${{ needs.check-version.outputs.version }} - Auto Release - ${{ github.sha }}
           tag_name: v${{ needs.check-version.outputs.version }}-auto-${{ github.sha }}
+          body: |
+            Changes since last release (tag: ${{ needs.check-version.outputs.latest_tag }}):
+            ${{ steps.commits.outputs.commits }}
           files: extension.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
