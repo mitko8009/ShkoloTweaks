@@ -37,25 +37,28 @@ jobs:
           echo "Latest release tag: $LATEST"
           
           BASE_VERSION=$(echo $LATEST | sed -E 's/^v//;s/-auto.*//')
-          BASE_MINOR=$(echo "$BASE_VERSION" | cut -d. -f1,2)
-          echo "Base minor version: $BASE_MINOR"
-          echo "latest_minor=$BASE_MINOR" >> $GITHUB_OUTPUT
+          echo "Base version: $BASE_VERSION"
+          echo "latest_version=$BASE_VERSION" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check if minor version changed
+      - name: Check if version changed
         id: check_version
         run: |
           MANIFEST_VERSION="${{ steps.manifest.outputs.version }}"
-          MANIFEST_MINOR=$(echo "$MANIFEST_VERSION" | cut -d. -f1,2)
+          LATEST_VERSION="${{ steps.latest_release.outputs.latest_version }}"
 
-          echo "Manifest minor version: $MANIFEST_MINOR"
+          echo "Manifest version: $MANIFEST_VERSION"
+          echo "Latest release version: $LATEST_VERSION"
 
-          if [[ "$MANIFEST_MINOR" == "${{ steps.latest_release.outputs.latest_minor }}" ]]; then
-            echo "Minor version unchanged, skipping release."
+          if [[ "$LATEST_VERSION" == "none" ]]; then
+            echo "No previous release found, creating release."
+            echo "release=true" >> $GITHUB_OUTPUT
+          elif [[ "$MANIFEST_VERSION" == "$LATEST_VERSION" ]]; then
+            echo "Version unchanged, skipping release."
             echo "release=false" >> $GITHUB_OUTPUT
           else
-            echo "New minor version detected."
+            echo "New version detected."
             echo "release=true" >> $GITHUB_OUTPUT
           fi
 
