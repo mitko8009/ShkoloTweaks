@@ -286,7 +286,7 @@ chrome.storage.sync.get(['rounded', 'blur_data'], (result) => {
     const blur_data = result.blur_data || false
 
     $("#rounded").prop("checked", rounded)
-    $("#blur-data").prop("checked", blur_data)
+    $("#blur_data").prop("checked", blur_data)
 })
 
 $("#rounded").click(() => {
@@ -294,8 +294,8 @@ $("#rounded").click(() => {
     chrome.storage.sync.set({ rounded: rounded })
 })
 
-$("#blur-data").click(() => {
-    const blur_data = $("#blur-data").prop("checked")
+$("#blur_data").click(() => {
+    const blur_data = $("#blur_data").prop("checked")
     chrome.storage.sync.set({ blur_data: blur_data })
 })
 
