@@ -78,7 +78,7 @@ try {
         }
     })
 } catch (e) {
-    console.log("Error in stats.js: " + e)
+    if (DEBUG) console.log("Error in stats.js: " + e)
 }
 
 function stat_tracking() {

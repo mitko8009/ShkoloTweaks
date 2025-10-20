@@ -39,10 +39,7 @@ function main() {
     try {
         $("#sc-name-lbl").html($("#sc-name-lbl").html() + ` | ${manifest.name} v` + version);
         $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
-    } catch {
-        console.log("Login page footer fix failed")
-    }
-
+    } catch {}
 }  
 
 let globalResult;

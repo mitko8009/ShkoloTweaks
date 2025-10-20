@@ -60,12 +60,10 @@ function QoL() {
                 if (pageurl.endsWith("/profile")) {
                     emailElement = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > div.profile-content > div > div.portlet-body > div > div > form > div:nth-child(6) > div > p")
                     telElement = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > div.profile-content > div > div.portlet-body > div > div > form > div:nth-child(5) > div > p")
-                    console.log(emailElement)
                 } else if (pageurl.includes("/profile/data/view")) {
                     emailElement = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > div > div > div.portlet-body.form > form > div > div:nth-child(2) > div:nth-child(2) > div > div > p")
                     telElement = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > div > div > div.portlet-body.form > form > div > div:nth-child(4) > div:nth-child(2) > div > div > p")
                 }
-                console.log(emailElement)
 
                 if (emailElement !== null) {
                     email = emailElement.innerHTML
@@ -176,7 +174,7 @@ function QoL() {
         let UnixTimestamp = dateObj ? Math.floor(dateObj.getTime() / 1000) : convertToUnixTimestamp(dateElementText);
         let daysSinceTimestamp = Math.floor((Date.now() / 1000 - UnixTimestamp) / 86400);
 
-        console.debug(`[${manifest.name} v${version}][QoL]: Converting date "${dateElementText}" to "${formattedDate}" to Unix Timestamp: ${UnixTimestamp} (${daysSinceTimestamp} days ago)`);
+        if (DEBUG) console.debug(`[${manifest.name} v${version}][QoL]: Converting date "${dateElementText}" to "${formattedDate}" to Unix Timestamp: ${UnixTimestamp} (${daysSinceTimestamp} days ago)`);
 
         table[i].children[columnIndex].innerHTML += `<span style="margin-left: .8rem; filter: brightness(0.8);">(${chrome.i18n.getMessage("DaysAgo").replace("%s", daysSinceTimestamp)})</span>`;
     }
@@ -601,7 +599,7 @@ function QoL() {
             if (!arrKeys.includes(key)) {
                 arr.push(model);
                 chrome.storage.sync.set({ saved_device_models: arr }, () => {
-                    console.debug(`[${manifest.name} v${version}][QoL]: Saved device model "${model}"`);
+                    if (DEBUG) console.debug(`[${manifest.name} v${version}][QoL]: Saved device model "${model}"`);
                     if (typeof callback === "function") callback();
                 });
             } else {
@@ -622,7 +620,7 @@ function QoL() {
             if (!arrKeys.includes(key)) {
                 arr.push(browser);
                 chrome.storage.sync.set({ saved_browsers: arr }, () => {
-                    console.debug(`[${manifest.name} v${version}][QoL]: Saved browser "${browser}"`);
+                    if (DEBUG) console.debug(`[${manifest.name} v${version}][QoL]: Saved browser "${browser}"`);
                     if (typeof callback === "function") callback();
                 });
             } else {
@@ -644,7 +642,7 @@ function QoL() {
             if (!arrKeys.includes(key)) {
                 arr.push(ip);
                 chrome.storage.sync.set({ saved_ips: arr }, () => {
-                    console.debug(`[${manifest.name} v${version}][QoL]: Saved IP "${ip}"`);
+                    if (DEBUG) console.debug(`[${manifest.name} v${version}][QoL]: Saved IP "${ip}"`);
                     if (typeof callback === "function") callback();
                 });
             } else {
@@ -662,7 +660,7 @@ function QoL() {
             const newArr = arr.filter(item => normalizeKey(item) !== norm);
             if (newArr.length !== arr.length) {
                 chrome.storage.sync.set({ [keyName]: newArr }, () => {
-                    console.debug(`[${manifest.name} v${version}][QoL]: Removed ${type.slice(0, -1)} "${value}"`);
+                    if (DEBUG) console.debug(`[${manifest.name} v${version}][QoL]: Removed ${type.slice(0, -1)} "${value}"`);
                     if (typeof callback === "function") callback();
                 });
             } else {

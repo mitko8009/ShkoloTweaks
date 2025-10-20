@@ -17,7 +17,7 @@ function checkTheme() {
             script.src = chrome.runtime.getURL(`themes/__mon__/${theme}/script.js`)
             script.type = "text/javascript"
             document.getElementsByTagName("head")[0].appendChild(script)
-        } catch { console.warn("Failed to load script.js for the theme.") }
+        } catch { if (DEBUG) console.warn("Failed to load script.js for the theme.") }
 
         return
     }
