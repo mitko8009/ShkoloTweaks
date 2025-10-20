@@ -12,9 +12,8 @@
             width: 45%;
         }
     </style>
-</head>
-
-<body style="width: 100%; height: 100%;">
+</head>`
+<body>
     <div class="background"></div>
     <div class="bg_overlay"></div>
     <div id="box_popup_overlay" style="display: none;"></div>
@@ -24,30 +23,6 @@
                 alt="Shkolo Tweaks Logo" id="logo">
         </div>
         <div class="box-wrapper" style="width: 100%;">
-            <div style="display: flex; flex-direction: row; gap: 16px; width: 100%;">
-                <div class="box">
-                    <h1 id="popup_settings"></h1>
-                    <div class="options">
-                        <input id="autoRefresh" type="checkbox">
-                        <label for="autoRefresh" class="switch"></label>
-                        <label for="autoRefresh" id="auto_refresh"></label>
-                        <p class="description" id="auto_refresh_description"></p>
-                    </div>
-                </div>
-                <div class="box">
-                    <h1 id="developer_settings"></h1>
-                    <div class="options">
-                        <input id="dev_tools" type="checkbox">
-                        <label for="dev_tools" class="switch"></label>
-                        <label for="dev_tools" id="devTools"></label>
-                        <p class="description" id="devTools_description"></p>
-                    </div>
-                    <div style="display: flex; margin-top: 16px;">
-                        <p class="settings-button" id="chrome_storage" style="width: 100%; text-align: center;">Chrome
-                            Storage Editor</p>
-                    </div>
-                </div>
-            </div>
             <!-- Search for settings -->
             <div class="settings-search">
                 <div class="search-input-wrapper" role="search" aria-label="Search settings">
@@ -75,16 +50,16 @@
                     <p class="description" style="width: 100%;"></p>
                     <div>
                         <div class="theme-toggle-wrapper" style="display:flex; align-items:center; gap:8px;">
-                            <div class="theme-toggle" aria-label="Theme toggle" role="tablist">
-                                <button id="lightTheme" class="active" role="tab" aria-pressed="true"
-                                    title="Light theme"></button>
-                                <button id="darkTheme" role="tab" aria-pressed="false" title="Dark theme"></button>
-                            </div>
                             <div class="custom-themes-inline"
                                 style="display:flex; gap:8px; flex-wrap:nowrap; align-items:center; text-wrap: nowrap;">
                             </div>
                             <button id="custom_themes_more_btn" class="custom-theme-more-btn"
                                 style="display:none; margin-left:6px;">More</button>
+                            <div class="theme-toggle" aria-label="Theme toggle" role="tablist">
+                                <button id="lightTheme" class="active" role="tab" aria-pressed="true"
+                                    title="Light theme"></button>
+                                <button id="darkTheme" role="tab" aria-pressed="false" title="Dark theme"></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,16 +108,10 @@
                         <p class="description" id="noAvatars_description"></p>
                     </div>
                     <div class="options">
-                        <input id="year_countdown" type="checkbox">
-                        <label for="year_countdown" class="switch"></label>
-                        <label for="year_countdown" id="yearCountdown"></label>
-                        <p class="description" id="yearCountdown_description"></p>
-                    </div>
-                    <div class="options">
-                        <input id="stats_panel" type="checkbox">
-                        <label for="stats_panel" class="switch"></label>
-                        <label for="stats_panel" id="statsPanel"></label>
-                        <p class="description" id="statsPanel_description"></p>
+                        <input id="autoRefresh" type="checkbox">
+                        <label for="autoRefresh" class="switch"></label>
+                        <label for="autoRefresh" id="auto_refresh"></label>
+                        <p class="description" id="auto_refresh_description"></p>
                     </div>
                 </div>
             </div>
@@ -201,10 +170,42 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Beta Features -->
+            <div class="box">
+                <h1 id="beta_features_title">Experimental Features</h1>
+                <div class="horizontal-options" style="margin-top: .5rem;">
+                    <div class="options">
+                        <input id="year_countdown" type="checkbox">
+                        <label for="year_countdown" class="switch"></label>
+                        <label for="year_countdown" id="yearCountdown"></label>
+                        <p class="description" id="yearCountdown_description"></p>
+                    </div>
+                    <div class="options">
+                        <input id="stats_panel" type="checkbox">
+                        <label for="stats_panel" class="switch"></label>
+                        <label for="stats_panel" id="statsPanel"></label>
+                        <p class="description" id="statsPanel_description"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <h1 id="developer_settings"></h1>
+                <div class="options">
+                    <input id="dev_tools" type="checkbox">
+                    <label for="dev_tools" class="switch"></label>
+                    <label for="dev_tools" id="devTools"></label>
+                    <p class="description" id="devTools_description"></p>
+                </div>
+                <div style="display: flex; margin-top: 16px;">
+                    <p class="settings-button" id="chrome_storage" style="width: 100%; text-align: center;">Chrome Storage Editor</p>
+                </div>
+            </div>
         </div>
 
         <!-- Chrome Storage Editor -->
-        <div class="box popup" id="chrome_storage_popup" style="display: none;">
+        <div class="box popup" id="chrome_storage_popup" style="display: none; max-width: 900px;">
             <div class="popup-header">
                 <h1 class="popup-title">Chrome Storage Editor</h1>
             </div>

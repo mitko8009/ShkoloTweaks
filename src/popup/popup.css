@@ -1,11 +1,10 @@
 body {
-    color: #fff;
     padding: 20px;
 }
 
 .background {
     background: linear-gradient(135deg, #5d8bf7, #a3c1fc);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -23,8 +22,8 @@ body {
 
 .bg_overlay,
 #box_popup_overlay {
-    background: #000b2c;
-    position: absolute;
+    background: #000b2cc9;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -52,10 +51,10 @@ body {
 }
 
 .box.popup {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -25%);
+    transform: translate(-50%, -50%);
     background: #fff;
     border-radius: .5rem;
     padding: 20px;
@@ -316,6 +315,7 @@ input:checked + .switch::after {
 #chrome_storage_result {
     overflow-y: auto;
     max-height: 60vh;
+    min-width: 100%;
 }
 
 table {
@@ -538,10 +538,6 @@ body.dark-theme .custom-css-btn {
     background: #f8fafc;
     border-color: #e5e7eb;
     color: #0b1220;
-}
-
-.theme-toggle {
-    margin-right: 8px;
 }
 
 .horizontal-options {
