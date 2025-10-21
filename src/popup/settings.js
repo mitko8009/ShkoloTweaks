@@ -14,6 +14,14 @@ function applyTheme(theme) {
     }
 }
 
+// New helper: pick correct storage (local vs sync) based on disable_theme_sync
+function withThemeStorage(cb) {
+    chrome.storage.local.get({ disable_theme_sync: false }, (r) => {
+        const store = r.disable_theme_sync ? chrome.storage.local : chrome.storage.sync;
+        cb(store);
+    });
+}
+
 chrome.storage.sync.get(null, (result) => {
     const autoRefresh = result.autoRefresh ?? false
     $("#autoRefresh").prop("checked", autoRefresh)
@@ -108,20 +116,21 @@ const lightThemeBtn = document.getElementById('lightTheme')
 const darkThemeBtn = document.getElementById('darkTheme')
 const body = document.body
 
-// initialize from storage.theme (base)
-chrome.storage.sync.get(['theme'], (res) => {
-    const t = res.theme || 'light';
-    applyTheme(t);
+withThemeStorage((store) => {
+    store.get(['theme'], (res) => {
+        const t = res.theme || 'light';
+        applyTheme(t);
+    });
 });
 
 lightThemeBtn.addEventListener('click', () => {
     applyTheme('light');
-    chrome.storage.sync.set({ theme: 'light' });
+    withThemeStorage((store) => store.set({ theme: 'light' }));
 });
 
 darkThemeBtn.addEventListener('click', () => {
     applyTheme('dark');
-    chrome.storage.sync.set({ theme: 'dark' });
+    withThemeStorage((store) => store.set({ theme: 'dark' }));
 });
 
 let editingThemeId = null;
@@ -133,86 +142,89 @@ function renderCustomThemeButtons() {
     if (!list) return;
     list.querySelectorAll(".custom-theme-btn").forEach(n => n.remove());
 
-    chrome.storage.sync.get(['custom_themes', 'theme', 'active_custom_themes'], (res) => {
-        const themes = res.custom_themes || [];
-        const currentTheme = res.theme || 'light';
-        const activeIds = new Set((res.active_custom_themes || []).map(String));
+    withThemeStorage((store) => {
+        store.get(['custom_themes', 'theme', 'active_custom_themes'], (res) => {
+            const themes = res.custom_themes || [];
+            const currentTheme = res.theme || 'light';
+            const activeIds = new Set((res.active_custom_themes || []).map(String));
 
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            darkThemeBtn.classList.add('active');
-            lightThemeBtn.classList.remove('active');
-        } else if (typeof currentTheme === 'string' && currentTheme.startsWith('custom:')) {
-            lightThemeBtn.classList.remove('active');
-            darkThemeBtn.classList.remove('active');
-            document.body.classList.remove('dark-theme');
-        } else {
-            document.body.classList.remove('dark-theme');
-            lightThemeBtn.classList.add('active');
-            darkThemeBtn.classList.remove('active');
-        }
+            if (currentTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                darkThemeBtn.classList.add('active');
+                lightThemeBtn.classList.remove('active');
+            } else if (typeof currentTheme === 'string' && currentTheme.startsWith('custom:')) {
+                lightThemeBtn.classList.remove('active');
+                darkThemeBtn.classList.remove('active');
+                document.body.classList.remove('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+                lightThemeBtn.classList.add('active');
+                darkThemeBtn.classList.remove('active');
+            }
 
-        themes.slice(0, MAX_INLINE).forEach(t => {
-            const id = String(t.created);
-            if (list.querySelector(`.custom-theme-btn[data-custom-id="${CSS.escape(id)}"]`)) return;
+            themes.slice(0, MAX_INLINE).forEach(t => {
+                const id = String(t.created);
+                if (list.querySelector(`.custom-theme-btn[data-custom-id="${CSS.escape(id)}"]`)) return;
 
-            const btn = document.createElement("button");
-            btn.className = "custom-theme-btn";
-            btn.textContent = t.name;
-            btn.dataset.customId = id;
-            if (!list.classList.contains("theme-toggle")) btn.style.marginLeft = "6px";
+                const btn = document.createElement("button");
+                btn.className = "custom-theme-btn";
+                btn.textContent = t.name;
+                btn.dataset.customId = id;
+                if (!list.classList.contains("theme-toggle")) btn.style.marginLeft = "6px";
 
-            if (activeIds.has(id)) btn.classList.add('active');
+                if (activeIds.has(id)) btn.classList.add('active');
 
-            btn.addEventListener("dblclick", (e) => {
-                e.preventDefault();
-                editingThemeId = id;
-                $("#custom_css_textarea").val(t.css || "");
-                setCustomCssPreview(t.css || "");
-                showPopup($("#custom_css_popup"));
-            });
-
-            btn.addEventListener("click", () => {
-                toggleCustomThemeId(id, (newArr) => {
-                    const isActive = newArr.map(String).includes(id);
-                    if (isActive) btn.classList.add('active'); else btn.classList.remove('active');
-                    // re-render to keep consistency
-                    renderCustomThemeButtons();
+                btn.addEventListener("dblclick", (e) => {
+                    e.preventDefault();
+                    editingThemeId = id;
+                    $("#custom_css_textarea").val(t.css || "");
+                    setCustomCssPreview(t.css || "");
+                    showPopup($("#custom_css_popup"));
                 });
-            });
 
-            btn.addEventListener("contextmenu", (e) => {
-                e.preventDefault();
-                if (!confirm(`Remove custom theme "${t.name}"?`)) return;
-                chrome.storage.sync.get({ custom_themes: [], theme: 'light' }, (r) => {
-                    const newArr = (r.custom_themes || []).filter(x => String(x.created) !== id);
-                    const prevTheme = r.theme;
-                    chrome.storage.sync.set({ custom_themes: newArr }, () => {
-                        if (prevTheme === `custom:${id}`) {
-                            chrome.storage.sync.set({ theme: 'light' }, () => renderCustomThemeButtons());
-                        } else {
-                            renderCustomThemeButtons();
-                        }
+                btn.addEventListener("click", () => {
+                    toggleCustomThemeId(id, (newArr) => {
+                        const isActive = newArr.map(String).includes(id);
+                        if (isActive) btn.classList.add('active'); else btn.classList.remove('active');
+                        renderCustomThemeButtons();
                     });
                 });
+
+                btn.addEventListener("contextmenu", (e) => {
+                    e.preventDefault();
+                    if (!confirm(`Remove custom theme "${t.name}"?`)) return;
+                    withThemeStorage((store2) => {
+                        store2.get({ custom_themes: [], theme: 'light', active_custom_themes: [] }, (r) => {
+                            const newArr = (r.custom_themes || []).filter(x => String(x.created) !== id);
+                            const prevTheme = r.theme;
+                            store2.set({ custom_themes: newArr }, () => {
+                                if (prevTheme === `custom:${id}`) {
+                                    store2.set({ theme: 'light' }, () => renderCustomThemeButtons());
+                                } else {
+                                    renderCustomThemeButtons();
+                                }
+                            });
+                        });
+                    });
+                });
+
+                list.appendChild(btn);
             });
 
-            list.appendChild(btn);
-        });
-
-        if (moreBtn) {
-            if (themes.length > MAX_INLINE) {
-                moreBtn.style.display = "inline-flex";
-                moreBtn.onclick = () => {
-                    renderCustomThemesPopup(themes, activeIds);
-                    $("#custom_themes_popup").show();
-                    $("#box_popup_overlay").show();
-                };
-            } else {
-                moreBtn.style.display = "none";
-                moreBtn.onclick = null;
+            if (moreBtn) {
+                if (themes.length > MAX_INLINE) {
+                    moreBtn.style.display = "inline-flex";
+                    moreBtn.onclick = () => {
+                        renderCustomThemesPopup(themes, activeIds);
+                        $("#custom_themes_popup").show();
+                        $("#box_popup_overlay").show();
+                    };
+                } else {
+                    moreBtn.style.display = "none";
+                    moreBtn.onclick = null;
+                }
             }
-        }
+        });
     });
 }
 
@@ -249,21 +261,21 @@ function renderCustomThemesPopup(themes, activeIdsSet) {
         btn.addEventListener("contextmenu", (e) => {
             e.preventDefault();
             if (!confirm(`Remove custom theme "${t.name}"?`)) return;
-            chrome.storage.sync.get({ custom_themes: [], theme: 'light' }, (r) => {
-                const newArr = (r.custom_themes || []).filter(x => String(x.created) !== id);
-                const prevTheme = r.theme;
-                chrome.storage.sync.set({ custom_themes: newArr }, () => {
-                    if (prevTheme === `custom:${id}`) {
-                        chrome.storage.sync.set({ theme: 'light' }, () => {
-                            renderCustomThemesPopup(newArr, new Set([]));
-                            // update inline buttons as well
+            withThemeStorage((store2) => {
+                store2.get({ custom_themes: [], theme: 'light', active_custom_themes: [] }, (r) => {
+                    const newArr = (r.custom_themes || []).filter(x => String(x.created) !== id);
+                    const prevTheme = r.theme;
+                    store2.set({ custom_themes: newArr }, () => {
+                        if (prevTheme === `custom:${id}`) {
+                            store2.set({ theme: 'light' }, () => {
+                                renderCustomThemesPopup(newArr, new Set([]));
+                                renderCustomThemeButtons();
+                            });
+                        } else {
+                            renderCustomThemesPopup(newArr, new Set((r.active_custom_themes || []).map(String)));
                             renderCustomThemeButtons();
-                        });
-                    } else {
-                        renderCustomThemesPopup(newArr, new Set((r.active_custom_themes || []).map(String)));
-                        // update inline buttons as well
-                        renderCustomThemeButtons();
-                    }
+                        }
+                    });
                 });
             });
         });
@@ -275,7 +287,6 @@ function renderCustomThemesPopup(themes, activeIdsSet) {
     if (closeBtn) closeBtn.onclick = () => {
         $("#custom_themes_popup").hide();
         $("#box_popup_overlay").hide();
-        // refresh inline/custom buttons to reflect any changes made in the popup
         renderCustomThemeButtons();
     };
 }
@@ -539,50 +550,55 @@ $("#custom_css_save").on("click", function () {
     const old = btn.text()
 
     if (editingThemeId) {
-        chrome.storage.sync.get({ custom_themes: [] }, (res) => {
-            const arr = res.custom_themes || []
-            const idx = arr.findIndex(t => String(t.created) === String(editingThemeId))
-            if (idx !== -1) {
-                arr[idx].css = String(css)
-                chrome.storage.sync.set({ custom_themes: arr }, () => {
-                    btn.text("Updated")
-                    setTimeout(() => btn.text(old), 1000)
-                    editingThemeId = null
-                    $("#custom_css_popup").hide()
-                    $("#box_popup_overlay").hide()
-                    setCustomCssPreview("")
-                    renderCustomThemeButtons()
-                })
-            } else {
-                chrome.storage.sync.set({ custom_css: css }, () => {
-                    btn.text("Saved")
-                    setTimeout(() => btn.text(old), 1000)
-                })
-            }
+        withThemeStorage((store) => {
+            store.get({ custom_themes: [] }, (res) => {
+                const arr = res.custom_themes || []
+                const idx = arr.findIndex(t => String(t.created) === String(editingThemeId))
+                if (idx !== -1) {
+                    arr[idx].css = String(css)
+                    store.set({ custom_themes: arr }, () => {
+                        btn.text("Updated")
+                        setTimeout(() => btn.text(old), 1000)
+                        editingThemeId = null
+                        $("#custom_css_popup").hide()
+                        $("#box_popup_overlay").hide()
+                        setCustomCssPreview("")
+                        renderCustomThemeButtons()
+                    })
+                } else {
+                    store.set({ custom_css: css }, () => {
+                        btn.text("Saved")
+                        setTimeout(() => btn.text(old), 1000)
+                    })
+                }
+            })
         })
         return
     }
 
-    chrome.storage.sync.set({ custom_css: css }, () => {
-        btn.text("Saved")
-        setTimeout(() => btn.text(old), 1000)
+    withThemeStorage((store) => {
+        store.set({ custom_css: css }, () => {
+            btn.text("Saved")
+            setTimeout(() => btn.text(old), 1000)
+        })
     })
 })
 
 // Reset
 $("#custom_css_reset").on("click", function () {
     if (!confirm("Reset custom CSS? This will remove saved custom styles.")) return
-    chrome.storage.sync.remove(['custom_css'], () => {
-        $("#custom_css_textarea").val("")
-        setCustomCssPreview("")
-        editingThemeId = null
-    })
+    withThemeStorage((store) => {
+        store.remove(['custom_css'], () => {
+            $("#custom_css_textarea").val("")
+            setCustomCssPreview("")
+            editingThemeId = null
+        })
+    });
 })
 
 $("#custom_css_close").on("click", function () {
     $("#custom_css_popup").hide()
     $("#box_popup_overlay").hide()
-    // keep preview removed on close
     const el = document.getElementById('custom_css_preview')
     if (el) el.remove()
     editingThemeId = null
@@ -612,12 +628,14 @@ $("#custom_css_export_add").on("click", function () {
     const name = prompt("Theme name (for your custom themes):", "Custom theme")
     if (!name) return
 
-    chrome.storage.sync.get({ custom_themes: [] }, (res) => {
-        const arr = res.custom_themes || []
-        arr.push({ name: String(name), css: css, created: Date.now() })
-        chrome.storage.sync.set({ custom_themes: arr }, () => {
-            alert("Custom theme added.")
-            $("#custom_css_export_panel").hide()
+    withThemeStorage((store) => {
+        store.get({ custom_themes: [] }, (res) => {
+            const arr = res.custom_themes || []
+            arr.push({ name: String(name), css: css, created: Date.now() })
+            store.set({ custom_themes: arr }, () => {
+                alert("Custom theme added.")
+                $("#custom_css_export_panel").hide()
+            })
         })
     })
 })
@@ -642,13 +660,15 @@ $("#custom_css_export_file").on("click", function () {
 })
 
 function toggleCustomThemeId(id, cb) {
-    chrome.storage.sync.get({ active_custom_themes: [] }, (res) => {
-        const arr = new Set(res.active_custom_themes.map(String));
-        const sid = String(id);
-        if (arr.has(sid)) arr.delete(sid); else arr.add(sid);
-        const newArr = Array.from(arr);
-        chrome.storage.sync.set({ active_custom_themes: newArr }, () => {
-            cb && cb(newArr);
+    withThemeStorage((store) => {
+        store.get({ active_custom_themes: [] }, (res) => {
+            const arr = new Set((res.active_custom_themes || []).map(String));
+            const sid = String(id);
+            if (arr.has(sid)) arr.delete(sid); else arr.add(sid);
+            const newArr = Array.from(arr);
+            store.set({ active_custom_themes: newArr }, () => {
+                cb && cb(newArr);
+            });
         });
     });
 }
