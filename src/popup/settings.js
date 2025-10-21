@@ -313,14 +313,14 @@ $("#blur_data").click(() => {
 $("#chrome_storage").click(() => {
     showPopup($("#chrome_storage_popup"))
 
-    chrome.storage.sync.get(null, (result) => {
-        updateStorageTable(result)
+    fetchAllStorages((all) => {
+        updateStorageTable(all)
     })
 })
 
 $("#chrome_storage_update_button").click(() => {
-    chrome.storage.sync.get(null, (result) => {
-        updateStorageTable(result)
+    fetchAllStorages((all) => {
+        updateStorageTable(all)
     })
 })
 
@@ -362,14 +362,118 @@ $("#chrome_storage_clear_button").click(() => {
     }
 })
 
-function updateStorageTable(data) {
-    let tableContent = "<table><thead><tr><th>Key</th><th>Value</th></tr></thead><tbody>"
-    for (const [key, value] of Object.entries(data)) {
-        tableContent += `<tr><td>${key}</td><td>${JSON.stringify(value)}</td></tr>`
-    }
-    tableContent += "</tbody></table>"
+function updateStorageTable(allData) {
+    const storagesOrder = ['managed', 'session', 'local', 'sync'];
+    const allKeys = new Set();
+    storagesOrder.forEach(s => {
+        const obj = allData[s] || {};
+        Object.keys(obj).forEach(k => allKeys.add(k));
+    });
+
+    let tableContent = "<table><thead><tr><th>Key</th><th>Value</th><th>Storage</th><th>Actions</th></tr></thead><tbody>";
+    allKeys.forEach(key => {
+        let displayVal = undefined;
+        for (const s of storagesOrder) {
+            const obj = allData[s] || {};
+            if (Object.prototype.hasOwnProperty.call(obj, key)) {
+                displayVal = obj[key];
+                break;
+            }
+        }
+        const pretty = typeof displayVal === 'string' ? displayVal : JSON.stringify(displayVal);
+
+        // storage badges
+        const presentIn = storagesOrder.filter(s => {
+            const obj = allData[s] || {};
+            return Object.prototype.hasOwnProperty.call(obj, key);
+        });
+
+        const storageBadges = presentIn.map(s => `<span class="storage-badge ${s}">${s}</span>`).join(' ');
+
+        let actionHtml = '';
+        presentIn.forEach(s => {
+            const obj = allData[s] || {};
+            const val = obj[key];
+            if (typeof val === 'boolean') {
+                actionHtml += `<button class="reverse-btn" data-key="${escapeHtmlAttr(key)}" data-store="${s}">Reverse</button>`;
+            }
+        });
+
+        tableContent += `<tr><td>${storageBadges}</td><td>${escapeHtml(key)}</td><td>${escapeHtml(pretty)}</td><td>${actionHtml}</td></tr>`;
+    });
+
+    tableContent += "</tbody></table>";
     $("#chrome_storage_result").html(tableContent)
 }
+
+function fetchAllStorages(callback) {
+    const stores = ['managed', 'session', 'local', 'sync'];
+    const results = {};
+    let pending = stores.length;
+
+    stores.forEach(storeName => {
+        if (!chrome.storage[storeName]) {
+            // storage area not available in this runtime (e.g., session or managed)
+            results[storeName] = {};
+            if (--pending === 0) callback(results);
+            return;
+        }
+        try {
+            chrome.storage[storeName].get(null, (res) => {
+                results[storeName] = res || {};
+                if (--pending === 0) callback(results);
+            });
+        } catch (e) {
+            results[storeName] = {};
+            if (--pending === 0) callback(results);
+        }
+    });
+}
+
+// utility to escape HTML
+function escapeHtml(str) {
+    if (str === undefined || str === null) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+function escapeHtmlAttr(str) {
+    return escapeHtml(str).replace(/"/g, '&quot;');
+}
+
+$(document).on('click', '.reverse-btn', function () {
+    const key = $(this).data('key')
+    const storeName = $(this).data('store')
+    if (!key || !storeName) return
+
+    const storeArea = chrome.storage[storeName]
+    if (!storeArea) {
+        alert(`Storage area "${storeName}" is not available.`)
+        return
+    }
+
+    try {
+        storeArea.get([key], (res) => {
+            const current = res ? res[key] : undefined
+            if (typeof current !== 'boolean') {
+                alert('Value is not a boolean in that storage area.')
+                return
+            }
+            const newVal = !current
+            storeArea.set({ [key]: newVal }, () => {
+                // refresh the table after update
+                fetchAllStorages((all) => {
+                    updateStorageTable(all)
+                })
+            })
+        })
+    } catch (e) {
+        alert('Failed to access storage area: ' + storeName)
+    }
+})
 
 //popup system
 let activePopup = null

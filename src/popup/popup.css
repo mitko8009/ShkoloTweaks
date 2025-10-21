@@ -315,7 +315,7 @@ input:checked + .switch::after {
 #chrome_storage_result {
     overflow-y: auto;
     max-height: 60vh;
-    min-width: 100%;
+    /* min-width: 100%; */
 }
 
 table {
@@ -608,4 +608,37 @@ body.dark-theme .custom-css-btn {
 
 #custom_themes_list_popup .custom-theme-btn {
     margin: 4px;
+}
+
+.storage-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    margin-right: 6px;
+    margin-bottom: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.storage-badge.sync { background: #0b5fff; }
+.storage-badge.local { background: #10b981; }
+.storage-badge.managed { background: #f97316; }
+.storage-badge.session { background: #6b7280; }
+
+.reverse-btn {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.06);
+    background: #fff;
+    cursor: pointer;
+    margin: 2px;
+}
+.reverse-btn:hover {
+    background: #f3f4f6;
+}
+.reverse-btn:active {
+    transform: translateY(1px);
 }
