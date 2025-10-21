@@ -14,6 +14,65 @@ function applyTheme(theme) {
     }
 }
 
+function getThemeData(keys, cb) {
+    chrome.storage.local.get({ disable_theme_sync: false }, (r) => {
+        const disable = !!r.disable_theme_sync;
+        const syncKeys = [];
+        const localKeys = [];
+
+        keys.forEach(k => {
+            if ((k === 'active_custom_themes' || k === 'theme') && disable) localKeys.push(k);
+            else syncKeys.push(k);
+        });
+
+        let results = {};
+        let pending = 0;
+        if (syncKeys.length) {
+            pending++;
+            chrome.storage.sync.get(syncKeys, (resSync) => {
+                results = Object.assign(results, resSync || {});
+                if (--pending === 0) cb(results);
+            });
+        }
+        if (localKeys.length) {
+            pending++;
+            chrome.storage.local.get(localKeys, (resLocal) => {
+                results = Object.assign(results, resLocal || {});
+                if (--pending === 0) cb(results);
+            });
+        }
+        if (pending === 0) cb(results);
+    });
+}
+
+function setThemeData(obj, cb) {
+    chrome.storage.local.get({ disable_theme_sync: false }, (r) => {
+        const disable = !!r.disable_theme_sync;
+        const syncObj = {};
+        const localObj = {};
+
+        Object.keys(obj).forEach(k => {
+            if ((k === 'active_custom_themes' || k === 'theme') && disable) localObj[k] = obj[k];
+            else syncObj[k] = obj[k];
+        });
+
+        let pending = 0;
+        if (Object.keys(syncObj).length) {
+            pending++;
+            chrome.storage.sync.set(syncObj, () => {
+                if (--pending === 0) cb && cb();
+            });
+        }
+        if (Object.keys(localObj).length) {
+            pending++;
+            chrome.storage.local.set(localObj, () => {
+                if (--pending === 0) cb && cb();
+            });
+        }
+        if (pending === 0) cb && cb();
+    });
+}
+
 // New helper: pick correct storage (local vs sync) based on disable_theme_sync
 function withThemeStorage(cb) {
     chrome.storage.local.get({ disable_theme_sync: false }, (r) => {
@@ -52,7 +111,7 @@ chrome.storage.sync.get(null, (result) => {
 
     const no_avatars = result.no_avatars ?? false
     $("#no_avatars").prop("checked", no_avatars)
-    tagSetting("no_avatars", chrome.i18n.getMessage("new"), "#0d50e2")
+    // tagSetting("no_avatars", chrome.i18n.getMessage("new"), "#0d50e2")
 
     // QoL settings (new)
     const remove_ads = result.remove_ads ?? true
@@ -61,7 +120,7 @@ chrome.storage.sync.get(null, (result) => {
     const load_qol_css = result.load_qol_css ?? true
     $("#load_qol_css").prop("checked", load_qol_css)
 
-    const email_and_tel = result.email_and_tel ?? true
+    const email_and_tel = result.email_and_tel ?? false
     $("#email_and_tel").prop("checked", email_and_tel)
 
     const messages_background_fix = result.messages_background_fix ?? true
@@ -72,12 +131,15 @@ chrome.storage.sync.get(null, (result) => {
 
     const inapp_ext_settings = result.inapp_ext_settings ?? true
     $("#inapp_ext_settings").prop("checked", inapp_ext_settings)
+    tagSetting("inapp_ext_settings", chrome.i18n.getMessage("new"), "#0d50e2")
 
     const move_logout_button = result.move_logout_button ?? true
     $("#move_logout_button").prop("checked", move_logout_button)
+    tagSetting("move_logout_button", chrome.i18n.getMessage("new"), "#0d50e2")
 
-    const trusted_devices_logins = result.trusted_devices_logins ?? true
+    const trusted_devices_logins = result.trusted_devices_logins ?? false
     $("#trusted_devices_logins").prop("checked", trusted_devices_logins)
+    tagSetting("trusted_devices_logins", chrome.i18n.getMessage("beta"), "#ffcc00")
 })
 
 chrome.storage.local.get(null, (result) => {
@@ -93,21 +155,69 @@ chrome.storage.local.get(null, (result) => {
     }
 })
 
+// Initialize the "disable_theme_sync" checkbox from local storage
+chrome.storage.local.get(['disable_theme_sync'], (r) => {
+    $("#disable_theme_sync").prop("checked", r.disable_theme_sync ?? false)
+})
+
 // Settings Click Event
-$(".options").click(function () {
+$(".options").click(function (e) {
     if ($(this).hasClass("no-toggle")) return;
 
-    this.children[0].checked = !this.children[0].checked
+    // If the click originated on an interactive element let its handler manage state.
+    const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+    if (tag === 'input' || tag === 'button' || tag === 'label' || $(e.target).closest('button').length) {
+        return;
+    }
 
-    const option = this.children[0].id
-    const optionElement = $("#" + option)
-    const optionValue = optionElement.prop("checked")
-    chrome.storage.sync.set({ [option]: optionValue })
+    const checkbox = this.querySelector('input[type="checkbox"]');
+    if (!checkbox) return;
+
+    checkbox.checked = !checkbox.checked;
+
+    const option = checkbox.id
+    const optionValue = $(checkbox).prop("checked")
+
+    if (option === 'disable_theme_sync') {
+        chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {
+            // refresh theme UI/storage behavior immediately
+            withThemeStorage((store) => {
+                store.get(['theme'], (res) => {
+                    applyTheme(res.theme || 'light')
+                    renderCustomThemeButtons()
+                })
+            })
+        })
+    } else {
+        chrome.storage.sync.set({ [option]: optionValue })
+    }
 
     $(this).addClass("clicked")
     setTimeout(() => {
         $(this).removeClass("clicked")
     }, 300)
+})
+
+// Handle direct checkbox changes and persist accordingly (prevents double-toggles)
+$(".options input[type='checkbox']").on('change', function (e) {
+    e.stopPropagation();
+
+    const option = this.id
+    const optionValue = $(this).prop("checked")
+
+    if (option === 'disable_theme_sync') {
+        chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {
+            // refresh theme UI/storage behavior immediately
+            withThemeStorage((store) => {
+                store.get(['theme'], (res) => {
+                    applyTheme(res.theme || 'light')
+                    renderCustomThemeButtons()
+                })
+            })
+        })
+    } else {
+        chrome.storage.sync.set({ [option]: optionValue })
+    }
 })
 
 // General Settings
@@ -116,21 +226,20 @@ const lightThemeBtn = document.getElementById('lightTheme')
 const darkThemeBtn = document.getElementById('darkTheme')
 const body = document.body
 
-withThemeStorage((store) => {
-    store.get(['theme'], (res) => {
-        const t = res.theme || 'light';
-        applyTheme(t);
-    });
+// initialize from storage.theme (base)
+getThemeData(['theme'], (res) => {
+    const t = res.theme || 'light';
+    applyTheme(t);
 });
 
 lightThemeBtn.addEventListener('click', () => {
     applyTheme('light');
-    withThemeStorage((store) => store.set({ theme: 'light' }));
+    setThemeData({ theme: 'light' });
 });
 
 darkThemeBtn.addEventListener('click', () => {
     applyTheme('dark');
-    withThemeStorage((store) => store.set({ theme: 'dark' }));
+    setThemeData({ theme: 'dark' });
 });
 
 let editingThemeId = null;
@@ -142,89 +251,94 @@ function renderCustomThemeButtons() {
     if (!list) return;
     list.querySelectorAll(".custom-theme-btn").forEach(n => n.remove());
 
-    withThemeStorage((store) => {
-        store.get(['custom_themes', 'theme', 'active_custom_themes'], (res) => {
-            const themes = res.custom_themes || [];
-            const currentTheme = res.theme || 'light';
-            const activeIds = new Set((res.active_custom_themes || []).map(String));
+    // fetch data across appropriate storages:
+    getThemeData(['custom_themes', 'theme', 'active_custom_themes'], (res) => {
+        const themes = res.custom_themes || [];
+        const currentTheme = res.theme || 'light';
+        const activeIds = new Set((res.active_custom_themes || []).map(String));
 
-            if (currentTheme === 'dark') {
-                document.body.classList.add('dark-theme');
-                darkThemeBtn.classList.add('active');
-                lightThemeBtn.classList.remove('active');
-            } else if (typeof currentTheme === 'string' && currentTheme.startsWith('custom:')) {
-                lightThemeBtn.classList.remove('active');
-                darkThemeBtn.classList.remove('active');
-                document.body.classList.remove('dark-theme');
-            } else {
-                document.body.classList.remove('dark-theme');
-                lightThemeBtn.classList.add('active');
-                darkThemeBtn.classList.remove('active');
-            }
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            darkThemeBtn.classList.add('active');
+            lightThemeBtn.classList.remove('active');
+        } else if (typeof currentTheme === 'string' && currentTheme.startsWith('custom:')) {
+            lightThemeBtn.classList.remove('active');
+            darkThemeBtn.classList.remove('active');
+            document.body.classList.remove('dark-theme');
+        } else {
+            document.body.classList.remove('dark-theme');
+            lightThemeBtn.classList.add('active');
+            darkThemeBtn.classList.remove('active');
+        }
 
-            themes.slice(0, MAX_INLINE).forEach(t => {
-                const id = String(t.created);
-                if (list.querySelector(`.custom-theme-btn[data-custom-id="${CSS.escape(id)}"]`)) return;
+        themes.slice(0, MAX_INLINE).forEach(t => {
+            const id = String(t.created);
+            if (list.querySelector(`.custom-theme-btn[data-custom-id="${CSS.escape(id)}"]`)) return;
 
-                const btn = document.createElement("button");
-                btn.className = "custom-theme-btn";
-                btn.textContent = t.name;
-                btn.dataset.customId = id;
-                if (!list.classList.contains("theme-toggle")) btn.style.marginLeft = "6px";
+            const btn = document.createElement("button");
+            btn.className = "custom-theme-btn";
+            btn.textContent = t.name;
+            btn.dataset.customId = id;
+            if (!list.classList.contains("theme-toggle")) btn.style.marginLeft = "6px";
 
-                if (activeIds.has(id)) btn.classList.add('active');
+            if (activeIds.has(id)) btn.classList.add('active');
 
-                btn.addEventListener("dblclick", (e) => {
-                    e.preventDefault();
-                    editingThemeId = id;
-                    $("#custom_css_textarea").val(t.css || "");
-                    setCustomCssPreview(t.css || "");
-                    showPopup($("#custom_css_popup"));
+            btn.addEventListener("dblclick", (e) => {
+                e.preventDefault();
+                editingThemeId = id;
+                $("#custom_css_textarea").val(t.css || "");
+                setCustomCssPreview(t.css || "");
+                showPopup($("#custom_css_popup"));
+            });
+
+            btn.addEventListener("click", () => {
+                toggleCustomThemeId(id, (newArr) => {
+                    const isActive = newArr.map(String).includes(id);
+                    if (isActive) btn.classList.add('active'); else btn.classList.remove('active');
+                    renderCustomThemeButtons();
                 });
+            });
 
-                btn.addEventListener("click", () => {
-                    toggleCustomThemeId(id, (newArr) => {
-                        const isActive = newArr.map(String).includes(id);
-                        if (isActive) btn.classList.add('active'); else btn.classList.remove('active');
-                        renderCustomThemeButtons();
-                    });
-                });
+            btn.addEventListener("contextmenu", (e) => {
+                e.preventDefault();
+                if (!confirm(`Remove custom theme "${t.name}"?`)) return;
 
-                btn.addEventListener("contextmenu", (e) => {
-                    e.preventDefault();
-                    if (!confirm(`Remove custom theme "${t.name}"?`)) return;
-                    withThemeStorage((store2) => {
-                        store2.get({ custom_themes: [], theme: 'light', active_custom_themes: [] }, (r) => {
-                            const newArr = (r.custom_themes || []).filter(x => String(x.created) !== id);
-                            const prevTheme = r.theme;
-                            store2.set({ custom_themes: newArr }, () => {
-                                if (prevTheme === `custom:${id}`) {
-                                    store2.set({ theme: 'light' }, () => renderCustomThemeButtons());
-                                } else {
-                                    renderCustomThemeButtons();
-                                }
-                            });
+                // remove from custom_themes (sync) and if it was the current theme, reset theme (sync).
+                getThemeData(['custom_themes', 'theme', 'active_custom_themes'], (r) => {
+                    const newArr = (r.custom_themes || []).filter(x => String(x.created) !== id);
+                    const prevTheme = r.theme;
+
+                    // update custom_themes (always sync) and also clear theme if it pointed to removed custom
+                    const updates = { custom_themes: newArr };
+                    if (prevTheme === `custom:${id}`) updates.theme = 'light';
+
+                    // active_custom_themes should be updated in its corresponding storage (handled by setThemeData)
+                    setThemeData(updates, () => {
+                        // also remove id from active_custom_themes if present
+                        const active = (r.active_custom_themes || []).filter(x => String(x) !== id);
+                        setThemeData({ active_custom_themes: active }, () => {
+                            renderCustomThemeButtons();
                         });
                     });
                 });
-
-                list.appendChild(btn);
             });
 
-            if (moreBtn) {
-                if (themes.length > MAX_INLINE) {
-                    moreBtn.style.display = "inline-flex";
-                    moreBtn.onclick = () => {
-                        renderCustomThemesPopup(themes, activeIds);
-                        $("#custom_themes_popup").show();
-                        $("#box_popup_overlay").show();
-                    };
-                } else {
-                    moreBtn.style.display = "none";
-                    moreBtn.onclick = null;
-                }
-            }
+            list.appendChild(btn);
         });
+
+        if (moreBtn) {
+            if (themes.length > MAX_INLINE) {
+                moreBtn.style.display = "inline-flex";
+                moreBtn.onclick = () => {
+                    renderCustomThemesPopup(themes, activeIds);
+                    $("#custom_themes_popup").show();
+                    $("#box_popup_overlay").show();
+                };
+            } else {
+                moreBtn.style.display = "none";
+                moreBtn.onclick = null;
+            }
+        }
     });
 }
 
@@ -326,16 +440,9 @@ $("#chrome_storage_update_button").click(() => {
 
 $("#chrome_storage_set_button").click(() => {
     const key = $("#chrome_storage_key").val().trim()
-    const value = $("#chrome_storage_value").val().trim()
-
     if (key) {
-        chrome.storage.sync.set({ [key]: value }, () => {
-            $("#chrome_storage_key").val("")
-            $("#chrome_storage_value").val("")
-            chrome.storage.sync.get(null, (result) => {
-                updateStorageTable(result)
-            })
-        })
+        $("#chrome_storage_key").val("")
+        showStorageEditPopup(key, 'sync')
     }
 })
 
@@ -353,12 +460,41 @@ $("#chrome_storage_remove_button").click(() => {
 })
 
 $("#chrome_storage_clear_button").click(() => {
-    if (confirm("Are you sure you want to clear all Chrome storage data? This action cannot be undone.")) {
+    if (!confirm("Are you sure you want to clear all Chrome storage data? This action cannot be undone.")) return;
+
+    const areas = ['sync', 'local', 'session'];
+    let pending = 0;
+    let anyCleared = false;
+
+    areas.forEach(area => {
+        const areaObj = chrome.storage[area];
+        if (areaObj && typeof areaObj.clear === 'function') {
+            pending++;
+            anyCleared = true;
+            try {
+                areaObj.clear(() => {
+                    if (--pending === 0) {
+                        fetchAllStorages((all) => {
+                            updateStorageTable(all);
+                        });
+                    }
+                });
+            } catch (e) {
+                if (--pending === 0) {
+                    fetchAllStorages((all) => {
+                        updateStorageTable(all);
+                    });
+                }
+            }
+        }
+    });
+
+    if (!anyCleared) {
         chrome.storage.sync.clear(() => {
-            chrome.storage.sync.get(null, (result) => {
-                updateStorageTable(result)
-            })
-        })
+            fetchAllStorages((all) => {
+                updateStorageTable(all);
+            });
+        });
     }
 })
 
@@ -370,36 +506,67 @@ function updateStorageTable(allData) {
         Object.keys(obj).forEach(k => allKeys.add(k));
     });
 
-    let tableContent = "<table><thead><tr><th>Key</th><th>Value</th><th>Storage</th><th>Actions</th></tr></thead><tbody>";
+    let tableContent = "<table><thead><tr><th>Storage</th><th>Key</th><th>Value</th><th>Actions</th></tr></thead><tbody>";
     allKeys.forEach(key => {
-        let displayVal = undefined;
-        for (const s of storagesOrder) {
+        // collect values per storage for this key
+        const presentIn = [];
+        const valuesByStorage = {};
+        storagesOrder.forEach(s => {
             const obj = allData[s] || {};
             if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                displayVal = obj[key];
-                break;
+                presentIn.push(s);
+                valuesByStorage[s] = obj[key];
             }
-        }
-        const pretty = typeof displayVal === 'string' ? displayVal : JSON.stringify(displayVal);
-
-        // storage badges
-        const presentIn = storagesOrder.filter(s => {
-            const obj = allData[s] || {};
-            return Object.prototype.hasOwnProperty.call(obj, key);
         });
 
+        // determine display value and conflict state
+        let conflict = false;
+        const seen = new Set();
+        for (const s of presentIn) {
+            const vstr = JSON.stringify(valuesByStorage[s]);
+            seen.add(vstr);
+            if (seen.size > 1) { conflict = true; break; }
+        }
+
+        // storage badges
         const storageBadges = presentIn.map(s => `<span class="storage-badge ${s}">${s}</span>`).join(' ');
+
+        // value presentation
+        let valueCellHtml = "";
+        if (conflict) {
+            // show conflict badge and per-storage values for inspection
+            const conflictBadge = `<span class="storage-badge conflict">Conflict</span>`;
+            let listHtml = `<div class="storage-value-list">`;
+            storagesOrder.forEach(s => {
+                if (!Object.prototype.hasOwnProperty.call(valuesByStorage, s)) return;
+                const val = valuesByStorage[s];
+                const pretty = typeof val === 'string' ? escapeHtml(val) : escapeHtml(JSON.stringify(val));
+                listHtml += `<div class="storage-value-item"><div class="storage-name">${escapeHtml(s)}</div><div class="storage-val">${pretty}</div></div>`;
+            });
+            listHtml += `</div>`;
+            valueCellHtml = conflictBadge + listHtml;
+        } else {
+            // single canonical display (first storage according to order)
+            let displayVal;
+            if (presentIn.length) {
+                displayVal = valuesByStorage[presentIn[0]];
+            } else {
+                displayVal = undefined;
+            }
+            const pretty = typeof displayVal === 'string' ? escapeHtml(displayVal) : escapeHtml(JSON.stringify(displayVal));
+            valueCellHtml = pretty;
+        }
 
         let actionHtml = '';
         presentIn.forEach(s => {
-            const obj = allData[s] || {};
-            const val = obj[key];
+            const val = valuesByStorage[s];
             if (typeof val === 'boolean') {
-                actionHtml += `<button class="reverse-btn" data-key="${escapeHtmlAttr(key)}" data-store="${s}">Reverse</button>`;
+                actionHtml += `<button class="reverse-btn" data-key="${escapeHtmlAttr(key)}" data-store="${s}">Reverse (${escapeHtml(s)})</button>`;
             }
+            actionHtml += `<button class="edit-btn" data-key="${escapeHtmlAttr(key)}" data-store="${s}">Edit (${escapeHtml(s)})</button>`;
         });
 
-        tableContent += `<tr><td>${storageBadges}</td><td>${escapeHtml(key)}</td><td>${escapeHtml(pretty)}</td><td>${actionHtml}</td></tr>`;
+        tableContent += `<tr><td>${storageBadges}</td><td>${escapeHtml(key)}</td><td>${valueCellHtml}</td><td>${actionHtml}</td></tr>`;
     });
 
     tableContent += "</tbody></table>";
@@ -507,6 +674,144 @@ function showPopup(popup) {
     popup.show()
     activePopup = popup
 }
+
+$(document).on('click', '.edit-btn', function () {
+    const key = $(this).data('key');
+    const fromStore = $(this).data('store');
+    if (!key) return;
+    showStorageEditPopup(key, fromStore);
+});
+
+// show edit popup and populate fields
+function showStorageEditPopup(key, fromStore) {
+    const $popup = $("#chrome_storage_edit_popup");
+    $("#edit_key").val(key);
+    // default selected store is the one user clicked, but user may change it
+    if (fromStore && $("#edit_store option[value='" + fromStore + "']").length) {
+        $("#edit_store").val(fromStore);
+    } else {
+        $("#edit_store").val("sync");
+    }
+
+    // Load current value from the source store (fromStore) to prefill textarea
+    const srcStore = (fromStore && chrome.storage[fromStore]) ? chrome.storage[fromStore] : null;
+    if (srcStore) {
+        try {
+            srcStore.get([key], (res) => {
+                const cur = res ? res[key] : undefined;
+                let text;
+                let shouldParse = false;
+                try {
+                    if (typeof cur === 'object' && cur !== null) {
+                        text = JSON.stringify(cur, null, 2);
+                        shouldParse = true;
+                    } else if (typeof cur === 'boolean' || typeof cur === 'number' || cur === null) {
+                        text = JSON.stringify(cur);
+                        shouldParse = true;
+                    } else if (cur === undefined) {
+                        text = "";
+                        shouldParse = false;
+                    } else {
+                        text = String(cur);
+                        shouldParse = false;
+                    }
+                } catch (e) {
+                    text = String(cur === undefined ? "" : cur);
+                    shouldParse = false;
+                }
+                $("#edit_value").val(text);
+                $("#edit_parse_json").prop("checked", shouldParse);
+                showPopup($popup);
+            });
+        } catch (e) {
+            // fallback: empty editor
+            $("#edit_value").val("");
+            $("#edit_parse_json").prop("checked", false);
+            showPopup($popup);
+        }
+    } else {
+        // storage area unavailable; still open for manual entry
+        $("#edit_value").val("");
+        $("#edit_parse_json").prop("checked", false);
+        showPopup($popup);
+    }
+}
+
+// Save / Cancel handlers
+$("#chrome_storage_edit_cancel").on("click", function () {
+    $("#chrome_storage_edit_popup").hide();
+    $("#box_popup_overlay").hide();
+});
+
+$("#chrome_storage_edit_save").on("click", function () {
+    const key = $("#edit_key").val();
+    const targetStore = $("#edit_store").val() || "sync";
+    const raw = $("#edit_value").val();
+    const parseJson = $("#edit_parse_json").prop("checked");
+
+    if (!key) {
+        alert("No key specified.");
+        return;
+    }
+
+    let newVal;
+    if (parseJson) {
+        try {
+            newVal = JSON.parse(raw);
+        } catch (e) {
+            alert("Invalid JSON: " + e.message);
+            return;
+        }
+    } else {
+        newVal = raw;
+    }
+
+    const area = chrome.storage[targetStore];
+    if (!area) {
+        alert("Selected storage area is not available: " + targetStore);
+        return;
+    }
+
+    const obj = {};
+    obj[key] = newVal;
+    try {
+        area.set(obj, () => {
+            // close popup and refresh table
+            $("#chrome_storage_edit_popup").hide();
+            $("#box_popup_overlay").hide();
+            fetchAllStorages((all) => {
+                updateStorageTable(all);
+            });
+        });
+    } catch (e) {
+        alert("Failed to save to storage: " + e.message);
+    }
+});
+
+$("#chrome_storage_edit_remove").on("click", function () {
+    const key = $("#edit_key").val();
+    const targetStore = $("#edit_store").val() || "sync";
+    if (!key) return;
+    if (!confirm(`Remove key "${key}" from ${targetStore}?`)) return;
+
+    const area = chrome.storage[targetStore];
+    if (!area) {
+        alert("Selected storage area is not available: " + targetStore);
+        return;
+    }
+
+    try {
+        area.remove([key], () => {
+            $("#chrome_storage_edit_popup").hide();
+            $("#box_popup_overlay").hide();
+            fetchAllStorages((all) => {
+                updateStorageTable(all);
+            });
+        });
+    } catch (e) {
+        alert("Failed to remove from storage: " + e.message);
+    }
+});
 
 // Compatibility Settings
 var clickCount = 0
@@ -654,50 +959,45 @@ $("#custom_css_save").on("click", function () {
     const old = btn.text()
 
     if (editingThemeId) {
-        withThemeStorage((store) => {
-            store.get({ custom_themes: [] }, (res) => {
-                const arr = res.custom_themes || []
-                const idx = arr.findIndex(t => String(t.created) === String(editingThemeId))
-                if (idx !== -1) {
-                    arr[idx].css = String(css)
-                    store.set({ custom_themes: arr }, () => {
-                        btn.text("Updated")
-                        setTimeout(() => btn.text(old), 1000)
-                        editingThemeId = null
-                        $("#custom_css_popup").hide()
-                        $("#box_popup_overlay").hide()
-                        setCustomCssPreview("")
-                        renderCustomThemeButtons()
-                    })
-                } else {
-                    store.set({ custom_css: css }, () => {
-                        btn.text("Saved")
-                        setTimeout(() => btn.text(old), 1000)
-                    })
-                }
-            })
+        // update existing custom theme (custom_themes in sync)
+        getThemeData(['custom_themes'], (res) => {
+            const arr = res.custom_themes || []
+            const idx = arr.findIndex(t => String(t.created) === String(editingThemeId))
+            if (idx !== -1) {
+                arr[idx].css = String(css)
+                setThemeData({ custom_themes: arr }, () => {
+                    btn.text("Updated")
+                    setTimeout(() => btn.text(old), 1000)
+                    editingThemeId = null
+                    $("#custom_css_popup").hide()
+                    $("#box_popup_overlay").hide()
+                    setCustomCssPreview("")
+                    renderCustomThemeButtons()
+                })
+            } else {
+                chrome.storage.sync.set({ custom_css: css }, () => {
+                    btn.text("Saved")
+                    setTimeout(() => btn.text(old), 1000)
+                })
+            }
         })
         return
     }
 
-    withThemeStorage((store) => {
-        store.set({ custom_css: css }, () => {
-            btn.text("Saved")
-            setTimeout(() => btn.text(old), 1000)
-        })
+    chrome.storage.sync.set({ custom_css: css }, () => {
+        btn.text("Saved")
+        setTimeout(() => btn.text(old), 1000)
     })
 })
 
 // Reset
 $("#custom_css_reset").on("click", function () {
     if (!confirm("Reset custom CSS? This will remove saved custom styles.")) return
-    withThemeStorage((store) => {
-        store.remove(['custom_css'], () => {
-            $("#custom_css_textarea").val("")
-            setCustomCssPreview("")
-            editingThemeId = null
-        })
-    });
+    chrome.storage.sync.remove(['custom_css'], () => {
+        $("#custom_css_textarea").val("")
+        setCustomCssPreview("")
+        editingThemeId = null
+    })
 })
 
 $("#custom_css_close").on("click", function () {
@@ -732,14 +1032,15 @@ $("#custom_css_export_add").on("click", function () {
     const name = prompt("Theme name (for your custom themes):", "Custom theme")
     if (!name) return
 
-    withThemeStorage((store) => {
-        store.get({ custom_themes: [] }, (res) => {
-            const arr = res.custom_themes || []
-            arr.push({ name: String(name), css: css, created: Date.now() })
-            store.set({ custom_themes: arr }, () => {
-                alert("Custom theme added.")
-                $("#custom_css_export_panel").hide()
-            })
+    // custom_themes must remain in sync
+    chrome.storage.sync.get({ custom_themes: [] }, (res) => {
+        const arr = res.custom_themes || []
+        arr.push({ name: String(name), css: css, created: Date.now() })
+        chrome.storage.sync.set({ custom_themes: arr }, () => {
+            alert("Custom theme added.")
+            $("#custom_css_export_panel").hide()
+            // refresh buttons
+            renderCustomThemeButtons()
         })
     })
 })
@@ -764,20 +1065,20 @@ $("#custom_css_export_file").on("click", function () {
 })
 
 function toggleCustomThemeId(id, cb) {
-    withThemeStorage((store) => {
-        store.get({ active_custom_themes: [] }, (res) => {
-            const arr = new Set((res.active_custom_themes || []).map(String));
-            const sid = String(id);
-            if (arr.has(sid)) arr.delete(sid); else arr.add(sid);
-            const newArr = Array.from(arr);
-            store.set({ active_custom_themes: newArr }, () => {
-                cb && cb(newArr);
-            });
+    // active_custom_themes may be local if disable_theme_sync is enabled; use getThemeData/setThemeData
+    getThemeData(['active_custom_themes'], (res) => {
+        const arrSet = new Set((res.active_custom_themes || []).map(String));
+        const sid = String(id);
+        if (arrSet.has(sid)) arrSet.delete(sid); else arrSet.add(sid);
+        const newArr = Array.from(arrSet);
+        setThemeData({ active_custom_themes: newArr }, () => {
+            cb && cb(newArr);
         });
     });
 }
 
-chrome.storage.sync.get(['theme', 'active_custom_themes'], (res) => {
+// Ensure initial load of theme/active_custom_themes uses merged read
+getThemeData(['theme', 'active_custom_themes'], (res) => {
     const t = res.theme || 'light';
     applyTheme(t);
     renderCustomThemeButtons();

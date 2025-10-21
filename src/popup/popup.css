@@ -625,6 +625,37 @@ body.dark-theme .custom-css-btn {
 .storage-badge.local { background: #10b981; }
 .storage-badge.managed { background: #f97316; }
 .storage-badge.session { background: #6b7280; }
+.storage-badge.conflict {
+    background: #ef4444; /* red */
+}
+
+.storage-value-list {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    color: #111827;
+}
+.storage-value-item {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.storage-value-item .storage-name {
+    min-width: 64px;
+    font-weight: 700;
+    color: #374151;
+}
+.storage-value-item .storage-val {
+    color: #374151;
+    background: #f8fafc;
+    padding: 4px 6px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
 
 .reverse-btn {
     display: inline-block;
@@ -640,5 +671,23 @@ body.dark-theme .custom-css-btn {
     background: #f3f4f6;
 }
 .reverse-btn:active {
+    transform: translateY(1px);
+}
+
+.edit-btn {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.06);
+    background: #fff;
+    cursor: pointer;
+    margin: 2px;
+    color: #0b5fff;
+}
+.edit-btn:hover {
+    background: #f3f6ff;
+}
+.edit-btn:active {
     transform: translateY(1px);
 }

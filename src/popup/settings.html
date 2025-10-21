@@ -12,7 +12,8 @@
             width: 50%;
         }
     </style>
-</head>`
+</head>
+
 <body>
     <div class="background"></div>
     <div class="bg_overlay"></div>
@@ -117,7 +118,8 @@
                         <input id="disable_theme_sync" type="checkbox">
                         <label for="disable_theme_sync" class="switch"></label>
                         <label for="disable_theme_sync" id="disableThemeSync_label">Disable theme sync</label>
-                        <p class="description" id="disableThemeSync_description">Do not sync the active theme or custom themes to Chrome sync.</p>
+                        <p class="description" id="disableThemeSync_description">Do not sync the active theme or custom
+                            themes to Chrome sync.</p>
                         <p style="font-weight: 500;">Note: This setting is stored locally.</p>
                     </div>
                 </div>
@@ -169,12 +171,6 @@
                         <label for="move_logout_button" id="moveLogOutButton"></label>
                         <p class="description" id="moveLogOutButton_description"></p>
                     </div>
-                    <div class="options">
-                        <input id="trusted_devices_logins" type="checkbox">
-                        <label for="trusted_devices_logins" class="switch"></label>
-                        <label for="trusted_devices_logins" id="trustedDevicesLogins"></label>
-                        <p class="description" id="trustedDevicesLogins_description"></p>
-                    </div>
                 </div>
             </div>
 
@@ -194,6 +190,12 @@
                         <label for="stats_panel" id="statsPanel"></label>
                         <p class="description" id="statsPanel_description"></p>
                     </div>
+                    <div class="options">
+                        <input id="trusted_devices_logins" type="checkbox">
+                        <label for="trusted_devices_logins" class="switch"></label>
+                        <label for="trusted_devices_logins" id="trustedDevicesLogins"></label>
+                        <p class="description" id="trustedDevicesLogins_description"></p>
+                    </div>
                 </div>
             </div>
 
@@ -206,29 +208,68 @@
                     <p class="description" id="devTools_description"></p>
                 </div>
                 <div style="display: flex; margin-top: 16px;">
-                    <p class="settings-button" id="chrome_storage" style="width: 100%; text-align: center;">Chrome Storage Editor</p>
+                    <p class="settings-button" id="chrome_storage" style="width: 100%; text-align: center;">Chrome
+                        Storage Editor</p>
                 </div>
             </div>
         </div>
 
         <!-- Chrome Storage Editor -->
-        <div class="box popup" id="chrome_storage_popup" style="display: none; max-width: 900px;">
+        <div class="box popup" id="chrome_storage_popup" style="display: none; max-width: 45%;">
             <div class="popup-header">
                 <h1 class="popup-title">Chrome Storage Editor</h1>
             </div>
-            <p>Warning: This only shows the sync storage of the extension.</p>
             <div class="popup-content" id="chrome_storage_content">
                 <div class="popup-inputs" style="display: flex; flex-direction: column; gap: 8px;">
                     <input type="text" id="chrome_storage_key" placeholder="Key" class="input">
-                    <input type="text" id="chrome_storage_value" placeholder="Value" class="input">
                 </div>
                 <div class="popup-buttons" style="margin-top: 8px; margin-bottom: 4px;">
                     <button id="chrome_storage_update_button" class="button is-info">Refresh Table</button>
-                    <button id="chrome_storage_set_button" class="button is-primary">Set</button>
+                    <button id="chrome_storage_set_button" class="button is-primary">Create</button>
                     <button id="chrome_storage_remove_button" class="button is-danger">Remove</button>
-                    <button id="chrome_storage_clear_button" class="button is-warning">Delete All Data</button>
+                    <button id="chrome_storage_clear_button" class="button is-danger is-pulled-right">Delete All Data</button>
                 </div>
                 <div id="chrome_storage_result"></div>
+            </div>
+        </div>
+
+        <!-- Storage Edit Popup -->
+        <div class="box popup" id="chrome_storage_edit_popup" style="display:none; max-width:720px;">
+            <div class="popup-header">
+                <h1 class="popup-title">Edit Storage Value</h1>
+            </div>
+            <div class="popup-content">
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                    <div>
+                        <label style="font-weight:600; display:block; margin-bottom:4px;">Key</label>
+                        <input id="edit_key" class="input" readonly />
+                    </div>
+                    <div>
+                        <label style="font-weight:600; display:block; margin-bottom:4px;">Storage</label>
+                        <select id="edit_store" class="input">
+                            <option value="sync">sync</option>
+                            <option value="local">local</option>
+                            <option value="managed">managed</option>
+                            <option value="session">session</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-weight:600; display:block; margin-bottom:4px;">Value</label>
+                        <textarea id="edit_value"
+                            style="width:100%; height:180px; font-family:monospace; font-size:13px; padding:8px; box-sizing:border-box;"></textarea>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <label style="cursor:pointer;"><input type="checkbox" id="edit_parse_json"
+                                style="margin-right:6px;">Treat as JSON (parse on save)</label>
+                        <span style="color:#666; font-size:12px;">When checked, input is JSON-parsed before
+                            saving.</span>
+                    </div>
+                    <div style="display:flex; gap:8px; margin-top:8px;">
+                        <button id="chrome_storage_edit_save" class="button is-primary">Save</button>
+                        <button id="chrome_storage_edit_cancel" class="button">Cancel</button>
+                        <button id="chrome_storage_edit_remove" class="button is-danger is-pulled-right">Remove</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -285,6 +326,7 @@
 
     <script src="../lib/jquery.min.js"></script>
     <script src="../utils.js"></script>
+    <script src="../js/init.js"></script>
     <script src="i18n.js"></script>
     <script src="settings.js"></script>
 </body>
