@@ -5,6 +5,7 @@
 import json
 from typing import Any
 import sqlite3
+import os
 
 ############################
 ### Configuration Scheme ###
@@ -26,8 +27,10 @@ class Config:
         try:
             with open(self.path, "r", encoding="utf-8") as fh:
                 raw = json.load(fh)
+            added_missing = False
         except FileNotFoundError:
-            raise FileNotFoundError(f"Config file not found: {self.path}")
+            raw = dict(self.scheme)
+            added_missing = True
         except json.JSONDecodeError as e:
             raise ValueError(f"Invalid JSON in config file {self.path}: {e}")
 
@@ -36,11 +39,10 @@ class Config:
 
         # detect and append missing keys from scheme
         missing = [k for k in self.scheme.keys() if k not in raw]
-        added_missing = False
         if missing:
-            added_missing = True
             for k in missing:
                 raw[k] = self.scheme[k]
+            added_missing = True
 
         # Type validation
         wrong_types = []
@@ -62,12 +64,16 @@ class Config:
 
         self.data = raw
 
-        # persist if we appended keys
+        # persist if we appended keys or created the file
         if added_missing:
             self.save()
 
     def save(self, path: str = None, *, indent: int = 2) -> None:
         out_path = path or self.path
+        # ensure parent directory exists
+        parent = os.path.dirname(out_path)
+        if parent:
+            os.makedirs(parent, exist_ok=True)
         try:
             with open(out_path, "w", encoding="utf-8") as fh:
                 json.dump(self.data, fh, indent=indent, ensure_ascii=False)
