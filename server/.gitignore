@@ -15,3 +15,6 @@ venv/
 
 # Config
 config.json
+
+# Database files
+*.db

@@ -1,13 +1,20 @@
 from flask import Flask, request, jsonify
 from utils import Config as cf
+from utils import db
 
 app = Flask(__name__)
 
-@app.route('/api/data', methods=['POST'])
-def process_data():
-    data = request.json
-    return jsonify({"message": "Data processed successfully", "data": data}), 200
+@app.route('/', methods=['GET'])
+def status():
+    return jsonify({"status": "OK"}), 200
 
+@app.route('/status', methods=['GET'])
+def get_status():
+    return jsonify({"status": "OK"}), 200
+
+@app.route('/leaderboard', methods=['GET'])
+def get_leaderboard():
+    pass
 
 def run_server():
     app.run(
