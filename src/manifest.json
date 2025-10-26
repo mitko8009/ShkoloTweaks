@@ -25,6 +25,9 @@
 	"host_permissions": [
 		"*://*.pishkisoriz.com/*"
 	],
+	"background": {
+		"service_worker": "js/service/leaderboard_service.js"
+	},
 	"content_scripts": [
 		{
 			"matches": [
@@ -62,7 +65,8 @@
 				"js/widgets/__init__.js",
 				"js/widgets/schedule.js",
 				"js/widgets/control_tests.js",
-				"js/widgets/countdown.js"
+				"js/widgets/countdown.js",
+				"js/external/leaderboard.js"
 			],
 			"run_at": "document_end"
 		},

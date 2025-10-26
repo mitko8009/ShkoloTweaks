@@ -140,6 +140,10 @@ chrome.storage.sync.get(null, (result) => {
     const trusted_devices_logins = result.trusted_devices_logins ?? false
     $("#trusted_devices_logins").prop("checked", trusted_devices_logins)
     tagSetting("trusted_devices_logins", chrome.i18n.getMessage("beta"), "#ffcc00")
+
+    const leaderboard = result.leaderboard ?? false
+    $("#leaderboard").prop("checked", leaderboard)
+    tagSetting("leaderboard", chrome.i18n.getMessage("beta"), "#ffcc00")
 })
 
 chrome.storage.local.get(null, (result) => {
@@ -178,6 +182,14 @@ $(".options").click(function (e) {
     const option = checkbox.id
     const optionValue = $(checkbox).prop("checked")
 
+    if (option === 'leaderboard' && optionValue === true) {
+        const ok = confirm('Enable Leaderboard? This will send and save your "grades" and "notes" to an external server. Proceed?');
+        if (!ok) {
+            checkbox.checked = false;
+            return;
+        }
+    }
+
     if (option === 'disable_theme_sync') {
         chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {
             // refresh theme UI/storage behavior immediately
@@ -204,6 +216,15 @@ $(".options input[type='checkbox']").on('change', function (e) {
 
     const option = this.id
     const optionValue = $(this).prop("checked")
+
+    // Confirm when enabling leaderboard
+    if (option === 'leaderboard' && optionValue === true) {
+        const ok = confirm('Enable Leaderboard? This will send and save your "grades" and "notes" to an external server. Proceed?');
+        if (!ok) {
+            $(this).prop('checked', false)
+            return;
+        }
+    }
 
     if (option === 'disable_theme_sync') {
         chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {

@@ -7,6 +7,7 @@ const year = today.getFullYear();
 
 // User Details
 var pupil_id = null
+var school_name = null
 try {
     const allLocalStorage = {};
     for (let i = 0; i < localStorage.length; i++) {
@@ -38,6 +39,17 @@ function main() {
 
     try {
         $("#sc-name-lbl").html($("#sc-name-lbl").html() + ` | ${manifest.name} v` + version);
+        try {
+            const $el = $("#sc-name-lbl");
+            const $clone = $el.clone();
+            $clone.find('i').remove();
+            let txt = $clone.text().trim();
+            const suffix = `| ${manifest.name} v${version}`;
+            if (txt.endsWith(suffix)) txt = txt.slice(0, -suffix.length).trim();
+            if (txt.endsWith('|')) txt = txt.slice(0, -1).trim();
+            school_name = txt;
+            if (typeof console !== 'undefined' && console.debug) console.debug(`[${manifest.name}] detected school name:`, school_name);
+        } catch (inner) { /* ignore extraction errors */ }
         $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
     } catch {}
 }  
