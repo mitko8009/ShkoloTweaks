@@ -120,6 +120,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
                     }
 
                     // If normalizedGrades is an array of items [{courseId, name, grades, target_id}, ...]
+                    // Preserve full per-course grades arrays instead of averaging them.
                     if (Array.isArray(normalizedGrades)) {
                         const map = {};
                         normalizedGrades.forEach(item => {
@@ -127,11 +128,15 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
                                 const name = (item && item.name) ? String(item.name).trim() : (item && item.courseId ? String(item.courseId) : '');
                                 if (!name) return;
                                 const id = item && (item.courseId || item.target_id) ? String(item.courseId || item.target_id) : '';
-                                let value = 0;
-                                if (Array.isArray(item.grades)) value = avgOfArray(item.grades);
-                                else if (typeof item.grades === 'number') value = item.grades;
-                                value = clamp(Number(value) || 0, 0, 6);
-                                map[name] = { id: id, value: value };
+                                let gradesArr = [];
+                                if (Array.isArray(item.grades)) {
+                                    gradesArr = item.grades.map(x => typeof x === 'number' ? x : parseFloat(String(x).replace(',', '.'))).filter(n => !Number.isNaN(n));
+                                } else if (typeof item.grades === 'number') {
+                                    gradesArr = [item.grades];
+                                }
+                                // clamp individual grades to valid range
+                                gradesArr = gradesArr.map(v => clamp(Number(v) || 0, 0, 6));
+                                map[name] = { id: id, grades: gradesArr };
                             } catch (inner) { /* ignore per-row */ }
                         });
                         serverGrades = map;
@@ -139,31 +144,53 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
                         // If it's already an object mapping, check if values are {id,value} - if not, try to convert
                         const sampleKey = Object.keys(normalizedGrades)[0];
                         const sampleVal = sampleKey ? normalizedGrades[sampleKey] : null;
-                        if (sampleVal && (sampleVal.id !== undefined || sampleVal.value !== undefined)) {
-                            // assume already correct shape
-                            serverGrades = normalizedGrades;
+                        if (sampleVal && (sampleVal.id !== undefined || sampleVal.value !== undefined || sampleVal.grades !== undefined)) {
+                            // already in a shape that contains id/value or id/grades — normalize to ensure grades arrays are used
+                            const map = {};
+                            Object.keys(normalizedGrades).forEach(k => {
+                                try {
+                                    const v = normalizedGrades[k];
+                                    const id = (v && (v.id || v.courseId || v.target_id)) ? String(v.id || v.courseId || v.target_id) : '';
+                                    if (v && Array.isArray(v.grades)) {
+                                        const arr = v.grades.map(x => typeof x === 'number' ? x : parseFloat(String(x).replace(',', '.'))).filter(n => !Number.isNaN(n)).map(n => clamp(n, 0, 6));
+                                        map[k] = { id: id, grades: arr };
+                                    } else if (v && v.value !== undefined) {
+                                        const num = Number(v.value);
+                                        map[k] = { id: id, grades: [isNaN(num) ? 0 : clamp(num, 0, 6)] };
+                                    } else if (typeof v === 'number') {
+                                        map[k] = { id: id, grades: [clamp(v, 0, 6)] };
+                                    } else {
+                                        map[k] = { id: id, grades: [] };
+                                    }
+                                } catch (inner) { /* ignore per-entry */ }
+                            });
+                            serverGrades = map;
                         } else {
                             // try to transform each entry
                             const map = {};
                             Object.keys(normalizedGrades).forEach(k => {
                                 try {
                                     const v = normalizedGrades[k];
-                                    // v might be {name, grades, courseId} or an array of numbers
                                     let id = '';
-                                    let value = 0;
+                                    let gradesArr = [];
                                     if (v && typeof v === 'object') {
                                         id = v.id || v.courseId || v.target_id || '';
-                                        if (Array.isArray(v.grades)) value = avgOfArray(v.grades);
-                                        else if (v.value !== undefined) value = Number(v.value);
-                                        else if (typeof v === 'number') value = v;
+                                        if (Array.isArray(v.grades)) {
+                                            gradesArr = v.grades.map(x => typeof x === 'number' ? x : parseFloat(String(x).replace(',', '.'))).filter(n => !Number.isNaN(n));
+                                        } else if (v.value !== undefined) {
+                                            const n = Number(v.value);
+                                            if (!Number.isNaN(n)) gradesArr = [n];
+                                        } else if (typeof v === 'number') {
+                                            gradesArr = [v];
+                                        }
                                     } else if (Array.isArray(v)) {
-                                        value = avgOfArray(v);
+                                        gradesArr = v.map(x => typeof x === 'number' ? x : parseFloat(String(x).replace(',', '.'))).filter(n => !Number.isNaN(n));
                                     } else if (typeof v === 'number') {
-                                        value = v;
+                                        gradesArr = [v];
                                     }
-                                    value = clamp(Number(value) || 0, 0, 6);
+                                    gradesArr = gradesArr.map(n => clamp(Number(n) || 0, 0, 6));
                                     const name = String(k || (v && v.name) || '').trim();
-                                    if (name) map[name] = { id: String(id || ''), value };
+                                    if (name) map[name] = { id: String(id || ''), grades: gradesArr };
                                 } catch (inner) { /* ignore */ }
                             });
                             serverGrades = map;

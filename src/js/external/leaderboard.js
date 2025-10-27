@@ -222,6 +222,23 @@ async function lb_fetchAndRender() {
             return;
         }
 
+        // Validate response against expected schema (lightweight check based on provided schema)
+        const validation = validateLeaderboardSchema(data);
+        if (!validation.valid) {
+            console.warn('Leaderboard: schema validation failed', validation.errors);
+            lbWidgetContent.innerHTML = `<div style="padding:8px;color:#b91c1c;">Invalid leaderboard data received.</div>`;
+            const detailBtn = document.createElement('button');
+            detailBtn.textContent = (chrome.i18n && chrome.i18n.getMessage) ? chrome.i18n.getMessage("Refresh") || "Details" : "Details";
+            detailBtn.className = "widget_buttons rounded";
+            detailBtn.style.marginTop = "8px";
+            detailBtn.onclick = () => {
+                // show simple details in an alert for debugging
+                alert('Leaderboard schema errors:\n' + validation.errors.join('\n'));
+            };
+            lbWidgetContent.appendChild(detailBtn);
+            return;
+        }
+
         lb_Data = Array.isArray(data) ? data : [];
         lb_renderData(lb_Data);
     } catch (err) {
@@ -230,11 +247,125 @@ async function lb_fetchAndRender() {
     }
 }
 
+// Lightweight validator implementing the provided JSON Schema (Draft-07) for GET /leaderboard responses.
+// Returns { valid: boolean, errors: [string] }
+function validateLeaderboardSchema(data) {
+    const errors = [];
+    if (!Array.isArray(data)) {
+        errors.push('response is not an array');
+        return { valid: false, errors };
+    }
+
+    data.forEach((item, idx) => {
+        if (!item || typeof item !== 'object') {
+            errors.push(`item[${idx}] is not an object`);
+            return;
+        }
+
+        // required: username (string)
+        if (typeof item.username !== 'string') errors.push(`item[${idx}].username missing or not a string`);
+
+        // required: rating (number)
+        if (typeof item.rating !== 'number') errors.push(`item[${idx}].rating missing or not a number`);
+
+        // required: grades (number)
+        if (typeof item.grades !== 'number') errors.push(`item[${idx}].grades missing or not a number`);
+
+        // N_positive_notes & N_negative_notes (integers >=0)
+        if (!Number.isInteger(item.N_positive_notes) || item.N_positive_notes < 0) errors.push(`item[${idx}].N_positive_notes missing or not a non-negative integer`);
+        if (!Number.isInteger(item.N_negative_notes) || item.N_negative_notes < 0) errors.push(`item[${idx}].N_negative_notes missing or not a non-negative integer`);
+
+        // last_update (string)
+        if (typeof item.last_update !== 'string') errors.push(`item[${idx}].last_update missing or not a string`);
+
+        // optional: grades_raw (string|null)
+        if (item.hasOwnProperty('grades_raw') && item.grades_raw !== null && typeof item.grades_raw !== 'string') errors.push(`item[${idx}].grades_raw must be string or null`);
+
+        // optional: pupil_id (string|null)
+        if (item.hasOwnProperty('pupil_id') && item.pupil_id !== null && typeof item.pupil_id !== 'string') errors.push(`item[${idx}].pupil_id must be string or null`);
+
+        // optional: school (string|null)
+        if (item.hasOwnProperty('school') && item.school !== null && typeof item.school !== 'string') errors.push(`item[${idx}].school must be string or null`);
+
+        // additionalProperties: false -> warn if unexpected keys present
+        const allowedKeys = new Set(['username','rating','grades','grades_raw','N_positive_notes','N_negative_notes','pupil_id','school','last_update']);
+        Object.keys(item).forEach(k => { if (!allowedKeys.has(k)) errors.push(`item[${idx}] contains unexpected property '${k}'`); });
+    });
+
+    return { valid: errors.length === 0, errors };
+}
+
 function lb_renderData(data) {
     lbWidgetContent.innerHTML = "";
     if (!data || data.length === 0) {
         lbWidgetContent.innerHTML = chrome.i18n && chrome.i18n.getMessage ? (chrome.i18n.getMessage("NoLeaderboardData") || "No leaderboard data available.") : "No leaderboard data available.";
         return;
+    }
+
+    const currentPupilId = (typeof pupil_id !== 'undefined' && pupil_id !== null) ? String(pupil_id) : null;
+
+    if (currentPupilId) {
+        const pinnedItem = data.find(it => it && it.pupil_id !== undefined && it.pupil_id !== null && String(it.pupil_id) === currentPupilId);
+        const pinnedContainer = document.createElement('div');
+        pinnedContainer.classList.add('rounded', 'leaderboardPinned');
+        pinnedContainer.style = "margin-bottom: 8px; padding: 10px; font-size: 14px; border: 2px solid var(--primary-fg); background: rgba(255,255,0,0.04); display:flex; align-items:center; justify-content:space-between;";
+
+        if (pinnedItem) {
+            // left side
+            const leftP = document.createElement('div');
+            leftP.style.flex = '1';
+            const titleP = document.createElement('div');
+            titleP.style.fontWeight = '700';
+            const rVal = (typeof pinnedItem.rating === 'number') ? pinnedItem.rating : null;
+            const rStr = rVal !== null ? (Number.isInteger(rVal) ? String(rVal) : String(Math.round(rVal * 10) / 10)) : 'N/A';
+            const uStr = pinnedItem.username ? String(pinnedItem.username) : (pinnedItem.pupil_id ? String(pinnedItem.pupil_id) : 'You');
+            titleP.textContent = `${rStr} - ${uStr} (You)`;
+            leftP.appendChild(titleP);
+
+            const metaP = document.createElement('div');
+            metaP.style.fontSize = '13px';
+            metaP.style.color = '#444';
+            let avg = '—';
+            if (pinnedItem.grades !== undefined && pinnedItem.grades !== null) {
+                const g = Number(pinnedItem.grades);
+                if (!Number.isNaN(g)) avg = g.toFixed(2).replace('.', ',');
+            }
+            const pPos = Number.isInteger(pinnedItem.N_positive_notes) ? pinnedItem.N_positive_notes : (pinnedItem.N_positive_notes ? Number(pinnedItem.N_positive_notes) : 0);
+            const pNeg = Number.isInteger(pinnedItem.N_negative_notes) ? pinnedItem.N_negative_notes : (pinnedItem.N_negative_notes ? Number(pinnedItem.N_negative_notes) : 0);
+            metaP.textContent = `${avg} , ${pPos}/${pNeg}`;
+            leftP.appendChild(metaP);
+            pinnedContainer.appendChild(leftP);
+
+            // right side: school
+            const rightP = document.createElement('div');
+            rightP.style.marginLeft = '12px';
+            rightP.style.fontSize = '12px';
+            rightP.style.color = '#666';
+            rightP.style.textAlign = 'right';
+            rightP.textContent = pinnedItem.school ? String(pinnedItem.school) : '';
+            pinnedContainer.appendChild(rightP);
+        } else {
+            // Not found on leaderboard; show simple pinned line with id
+            const leftP = document.createElement('div');
+            leftP.style.flex = '1';
+            const titleP = document.createElement('div');
+            titleP.style.fontWeight = '700';
+            titleP.textContent = `Your pupil id: ${currentPupilId} (not on leaderboard)`;
+            leftP.appendChild(titleP);
+            pinnedContainer.appendChild(leftP);
+        }
+
+        lbWidgetContent.appendChild(pinnedContainer);
+
+        // separator between pinned item and the rest of the list
+        const sep = document.createElement('div');
+        sep.style.width = '100%';
+        sep.style.height = '1px';
+        // use primary color with low opacity for visibility in both themes
+        sep.style.background = 'var(--primary-fg, #000)';
+        sep.style.opacity = '0.12';
+        sep.style.margin = '8px 0';
+        lbWidgetContent.appendChild(sep);
     }
 
     // Limit items to 10 for display
@@ -248,37 +379,64 @@ function lb_renderData(data) {
         node.classList.add("rounded", "leaderboardItem");
         node.style = "margin-top: 8px; padding: 10px; font-size: 14px; border: 1px solid var(--primary-fg); display:flex; align-items:center; justify-content:space-between;";
 
+        // attach pupil id as data attribute and id if available
+        if (item && item.pupil_id !== undefined && item.pupil_id !== null) {
+            try {
+                const pid = String(item.pupil_id);
+                node.setAttribute('data-pupil-id', pid);
+                // sanitize for id - replace non-alphanumeric with '-'
+                const safeId = 'lb-pupil-' + pid.replace(/[^a-zA-Z0-9_-]/g, '-');
+                node.id = safeId;
+            } catch (e) { /* ignore */ }
+        }
+
         const left = document.createElement("div");
         left.style.flex = "1";
 
         const title = document.createElement("div");
         title.style.fontWeight = "600";
-        title.textContent = `Pupil ID: ${item && item.pupilID ? item.pupilID : "N/A"}`;
+        title.style.fontSize = "15px";
+        const ratingVal = (item && typeof item.rating === 'number') ? item.rating : null;
+        let ratingStr = 'N/A';
+        if (ratingVal !== null) {
+            ratingStr = Number.isInteger(ratingVal) ? String(ratingVal) : String(Math.round(ratingVal * 10) / 10);
+        }
+        const usernameStr = (item && item.username) ? String(item.username) : (item && item.pupilID ? String(item.pupilID) : 'N/A');
+        title.textContent = `${ratingStr} - ${usernameStr}`;
         left.appendChild(title);
 
         const meta = document.createElement("div");
         meta.style.fontSize = "13px";
         meta.style.color = "#444";
-        // safe grade/note handling
-        let grades = "—";
-        if (item && Array.isArray(item.grades)) grades = item.grades.join(', ');
-        else if (item && item.grades !== undefined && item.grades !== null) grades = String(item.grades);
 
-        let notes = "—";
-        if (item && Array.isArray(item.notes)) notes = item.notes.join('; ');
-        else if (item && item.notes !== undefined && item.notes !== null) notes = String(item.notes);
+        // avg grades formatting: limit to 2 decimals and use comma as decimal separator
+        let avgGrades = '—';
+        if (item && item.grades !== undefined && item.grades !== null) {
+            const g = Number(item.grades);
+            if (!Number.isNaN(g)) {
+                // two decimal places
+                avgGrades = g.toFixed(2).replace('.', ',');
+            }
+        }
 
-        meta.textContent = `Grades: ${grades}  •  Notes: ${notes}`;
+        const posNotes = (item && Number.isInteger(item.N_positive_notes)) ? item.N_positive_notes : (item && item.N_positive_notes ? Number(item.N_positive_notes) : 0);
+        const negNotes = (item && Number.isInteger(item.N_negative_notes)) ? item.N_negative_notes : (item && item.N_negative_notes ? Number(item.N_negative_notes) : 0);
+
+        meta.textContent = `${avgGrades} , ${posNotes}/${negNotes}`;
         left.appendChild(meta);
 
         node.appendChild(left);
 
-        // optional right-side small info (timestamp or rank if present)
+        // Right-side: display school name (preferred) or fallback to timestamp/rank
         const right = document.createElement("div");
         right.style.marginLeft = "12px";
         right.style.fontSize = "12px";
         right.style.color = "#666";
-        if (item && item.timestamp) {
+        right.style.textAlign = "right";
+        // show school if present
+        if (item && item.school) {
+            right.textContent = String(item.school);
+        } else if (item && item.timestamp) {
             try {
                 const dt = new Date(item.timestamp * 1000);
                 right.textContent = dt.toLocaleString();
@@ -289,6 +447,14 @@ function lb_renderData(data) {
             right.textContent = `#${item.rank}`;
         }
         node.appendChild(right);
+
+        // highlight if this matches current pupil
+        try {
+            if (currentPupilId && item && item.pupil_id !== undefined && item.pupil_id !== null && String(item.pupil_id) === currentPupilId) {
+                node.style.outline = '2px solid rgba(59,130,246,0.6)';
+                node.style.background = 'rgba(59,130,246,0.04)';
+            }
+        } catch (e) { /* ignore */ }
 
         lbWidgetContent.appendChild(node);
         count++;
