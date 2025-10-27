@@ -10,6 +10,7 @@ function refresh_page() {
             })
         }
     })
+
 }
 
 $("#version").text("v" + version)
@@ -39,19 +40,28 @@ function applyTheme(theme) {
 }
 
 // initialize base from storage.theme
-chrome.storage.sync.get(['theme'], (result) => {
-    const t = result.theme || 'light';
-    applyTheme(t);
+function getThemeStore(cb) {
+    chrome.storage.local.get({ disable_theme_sync: false }, (r) => {
+        cb(r.disable_theme_sync ? chrome.storage.local : chrome.storage.sync);
+    });
+}
+
+// initialize base from storage.theme (respect disable_theme_sync)
+getThemeStore((store) => {
+    store.get(['theme'], (result) => {
+        const t = result.theme || 'light';
+        applyTheme(t);
+    });
 });
 
 lightThemeBtn.addEventListener('click', () => {
     applyTheme('light');
-    chrome.storage.sync.set({ theme: 'light' });
+    getThemeStore((store) => store.set({ theme: 'light' }));
 });
 
 darkThemeBtn.addEventListener('click', () => {
     applyTheme('dark');
-    chrome.storage.sync.set({ theme: 'dark' });
+    getThemeStore((store) => store.set({ theme: 'dark' }));
 });
 
 // Buttons
@@ -86,12 +96,14 @@ chrome.storage.sync.get(['dev_tools'], (result) => {
 })
 
 function togglePopupCustomThemeId(id, cb) {
-    chrome.storage.sync.get({ active_custom_themes: [] }, (res) => {
-        const arr = new Set(res.active_custom_themes.map(String));
-        const sid = String(id);
-        if (arr.has(sid)) arr.delete(sid); else arr.add(sid);
-        const newArr = Array.from(arr);
-        chrome.storage.sync.set({ active_custom_themes: newArr }, () => cb && cb(newArr));
+    getThemeStore((store) => {
+        store.get({ active_custom_themes: [] }, (res) => {
+            const arr = new Set((res.active_custom_themes || []).map(String));
+            const sid = String(id);
+            if (arr.has(sid)) arr.delete(sid); else arr.add(sid);
+            const newArr = Array.from(arr);
+            store.set({ active_custom_themes: newArr }, () => cb && cb(newArr));
+        });
     });
 }
 
@@ -100,89 +112,103 @@ function renderPopupCustomThemes() {
     if (!toggle) return;
     toggle.querySelectorAll(".custom-theme-btn").forEach(n => n.remove());
 
-    chrome.storage.sync.get(['custom_themes', 'theme', 'active_custom_themes'], (res) => {
-        const themes = res.custom_themes || [];
-        const currentTheme = res.theme || 'light';
-        const activeIds = new Set((res.active_custom_themes || []).map(String));
+    chrome.storage.sync.get(['custom_themes'], (syncRes) => {
+        getThemeStore((store) => {
+            store.get(['theme', 'active_custom_themes'], (res) => {
+                const themes = (syncRes.custom_themes || []);
+                const currentTheme = res.theme || 'light';
+                const activeIds = new Set((res.active_custom_themes || []).map(String));
 
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            darkThemeBtn.classList.add('active');
-            lightThemeBtn.classList.remove('active');
-        } else if (typeof currentTheme === 'string' && currentTheme.startsWith('custom:')) {
-            document.body.classList.remove('dark-theme');
-            lightThemeBtn.classList.remove('active');
-            darkThemeBtn.classList.remove('active');
-        } else {
-            document.body.classList.remove('dark-theme');
-            lightThemeBtn.classList.add('active');
-            darkThemeBtn.classList.remove('active');
-        }
+                if (currentTheme === 'dark') {
+                    document.body.classList.add('dark-theme');
+                    darkThemeBtn.classList.add('active');
+                    lightThemeBtn.classList.remove('active');
+                } else if (typeof currentTheme === 'string' && currentTheme.startsWith('custom:')) {
+                    document.body.classList.remove('dark-theme');
+                    lightThemeBtn.classList.remove('active');
+                    darkThemeBtn.classList.remove('active');
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    lightThemeBtn.classList.add('active');
+                    darkThemeBtn.classList.remove('active');
+                }
 
-        try {
-            const path = (window.location && window.location.pathname) ? window.location.pathname.toLowerCase() : "";
-            if (path.endsWith("/popup.html") || path.endsWith("popup.html")) return;
-        } catch (e) {
-            return;
-        }
+                try {
+                    const path = (window.location && window.location.pathname) ? window.location.pathname.toLowerCase() : "";
+                    if (path.endsWith("/popup.html") || path.endsWith("popup.html")) return;
+                } catch (e) {
+                    return;
+                }
 
-        themes.forEach(t => {
-            const id = String(t.created);
-            if (toggle.querySelector(`.custom-theme-btn[data-custom-id="${CSS.escape(id)}"]`)) return;
+                themes.forEach(t => {
+                    const id = String(t.created);
+                    if (toggle.querySelector(`.custom-theme-btn[data-custom-id="${CSS.escape(id)}"]`)) return;
 
-            const btn = document.createElement("button");
-            btn.className = "custom-theme-btn";
-            btn.textContent = t.name;
-            btn.dataset.customId = id;
-            btn.style.padding = "6px 10px";
-            btn.style.borderRadius = "6px";
-            btn.style.border = "1px solid #e2e8f0";
-            btn.style.background = "#fff";
-            btn.style.marginLeft = "6px";
+                    const btn = document.createElement("button");
+                    btn.className = "custom-theme-btn";
+                    btn.textContent = t.name;
+                    btn.dataset.customId = id;
+                    btn.style.padding = "6px 10px";
+                    btn.style.borderRadius = "6px";
+                    btn.style.border = "1px solid #e2e8f0";
+                    btn.style.background = "#fff";
+                    btn.style.marginLeft = "6px";
 
-            if (activeIds.has(id)) {
-                btn.classList.add('active');
-                btn.style.background = "#e6f0ff";
-            }
+                    if (activeIds.has(id)) {
+                        btn.classList.add('active');
+                        btn.style.background = "#e6f0ff";
+                    }
 
-            btn.addEventListener("click", () => {
-                // toggle active_custom_themes set
-                chrome.storage.sync.get({ active_custom_themes: [] }, (s) => {
-                    const set = new Set((s.active_custom_themes || []).map(String));
-                    if (set.has(id)) set.delete(id); else set.add(id);
-                    const arr = Array.from(set);
-                    chrome.storage.sync.set({ active_custom_themes: arr }, () => {
-                        if (set.has(id)) { btn.classList.add('active'); btn.style.background = "#e6f0ff"; }
-                        else { btn.classList.remove('active'); btn.style.background = "#fff"; }
-                        refresh_page();
-                    });
-                });
-            });
-
-            btn.addEventListener("contextmenu", (e) => {
-                e.preventDefault();
-                if (!confirm(`Remove custom theme "${t.name}"?`)) return;
-                chrome.storage.sync.get({ custom_themes: [], theme: 'light' }, (r) => {
-                    const newArr = (r.custom_themes || []).filter(x => String(x.created) !== id);
-                    const prevTheme = r.theme;
-                    chrome.storage.sync.set({ custom_themes: newArr }, () => {
-                        if (prevTheme === `custom:${id}`) {
-                            chrome.storage.sync.set({ theme: 'light' }, () => {
-                                renderPopupCustomThemes(); refresh_page();
+                    btn.addEventListener("click", () => {
+                        getThemeStore((store2) => {
+                            store2.get({ active_custom_themes: [] }, (s) => {
+                                const set = new Set((s.active_custom_themes || []).map(String));
+                                if (set.has(id)) set.delete(id); else set.add(id);
+                                const arr = Array.from(set);
+                                store2.set({ active_custom_themes: arr }, () => {
+                                    if (set.has(id)) { btn.classList.add('active'); btn.style.background = "#e6f0ff"; }
+                                    else { btn.classList.remove('active'); btn.style.background = "#fff"; }
+                                    refresh_page();
+                                });
                             });
-                        } else {
-                            renderPopupCustomThemes();
-                        }
+                        });
                     });
+
+                    btn.addEventListener("contextmenu", (e) => {
+                        e.preventDefault();
+                        if (!confirm(`Remove custom theme "${t.name}"?`)) return;
+                        // custom_themes stored in sync; theme may be in theme store
+                        chrome.storage.sync.get({ custom_themes: [] }, (syncR) => {
+                            getThemeStore((store2) => {
+                                store2.get({ theme: 'light', active_custom_themes: [] }, (r) => {
+                                    const newArr = (syncR.custom_themes || []).filter(x => String(x.created) !== id);
+                                    const prevTheme = r.theme;
+                                    chrome.storage.sync.set({ custom_themes: newArr }, () => {
+                                        if (prevTheme === `custom:${id}`) {
+                                            store2.set({ theme: 'light' }, () => {
+                                                renderPopupCustomThemes();
+                                                refresh_page();
+                                            });
+                                        } else {
+                                            renderPopupCustomThemes();
+                                        }
+                                    });
+                                });
+                            });
+                        });
+                    });
+
+                    toggle.appendChild(btn);
                 });
             });
-
-            toggle.appendChild(btn);
         });
     });
-}
 
-renderPopupCustomThemes();
-chrome.storage.onChanged.addListener((changes, area) => {
-    if (area === 'sync' && (changes.custom_themes || changes.theme || changes.active_custom_themes)) renderPopupCustomThemes();
-});
+    renderPopupCustomThemes();
+    chrome.storage.onChanged.addListener((changes, area) => {
+        const keys = ['custom_themes', 'theme', 'active_custom_themes'];
+        for (const k of Object.keys(changes)) {
+            if (keys.includes(k)) { renderPopupCustomThemes(); break; }
+        }
+    });
+}

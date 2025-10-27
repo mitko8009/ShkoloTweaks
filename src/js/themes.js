@@ -27,32 +27,48 @@ function setBaseTheme(base) {
 }
 
 function checkTheme() {
-    chrome.storage.sync.get(null, (storage) => {
-        const themeVal = storage.theme || 'light';
-        setBaseTheme(themeVal);
+    chrome.storage.local.get({ disable_theme_sync: false }, (pref) => {
+        const disabled = !!pref.disable_theme_sync;
+        const collect = (storageObj) => {
+            const themeVal = storageObj.theme || 'light';
+            setBaseTheme(themeVal);
 
-        let combined = "";
-        const active = Array.isArray(storage.active_custom_themes) ? storage.active_custom_themes.map(String) : [];
-        if (active.length && Array.isArray(storage.custom_themes)) {
-            for (const id of active) {
-                const ct = storage.custom_themes.find(t => String(t.created) === String(id));
-                if (ct && ct.css) combined += `\n/* custom theme: ${ct.name} */\n` + ct.css;
+            let combined = "";
+            const active = Array.isArray(storageObj.active_custom_themes) ? storageObj.active_custom_themes.map(String) : [];
+            if (active.length && Array.isArray(storageObj.custom_themes)) {
+                for (const id of active) {
+                    const ct = storageObj.custom_themes.find(t => String(t.created) === String(id));
+                    if (ct && ct.css) combined += `\n/* custom theme: ${ct.name} */\n` + ct.css;
+                }
             }
-        }
 
-        if (storage.custom_css) combined += `\n/* editor custom_css */\n` + storage.custom_css;
+            if (storageObj.custom_css) combined += `\n/* editor custom_css */\n` + storageObj.custom_css;
 
-        applyCustomCss(combined);
+            applyCustomCss(combined);
 
-        if (storage.blur_data) { loadCssFile("css/shkolo/blurData.css"); }
-        if (storage.no_avatars) { loadCssFile("css/shkolo/noAvatars.css"); }
-        if (storage.rounded) { loadCssFile("css/shkolo/rounded.css"); }
+            if (storageObj.blur_data) { loadCssFile("css/shkolo/blurData.css"); }
+            if (storageObj.no_avatars) { loadCssFile("css/shkolo/noAvatars.css"); }
+            if (storageObj.rounded) { loadCssFile("css/shkolo/rounded.css"); }
 
-        let messageBody = document.getElementsByClassName("message-body")[0];
-        if (messageBody !== undefined) {
-            for (let i = 0; i < messageBody.children.length; i++) {
-                messageBody.children[i].removeAttribute("style");
+            let messageBody = document.getElementsByClassName("message-body")[0];
+            if (messageBody !== undefined) {
+                for (let i = 0; i < messageBody.children.length; i++) {
+                    messageBody.children[i].removeAttribute("style");
+                }
             }
+        };
+
+        if (disabled) {
+            chrome.storage.sync.get(['custom_themes', 'custom_css', 'blur_data', 'no_avatars', 'rounded'], (syncVals) => {
+                chrome.storage.local.get(['theme', 'active_custom_themes'], (localVals) => {
+                    const merged = Object.assign({}, syncVals || {}, localVals || {});
+                    collect(merged);
+                });
+            });
+        } else {
+            chrome.storage.sync.get(null, (storage) => {
+                collect(storage);
+            });
         }
     });
 }
@@ -68,9 +84,12 @@ function applyCustomCss(css) {
 }
 
 chrome.storage.onChanged.addListener((changes, area) => {
-    if (area !== "sync") return;
-    if (changes.theme || changes.active_custom_themes || changes.custom_css || changes.custom_themes || changes.blur_data || changes.no_avatars || changes.rounded) {
-        setTimeout(checkTheme, 10);
+    const keys = ['theme', 'active_custom_themes', 'custom_css', 'custom_themes', 'blur_data', 'no_avatars', 'rounded', 'disable_theme_sync'];
+    for (const k of Object.keys(changes)) {
+        if (keys.includes(k)) {
+            setTimeout(checkTheme, 10);
+            break;
+        }
     }
 });
 
