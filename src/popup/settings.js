@@ -183,7 +183,7 @@ $(".options").click(function (e) {
     const optionValue = $(checkbox).prop("checked")
 
     if (option === 'leaderboard' && optionValue === true) {
-        const ok = confirm('Enable Leaderboard? This will send and save your "grades" and "notes" to an external server. Proceed?');
+        const ok = confirm('Enable Leaderboard?\nThis enables a leaderboard extension that can submit your success, feedback count, pupil_id and school name to a NON-Shkolo server, and the information will be publicly accessible.\nProceed?');
         if (!ok) {
             checkbox.checked = false;
             return;
@@ -219,7 +219,7 @@ $(".options input[type='checkbox']").on('change', function (e) {
 
     // Confirm when enabling leaderboard
     if (option === 'leaderboard' && optionValue === true) {
-        const ok = confirm('Enable Leaderboard? This will send and save your "grades" and "notes" to an external server. Proceed?');
+        const ok = confirm('This enables a leaderboard extension that can submit your success, feedback count, pupil_id and school name to a NON-Shkolo server, and the information will be publicly accessible.\nProceed?');
         if (!ok) {
             $(this).prop('checked', false)
             return;
