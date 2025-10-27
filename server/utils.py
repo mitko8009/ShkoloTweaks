@@ -13,7 +13,11 @@ import os
 
 config_scheme = {
     "hostname": "localhost",
-    "port": 5000
+    "port": 5000,
+    "db": {
+        "directory": "data",
+        "filename": "leaderboard.db"
+    }
 }
 
 class Config:
@@ -94,9 +98,9 @@ class Config:
 class db:
     def __init__(self, path: str | None = None):
         base_dir = os.path.dirname(__file__)
-        data_dir = os.path.join(base_dir, "data")
+        data_dir = os.path.join(base_dir, Config().get("db")["directory"])
         os.makedirs(data_dir, exist_ok=True)
-        self.path = path or os.path.join(data_dir, "leaderboard.db")
+        self.path = path or os.path.join(data_dir, Config().get("db")["filename"])
         self.conn = sqlite3.connect(self.path)
         self.cursor = self.conn.cursor()
         self._ensure_leaderboard_table()
