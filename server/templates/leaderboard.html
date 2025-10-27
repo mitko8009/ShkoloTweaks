@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="leaderboard-card">
+      <h1 class="center" style="margin-bottom: 24px;">Leaderboard</h1>
+
+      {% if rows %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Username</th>
+              <th class="center">Rating</th>
+              <th class="center">Grades</th>
+              <th class="center">Feedback index</th>
+              <th>School</th>
+              <th>Last update</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in rows %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ r.username if r.username is defined else r['username'] }}</td>
+              <td class="center"><div class="rating">{{ '%.2f' % (r.rating if r.rating is defined else r['rating']) }}</div></td>
+              <td class="center"><span class="grades">{{ '%.2f' % (r.grades if r.grades is defined else r['grades']) }}</span></td>
+              {% set pos = r.N_positive_notes if r.N_positive_notes is defined else r['N_positive_notes'] %}
+              {% set neg = r.N_negative_notes if r.N_negative_notes is defined else r['N_negative_notes'] %}
+              {% set school = r.school if r.school is defined else r['school'] %}
+
+              <td class="center">
+                <div class="rating">{{ (pos|int) - (neg|int) }}</div>
+                <div class="muted" style="font-size:0.7rem; margin-top:-8px;">(+{{ pos }} / -{{ neg }})</div>
+              </td>
+              <td>{{ school }}</td>
+              <td>{{ (r.last_update if r.last_update is defined else r['last_update']) | datetimeformat }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p>No leaderboard entries yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

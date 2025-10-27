@@ -1,0 +1,30 @@
+{
+    "fields": {
+        "username": {"type": "string", "required": false, "description": "Unique username/identifier"},
+        "pupil_id": {"type": "string", "required": false, "description": "Pupil identifier (required)"},
+        "school": {"type": "string", "required": false, "description": "School name (required)"},
+        "grades": {
+            "type": "number | object",
+            "required": false,
+            "default": 0.0,
+            "description": "Either a numeric average (0..6) or an object mapping class names to {id, value}. Values clamped to 0..6",
+            "example_object": {"Math": {"id": "MATH101", "value": 5.5}, "Physics": {"id": "PHY1", "value": 4.0}}
+        },
+        "N_positive_notes": {"type": "integer", "required": false, "default": 0, "min": 0},
+        "N_negative_notes": {"type": "integer", "required": false, "default": 0, "min": 0},
+        "passphrase": {"type": "string", "required": false, "default": "", "description": "Optional secret/passphrase"}
+    },
+    "scoring": {
+        "rule": "Start with base_max = 1000. For each positive feedback add +25 to base_max; for each negative subtract 50. adjusted_max = max(0, base_max + 25*pos - 50*neg). Rating = linear map of grades_avg from 2.00->0 to 6.00->adjusted_max (grades <=2 => 0, >=6 => adjusted_max).",
+        "notes": "adjusted_max may exceed 1000 if positives dominate; it will not go below 0"
+    },
+    "example_request": {
+        "username": "alice",
+        "pupil_id": "12345",
+        "school": "Example High School",
+        "grades": {"Math": {"id": "MATH101", "value": 5.5}, "Physics": {"id": "PHY1", "value": 4.0}},
+        "N_positive_notes": 8,
+        "N_negative_notes": 2,
+        "passphrase": "optional-secret"
+    }
+}

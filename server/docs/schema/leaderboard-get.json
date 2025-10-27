@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Leaderboard GET Response",
+  "description": "Response schema for GET /leaderboard — an array of leaderboard entry objects ordered by rating (desc).",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "username": { "type": "string", "description": "Unique username / primary key." },
+      "rating": { "type": "number", "description": "Computed rating (float)." },
+      "grades": { "type": "number", "description": "Numeric average of grades (float)." },
+      "grades_raw": {
+        "anyOf": [ { "type": "string" }, { "type": "null" } ],
+        "description": "Raw grades payload as serialized JSON string or null."
+      },
+      "N_positive_notes": { "type": "integer", "minimum": 0, "description": "Count of positive feedback notes." },
+      "N_negative_notes": { "type": "integer", "minimum": 0, "description": "Count of negative feedback notes." },
+      "pupil_id": { "anyOf": [ { "type": "string" }, { "type": "null" } ], "description": "Optional pupil id as string or null." },
+      "school": { "anyOf": [ { "type": "string" }, { "type": "null" } ], "description": "Optional school name or identifier." },
+      "last_update": {
+        "type": "string",
+        "description": "Timestamp of last update as returned by SQLite (commonly 'YYYY-MM-DD HH:MM:SS')."
+      }
+    },
+    "required": ["username", "rating", "grades", "N_positive_notes", "N_negative_notes", "last_update"],
+    "additionalProperties": false
+  },
+  "examples": [
+    [
+      {
+        "username": "alice",
+        "rating": 834.5,
+        "grades": 5.3,
+        "grades_raw": "{\"math\": {\"id\":\"m1\", \"value\":5.5}}",
+        "N_positive_notes": 4,
+        "N_negative_notes": 1,
+        "pupil_id": "12345",
+        "school": "Central High",
+        "last_update": "2025-10-27 14:05:12"
+      }
+    ]
+  ]
+}
