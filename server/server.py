@@ -52,15 +52,6 @@ def datetimeformat(value, fmt='%b %d, %Y %H:%M'):
 
     return str(value)
 
-
-@app.route('/', methods=['GET'])
-def status():
-    return jsonify({"status": "OK"}), 200
-
-@app.route('/status', methods=['GET'])
-def get_status():
-    return jsonify({"status": "OK"}), 200
-
 @app.route('/leaderboard/get', methods=['OPTIONS', 'GET'])
 def get_leaderboard():
     if request.method == 'OPTIONS':
@@ -118,22 +109,44 @@ def submit_score():
         total = 0.0
         count = 0
         for cls, entry in grades_input.items():
+            id_val = ""
+            # Collect numeric values for this class (may be from 'grades' list, single 'value', or a plain number)
+            class_numbers: list[float] = []
+
             if isinstance(entry, dict):
                 id_val = str(entry.get('id', ''))
-                try:
-                    val = float(entry.get('value', 0.0))
-                except (TypeError, ValueError):
-                    return jsonify({"error": f"Invalid grade value for class '{cls}'"}), 400
+                if 'grades' in entry and isinstance(entry.get('grades'), (list, tuple)):
+                    for g in (entry.get('grades') or []):
+                        try:
+                            class_numbers.append(float(g))
+                        except (TypeError, ValueError):
+                            return jsonify({"error": f"Invalid grade value in grades array for class '{cls}'"}), 400
+                # also accept a single 'value' field
+                if 'value' in entry and entry.get('value') is not None:
+                    try:
+                        class_numbers.append(float(entry.get('value')))
+                    except (TypeError, ValueError):
+                        return jsonify({"error": f"Invalid grade value for class '{cls}'"}), 400
             else:
-                id_val = ""
+                # entry may be a plain numeric value or a numeric string
                 try:
-                    val = float(entry)
+                    class_numbers.append(float(entry))
                 except (TypeError, ValueError):
                     return jsonify({"error": f"Invalid grade value for class '{cls}'"}), 400
-            val = max(0.0, min(6.0, val))
-            cleaned[cls] = {"id": id_val, "value": val}
-            total += val
-            count += 1
+
+            if not class_numbers:
+                return jsonify({"error": f"No valid grades provided for class '{cls}'"}), 400
+
+            # clamp each individual grade, accumulate both per-class and global totals
+            clamped = [max(0.0, min(6.0, float(v))) for v in class_numbers]
+            # store a per-class representative (mean) for cleaned record, but overall average is across all individuals
+            class_avg = sum(clamped) / len(clamped)
+            cleaned[cls] = {"id": id_val, "value": class_avg}
+
+            total += sum(clamped)
+            count += len(clamped)
+
+        # overall average across all individual grades
         grades_avg = (total / count) if count > 0 else 0.0
     else:
         try:
