@@ -10,6 +10,8 @@ var pupil_id = null
 var school_name = null
 try {
     const allLocalStorage = {};
+    // Only accept pupil IDs that start with the last two digits of the current year
+    const yearPrefix = String(year).slice(-2);
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         const value = localStorage.getItem(key);
@@ -17,10 +19,14 @@ try {
         try {
             const parsed = JSON.parse(value);
             if (parsed && typeof parsed === "object" && parsed.hasOwnProperty("pupil_id")) {
-                pupil_id = parsed["pupil_id"];
-                break;
+                const candidate = parsed["pupil_id"];
+                const candidateStr = candidate != null ? String(candidate) : "";
+                if (candidateStr.startsWith(yearPrefix)) {
+                    pupil_id = candidateStr;
+                    break;
+                }
             }
-        } catch (e) {}
+        } catch (e) { }
     }
     chrome.storage.local.set({ disablePupilIDFeatures: false })
 } catch (e) {
@@ -31,7 +37,7 @@ try {
 // Define jQuery
 let script = document.createElement("script")
 script.src = chrome.runtime.getURL("lib/jquery.min.js")
-script.type = "text/javascript" 
+script.type = "text/javascript"
 document.getElementsByTagName("head")[0].appendChild(script)
 
 function main() {
@@ -51,8 +57,8 @@ function main() {
             if (typeof console !== 'undefined' && console.debug) console.debug(`[${manifest.name}] detected school name:`, school_name);
         } catch (inner) { /* ignore extraction errors */ }
         $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
-    } catch {}
-}  
+    } catch { }
+}
 
 let globalResult;
 let theme, blur_data, rounded, DEBUG, compatibility_mode // Global Variables
