@@ -1,4 +1,5 @@
 :root {
+    --has-loaded: true;
     /* Global Variables */
     --background-primary: hsl(0, 0%, 15%); /* Same as --dark-bg */
     --primary-fg: hsl(0, 0%, 96%);
@@ -29,12 +30,20 @@
 
 /* Custom Theming */
 
-body, #twroot .max-w-screen-max, .sb-left-side, .bg-white{
+body, #twroot .max-w-screen-max, .sb-left-side, .bg-white {
     background-color: var(--background-primary) !important;
 }
 
-tr, .sb-table, .sb-table-container, .mat-paginator-container, .sb-paginator, .sb-paginator-item, .mat-menu-content {
+tr, .sb-table, .sb-table-container, .mat-paginator-container, .sb-paginator, .sb-paginator-item, .mat-menu-content, #twroot .shadow-sm {
     background-color: var(--accent-primary) !important;
+}
+
+.card, footer {
+    background-color: var(--darker2-bg) !important;
+}
+
+.second-nav {
+    background-color: var(--dark2-bg) !important;
 }
 
 /* Grade Table Colors (IN PROGRESS) */
@@ -43,7 +52,7 @@ tr, .sb-table, .sb-table-container, .mat-paginator-container, .sb-paginator, .sb
 }
 
 /* Rounded Theme */
-sb-vertical-tabs, .border  {
+sb-vertical-tabs, .border, #twroot .shadow-sm  {
     border-radius: 8px !important;
 }
 
