@@ -287,5 +287,14 @@
   },
   "close": {
     "message": "Затвори"
+  },
+  "mon_settings_title": {
+    "message": "MON Настройки"
+  },
+  "monGradesAverage": {
+    "message": "Показване на среден успех"
+  },
+  "monGradesAverage_description": {
+    "message": "Добавя ред със средния успех в таблицата с оценки в MON"
   }
 }

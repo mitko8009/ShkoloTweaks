@@ -144,6 +144,10 @@ chrome.storage.sync.get(null, (result) => {
     const leaderboard = result.leaderboard ?? false
     $("#leaderboard").prop("checked", leaderboard)
     tagSetting("leaderboard", chrome.i18n.getMessage("beta"), "#ffcc00")
+
+    const mon_grades_average = result.mon_grades_average ?? false
+    $("#mon_grades_average").prop("checked", mon_grades_average)
+    tagSetting("mon_grades_average", chrome.i18n.getMessage("beta"), "#ffcc00")
 })
 
 chrome.storage.local.get(null, (result) => {

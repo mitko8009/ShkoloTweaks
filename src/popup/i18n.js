@@ -10,7 +10,7 @@ $("#auto_refresh_description").html(chrome.i18n.getMessage("auto_refresh_descrip
 $("#shkolo_settings").html(chrome.i18n.getMessage("shkolo_settings"))
 $("#developer_settings").html(chrome.i18n.getMessage("developer_settings"))
 
-$(".options").each(function() {
+$(".options").each(function () {
     const element = this.children[2]
     const id = element.id
     const message = chrome.i18n.getMessage(id)
@@ -43,4 +43,9 @@ if ($("#settings_search_clear").length) {
     const txt = chrome.i18n.getMessage("clear") || "Clear"
     $("#settings_search_clear").text("×")
     $("#settings_search_clear").attr("title", txt)
+}
+
+// MON settings title
+if ($("#mon_settings_title").length) {
+    $("#mon_settings_title").text(chrome.i18n.getMessage("mon_settings_title") || "MON Settings")
 }

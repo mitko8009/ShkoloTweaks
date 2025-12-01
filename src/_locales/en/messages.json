@@ -289,5 +289,14 @@
   },
   "close": {
     "message": "Close"
+  },
+  "mon_settings_title": {
+    "message": "MON Settings"
+  },
+  "monGradesAverage": {
+    "message": "Show Grades Average"
+  },
+  "monGradesAverage_description": {
+    "message": "Adds a row with the average grades in the MON grades table"
   }
 }

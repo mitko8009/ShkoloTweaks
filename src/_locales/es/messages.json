@@ -1,95 +1,104 @@
 {
-    "extDescription": {
-        "message": "¡Personaliza tu experiencia en Shkolo con ShkoloTweaks! Modo oscuro, widgets personalizados, estadísticas interesantes y más!"
-    },
-    "extName": {
-        "message": "ShkoloTweaks"
-    },
-    "FooterDisclaimer": {
-        "message": "ShkoloTweaks fue creado por el equipo de <b>ITPG Web Studios</b> y es un software no afiliado ni aprobado por Shkolo.bg."
-    },
-    "Monday": {
-        "message": "Lunes"
-    },
-    "Tuesday": {
-        "message": "Martes"
-    },
-    "Wednesday": {
-        "message": "Miércoles"
-    },
-    "Thursday": {
-        "message": "Jueves"
-    },
-    "Friday": {
-        "message": "Viernes"
-    },
-    "Saturday": {
-        "message": "Sábado"
-    },
-    "Sunday": {
-        "message": "Domingo"
-    },
-    "Schedule": {
-        "message": "Horario"
-    },
-    "Refresh": {
-        "message": "Actualizar"
-    },
-    "ViewMore": {
-        "message": "Ver más"
-    },
-    "FetchSchedule": {
-        "message": "Obteniendo datos del horario..."
-    },
-    "FetchScheduleError": {
-        "message": "Ocurrió un error al obtener los datos del horario.<br> Inténtalo de nuevo presionando el botón <b>actualizar</b>.<br><br>Si el problema persiste, por favor contacta al desarrollador."
-    },
-    "Loading": {
-        "message": "Cargando..."
-    },
-    "themeLabel": {
-        "message": "Tema de color"
-    },
-    "saveBtn": {
-        "message": "Guardar"
-    },
-    "shkoloBtn": {
-        "message": "Abrir Shkolo.bg"
-    },
-    "cleanUpLabel": {
-        "message": "Mejoras generales"
-    },
-    "roundedLabel": {
-        "message": "Esquinas redondeadas"
-    },
-    "blurLabel": {
-        "message": "Difuminar información personal"
-    },
-    "scLabel": {
-        "message": "Widget de horario"
-    },
-    "lightTheme": {
-        "message": "Claro"
-    },
-    "darkTheme": {
-        "message": "Oscuro"
-    },
-    "StatsLTO": {
-        "message": "veces que Shkolo fue abierto"
-    },
-    "StatsLTOPopup": {
-        "message": "Este es el número de veces que has abierto el<br>Tablero de Shkolo desde que instalaste <b>ShkoloTweaks</b>.<br><b>Nota:</b> Este número se almacena localmente, puede perderse si borras los datos de tu navegador."
-    },
-    "latestVersion": {
-        "message": "Versión actualizada"
-    },
-    "outdatedVersion": {
-        "message": "Actualización disponible"
-    },
-    "customizations": {
-        "message": "Personalizaciones"
-    },
-    "reordermode": {
-        "message": "Modo de reordenar"
-    }
+  "extDescription": {
+    "message": "¡Personaliza tu experiencia en Shkolo con ShkoloTweaks! Modo oscuro, widgets personalizados, estadísticas interesantes y más!"
+  },
+  "extName": {
+    "message": "ShkoloTweaks"
+  },
+  "FooterDisclaimer": {
+    "message": "ShkoloTweaks fue creado por el equipo de <b>ITPG Web Studios</b> y es un software no afiliado ni aprobado por Shkolo.bg."
+  },
+  "Monday": {
+    "message": "Lunes"
+  },
+  "Tuesday": {
+    "message": "Martes"
+  },
+  "Wednesday": {
+    "message": "Miércoles"
+  },
+  "Thursday": {
+    "message": "Jueves"
+  },
+  "Friday": {
+    "message": "Viernes"
+  },
+  "Saturday": {
+    "message": "Sábado"
+  },
+  "Sunday": {
+    "message": "Domingo"
+  },
+  "Schedule": {
+    "message": "Horario"
+  },
+  "Refresh": {
+    "message": "Actualizar"
+  },
+  "ViewMore": {
+    "message": "Ver más"
+  },
+  "FetchSchedule": {
+    "message": "Obteniendo datos del horario..."
+  },
+  "FetchScheduleError": {
+    "message": "Ocurrió un error al obtener los datos del horario.<br> Inténtalo de nuevo presionando el botón <b>actualizar</b>.<br><br>Si el problema persiste, por favor contacta al desarrollador."
+  },
+  "Loading": {
+    "message": "Cargando..."
+  },
+  "themeLabel": {
+    "message": "Tema de color"
+  },
+  "saveBtn": {
+    "message": "Guardar"
+  },
+  "shkoloBtn": {
+    "message": "Abrir Shkolo.bg"
+  },
+  "cleanUpLabel": {
+    "message": "Mejoras generales"
+  },
+  "roundedLabel": {
+    "message": "Esquinas redondeadas"
+  },
+  "blurLabel": {
+    "message": "Difuminar información personal"
+  },
+  "scLabel": {
+    "message": "Widget de horario"
+  },
+  "lightTheme": {
+    "message": "Claro"
+  },
+  "darkTheme": {
+    "message": "Oscuro"
+  },
+  "StatsLTO": {
+    "message": "veces que Shkolo fue abierto"
+  },
+  "StatsLTOPopup": {
+    "message": "Este es el número de veces que has abierto el<br>Tablero de Shkolo desde que instalaste <b>ShkoloTweaks</b>.<br><b>Nota:</b> Este número se almacena localmente, puede perderse si borras los datos de tu navegador."
+  },
+  "latestVersion": {
+    "message": "Versión actualizada"
+  },
+  "outdatedVersion": {
+    "message": "Actualización disponible"
+  },
+  "customizations": {
+    "message": "Personalizaciones"
+  },
+  "reordermode": {
+    "message": "Modo de reordenar"
+  },
+  "mon_settings_title": {
+    "message": "Configuración de MON"
+  },
+  "monGradesAverage": {
+    "message": "Mostrar promedio de calificaciones"
+  },
+  "monGradesAverage_description": {
+    "message": "Agrega una fila con el promedio de calificaciones en la tabla de calificaciones de MON"
+  }
 }
