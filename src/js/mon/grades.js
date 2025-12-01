@@ -199,6 +199,5 @@
     }
 
     displayAverageValues();
-
 })();
 
