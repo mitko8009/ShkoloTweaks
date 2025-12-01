@@ -3,7 +3,7 @@
 	"name": "ShkoloTweaks (BETA)",
 	"short_name": "ShkoloTW",
 	"description": "__MSG_extDescription__",
-	"version": "0.11.9",
+	"version": "0.11.11",
 	"author": "ITPG Web Studios",
 	"default_locale": "en",
 	"homepage_url": "https://pishkisoriz.com/",
@@ -87,7 +87,8 @@
 			],
 			"js": [
 				"mon.js",
-				"js/mon/grades.js"
+				"js/mon/grades.js",
+				"js/mon/nav-bar.js"
 			],
 			"run_at": "document_end"
 		}

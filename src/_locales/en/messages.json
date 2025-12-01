@@ -298,5 +298,11 @@
   },
   "monGradesAverage_description": {
     "message": "Adds a row with the average grades in the MON grades table"
+  },
+  "monSideNavbar": {
+    "message": "Side Navigation Bar"
+  },
+  "monSideNavbar_description": {
+    "message": "Moves the navigation bar from the top to the sidebar in MON"
   }
 }

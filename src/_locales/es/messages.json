@@ -100,5 +100,11 @@
   },
   "monGradesAverage_description": {
     "message": "Agrega una fila con el promedio de calificaciones en la tabla de calificaciones de MON"
+  },
+  "monSideNavbar": {
+    "message": "Barra de navegación lateral"
+  },
+  "monSideNavbar_description": {
+    "message": "Mueve la barra de navegación desde la parte superior a la barra lateral en MON"
   }
 }
