@@ -86,7 +86,8 @@
 				"*://*.mon.bg/*"
 			],
 			"js": [
-				"mon.js"
+				"mon.js",
+				"js/mon/grades.js"
 			],
 			"run_at": "document_end"
 		}
