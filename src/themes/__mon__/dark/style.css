@@ -90,4 +90,8 @@ sb-vertical-tabs, .border, #twroot .shadow-sm  {
     background-color: white !important;
 }
 
+.book-item-cell.excused {
+    background-color: rgba(70, 130, 180, 0.3) !important;
+}
+
 

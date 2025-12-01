@@ -147,11 +147,11 @@ chrome.storage.sync.get(null, (result) => {
 
     const mon_grades_average = result.mon_grades_average ?? false
     $("#mon_grades_average").prop("checked", mon_grades_average)
-    tagSetting("mon_grades_average", chrome.i18n.getMessage("beta"), "#ffcc00")
+    tagSetting("mon_grades_average", chrome.i18n.getMessage("new"), "#0d50e2")
 
     const mon_side_navbar = result.mon_side_navbar ?? false
     $("#mon_side_navbar").prop("checked", mon_side_navbar)
-    tagSetting("mon_side_navbar", chrome.i18n.getMessage("beta"), "#ffcc00")
+    tagSetting("mon_side_navbar", chrome.i18n.getMessage("new"), "#0d50e2")
 })
 
 chrome.storage.local.get(null, (result) => {
