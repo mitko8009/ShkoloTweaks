@@ -104,9 +104,11 @@ jobs:
             echo "Listing commits since $LAST_TAG"
             git --no-pager log "${LAST_TAG}..HEAD" --pretty=format:'- %s (%h) by %an' > /tmp/commits.txt || true
           fi
-          echo "commits<<EOF" >> $GITHUB_OUTPUT
-          cat /tmp/commits.txt >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo 'commits<<EOF'
+            cat /tmp/commits.txt
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
