@@ -99,14 +99,27 @@ jobs:
           LAST_TAG="${{ needs.check-version.outputs.latest_tag }}"
           if [ -z "$LAST_TAG" ] || [ "$LAST_TAG" == "none" ]; then
             echo "No previous tag, listing all commits"
-            COMMITS=$(git --no-pager log --pretty=format:'- %s (%h) by %an' HEAD || echo "No commits found")
+            COMMITS=$(git --no-pager log --pretty=format:'- %s (%h) by @%an' HEAD || echo "No commits found")
           else
             echo "Listing commits since $LAST_TAG"
-            COMMITS=$(git --no-pager log "${LAST_TAG}..HEAD" --pretty=format:'- %s (%h) by %an' || echo "No new commits since last release")
+            COMMITS=$(git --no-pager log "${LAST_TAG}..HEAD" --pretty=format:'- %s (%h) by @%an' || echo "No new commits since last release")
           fi
           echo "commits<<EOF" >> "$GITHUB_OUTPUT"
           echo "$COMMITS" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Delete old auto release
+        run: |
+          LAST_TAG="${{ needs.check-version.outputs.latest_tag }}"
+          if [ ! -z "$LAST_TAG" ] && [ "$LAST_TAG" != "none" ] && [[ "$LAST_TAG" == *"-auto-"* ]]; then
+            echo "Deleting old auto release: $LAST_TAG"
+            gh release delete "$LAST_TAG" --yes || echo "Failed to delete release, continuing..."
+            git push --delete origin "$LAST_TAG" || echo "Failed to delete tag, continuing..."
+          else
+            echo "No auto release to delete or last release is not an auto release"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
