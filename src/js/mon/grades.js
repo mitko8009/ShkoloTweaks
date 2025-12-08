@@ -120,80 +120,73 @@
     }
 
     function displayAverageValues() {
-        chrome.storage.sync.get(['mon_grades_average'], (result) => {
+        chrome.storage.sync.get(null, (result) => {
             const enabled = result.mon_grades_average ?? false;
-            if (!enabled) {
-                console.log('[ShkoloTweaks]: MON grades average feature is disabled.');
-                return;
-            }
+            if (!enabled) return;
 
             parseGradesTable().then(data => {
-                console.log('[ShkoloTweaks]: Parsed Grades Data:', data);
+                // Calculate averages
+                const g1Avg = calculateAverage(data.g1_values);
+                const term1Avg = calculateAverage(data.term1_values);
+                const g2Avg = calculateAverage(data.g2_values);
+                const term2Avg = calculateAverage(data.term2_values);
+                const yearAvg = calculateAverage(data.year_values);
 
-                waitForGradesTable().then(table => {
-                    // Calculate averages
-                    const g1Avg = calculateAverage(data.g1_values);
-                    const term1Avg = calculateAverage(data.term1_values);
-                    const g2Avg = calculateAverage(data.g2_values);
-                    const term2Avg = calculateAverage(data.term2_values);
-                    const yearAvg = calculateAverage(data.year_values);
+                // Create average row
+                const tbody = gradesTable.querySelector('tbody');
+                const avgRow = document.createElement('tr');
+                avgRow.className = 'shkolo-tweaks-average-row';
+                avgRow.style.fontWeight = 'bold';
+                avgRow.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
+                avgRow.style.borderTop = '2px solid #fff';
 
-                    // Create average row
-                    const tbody = table.querySelector('tbody');
-                    const avgRow = document.createElement('tr');
-                    avgRow.className = 'shkolo-tweaks-average-row';
-                    avgRow.style.fontWeight = 'bold';
-                    avgRow.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
-                    avgRow.style.borderTop = '2px solid #fff';
+                // Subject column
+                const subjectCell = document.createElement('td');
+                subjectCell.textContent = 'Среден успех';
+                avgRow.appendChild(subjectCell);
 
-                    // Subject column
-                    const subjectCell = document.createElement('td');
-                    subjectCell.textContent = 'Среден успех';
-                    avgRow.appendChild(subjectCell);
+                // G1 average
+                const g1Cell = document.createElement('td');
+                g1Cell.className = 'grade-cell first-term-only';
+                g1Cell.textContent = g1Avg || '-';
+                avgRow.appendChild(g1Cell);
 
-                    // G1 average
-                    const g1Cell = document.createElement('td');
-                    g1Cell.className = 'grade-cell first-term-only';
-                    g1Cell.textContent = g1Avg || '-';
-                    avgRow.appendChild(g1Cell);
+                // Term 1 average
+                const term1Cell = document.createElement('td');
+                term1Cell.className = 'grade-cell';
+                term1Cell.textContent = term1Avg || '-';
+                avgRow.appendChild(term1Cell);
 
-                    // Term 1 average
-                    const term1Cell = document.createElement('td');
-                    term1Cell.className = 'grade-cell';
-                    term1Cell.textContent = term1Avg || '-';
-                    avgRow.appendChild(term1Cell);
+                // G2 average
+                const g2Cell = document.createElement('td');
+                g2Cell.className = 'grade-cell second-term-only';
+                g2Cell.textContent = g2Avg || '-';
+                avgRow.appendChild(g2Cell);
 
-                    // G2 average
-                    const g2Cell = document.createElement('td');
-                    g2Cell.className = 'grade-cell second-term-only';
-                    g2Cell.textContent = g2Avg || '-';
-                    avgRow.appendChild(g2Cell);
+                // Term 2 average
+                const term2Cell = document.createElement('td');
+                term2Cell.className = 'grade-cell';
+                term2Cell.textContent = term2Avg || '-';
+                avgRow.appendChild(term2Cell);
 
-                    // Term 2 average
-                    const term2Cell = document.createElement('td');
-                    term2Cell.className = 'grade-cell';
-                    term2Cell.textContent = term2Avg || '-';
-                    avgRow.appendChild(term2Cell);
+                // Year average
+                const yearCell = document.createElement('td');
+                yearCell.className = 'grade-cell';
+                yearCell.textContent = yearAvg || '-';
+                avgRow.appendChild(yearCell);
 
-                    // Year average
-                    const yearCell = document.createElement('td');
-                    yearCell.className = 'grade-cell';
-                    yearCell.textContent = yearAvg || '-';
-                    avgRow.appendChild(yearCell);
+                // Remove existing average row if present
+                const existingAvgRow = tbody.querySelector('.shkolo-tweaks-average-row');
+                if (existingAvgRow) {
+                    existingAvgRow.remove();
+                }
 
-                    // Remove existing average row if present
-                    const existingAvgRow = tbody.querySelector('.shkolo-tweaks-average-row');
-                    if (existingAvgRow) {
-                        existingAvgRow.remove();
-                    }
+                avgRow.children[0].style.padding = '8px';
+                avgRow.children[0].style.textAlign = 'left';
+                avgRow.style.textAlign = 'center';
 
-                    avgRow.children[0].style.padding = '8px';
-                    avgRow.children[0].style.textAlign = 'left';
-                    avgRow.style.textAlign = 'center';
-
-                    table.appendChild(avgRow);
-                    console.log('[ShkoloTweaks]: Average row added to grades table.');
-                });
+                gradesTable.appendChild(avgRow);
+                console.log('[ShkoloTweaks]: Average row added to grades table.');
             });
         });
     }
