@@ -23,6 +23,9 @@ chrome.storage.sync.get(null, (result) => {
             inapp_ext_settings: true,
             move_logout_button: true,
             trusted_devices_logins: false,
+            // MON settings
+            mon_grades_average: true,
+            mon_side_navbar: true,
             // Experimental settings
             year_countdown: false,
             stats_panel: false,
