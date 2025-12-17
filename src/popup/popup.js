@@ -1,5 +1,5 @@
 const manifest = chrome.runtime.getManifest()
-const version = manifest.version
+const version = manifest.version_name || manifest.version
 const label_version = document.getElementById('version')
 
 function refresh_page() {
@@ -90,7 +90,7 @@ chrome.storage.sync.get(['dev_tools'], (result) => {
         fetch("https://raw.githubusercontent.com/mitko8009/ShkoloTweaks/refs/heads/main/src/manifest.json")
             .then(response => response.json())
             .then(data => {
-                $("#dev").html("Lastest: v" + data.version)
+                $("#dev").html("Lastest (GH): v" + (data.version_name || data.version))
             })
     }
 })

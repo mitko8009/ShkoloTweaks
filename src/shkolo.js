@@ -1,5 +1,5 @@
 const manifest = chrome.runtime.getManifest()
-const version = manifest.version
+const version = manifest.version_name || manifest.version
 const pageurl = window.location.href
 
 const today = new Date();
