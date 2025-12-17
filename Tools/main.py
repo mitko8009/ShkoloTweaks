@@ -149,8 +149,17 @@ class window(QMainWindow):
         self.loadManifest()
 
         if self.mainUi.OptionChromium.isChecked():
+            # Building for Chromium/Chrome
             if 'browser_specific_settings' in self.manifest:
                 del self.manifest['browser_specific_settings']
+            if 'background' in self.manifest and 'scripts' in self.manifest['background']:
+                del self.manifest['background']['scripts']
+        else:
+            # Building for Firefox
+            if 'background' in self.manifest and 'service_worker' in self.manifest['background']:
+                del self.manifest['background']['service_worker']
+            if 'key' in self.manifest:
+                del self.manifest['key']
 
         if self.mainUi.minifyHTML.isChecked(): utils.minifyHTML(config['path'])
         if self.mainUi.minifyCSS.isChecked(): utils.minifyCSS(config['path'])
