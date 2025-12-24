@@ -167,7 +167,14 @@ class window(QMainWindow):
 
         SaveManifest(config['path'] + "manifest.json", self.manifest)
 
+        output_name = f"{self.manifest['name']}_{self.manifest['version']}_{self.mainUi.OptionChromium.isChecked() and 'chromium' or 'firefox'}"
+
         if self.mainUi.CRX.isChecked():
+            if (not self.mainUi.OptionChromium.isChecked()):
+                QMessageBox.warning(self.mainUi, "Incompatible Options", "CRX format is only compatible with Chromium/Chrome builds. Please select the Chromium option.")
+                shutil.rmtree(config['path'])
+                return
+            
             chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
             extension_path = os.path.abspath(config['path'])
             key_path = self.mainUi.prv_key.text()
@@ -184,14 +191,14 @@ class window(QMainWindow):
                 ])
                 crx_file = extension_path + '.crx'
                 if os.path.exists(crx_file):
-                    dest_crx = os.path.join("..", f"{self.manifest['name']}.crx")
+                    dest_crx = os.path.join("..", f"{output_name}.crx")
                     shutil.move(crx_file, dest_crx)
                     print(f"Successfully built CRX at {dest_crx}")
             except Exception as e:
                 print(f"Failed to build CRX: {e}")
         else:
-            shutil.make_archive("../"+self.manifest['name'], 'zip', config['path'], owner=self.manifest['author'], group=self.manifest['author'])
-            print(f"Successfully built extension at ../{self.manifest['name']}.zip")
+            shutil.make_archive("../"+output_name, 'zip', config['path'], owner=self.manifest['author'], group=self.manifest['author'])
+            print(f"Successfully built extension at ../{output_name}.zip")
 
         shutil.rmtree(config['path'])
 
