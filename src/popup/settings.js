@@ -434,25 +434,6 @@ function renderCustomThemesPopup(themes, activeIdsSet) {
     };
 }
 
-// Buttons
-chrome.storage.sync.get(['rounded', 'blur_data'], (result) => {
-    const rounded = result.rounded || false
-    const blur_data = result.blur_data || false
-
-    $("#rounded").prop("checked", rounded)
-    $("#blur_data").prop("checked", blur_data)
-})
-
-$("#rounded").click(() => {
-    const rounded = $("#rounded").prop("checked")
-    chrome.storage.sync.set({ rounded: rounded })
-})
-
-$("#blur_data").click(() => {
-    const blur_data = $("#blur_data").prop("checked")
-    chrome.storage.sync.set({ blur_data: blur_data })
-})
-
 $("#chrome_storage").click(() => {
     showPopup($("#chrome_storage_popup"))
 
