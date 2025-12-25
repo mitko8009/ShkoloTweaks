@@ -23,8 +23,9 @@
         });
     }
 
-    function parseGradesTable() {
-        return waitForGradesTable().then(table => {
+    async function parseGradesTable() {
+        try {
+            const table = await waitForGradesTable();
             const rows = table.querySelectorAll('tbody tr');
 
             const g1_values = [];
@@ -107,9 +108,9 @@
             };
 
             return gradesData;
-        }).catch(error => {
+        } catch (error) {
             console.error('[ShkoloTweaks]: Error locating grades table:', error);
-        });
+        }
     }
 
     function calculateAverage(gradesArray) {
@@ -119,23 +120,26 @@
         return (sum / allGrades.length).toFixed(2);
     }
 
-    function displayAverageValues() {
-        chrome.storage.sync.get(null, (result) => {
+    async function displayAverageValues() {
+        chrome.storage.sync.get(null, async (result) => {
             const enabled = result.mon_grades_average ?? false;
             if (!enabled) return;
 
-            parseGradesTable().then(data => {
-                // Calculate averages
-                const g1Avg = calculateAverage(data.g1_values);
-                const term1Avg = calculateAverage(data.term1_values);
-                const g2Avg = calculateAverage(data.g2_values);
-                const term2Avg = calculateAverage(data.term2_values);
-                const yearAvg = calculateAverage(data.year_values);
+            const data = await parseGradesTable();
+            if (!data) return;
+
+            // Calculate averages
+            const g1Avg = calculateAverage(data.g1_values);
+            const term1Avg = calculateAverage(data.term1_values);
+            const g2Avg = calculateAverage(data.g2_values);
+            const term2Avg = calculateAverage(data.term2_values);
+            const yearAvg = calculateAverage(data.year_values);
 
                 // Create average row
                 const tbody = gradesTable.querySelector('tbody');
                 const avgRow = document.createElement('tr');
                 avgRow.className = 'shkolo-tweaks-average-row';
+                avgRow.id = 'shkolo-tweaks-average-row';
                 avgRow.style.fontWeight = 'bold';
                 avgRow.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
                 avgRow.style.borderTop = '2px solid #fff';
@@ -187,10 +191,26 @@
 
                 gradesTable.appendChild(avgRow);
                 console.log('[ShkoloTweaks]: Average row added to grades table.');
-            });
         });
     }
 
+    // Initial call
     displayAverageValues();
+
+    // Fix avg grades disappearing when switching tabs
+    handleTabClickEventToUpdateTable();
+    function handleTabClickEventToUpdateTable() {
+        setTimeout(() => {
+            if ($('#mat-tab-link-0').length === 0) {
+                handleTabClickEventToUpdateTable();
+                return;
+            }
+
+            $('#mat-tab-link-0')?.on('click', () => {
+                if (document.getElementById('shkolo-tweaks-average-row')) return;
+                displayAverageValues();
+            });
+        }, 100)
+    }
 })();
 
