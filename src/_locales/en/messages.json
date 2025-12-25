@@ -310,5 +310,17 @@
   },
   "monSideNavbar_description": {
     "message": "Moves the navigation bar from the top to the sidebar in MON"
+  },
+  "disableThemeSync_label": {
+    "message": "Disable Theme Sync"
+  },
+  "disableThemeSync_description": {
+    "message": "Prevent ShkoloTweaks from  syncing the active theme or custom themes to Chrome sync."
+  },
+  "leaderboardLabel": {
+    "message": "Leaderboard"
+  },
+  "leaderboard_description": {
+    "message": "Enable leaderboard to compare results with others. Disclaimer: This enables a leaderboard extension that can submit your success, feedbackcount, pupil_id and school name to a NON-Shkolo server, and the information will be publicly accessible."
   }
 }

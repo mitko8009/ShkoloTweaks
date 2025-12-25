@@ -4,20 +4,78 @@ async function loadSettingSchema() {
         if (!response.ok) throw new Error(`Failed to load: ${response.status}`);
         const schema = await response.json();
 
-        // Process schema to add tags to settings in the UI
-        console.log('Loaded setting schema:', schema);
+        if (!schema || !Array.isArray(schema.schema)) {
+            console.warn('Invalid or missing schema passed to loadOptionsInSettings');
+            return;
+        }
+
+        loadOptionsInSettings(schema);
         loadSettingsState(schema);
+        optionsEventHandler();
     } catch (e) {
         console.error('Error loading setting schema:', e);
     }
 }
+loadSettingSchema();
+
+function loadOptionsInSettings(schema) {
+    if (!schema || !Array.isArray(schema.schema)) return;
+
+    const items = schema.schema || [];
+
+    items.forEach((item) => {
+        const { type, id, i18n_title, i18n_description, section } = item;
+
+        if (type !== 'boolean' || !id || !section) return;
+
+        const sectionElement = document.getElementById(section);
+        if (!sectionElement) {
+            console.warn(`Section element not found: ${section}`);
+            return;
+        }
+
+        if (document.getElementById(id)) {
+            return;
+        }
+
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'options';
+
+        const checkbox = document.createElement('input');
+        checkbox.id = id;
+        checkbox.type = 'checkbox';
+
+        const switchLabel = document.createElement('label');
+        switchLabel.setAttribute('for', id);
+        switchLabel.className = 'switch';
+
+        const textLabel = document.createElement('label');
+        textLabel.setAttribute('for', id);
+        textLabel.id = i18n_title || '';
+        if (i18n_title && typeof chrome !== 'undefined' && chrome.i18n) {
+            const translatedTitle = chrome.i18n.getMessage(i18n_title);
+            if (translatedTitle) textLabel.textContent = translatedTitle;
+        }
+
+        const description = document.createElement('p');
+        description.className = 'description';
+        description.id = i18n_description || '';
+        if (i18n_description && typeof chrome !== 'undefined' && chrome.i18n) {
+            const translatedDesc = chrome.i18n.getMessage(i18n_description);
+            if (translatedDesc) description.textContent = translatedDesc;
+        }
+
+        // Append all elements to the option container
+        optionDiv.appendChild(checkbox);
+        optionDiv.appendChild(switchLabel);
+        optionDiv.appendChild(textLabel);
+        optionDiv.appendChild(description);
+
+        sectionElement.appendChild(optionDiv);
+    });
+}
 
 function loadSettingsState(schema) {
-    if (!schema || !Array.isArray(schema.schema)) {
-        console.warn('Invalid or missing schema passed to loadSettingsState');
-        return;
-    }
-
     const getTagText = (tagDef, tagKey) => {
         if (!tagDef) return tagKey;
         if (tagDef.i18n && typeof chrome !== 'undefined' && chrome.i18n && chrome.i18n.getMessage) {
@@ -87,86 +145,85 @@ function loadSettingsState(schema) {
     });
 }
 
-loadSettingSchema();
+function optionsEventHandler() {
+    $(".options").click(function (e) {
+        if ($(this).hasClass("no-toggle")) return;
 
-// Settings Click Event
-$(".options").click(function (e) {
-    if ($(this).hasClass("no-toggle")) return;
-
-    // If the click originated on an interactive element let its handler manage state.
-    const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
-    if (tag === 'input' || tag === 'button' || tag === 'label' || $(e.target).closest('button').length) {
-        return;
-    }
-
-    const checkbox = this.querySelector('input[type="checkbox"]');
-    if (!checkbox) return;
-
-    checkbox.checked = !checkbox.checked;
-
-    const option = checkbox.id
-    const optionValue = $(checkbox).prop("checked")
-
-    if (option === 'leaderboard' && optionValue === true) {
-        const ok = confirm('Enable Leaderboard?\nThis enables a leaderboard extension that can submit your success, feedback count, pupil_id and school name to a NON-Shkolo server, and the information will be publicly accessible.\nProceed?');
-        if (!ok) {
-            checkbox.checked = false;
+        // If the click originated on an interactive element let its handler manage state.
+        const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+        if (tag === 'input' || tag === 'button' || tag === 'label' || $(e.target).closest('button').length) {
             return;
         }
-    }
 
-    if (option === 'disable_theme_sync') {
-        chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {
-            // refresh theme UI/storage behavior immediately
-            withThemeStorage((store) => {
-                store.get(['theme'], (res) => {
-                    applyTheme(res.theme || 'light')
-                    renderCustomThemeButtons()
-                })
-            })
-        })
-    } else {
-        chrome.storage.sync.set({ [option]: optionValue })
-    }
+        const checkbox = this.querySelector('input[type="checkbox"]');
+        if (!checkbox) return;
 
-    $(this).addClass("clicked")
-    setTimeout(() => {
-        $(this).removeClass("clicked")
-    }, 300)
-})
+        checkbox.checked = !checkbox.checked;
 
-// Handle direct checkbox changes and persist accordingly (prevents double-toggles)
-$(".options input[type='checkbox']").on('change', function (e) {
-    e.stopPropagation();
+        const option = checkbox.id
+        const optionValue = $(checkbox).prop("checked")
 
-    const option = this.id
-    const optionValue = $(this).prop("checked")
-
-    // Confirm when enabling leaderboard
-    if (option === 'leaderboard' && optionValue === true) {
-        const ok = confirm('This enables a leaderboard extension that can submit your success, feedback count, pupil_id and school name to a NON-Shkolo server, and the information will be publicly accessible.\nProceed?');
-        if (!ok) {
-            $(this).prop('checked', false)
-            return;
+        if (option === 'leaderboard' && optionValue === true) {
+            const ok = confirm('Enable Leaderboard?\nThis enables a leaderboard extension that can submit your success, feedback count, pupil_id and school name to a NON-Shkolo server, and the information will be publicly accessible.\nProceed?');
+            if (!ok) {
+                checkbox.checked = false;
+                return;
+            }
         }
-    }
 
-    if (option === 'disable_theme_sync') {
-        chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {
-            // refresh theme UI/storage behavior immediately
-            withThemeStorage((store) => {
-                store.get(['theme'], (res) => {
-                    applyTheme(res.theme || 'light')
-                    renderCustomThemeButtons()
+        if (option === 'disable_theme_sync') {
+            chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {
+                // refresh theme UI/storage behavior immediately
+                withThemeStorage((store) => {
+                    store.get(['theme'], (res) => {
+                        applyTheme(res.theme || 'light')
+                        renderCustomThemeButtons()
+                    })
                 })
             })
-        })
-    } else {
-        chrome.storage.sync.set({ [option]: optionValue })
-    }
-})
+        } else {
+            chrome.storage.sync.set({ [option]: optionValue })
+        }
 
-// Compatibility Settings
+        $(this).addClass("clicked")
+        setTimeout(() => {
+            $(this).removeClass("clicked")
+        }, 300)
+    })
+
+    // Handle direct checkbox changes and persist accordingly (prevents double-toggles)
+    $(".options input[type='checkbox']").on('change', function (e) {
+        e.stopPropagation();
+
+        const option = this.id
+        const optionValue = $(this).prop("checked")
+
+        // Confirm when enabling leaderboard
+        if (option === 'leaderboard' && optionValue === true) {
+            const ok = confirm('This enables a leaderboard extension that can submit your success, feedback count, pupil_id and school name to a NON-Shkolo server, and the information will be publicly accessible.\nProceed?');
+            if (!ok) {
+                $(this).prop('checked', false)
+                return;
+            }
+        }
+
+        if (option === 'disable_theme_sync') {
+            chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {
+                // refresh theme UI/storage behavior immediately
+                withThemeStorage((store) => {
+                    store.get(['theme'], (res) => {
+                        applyTheme(res.theme || 'light')
+                        renderCustomThemeButtons()
+                    })
+                })
+            })
+        } else {
+            chrome.storage.sync.set({ [option]: optionValue })
+        }
+    })
+}
+
+//* Compatibility Settings
 var clickCount = 0
 $("#logo").click(() => {
     clickCount++
@@ -203,7 +260,7 @@ function tagSetting(setting, text, color) {
     settingElement.children().eq(2).after(tag)
 }
 
-// Search for settings
+//* Search for settings
 function filterSettings(query) {
     const q = (query || "").trim().toLowerCase()
     let matches = 0
