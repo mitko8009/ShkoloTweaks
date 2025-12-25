@@ -1,37 +1,24 @@
-// Load initial settings
-chrome.storage.sync.get(null, (result) => {
-    if (!result.initialized) {
-        chrome.storage.sync.set({
-            initialized: true,
-            
-            // General settings
-            theme: 'dark',
-            blur_data: true,
-            no_avatars: false,
-            rounded: true,
-            autoRefresh: true,
-            schedule: true,
-            control_tests: true,
-            reorder_sidebar: true,
-            colored_icons: false,
-            // QoL settings
-            remove_ads: true,
-            load_qol_css: true,
-            email_and_tel: false,
-            messages_background_fix: true,
-            details_date: true,
-            inapp_ext_settings: true,
-            move_logout_button: true,
-            // MON settings
-            mon_grades_average: true,
-            mon_side_navbar: true,
-            // Experimental settings
-            year_countdown: false,
-            stats_panel: false,
-            trusted_devices_logins: false,
-            leaderboard: false,
-            // Developer settings
-            dev_tools: false
-        })
+async function loadSettingSchema() {
+    try {
+        const response = await fetch(chrome.runtime.getURL('setting-schema.json'));
+        if (!response.ok) throw new Error(`Failed to load: ${response.status}`);
+        const schema = await response.json();
+
+        defaultsSchema = schema['defaults'];
+        if (!defaultsSchema) throw new Error('No defaults found in schema');
+
+        chrome.storage.sync.get(null, (result) => {
+            if (!result.initialized) {
+                const settings = { initialized: true };
+                for (const key in defaultsSchema) {
+                    settings[key] = defaultsSchema[key];
+                }
+                chrome.storage.sync.set(settings);
+            }
+        });
+    } catch (e) {
+        console.error('Error loading setting schema:', e);
     }
-});
+}
+
+loadSettingSchema();
