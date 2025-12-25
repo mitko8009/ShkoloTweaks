@@ -89,6 +89,86 @@ function loadSettingsState(schema) {
 
 loadSettingSchema();
 
+// Settings Click Event
+$(".options").click(function (e) {
+    if ($(this).hasClass("no-toggle")) return;
+
+    // If the click originated on an interactive element let its handler manage state.
+    const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+    if (tag === 'input' || tag === 'button' || tag === 'label' || $(e.target).closest('button').length) {
+        return;
+    }
+
+    const checkbox = this.querySelector('input[type="checkbox"]');
+    if (!checkbox) return;
+
+    checkbox.checked = !checkbox.checked;
+
+    const option = checkbox.id
+    const optionValue = $(checkbox).prop("checked")
+
+    if (option === 'leaderboard' && optionValue === true) {
+        const ok = confirm('Enable Leaderboard?\nThis enables a leaderboard extension that can submit your success, feedback count, pupil_id and school name to a NON-Shkolo server, and the information will be publicly accessible.\nProceed?');
+        if (!ok) {
+            checkbox.checked = false;
+            return;
+        }
+    }
+
+    if (option === 'disable_theme_sync') {
+        chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {
+            // refresh theme UI/storage behavior immediately
+            withThemeStorage((store) => {
+                store.get(['theme'], (res) => {
+                    applyTheme(res.theme || 'light')
+                    renderCustomThemeButtons()
+                })
+            })
+        })
+    } else {
+        chrome.storage.sync.set({ [option]: optionValue })
+    }
+
+    $(this).addClass("clicked")
+    setTimeout(() => {
+        $(this).removeClass("clicked")
+    }, 300)
+})
+
+// Handle direct checkbox changes and persist accordingly (prevents double-toggles)
+$(".options input[type='checkbox']").on('change', function (e) {
+    e.stopPropagation();
+
+    const option = this.id
+    const optionValue = $(this).prop("checked")
+
+    // Confirm when enabling leaderboard
+    if (option === 'leaderboard' && optionValue === true) {
+        const ok = confirm('This enables a leaderboard extension that can submit your success, feedback count, pupil_id and school name to a NON-Shkolo server, and the information will be publicly accessible.\nProceed?');
+        if (!ok) {
+            $(this).prop('checked', false)
+            return;
+        }
+    }
+
+    if (option === 'disable_theme_sync') {
+        chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {
+            // refresh theme UI/storage behavior immediately
+            withThemeStorage((store) => {
+                store.get(['theme'], (res) => {
+                    applyTheme(res.theme || 'light')
+                    renderCustomThemeButtons()
+                })
+            })
+        })
+    } else {
+        chrome.storage.sync.set({ [option]: optionValue })
+    }
+})
+
+
+// ------------ Theme Logic ------------
+
 function applyTheme(theme) {
     if (theme === 'dark') {
         $(".bg_overlay").show()
@@ -171,83 +251,6 @@ function withThemeStorage(cb) {
         cb(store);
     });
 }
-
-// Settings Click Event
-$(".options").click(function (e) {
-    if ($(this).hasClass("no-toggle")) return;
-
-    // If the click originated on an interactive element let its handler manage state.
-    const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
-    if (tag === 'input' || tag === 'button' || tag === 'label' || $(e.target).closest('button').length) {
-        return;
-    }
-
-    const checkbox = this.querySelector('input[type="checkbox"]');
-    if (!checkbox) return;
-
-    checkbox.checked = !checkbox.checked;
-
-    const option = checkbox.id
-    const optionValue = $(checkbox).prop("checked")
-
-    if (option === 'leaderboard' && optionValue === true) {
-        const ok = confirm('Enable Leaderboard?\nThis enables a leaderboard extension that can submit your success, feedback count, pupil_id and school name to a NON-Shkolo server, and the information will be publicly accessible.\nProceed?');
-        if (!ok) {
-            checkbox.checked = false;
-            return;
-        }
-    }
-
-    if (option === 'disable_theme_sync') {
-        chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {
-            // refresh theme UI/storage behavior immediately
-            withThemeStorage((store) => {
-                store.get(['theme'], (res) => {
-                    applyTheme(res.theme || 'light')
-                    renderCustomThemeButtons()
-                })
-            })
-        })
-    } else {
-        chrome.storage.sync.set({ [option]: optionValue })
-    }
-
-    $(this).addClass("clicked")
-    setTimeout(() => {
-        $(this).removeClass("clicked")
-    }, 300)
-})
-
-// Handle direct checkbox changes and persist accordingly (prevents double-toggles)
-$(".options input[type='checkbox']").on('change', function (e) {
-    e.stopPropagation();
-
-    const option = this.id
-    const optionValue = $(this).prop("checked")
-
-    // Confirm when enabling leaderboard
-    if (option === 'leaderboard' && optionValue === true) {
-        const ok = confirm('This enables a leaderboard extension that can submit your success, feedback count, pupil_id and school name to a NON-Shkolo server, and the information will be publicly accessible.\nProceed?');
-        if (!ok) {
-            $(this).prop('checked', false)
-            return;
-        }
-    }
-
-    if (option === 'disable_theme_sync') {
-        chrome.storage.local.set({ disable_theme_sync: optionValue }, () => {
-            // refresh theme UI/storage behavior immediately
-            withThemeStorage((store) => {
-                store.get(['theme'], (res) => {
-                    applyTheme(res.theme || 'light')
-                    renderCustomThemeButtons()
-                })
-            })
-        })
-    } else {
-        chrome.storage.sync.set({ [option]: optionValue })
-    }
-})
 
 // General Settings
 // Theme Switcher
