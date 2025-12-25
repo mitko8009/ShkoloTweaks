@@ -152,11 +152,17 @@
   "developer_settings": {
     "message": "Developer"
   },
-  "beta": {
-    "message": "Beta Feature"
+  "beta_tag": {
+    "message": "Beta"
   },
-  "new": {
+  "dev_tag": {
+    "message": "Dev"
+  },
+  "new_feature_tag": {
     "message": "New Feature"
+  },
+  "unavailable_tag": {
+    "message": "Unavailable"
   },
   "yearCountdown": {
     "message": "Year countdown widget"

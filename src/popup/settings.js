@@ -1,3 +1,94 @@
+async function loadSettingSchema() {
+    try {
+        const response = await fetch(chrome.runtime.getURL('setting-schema.json'));
+        if (!response.ok) throw new Error(`Failed to load: ${response.status}`);
+        const schema = await response.json();
+
+        // Process schema to add tags to settings in the UI
+        console.log('Loaded setting schema:', schema);
+        loadSettingsState(schema);
+    } catch (e) {
+        console.error('Error loading setting schema:', e);
+    }
+}
+
+function loadSettingsState(schema) {
+    if (!schema || !Array.isArray(schema.schema)) {
+        console.warn('Invalid or missing schema passed to loadSettingsState');
+        return;
+    }
+
+    const getTagText = (tagDef, tagKey) => {
+        if (!tagDef) return tagKey;
+        if (tagDef.i18n && typeof chrome !== 'undefined' && chrome.i18n && chrome.i18n.getMessage) {
+            try {
+                const msg = chrome.i18n.getMessage(tagDef.i18n);
+                if (msg) return msg;
+            } catch { /* ignore */ }
+        }
+        return tagDef.i18n || tagKey;
+    };
+
+    // Read both sync and local storages and merge (local overrides sync)
+    chrome.storage.sync.get(null, (syncRes) => {
+        chrome.storage.local.get(null, (localRes) => {
+            const syncData = syncRes || {};
+            const localData = localRes || {};
+            const merged = Object.assign({}, syncData, localData);
+
+            const items = schema.schema || [];
+            const tagDefs = schema.tags || {};
+            const defaults = schema.defaults || {};
+
+            items.forEach((item) => {
+                const id = item.id || item.key;
+                if (!id) return;
+
+                // Determine effective value: storage overrides defaults
+                const hasStored = Object.prototype.hasOwnProperty.call(merged, id);
+                const value = hasStored ? merged[id] : defaults[id];
+
+                // Apply checkbox state if input exists
+                try {
+                    const el = document.getElementById(id);
+                    if (el && (el.type === 'checkbox' || el.getAttribute && el.getAttribute('type') === 'checkbox')) {
+                        el.checked = !!value;
+                        if (window.jQuery) $(el).prop('checked', !!value);
+                    }
+                } catch { }
+
+                // Apply tags defined on schema item (look up definitions in schema.tags)
+                if (Array.isArray(item.tags) && item.tags.length) {
+                    item.tags.forEach((tagKey) => {
+                        const tagDef = tagDefs[tagKey];
+                        const text = getTagText(tagDef, tagKey);
+                        const color = (tagDef && tagDef.color) ? tagDef.color : '#999';
+                        try {
+                            tagSetting(id, text, color);
+                        } catch { }
+                    });
+                }
+            });
+
+            if (localData.disablePupilIDFeatures) {
+                const unavailableTag = tagDefs['unavailable'];
+                const unavailableText = getTagText(unavailableTag, 'unavailable');
+                const unavailableColor = unavailableTag.color;
+
+                const affectedSettings = ['schedule', 'control_tests', 'stats_panel', 'leaderboard'];
+                affectedSettings.forEach((id) => {
+                    try {
+                        tagSetting(id, unavailableText, unavailableColor);
+                        $(`#${id}`).parent().addClass("disabled");
+                    } catch { }
+                });
+            }
+        });
+    });
+}
+
+loadSettingSchema();
+
 function applyTheme(theme) {
     if (theme === 'dark') {
         $(".bg_overlay").show()
@@ -80,97 +171,6 @@ function withThemeStorage(cb) {
         cb(store);
     });
 }
-
-chrome.storage.sync.get(null, (result) => {
-    const autoRefresh = result.autoRefresh ?? false
-    $("#autoRefresh").prop("checked", autoRefresh)
-
-    const schedule = result.schedule ?? false
-    $("#schedule").prop("checked", schedule)
-
-    const control_tests = result.control_tests ?? false
-    $("#control_tests").prop("checked", control_tests)
-
-    const reorder_sidebar = result.reorder_sidebar ?? false
-    $("#reorder_sidebar").prop("checked", reorder_sidebar)
-
-    const year_countdown = result.year_countdown ?? false
-    $("#year_countdown").prop("checked", year_countdown)
-    tagSetting("year_countdown", chrome.i18n.getMessage("beta"), "#ffcc00")
-
-    const stats_panel = result.stats_panel ?? false
-    $("#stats_panel").prop("checked", stats_panel)
-    tagSetting("stats_panel", chrome.i18n.getMessage("beta"), "#ffcc00")
-
-    const dev_tools = result.dev_tools ?? false
-    $("#dev_tools").prop("checked", dev_tools)
-    tagSetting("dev_tools", "Dev", "#5d0087")
-
-    const colored_icons = result.colored_icons ?? false
-    $("#colored_icons").prop("checked", colored_icons)
-
-    const no_avatars = result.no_avatars ?? false
-    $("#no_avatars").prop("checked", no_avatars)
-    // tagSetting("no_avatars", chrome.i18n.getMessage("new"), "#0d50e2")
-
-    // QoL settings (new)
-    const remove_ads = result.remove_ads ?? true
-    $("#remove_ads").prop("checked", remove_ads)
-
-    const load_qol_css = result.load_qol_css ?? true
-    $("#load_qol_css").prop("checked", load_qol_css)
-
-    const email_and_tel = result.email_and_tel ?? false
-    $("#email_and_tel").prop("checked", email_and_tel)
-
-    const messages_background_fix = result.messages_background_fix ?? true
-    $("#messages_background_fix").prop("checked", messages_background_fix)
-
-    const details_date = result.details_date ?? true
-    $("#details_date").prop("checked", details_date)
-
-    const inapp_ext_settings = result.inapp_ext_settings ?? true
-    $("#inapp_ext_settings").prop("checked", inapp_ext_settings)
-    tagSetting("inapp_ext_settings", chrome.i18n.getMessage("new"), "#0d50e2")
-
-    const move_logout_button = result.move_logout_button ?? true
-    $("#move_logout_button").prop("checked", move_logout_button)
-    tagSetting("move_logout_button", chrome.i18n.getMessage("new"), "#0d50e2")
-
-    const trusted_devices_logins = result.trusted_devices_logins ?? false
-    $("#trusted_devices_logins").prop("checked", trusted_devices_logins)
-    tagSetting("trusted_devices_logins", chrome.i18n.getMessage("beta"), "#ffcc00")
-
-    const leaderboard = result.leaderboard ?? false
-    $("#leaderboard").prop("checked", leaderboard)
-    tagSetting("leaderboard", chrome.i18n.getMessage("beta"), "#ffcc00")
-
-    const mon_grades_average = result.mon_grades_average ?? false
-    $("#mon_grades_average").prop("checked", mon_grades_average)
-    tagSetting("mon_grades_average", chrome.i18n.getMessage("new"), "#0d50e2")
-
-    const mon_side_navbar = result.mon_side_navbar ?? false
-    $("#mon_side_navbar").prop("checked", mon_side_navbar)
-    tagSetting("mon_side_navbar", chrome.i18n.getMessage("new"), "#0d50e2")
-})
-
-chrome.storage.local.get(null, (result) => {
-    if (result.disablePupilIDFeatures) {
-        tagSetting("schedule", "UNAVALIABLE", "#ff4f4f")
-        $("#schedule").parent().addClass("disabled")
-
-        tagSetting("control_tests", "UNAVALIABLE", "#ff4f4f")
-        $("#control_tests").parent().addClass("disabled")
-
-        tagSetting("stats_panel", "UNAVALIABLE", "#ff4f4f")
-        $("#stats_panel").parent().addClass("disabled")
-    }
-})
-
-// Initialize the "disable_theme_sync" checkbox from local storage
-chrome.storage.local.get(['disable_theme_sync'], (r) => {
-    $("#disable_theme_sync").prop("checked", r.disable_theme_sync ?? false)
-})
 
 // Settings Click Event
 $(".options").click(function (e) {
