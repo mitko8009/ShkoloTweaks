@@ -1,18 +1,7 @@
 function QoL() {
     this.initialize = function () {
         // load feature flags from sync storage with defaults
-        chrome.storage.sync.get({
-            remove_ads: true,
-            load_qol_css: true,
-            email_and_tel: true,
-            messages_background_fix: true,
-            details_date: true,
-            inapp_ext_settings: true,
-            move_logout_button: true,
-            trusted_devices_logins: true,
-            colored_icons: true,
-            rounded: false
-        }, (result) => {
+        chrome.storage.sync.get(null, (result) => {
             if (result.load_qol_css) this.loadQoLCss();
             if (result.remove_ads) this.removeAds();
             if (result.email_and_tel) this.emailAndTel();
