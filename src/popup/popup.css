@@ -285,6 +285,74 @@ input:checked + .switch::after {
     vertical-align: middle;
 }
 
+/* Suboptions gear button */
+.suboptions-gear-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.suboptions-gear-btn img {
+    width: 24px;
+    height: 24px;
+    filter: invert(49%) sepia(79%) saturate(1780%) hue-rotate(201deg) brightness(97%) contrast(93%);
+    transition: filter 0.2s, transform 0.3s;
+}
+
+.suboptions-gear-btn:hover {
+    background-color: rgba(93, 139, 247, 0.1);
+}
+
+.suboptions-gear-btn:hover img {
+    filter: invert(42%) sepia(58%) saturate(1548%) hue-rotate(201deg) brightness(94%) contrast(88%);
+    transform: rotate(90deg);
+}
+
+.suboptions-gear-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.options {
+    position: relative;
+}
+
+/* Suboptions popup */
+.suboptions-popup {
+    animation: popup-fade-in 0.2s ease-out;
+}
+
+.suboptions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.suboption-item {
+    margin: 0;
+}
+
+@keyframes popup-fade-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -48%) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
 /* Settings Buttons */
 .settings-button {
     display: inline-block;

@@ -18,6 +18,109 @@ async function loadSettingSchema() {
 }
 loadSettingSchema();
 
+function showSuboptionsPopup(parentItem) {
+    const overlay = document.getElementById('box_popup_overlay');
+    if (!overlay) return;
+
+    // Create popup
+    const popup = document.createElement('div');
+    popup.className = 'box popup suboptions-popup';
+    popup.style.maxWidth = '500px';
+    popup.style.width = '90%';
+
+    // Header
+    const header = document.createElement('div');
+    header.className = 'popup-header';
+    const title = document.createElement('h2');
+    title.className = 'popup-title';
+    const parentTitle = chrome.i18n?.getMessage(parentItem.i18n_title) || parentItem.i18n_title || 'Options';
+    title.textContent = parentTitle;
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'delete';
+    closeBtn.setAttribute('aria-label', 'Close');
+    closeBtn.onclick = () => closeSuboptionsPopup();
+    header.appendChild(title);
+    header.appendChild(closeBtn);
+    popup.appendChild(header);
+
+    // Suboptions container
+    const suboptionsContainer = document.createElement('div');
+    suboptionsContainer.className = 'suboptions-container';
+
+    // Load current storage values
+    chrome.storage.sync.get(null, (result) => {
+        const defaults = parentItem.suboptions.reduce((acc, sub) => {
+            if (sub.default !== undefined) acc[sub.id] = sub.default;
+            return acc;
+        }, {});
+        const values = { ...defaults, ...result };
+
+        parentItem.suboptions.forEach((subItem) => {
+            const { type, id, i18n_title, i18n_description } = subItem;
+
+            if (type !== 'boolean') return;
+
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'options suboption-item';
+
+            const checkbox = document.createElement('input');
+            checkbox.id = `suboption_${id}`;
+            checkbox.type = 'checkbox';
+            checkbox.checked = !!values[id];
+
+            const switchLabel = document.createElement('label');
+            switchLabel.setAttribute('for', `suboption_${id}`);
+            switchLabel.className = 'switch';
+
+            const textLabel = document.createElement('label');
+            textLabel.setAttribute('for', `suboption_${id}`);
+            const translatedTitle = chrome.i18n?.getMessage(i18n_title) || i18n_title || id;
+            textLabel.textContent = translatedTitle;
+
+            const description = document.createElement('p');
+            description.className = 'description';
+            if (i18n_description) {
+                const translatedDesc = chrome.i18n?.getMessage(i18n_description) || i18n_description;
+                description.textContent = translatedDesc;
+            }
+
+            optionDiv.appendChild(checkbox);
+            optionDiv.appendChild(switchLabel);
+            optionDiv.appendChild(textLabel);
+            optionDiv.appendChild(description);
+
+            optionDiv.onclick = (e) => {
+                if (e.target.tagName.toLowerCase() === 'input') return;
+                checkbox.checked = !checkbox.checked;
+                chrome.storage.sync.set({ [id]: checkbox.checked });
+                optionDiv.classList.add('clicked');
+                setTimeout(() => optionDiv.classList.remove('clicked'), 300);
+            };
+
+            checkbox.onchange = (e) => {
+                e.stopPropagation();
+                chrome.storage.sync.set({ [id]: checkbox.checked });
+            };
+
+            suboptionsContainer.appendChild(optionDiv);
+        });
+
+        popup.appendChild(suboptionsContainer);
+        document.body.appendChild(popup);
+        overlay.style.display = 'block';
+
+        overlay.onclick = () => closeSuboptionsPopup();
+    });
+}
+
+function closeSuboptionsPopup() {
+    const overlay = document.getElementById('box_popup_overlay');
+    const popup = document.querySelector('.suboptions-popup');
+    if (overlay) overlay.style.display = 'none';
+    if (popup) popup.remove();
+    if (overlay) overlay.onclick = null;
+}
+
 function loadOptionsInSettings(schema) {
     if (!schema || !Array.isArray(schema.schema)) return;
 
@@ -71,6 +174,24 @@ function loadOptionsInSettings(schema) {
         optionDiv.appendChild(textLabel);
         optionDiv.appendChild(description);
 
+        // If there are suboptions, add a gear button
+        if (item.suboptions && Array.isArray(item.suboptions) && item.suboptions.length > 0) {
+            const gearBtn = document.createElement('button');
+            gearBtn.className = 'suboptions-gear-btn';
+            gearBtn.setAttribute('aria-label', 'More options');
+            
+            const gearImg = document.createElement('img');
+            gearImg.src = chrome.runtime.getURL('../assets/gear.svg');
+            gearImg.alt = 'Settings';
+            gearBtn.appendChild(gearImg);
+            
+            gearBtn.onclick = (e) => {
+                e.stopPropagation();
+                showSuboptionsPopup(item);
+            };
+            optionDiv.appendChild(gearBtn);
+        }
+
         sectionElement.appendChild(optionDiv);
     });
 }
@@ -102,11 +223,9 @@ function loadSettingsState(schema) {
                 const id = item.id || item.key;
                 if (!id) return;
 
-                // Determine effective value: storage overrides defaults
                 const hasStored = Object.prototype.hasOwnProperty.call(merged, id);
                 const value = hasStored ? merged[id] : defaults[id];
 
-                // Apply checkbox state if input exists
                 try {
                     const el = document.getElementById(id);
                     if (el && (el.type === 'checkbox' || el.getAttribute && el.getAttribute('type') === 'checkbox')) {
@@ -115,7 +234,7 @@ function loadSettingsState(schema) {
                     }
                 } catch { }
 
-                // Apply tags defined on schema item (look up definitions in schema.tags)
+                // Apply tags
                 if (Array.isArray(item.tags) && item.tags.length) {
                     item.tags.forEach((tagKey) => {
                         const tagDef = tagDefs[tagKey];
