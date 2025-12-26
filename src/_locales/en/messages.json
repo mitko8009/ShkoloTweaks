@@ -194,9 +194,6 @@
   "disclaimer_settings_reload": {
     "message": "Some settings may require a page reload to take effect. <b><a href=''>[Reload]</a></b>"
   },
-  "disclaimer_settings_more": {
-    "message": "This is <b>NOT</b> the full list of settings. Some settings are available in the <b>More Settings</b> section in the popup."
-  },
   "appearanceSettingsTitle": {
     "message": "Appearance Settings"
   },

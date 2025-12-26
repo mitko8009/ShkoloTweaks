@@ -196,119 +196,134 @@ function QoL() {
                 settingsContainerPortletTitle.className = "portlet-title";
                 settingsContainerPortletTitle.innerHTML = `<div class="caption"><img src="${chrome.runtime.getURL("assets/icon_x48_white.png")}" alt="ShkoloTweaks Icon" style="width: 24px; height: 24px;"> ShkoloTweaks BETA</div>`;
 
-                // Discaimer
+                // Disclaimer
                 const disclaimer = document.createElement("div");
                 disclaimer.className = "alert alert-warning";
                 disclaimer.innerHTML = chrome.i18n.getMessage("disclaimer_settings_reload");
                 settingsContainerPortletBody.appendChild(disclaimer);
 
-                const disclaimer2 = document.createElement("div");
-                disclaimer2.className = "alert alert-info";
-                disclaimer2.innerHTML = chrome.i18n.getMessage("disclaimer_settings_more");
-                settingsContainerPortletBody.appendChild(disclaimer2);
+                fetch(chrome.runtime.getURL('setting-schema.json'))
+                    .then(response => response.json())
+                    .then(schema => {
+                        chrome.storage.sync.get(null, (result) => {
+                            const defaults = schema.defaults || {};
+                            const currentValues = { ...defaults, ...result };
 
-                // Append settings
-                // Appearance Settings
-                settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("appearanceSettingsTitle");
-                settingsContainerPortletBody.appendChild(Object.assign(document.createElement("hr"), { style: "margin-top:-0.5rem" }));
-                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("roundedLabel"), "rounded-corners", rounded));
-                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("blurLabel"), "blur-background", blur_data));
-                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("noAvatars"), "no-avatars", globalResult.no_avatars));
-                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("coloredIcons_description"), "colored-icons", globalResult.colored_icons));
+                            // Group settings by section
+                            const sections = {
+                                main_settings_options: { title: chrome.i18n.getMessage("appearanceSettingsTitle") || "Appearance Settings", items: [] },
+                                qol_settings_options: { title: chrome.i18n.getMessage("extendingFunctionalityTitle") || "Extending Functionality", items: [] },
+                                experimental_settings_options: { title: chrome.i18n.getMessage("beta_features_title") || "Experimental Features", items: [] },
+                                dev_settings_options: { title: chrome.i18n.getMessage("developer_settings") || "Developer Settings", items: [] }
+                            };
 
-                // Extening Functionality
-                settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("extendingFunctionalityTitle");
-                settingsContainerPortletBody.appendChild(Object.assign(document.createElement("hr"), { style: "margin-top:-0.5rem" }));
-                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("schedule_widget_description"), "show-schedule-module", globalResult.schedule));
-                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("control_tests_widget_description"), "control-tests-widget", globalResult.control_tests));
-                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("yearCountdown_description"), "year-countdown", globalResult.year_countdown));
-                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("statsPanel_description"), "stats-panel", globalResult.stats_panel));
-
-                // Miscellaneous
-                settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("Miscellaneous");
-                settingsContainerPortletBody.appendChild(Object.assign(document.createElement("hr"), { style: "margin-top:-0.5rem" }));
-                settingsContainerPortletBody.appendChild(createCheckbox(chrome.i18n.getMessage("devTools"), "dev-tools", globalResult.dev_tools));
-
-                // Listener for saving settings
-                settingsContainerPortletBody.querySelectorAll('input[type="checkbox"]').forEach(input => {
-                    input.addEventListener('change', (e) => {
-                        const keyMap = {
-                            "rounded-corners": "rounded",
-                            "blur-background": "blur_data",
-                            "no-avatars": "no_avatars",
-                            "colored-icons": "colored_icons",
-                            "show-schedule-module": "schedule",
-                            "control-tests-widget": "control_tests",
-                            "year-countdown": "year_countdown",
-                            "stats-panel": "stats_panel",
-                            "dev-tools": "dev_tools"
-                        };
-                        const key = keyMap[e.target.id];
-                        if (key) {
-                            if (key in globalResult) {
-                                globalResult[key] = e.target.checked;
-                            } else {
-                                window[key] = e.target.checked;
-                            }
-                            chrome.storage.sync.set({ [key]: e.target.checked }, () => {
-                                // If rounded was toggled, add/remove the CSS dynamically
-                                if (key === "rounded") {
-                                    if (e.target.checked) {
-                                        loadCssFile("/css/shkolo/rounded.css");
-                                    } else {
-                                        // removeCssFile is expected to exist in the project; fall back to removing link tag if needed
-                                        try { removeCssFile("/css/shkolo/rounded.css"); } catch (err) {
-                                            // fallback: remove any matching <link> elements
-                                            document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
-                                                if (link.href && link.href.includes("/css/shkolo/rounded.css")) link.remove();
-                                            });
-                                        }
-                                    }
+                            // Organize items by section
+                            schema.schema.forEach(item => {
+                                if (item.type === 'boolean' && item.section && sections[item.section]) {
+                                    sections[item.section].items.push(item);
                                 }
                             });
-                        }
+
+                            // Render each section
+                            Object.keys(sections).forEach(sectionKey => {
+                                const section = sections[sectionKey];
+                                if (section.items.length > 0) {
+                                    const heading = document.createElement("h3");
+                                    heading.textContent = section.title;
+                                    settingsContainerPortletBody.appendChild(heading);
+
+                                    const hr = document.createElement("hr");
+                                    hr.style.marginTop = "-0.5rem";
+                                    settingsContainerPortletBody.appendChild(hr);
+
+                                    section.items.forEach(item => {
+                                        const label = chrome.i18n.getMessage(item.i18n_title) || item.i18n_title || item.id;
+                                        const isChecked = currentValues[item.id] !== undefined ? currentValues[item.id] : defaults[item.id];
+                                        const checkbox = createCheckbox(label, item.id, isChecked);
+                                        settingsContainerPortletBody.appendChild(checkbox);
+                                    });
+                                }
+                            });
+
+                            // Handle settings changes
+                            settingsContainerPortletBody.querySelectorAll('input[type="checkbox"]').forEach(input => {
+                                input.addEventListener('change', (e) => {
+                                    const key = e.target.id;
+                                    const value = e.target.checked;
+
+                                    // Update global result if it exists
+                                    if (key in globalResult) {
+                                        globalResult[key] = value;
+                                    } else {
+                                        window[key] = value;
+                                    }
+
+                                    chrome.storage.sync.set({ [key]: value }, () => {
+                                        // Handle special cases
+                                        if (key === "rounded") {
+                                            if (value) {
+                                                loadCssFile("/css/shkolo/rounded.css");
+                                            } else {
+                                                try { removeCssFile("/css/shkolo/rounded.css"); } catch (err) {
+                                                    document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+                                                        if (link.href && link.href.includes("/css/shkolo/rounded.css")) link.remove();
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    });
+                                });
+                            });
+
+                            // Version and information
+                            const infoHeading = document.createElement("h3");
+                            infoHeading.textContent = chrome.i18n.getMessage("information");
+                            settingsContainerPortletBody.appendChild(infoHeading);
+
+                            const infoHr = document.createElement("hr");
+                            infoHr.style.marginTop = "-0.5rem";
+                            settingsContainerPortletBody.appendChild(infoHr);
+
+                            const disclaimerParagraph = document.createElement("div");
+                            disclaimerParagraph.className = "alert alert-warning";
+                            disclaimerParagraph.innerHTML = chrome.i18n.getMessage("FooterDisclaimer");
+                            settingsContainerPortletBody.appendChild(disclaimerParagraph);
+
+                            const versionParagraph = document.createElement("div");
+                            versionParagraph.className = "alert alert-info";
+                            versionParagraph.innerHTML = `${chrome.i18n.getMessage("version")}: <b>${version}</b>`;
+
+                            const btnContainer = document.createElement("div");
+                            btnContainer.style.marginTop = "0.5rem";
+
+                            const websiteBtn = document.createElement("a");
+                            websiteBtn.href = manifest.homepage_url;
+                            websiteBtn.target = "_blank";
+                            websiteBtn.className = "btn btn-default";
+                            websiteBtn.style.marginRight = "0.5rem";
+                            websiteBtn.innerHTML = `<img src="${chrome.runtime.getURL("assets/icon_x48_white.png")}" alt="Website" style="width:22px;vertical-align:middle;margin-right:2px;margin-top:-0.3rem;margin-left:-0.4rem;"> Official Website`;
+
+                            const githubBtn = document.createElement("a");
+                            githubBtn.href = "https://github.com/mitko8009/ShkoloTweaks";
+                            githubBtn.target = "_blank";
+                            githubBtn.className = "btn btn-default";
+                            githubBtn.innerHTML = `<img src="${chrome.runtime.getURL("assets/github-mark.svg")}" alt="GitHub" style="width:22px;vertical-align:middle;margin-right:2px;margin-top:-0.3rem;margin-left:-0.4rem;"> GitHub`;
+
+                            btnContainer.appendChild(websiteBtn);
+                            btnContainer.appendChild(githubBtn);
+
+                            versionParagraph.appendChild(btnContainer);
+                            settingsContainerPortletBody.appendChild(versionParagraph);
+
+                            // Append the settings container to the main settings container
+                            settingsContainerPortlet.appendChild(settingsContainerPortletTitle);
+                            settingsContainerPortlet.appendChild(settingsContainerPortletBody);
+                            settingsContainer.appendChild(settingsContainerPortlet);
+                        });
+                    })
+                    .catch(error => {
+                        console.error(`[${manifest.name} v${version}][QoL]: Failed to load settings schema. ERROR: ${error}`);
                     });
-                });
-
-                // Version and information
-                settingsContainerPortletBody.appendChild(document.createElement("h3")).innerText = chrome.i18n.getMessage("information");
-                settingsContainerPortletBody.appendChild(Object.assign(document.createElement("hr"), { style: "margin-top:-0.5rem" }));
-
-                const disclaimerParagraph = document.createElement("div");
-                disclaimerParagraph.className = "alert alert-warning";
-                disclaimerParagraph.innerHTML = chrome.i18n.getMessage("FooterDisclaimer");
-                settingsContainerPortletBody.appendChild(disclaimerParagraph);
-
-                const versionParagraph = document.createElement("div");
-                versionParagraph.className = "alert alert-info";
-                versionParagraph.innerHTML = `${chrome.i18n.getMessage("version")}: <b>${version}</b>`;
-
-                const btnContainer = document.createElement("div");
-                btnContainer.style.marginTop = "0.5rem";
-
-                const websiteBtn = document.createElement("a");
-                websiteBtn.href = manifest.homepage_url;
-                websiteBtn.target = "_blank";
-                websiteBtn.className = "btn btn-default";
-                websiteBtn.style.marginRight = "0.5rem";
-                websiteBtn.innerHTML = `<img src="${chrome.runtime.getURL("assets/icon_x48_white.png")}" alt="Website" style="width:22px;vertical-align:middle;margin-right:2px;margin-top:-0.3rem;margin-left:-0.4rem;"> Official Website`;
-
-                const githubBtn = document.createElement("a");
-                githubBtn.href = "https://github.com/mitko8009/ShkoloTweaks";
-                githubBtn.target = "_blank";
-                githubBtn.className = "btn btn-default";
-                githubBtn.innerHTML = `<img src="${chrome.runtime.getURL("assets/github-mark.svg")}" alt="GitHub" style="width:22px;vertical-align:middle;margin-right:2px;margin-top:-0.3rem;margin-left:-0.4rem;"> GitHub`;
-
-                btnContainer.appendChild(websiteBtn);
-                btnContainer.appendChild(githubBtn);
-
-                versionParagraph.appendChild(btnContainer);
-                settingsContainerPortletBody.appendChild(versionParagraph);
-
-                // Append the settings container to the main settings container
-                settingsContainerPortlet.appendChild(settingsContainerPortletTitle);
-                settingsContainerPortlet.appendChild(settingsContainerPortletBody);
-                settingsContainer.appendChild(settingsContainerPortlet);
             } catch (error) {
                 console.error(`[${manifest.name} v${version}][QoL]: Failed to access settings container. ERROR: ${error}`);
             }
