@@ -194,12 +194,6 @@
   "disclaimer_settings_reload": {
     "message": "Some settings may require a page reload to take effect. <b><a href=''>[Reload]</a></b>"
   },
-  "appearanceSettingsTitle": {
-    "message": "Appearance Settings"
-  },
-  "extendingFunctionalityTitle": {
-    "message": "Extending Functionality"
-  },
   "Miscellaneous": {
     "message": "Miscellaneous"
   },
@@ -261,7 +255,7 @@
     "message": "In-app Extension Settings"
   },
   "inAppExtSettings_description": {
-    "message": "Add extension settings inside profile"
+    "message": "Add extension settings inside the profile page"
   },
   "moveLogOutButton": {
     "message": "Move Logout Button"
@@ -331,5 +325,83 @@
   },
   "monRoundedAverages_description": {
     "message": "Show rounded averages instead of precise ones"
+  },
+  "subSettingsSectionMain": {
+    "message": "Main Settings Section"
+  },
+  "subSettingsSectionMain_description": {
+    "message": "Show the main settings section separator in the settings page"
+  },
+  "subSettingsSectionQol": {
+    "message": "QoL Settings Section"
+  },
+  "subSettingsSectionQol_description": {
+    "message": "Show the QoL settings section separator in the settings page"
+  },
+  "subSettingsSectionExperimental": {
+    "message": "Experimental Settings Section"
+  },
+  "subSettingsSectionExperimental_description": {
+    "message": "Show the Experimental settings section separator in the settings page"
+  },
+  "subSettingsSectionMon": {
+    "message": "MON Settings Section"
+  },
+  "subSettingsSectionMon_description": {
+    "message": "Show the MON settings section separator in the settings page"
+  },
+  "subSettingsSectionDev": {
+    "message": "Developer Settings Section"
+  },
+  "subSettingsSectionDev_description": {
+    "message": "Show the Developer settings section separator in the settings page"
+  },
+  "removeStatisticsButton": {
+    "message": "Remove Statistics Button"
+  },
+  "removeStatisticsButton_description": {
+    "message": "Removes the 'Remove Statistics' button from the dashboard"
+  },
+  "removeRankDisclaimer": {
+    "message": "Remove Rank Disclaimer"
+  },
+  "removeRankDisclaimer_description": {
+    "message": "Removes the rank disclaimer from the ranks widget on the dashboard"
+  },
+  "removeMobileAppBadges": {
+    "message": "Remove Mobile App Badges"
+  },
+  "removeMobileAppBadges_description": {
+    "message": "Removes the mobile app download badges from the dashboard"
+  },
+  "removeHelpLink": {
+    "message": "Remove Help Link"
+  },
+  "removeHelpLink_description": {
+    "message": "Removes the help link from the sidebar menu"
+  },
+  "showDateLogins": {
+    "message": "Enable in Logins"
+  },
+  "showDateLogins_description": {
+    "message": "Show Detailed Dates in Logins"
+  },
+  "showDataProfilePicture": {
+    "message": "Enable in Profile Picture"
+  },
+  "showDataProfilePicture_description": {
+    "message": "Show Detailed Dates in Profile Pictures page"
+  },
+  "schedule_teacher_name": {
+    "message": "Show teacher's name"
+  },
+  "schedule_teacher_name_description": {
+    "message": "Display the teacher's name in the schedule widget"
+  },
+  "schedule_room_number": {
+    "message": "Show room number"
+  },
+  "schedule_room_number_description": {
+    "message": "Display the room number in the schedule widget"
   }
 }

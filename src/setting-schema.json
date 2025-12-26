@@ -6,20 +6,33 @@
         "rounded": true,
         "autoRefresh": true,
         "schedule": true,
+        "sub_schedule_teacher_name": true,
+        "sub_schedule_room_number": true,
         "control_tests": true,
         "reorder_sidebar": true,
         "colored_icons": false,
         "remove_ads": true,
+        "sub_remove_statistics_button": true,
+        "sub_remove_rank_disclaimer": true,
+        "sub_remove_mobile_app_badges": true,
+        "sub_remove_help_link": true,
         "load_qol_css": true,
         "email_and_tel": false,
         "messages_background_fix": true,
         "details_date": true,
+        "sub_show_date_logins": true,
+        "sub_show_data_profile_picture": true,
         "inapp_ext_settings": true,
+        "sub_settings_section_main": true,
+        "sub_settings_section_qol": true,
+        "sub_settings_section_experimental": true,
+        "sub_settings_section_mon": false,
+        "sub_settings_section_dev": false,
         "move_logout_button": true,
         "mon_grades_average": true,
         "mon_side_navbar": true,
         "mon_grades_term_averages": true,
-        "sub_mon_rounded_averages": false,
+        "sub_mon_rounded_averages": true,
         "year_countdown": false,
         "stats_panel": false,
         "trusted_devices_logins": false,
@@ -67,7 +80,21 @@
             "i18n_title": "schedule_widget",
             "i18n_description": "schedule_widget_description",
             "section": "main_settings_options",
-            "tags": []
+            "tags": [],
+            "suboptions": [
+                {
+                    "type": "boolean",
+                    "id": "sub_schedule_teacher_name",
+                    "i18n_title": "schedule_teacher_name",
+                    "i18n_description": "schedule_teacher_name_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_schedule_room_number",
+                    "i18n_title": "schedule_room_number",
+                    "i18n_description": "schedule_room_number_description"
+                }
+            ]
         },
         {
             "type": "boolean",
@@ -123,7 +150,33 @@
             "i18n_title": "removeAds",
             "i18n_description": "removeAds_description",
             "section": "qol_settings_options",
-            "tags": []
+            "tags": [],
+            "suboptions": [
+                {
+                    "type": "boolean",
+                    "id": "sub_remove_statistics_button",
+                    "i18n_title": "removeStatisticsButton",
+                    "i18n_description": "removeStatisticsButton_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_remove_rank_disclaimer",
+                    "i18n_title": "removeRankDisclaimer",
+                    "i18n_description": "removeRankDisclaimer_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_remove_mobile_app_badges",
+                    "i18n_title": "removeMobileAppBadges",
+                    "i18n_description": "removeMobileAppBadges_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_remove_help_link",
+                    "i18n_title": "removeHelpLink",
+                    "i18n_description": "removeHelpLink_description"
+                }
+            ]
         },
         {
             "type": "boolean",
@@ -155,7 +208,21 @@
             "i18n_title": "detailsDate",
             "i18n_description": "detailsDate_description",
             "section": "qol_settings_options",
-            "tags": []
+            "tags": [],
+            "suboptions": [
+                {
+                    "type": "boolean",
+                    "id": "sub_show_date_logins",
+                    "i18n_title": "showDateLogins",
+                    "i18n_description": "showDateLogins_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_show_data_profile_picture",
+                    "i18n_title": "showDataProfilePicture",
+                    "i18n_description": "showDataProfilePicture_description"
+                }
+            ]
         },
         {
             "type": "boolean",
@@ -163,7 +230,39 @@
             "i18n_title": "inAppExtSettings",
             "i18n_description": "inAppExtSettings_description",
             "section": "qol_settings_options",
-            "tags": []
+            "tags": [],
+            "suboptions": [
+                {
+                    "type": "boolean",
+                    "id": "sub_settings_section_main",
+                    "i18n_title": "subSettingsSectionMain",
+                    "i18n_description": "subSettingsSectionMain_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_settings_section_qol",
+                    "i18n_title": "subSettingsSectionQoL",
+                    "i18n_description": "subSettingsSectionQoL_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_settings_section_experimental",
+                    "i18n_title": "subSettingsSectionExperimental",
+                    "i18n_description": "subSettingsSectionExperimental_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_settings_section_mon",
+                    "i18n_title": "subSettingsSectionMon",
+                    "i18n_description": "subSettingsSectionMon_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_settings_section_dev",
+                    "i18n_title": "subSettingsSectionDev",
+                    "i18n_description": "subSettingsSectionDev_description"
+                }
+            ]
         },
         {
             "type": "boolean",

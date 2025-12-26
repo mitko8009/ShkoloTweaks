@@ -2,7 +2,9 @@ function QoL() {
     this.initialize = function () {
         // load feature flags from sync storage with defaults
         chrome.storage.sync.get(null, (result) => {
-            if (result.load_qol_css) this.loadQoLCss();
+            window.syncedSettings = result;
+
+            if (result.load_qol_css) loadCssFile("/css/shkolo/QoL.css");
             if (result.remove_ads) this.removeAds();
             if (result.email_and_tel) this.emailAndTel();
             if (result.messages_background_fix) this.messagesBackgroundFix();
@@ -25,17 +27,14 @@ function QoL() {
         });
     }
 
-    this.loadQoLCss = function () {
-        loadCssFile("/css/shkolo/QoL.css");
-    }
-
     this.removeAds = function () {
         try {
-            removeElements($(".btn.btn-lg.btn-e2e.red.huge"));
-            removeElements($(".rank-descr"));
-            removeElements($(".mobile-app-badges"));
-            removeElements($(".mobile-app-link"));
-            $("#help-link-in-menu").remove();
+            let settings = window.syncedSettings || {};
+            if (settings.sub_remove_statistics_button) removeElements($(".btn.btn-lg.btn-e2e.red.huge"));
+            if (settings.sub_remove_rank_disclaimer) removeElements($(".rank-descr"));
+            if (settings.sub_remove_mobile_app_badges) removeElements($(".mobile-app-badges"));
+            if (settings.sub_remove_mobile_app_badges) removeElements($(".mobile-app-link"));
+            if (settings.sub_remove_help_link) $("#help-link-in-menu").remove();
         } catch (error) {
             console.error(`[${manifest.name} v${version}][QoL]: Failed to remove ads. ERROR: ${error}`);
         }
@@ -90,22 +89,22 @@ function QoL() {
         const dotRegex = /\./g
         const dashRegex = /\-/g
 
-        if (pageurl.includes("/profile/logins")) {
+        if (pageurl.includes("/profile/logins") && window.syncedSettings.sub_show_date_logins) {
             try {
                 const table = $("#tab_logins > div:nth-child(2) > table > tbody > tr")
                 for (let i = 0; i < table.length; i++) {
-                    this.detailsDate_element(table, i, 0, dotRegex);
+                    detailsDate_element(table, i, 0, dotRegex);
                 }
             } catch (error) {
                 console.error(`[${manifest.name} v${version}][QoL]: Failed to fix details date. ERROR: ${error}`)
             }
         }
 
-        if (pageurl.includes("/profile/pendingprofilepic")) {
+        if (pageurl.includes("/profile/pendingprofilepic") && window.syncedSettings.sub_show_data_profile_picture) {
             try {
                 const table = $("body > div.page-container > div.page-content-wrapper > div > div > div > div.profile-content > div > div.portlet-body > div:nth-child(2) > div > table > tbody > tr")
                 for (let i = 0; i < table.length; i++) {
-                    this.detailsDate_element(table, i, 1, dashRegex, false);
+                    detailsDate_element(table, i, 1, dashRegex, false);
                 }
             } catch (error) {
                 console.error(`[${manifest.name} v${version}][QoL]: Failed to fix pending profile picture date. ERROR: ${error}`)
@@ -113,7 +112,7 @@ function QoL() {
         }
     }
 
-    this.detailsDate_element = function (table, i, columnIndex, char_to_replace, hasIcon = true) {
+    function detailsDate_element(table, i, columnIndex, char_to_replace, hasIcon = true) {
         const dateElement = table[i].children[columnIndex].cloneNode(true)
         if (hasIcon) dateElement.children[0].remove()
         let dateElementText = dateElement.innerHTML.trim().replace(/^\s+|\s+$/g, '').replace(/\s{2,}/g, ' ')
@@ -200,10 +199,11 @@ function QoL() {
 
                             // Group settings by section
                             const sections = {
-                                main_settings_options: { title: chrome.i18n.getMessage("appearanceSettingsTitle") || "Appearance Settings", items: [] },
-                                qol_settings_options: { title: chrome.i18n.getMessage("extendingFunctionalityTitle") || "Extending Functionality", items: [] },
-                                experimental_settings_options: { title: chrome.i18n.getMessage("beta_features_title") || "Experimental Features", items: [] },
-                                dev_settings_options: { title: chrome.i18n.getMessage("developer_settings") || "Developer Settings", items: [] }
+                                main_settings_options: { title: chrome.i18n.getMessage("shkolo_settings") || "Shkolo Settings", items: [], visible: currentValues.sub_settings_section_main !== false },
+                                qol_settings_options: { title: chrome.i18n.getMessage("QoLSettings") || "QoL Settings", items: [], visible: currentValues.sub_settings_section_qol !== false },
+                                experimental_settings_options: { title: chrome.i18n.getMessage("beta_features_title") || "Experimental Features", items: [], visible: currentValues.sub_settings_section_experimental !== false },
+                                mon_settings_options: { title: chrome.i18n.getMessage("mon_settings") || "MON Settings", items: [], visible: currentValues.sub_settings_section_mon !== false },
+                                dev_settings_options: { title: chrome.i18n.getMessage("developer_settings") || "Developer Settings", items: [], visible: currentValues.sub_settings_section_dev !== false }
                             };
 
                             // Organize items by section
@@ -216,7 +216,7 @@ function QoL() {
                             // Render each section
                             Object.keys(sections).forEach(sectionKey => {
                                 const section = sections[sectionKey];
-                                if (section.items.length > 0) {
+                                if (section.visible && section.items.length > 0) {
                                     const heading = document.createElement("h3");
                                     heading.textContent = section.title;
                                     settingsContainerPortletBody.appendChild(heading);

@@ -75,23 +75,27 @@ function sc_DisplayDay(day, data) {
             }
             classInfo.appendChild(classTitle)
 
-            // Class Teacher (Ex. "Mrs. Raicheva", etc.)
-            let classTeacher = document.createElement("span")
-            classTeacher.innerHTML = " | " + dayData[i][1]
-            classTeacher.classList.add("scheduleSecondary", "secondaryFirst")
-            classInfo.appendChild(classTeacher)
+            if (window.syncedSettings.sub_schedule_teacher_name) {
+                // Class Teacher (Ex. "Mrs. Raicheva", etc.)
+                let classTeacher = document.createElement("span")
+                classTeacher.innerHTML = " | " + dayData[i][1]
+                classTeacher.classList.add("scheduleSecondary", "secondaryFirst")
+                classInfo.appendChild(classTeacher)
+            }
 
             classNode.appendChild(classInfo)
 
             let rightInfo = document.createElement("span")
             rightInfo.classList.add("pull-right")
 
-            // Class Room (Ex. "Room 103", "Room 404", etc.)
-            let classRoom = document.createElement("span");
-            classRoom.innerHTML = dayData[i][2];
-            classRoom.style.paddingRight = "12px";
-            classRoom.classList.add("scheduleSecondary");
-            rightInfo.appendChild(classRoom);
+            if (window.syncedSettings.sub_schedule_room_number) {
+                // Class Room (Ex. "Room 103", "Room 404", etc.)
+                let classRoom = document.createElement("span");
+                classRoom.innerHTML = dayData[i][2];
+                classRoom.style.paddingRight = "12px";
+                classRoom.classList.add("scheduleSecondary");
+                rightInfo.appendChild(classRoom);
+            }
 
             // Class Time (Ex. "08:00 - 09:00", "09:00 - 10:00", etc.)
             if (dayData[i][3] !== undefined) {
