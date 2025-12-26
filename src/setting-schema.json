@@ -201,8 +201,7 @@
                     "type": "boolean",
                     "id": "sub_mon_rounded_averages",
                     "i18n_title": "monRoundedAverages",
-                    "i18n_description": "monRoundedAverages_description",
-                    "default": true
+                    "i18n_description": "monRoundedAverages_description"
                 }
             ]
         },

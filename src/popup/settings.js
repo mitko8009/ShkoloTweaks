@@ -49,11 +49,7 @@ function showSuboptionsPopup(parentItem) {
 
     // Load current storage values
     chrome.storage.sync.get(null, (result) => {
-        const defaults = parentItem.suboptions.reduce((acc, sub) => {
-            if (sub.default !== undefined) acc[sub.id] = sub.default;
-            return acc;
-        }, {});
-        const values = { ...defaults, ...result };
+        const values = { ...result };
 
         parentItem.suboptions.forEach((subItem) => {
             const { type, id, i18n_title, i18n_description } = subItem;
@@ -90,7 +86,8 @@ function showSuboptionsPopup(parentItem) {
             optionDiv.appendChild(description);
 
             optionDiv.onclick = (e) => {
-                if (e.target.tagName.toLowerCase() === 'input') return;
+                const tag = e.target.tagName.toLowerCase();
+                if (tag === 'input' || tag === 'label') return;
                 checkbox.checked = !checkbox.checked;
                 chrome.storage.sync.set({ [id]: checkbox.checked });
                 optionDiv.classList.add('clicked');
