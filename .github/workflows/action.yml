@@ -111,8 +111,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: v${{ needs.check-version.outputs.version }} - Auto Release - ${{ github.sha }}
-          tag_name: v${{ needs.check-version.outputs.version }}-auto-${{ github.sha }}
+          name: v${{ needs.check-version.outputs.version }} - Auto Release
+          tag_name: v${{ needs.check-version.outputs.version }}-auto
           body: |
             Changes since last release (tag: ${{ needs.check-version.outputs.latest_tag }}):
             ${{ steps.commits.outputs.commits }}
