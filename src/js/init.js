@@ -8,11 +8,15 @@ async function loadSettingSchema() {
         if (!defaultsSchema) throw new Error('No defaults found in schema');
 
         chrome.storage.sync.get(null, (result) => {
-            if (!result.initialized) {
-                const settings = { initialized: true };
-                for (const key in defaultsSchema) {
+            const settings = {};
+            
+            for (const key in defaultsSchema) {
+                if (!(key in result)) {
                     settings[key] = defaultsSchema[key];
                 }
+            }
+            
+            if (Object.keys(settings).length > 0) {
                 chrome.storage.sync.set(settings);
             }
         });
