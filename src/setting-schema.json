@@ -18,6 +18,8 @@
         "move_logout_button": true,
         "mon_grades_average": true,
         "mon_side_navbar": true,
+        "mon_grades_term_averages": true,
+        "sub_mon_rounded_averages": false,
         "year_countdown": false,
         "stats_panel": false,
         "trusted_devices_logins": false,
@@ -169,7 +171,7 @@
             "i18n_title": "moveLogOutButton",
             "i18n_description": "moveLogOutButton_description",
             "section": "qol_settings_options",
-            "tags": ["new_feature"]
+            "tags": []
         },
         {
             "type": "boolean",
@@ -186,6 +188,23 @@
             "i18n_description": "monSideNavbar_description",
             "section": "mon_settings_options",
             "tags": ["new_feature"]
+        },
+        {
+            "type": "boolean",
+            "id": "mon_grades_term_averages",
+            "i18n_title": "monGradesTermAverages",
+            "i18n_description": "monGradesTermAverages_description",
+            "section": "mon_settings_options",
+            "tags": ["new_feature"],
+            "suboptions": [
+                {
+                    "type": "boolean",
+                    "id": "sub_mon_rounded_averages",
+                    "i18n_title": "monRoundedAverages",
+                    "i18n_description": "monRoundedAverages_description",
+                    "default": true
+                }
+            ]
         },
         {
             "type": "boolean",

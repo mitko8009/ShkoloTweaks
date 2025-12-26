@@ -35,7 +35,7 @@
                 sideNavBar.appendChild(navBar)
                 removeElements(document.querySelectorAll(NAV_BAR_SELECTOR))
             } else {
-                setTimeout(moveNavBar, 500)
+                setTimeout(moveNavBar, 50)
             }
         }
 
