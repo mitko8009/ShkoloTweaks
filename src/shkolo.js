@@ -10,8 +10,10 @@ var pupil_id = null
 var school_name = null
 try {
     const allLocalStorage = {};
-    // Only accept pupil IDs that start with the last two digits of the current year
-    const yearPrefix = String(year).slice(-2);
+    // Only accept pupil IDs that start with the last two digits of the current school year.
+    const schoolYearCutoff = new Date(year, 7, 1);
+    const effectiveYear = today < schoolYearCutoff ? year - 1 : year;
+    const yearPrefix = String(effectiveYear).slice(-2);
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         const value = localStorage.getItem(key);
