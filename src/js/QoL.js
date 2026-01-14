@@ -21,6 +21,11 @@ function QoL() {
             if (result.colored_icons) {
                 loadCssFile("/css/shkolo/misc/colored_icons.css");
             }
+
+            if (result.animations) {
+                loadCssFile("/css/shkolo/misc/animations.css");
+            }
+
             if (result.rounded) {
                 loadCssFile("/css/shkolo/rounded.css");
             }

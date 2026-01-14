@@ -11,6 +11,7 @@
         "control_tests": true,
         "reorder_sidebar": true,
         "colored_icons": false,
+        "animations": true,
         "remove_ads": true,
         "sub_remove_statistics_button": true,
         "sub_remove_rank_disclaimer": true,
@@ -112,6 +113,13 @@
             "id": "colored_icons",
             "i18n_title": "coloredIcons",
             "i18n_description": "coloredIcons_description",
+            "section": "main_settings_options"
+        },
+        {
+            "type": "boolean",
+            "id": "animations",
+            "i18n_title": "animationsLabel",
+            "i18n_description": "animations_description",
             "section": "main_settings_options",
             "tags": ["new_feature"]
         },

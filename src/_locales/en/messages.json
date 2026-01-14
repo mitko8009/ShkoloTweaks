@@ -403,5 +403,11 @@
   },
   "schedule_room_number_description": {
     "message": "Display the room number in the schedule widget"
+  },
+  "animationsLabel": {
+    "message": "Animations"
+  },
+  "animations_description": {
+    "message": "Enable smooth animations for various UI elements"
   }
 }

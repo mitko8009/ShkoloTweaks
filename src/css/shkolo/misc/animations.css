@@ -1,0 +1,33 @@
+.col-sm-12, .table-responsive, .table, .scheduleView, .portlet, .datepicker, .dropdown-menu, .btn, .note {
+    animation: showAnimation 0.3s ease-in-out;
+}
+
+.dashboard-stat {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.stats-rank-box:hover .statsRankPopup {
+    animation: showAnimation 0.2s ease-in-out;
+}
+
+@keyframes showAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        aniamation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    to {
+        opacity: 1;
+    }
+}
