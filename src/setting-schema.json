@@ -30,6 +30,7 @@
         "sub_settings_section_mon": false,
         "sub_settings_section_dev": false,
         "move_logout_button": true,
+        "sub_confirm_logout": true,
         "mon_grades_average": true,
         "mon_side_navbar": true,
         "mon_grades_term_averages": true,
@@ -249,7 +250,15 @@
             "id": "move_logout_button",
             "i18n_title": "moveLogOutButton",
             "i18n_description": "moveLogOutButton_description",
-            "section": "qol_settings_options"
+            "section": "qol_settings_options",
+            "suboptions": [
+                {
+                    "type": "boolean",
+                    "id": "sub_confirm_logout",
+                    "i18n_title": "confirmLogout",
+                    "i18n_description": "confirmLogout_description"
+                }
+            ]
         },
         {
             "type": "boolean",

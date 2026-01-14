@@ -409,5 +409,14 @@
   },
   "animations_description": {
     "message": "Enable smooth animations for various UI elements"
+  },
+  "logout_confirmation": {
+    "message": "Are you sure you want to log out?"
+  },
+  "confirmLogout": {
+    "message": "Confirm Logout"
+  },
+  "confirmLogout_description": {
+    "message": "Show a confirmation prompt when logging out"
   }
 }

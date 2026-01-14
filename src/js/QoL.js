@@ -370,6 +370,15 @@ function QoL() {
         try {
             const logoutButton = document.querySelector(`body > div.page-header.navbar.navbar-fixed-top > div > div.top-menu > ul > li.hidden-xs.hidden-sm.dropdown.dropdown-quick-sidebar-toggler`).cloneNode(true);
 
+            if (true) {
+                logoutButton.children[0].href = "#";
+                logoutButton.children[0].addEventListener("click", function (e) {
+                    if (confirm(chrome.i18n.getMessage("logout_confirmation"))) {
+                        window.location.href = "/auth/logout";
+                    }
+                });
+            }
+
             if (pageurl.includes("/profile") && logoutButton) {
                 const anchor = logoutButton.querySelector("a");
                 if (anchor) {
@@ -383,7 +392,7 @@ function QoL() {
             }
 
             const oldLogoutButton = document.querySelector("body > div.page-header.navbar.navbar-fixed-top > div > div.top-menu > ul > li.hidden-xs.hidden-sm.dropdown.dropdown-quick-sidebar-toggler");
-            if (oldLogoutButton) { oldLogoutButton.remove(); }
+            if (oldLogoutButton) oldLogoutButton.remove();
         } catch (error) {
             console.error(`[${manifest.name} v${version}][QoL]: Failed to move logout button. ERROR: ${error}`);
         }
