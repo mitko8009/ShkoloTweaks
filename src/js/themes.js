@@ -49,6 +49,8 @@ function checkTheme() {
             if (storageObj.blur_data) { loadCssFile("css/shkolo/blurData.css"); }
             if (storageObj.no_avatars) { loadCssFile("css/shkolo/noAvatars.css"); }
             if (storageObj.rounded) { loadCssFile("css/shkolo/rounded.css"); }
+            if (storageObj.colored_icons) { loadCssFile("/css/shkolo/misc/colored_icons.css"); }
+            if (storageObj.animations) { loadCssFile("css/shkolo/misc/animations.css"); }
 
             let messageBody = document.getElementsByClassName("message-body")[0];
             if (messageBody !== undefined) {
@@ -59,7 +61,7 @@ function checkTheme() {
         };
 
         if (disabled) {
-            chrome.storage.sync.get(['custom_themes', 'custom_css', 'blur_data', 'no_avatars', 'rounded'], (syncVals) => {
+            chrome.storage.sync.get(null, (syncVals) => {
                 chrome.storage.local.get(['theme', 'active_custom_themes'], (localVals) => {
                     const merged = Object.assign({}, syncVals || {}, localVals || {});
                     collect(merged);

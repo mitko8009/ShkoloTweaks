@@ -17,18 +17,6 @@ function QoL() {
             if (typeof compatibility_mode !== 'undefined' && compatibility_mode) {
                 loadCssFile("/css/shkolo/compatibility.css");
             }
-
-            if (result.colored_icons) {
-                loadCssFile("/css/shkolo/misc/colored_icons.css");
-            }
-
-            if (result.animations) {
-                loadCssFile("/css/shkolo/misc/animations.css");
-            }
-
-            if (result.rounded) {
-                loadCssFile("/css/shkolo/rounded.css");
-            }
         });
     }
 
