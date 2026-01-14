@@ -57,6 +57,10 @@ function sc_DisplayDay(day, data) {
 
     for (let i = 0; i < Object.keys(dayData).length; i++) {
         if (Object.keys(dayData[i]).length > 0) {
+            let indexOffset = 0;
+
+            if (dayData[i][0].includes("<i class=\"fas fa-desktop\"></i>")) indexOffset = 1; // Adjust if class is online
+
             let classNode = document.createElement("div")
             classNode.classList.add("rounded", "scheduleClass")
             classNode.style = "margin-top: 8px; padding: 10px; font-size: 16px; border: 1px solid var(--primary-fg);"
@@ -66,19 +70,26 @@ function sc_DisplayDay(day, data) {
 
             // Class Title (Ex. "Mathematics", "English", etc.)
             let classTitle = document.createElement("a")
-            classTitle.innerHTML = dayData[i][0]
+            classTitle.innerHTML = dayData[i][0+indexOffset]
             classTitle.classList.add("scheduleCourse")
-            if (dayData[i][0].includes("</i>")) {
-                let classTitleDetails = dayData[i][0].split("</i> ")[0]
-                classTitle.innerHTML = dayData[i][0].split("</i> ")[1].split("(")[0]
-                classTitle.innerHTML = classTitleDetails + "</i> " + classTitle.innerHTML
+            if (dayData[i][0+indexOffset].includes("</i>")) {
+                let classTitleDetails = dayData[i][0+indexOffset].split("</i> ")[0] + "</i> "
+                classTitle.innerHTML = dayData[i][0+indexOffset].split("</i> ")[1].split("(")[0]
+
+                // Replace book icon with desktop icon for online classes
+                if (dayData[i][0].includes("<i class=\"fas fa-desktop\"></i>")) {
+                    classTitleDetails = classTitleDetails.replace("<i class=\"icon-book-open\"></i>", "<i class=\"fas fa-desktop\"></i>")
+                }
+
+                classTitle.innerHTML = classTitleDetails + classTitle.innerHTML
             }
+            classTitle.innerHTML = classTitle.innerHTML + indexOffset
             classInfo.appendChild(classTitle)
 
             if (window.syncedSettings.sub_schedule_teacher_name) {
                 // Class Teacher (Ex. "Mrs. Raicheva", etc.)
                 let classTeacher = document.createElement("span")
-                classTeacher.innerHTML = " | " + dayData[i][1]
+                classTeacher.innerHTML = " | " + dayData[i][1+indexOffset]
                 classTeacher.classList.add("scheduleSecondary", "secondaryFirst")
                 classInfo.appendChild(classTeacher)
             }
@@ -91,16 +102,16 @@ function sc_DisplayDay(day, data) {
             if (window.syncedSettings.sub_schedule_room_number) {
                 // Class Room (Ex. "Room 103", "Room 404", etc.)
                 let classRoom = document.createElement("span");
-                classRoom.innerHTML = dayData[i][2];
+                classRoom.innerHTML = dayData[i][2+indexOffset];
                 classRoom.style.paddingRight = "12px";
                 classRoom.classList.add("scheduleSecondary");
                 rightInfo.appendChild(classRoom);
             }
 
             // Class Time (Ex. "08:00 - 09:00", "09:00 - 10:00", etc.)
-            if (dayData[i][3] !== undefined) {
+            if (dayData[i][3+indexOffset] !== undefined) {
                 let classTime = document.createElement("span");
-                classTime.innerHTML = dayData[i][3];
+                classTime.innerHTML = dayData[i][3+indexOffset];
                 classTime.classList.add("scheduleSecondary");
                 rightInfo.appendChild(classTime);
             }
