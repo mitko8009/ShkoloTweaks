@@ -63,16 +63,14 @@
             "id": "rounded",
             "i18n_title": "roundedLabel",
             "i18n_description": "rounded_description",
-            "section": "main_settings_options",
-            "tags": []
+            "section": "main_settings_options"
         },
         {
             "type": "boolean",
             "id": "blur_data",
             "i18n_title": "blurLabel",
             "i18n_description": "blur_data_description",
-            "section": "main_settings_options",
-            "tags": []
+            "section": "main_settings_options"
         },
         {
             "type": "boolean",
@@ -80,7 +78,6 @@
             "i18n_title": "schedule_widget",
             "i18n_description": "schedule_widget_description",
             "section": "main_settings_options",
-            "tags": [],
             "suboptions": [
                 {
                     "type": "boolean",
@@ -101,16 +98,14 @@
             "id": "control_tests",
             "i18n_title": "control_tests_widget",
             "i18n_description": "control_tests_widget_description",
-            "section": "main_settings_options",
-            "tags": []
+            "section": "main_settings_options"
         },
         {
             "type": "boolean",
             "id": "reorder_sidebar",
             "i18n_title": "reorderSidebar",
             "i18n_description": "reorderSidebar_description",
-            "section": "main_settings_options",
-            "tags": []
+            "section": "main_settings_options"
         },
         {
             "type": "boolean",
@@ -118,31 +113,14 @@
             "i18n_title": "coloredIcons",
             "i18n_description": "coloredIcons_description",
             "section": "main_settings_options",
-            "tags": []
+            "tags": ["new_feature"]
         },
         {
             "type": "boolean",
             "id": "no_avatars",
             "i18n_title": "noAvatars",
             "i18n_description": "noAvatars_description",
-            "section": "main_settings_options",
-            "tags": []
-        },
-        {
-            "type": "boolean",
-            "id": "autoRefresh",
-            "i18n_title": "auto_refresh",
-            "i18n_description": "auto_refresh_description",
-            "section": "main_settings_options",
-            "tags": []
-        },
-        {
-            "type": "boolean",
-            "id": "disable_theme_sync",
-            "i18n_title": "disableThemeSync_label",
-            "i18n_description": "disableThemeSync_description",
-            "section": "main_settings_options",
-            "tags": []
+            "section": "main_settings_options"
         },
         {
             "type": "boolean",
@@ -150,7 +128,6 @@
             "i18n_title": "removeAds",
             "i18n_description": "removeAds_description",
             "section": "qol_settings_options",
-            "tags": [],
             "suboptions": [
                 {
                     "type": "boolean",
@@ -183,24 +160,21 @@
             "id": "load_qol_css",
             "i18n_title": "loadQoLCss",
             "i18n_description": "loadQoLCss_description",
-            "section": "qol_settings_options",
-            "tags": []
+            "section": "qol_settings_options"
         },
         {
             "type": "boolean",
             "id": "email_and_tel",
             "i18n_title": "emailAndTel",
             "i18n_description": "emailAndTel_description",
-            "section": "qol_settings_options",
-            "tags": []
+            "section": "qol_settings_options"
         },
         {
             "type": "boolean",
             "id": "messages_background_fix",
             "i18n_title": "messagesBackgroundFix",
             "i18n_description": "messagesBackgroundFix_description",
-            "section": "qol_settings_options",
-            "tags": []
+            "section": "qol_settings_options"
         },
         {
             "type": "boolean",
@@ -208,7 +182,6 @@
             "i18n_title": "detailsDate",
             "i18n_description": "detailsDate_description",
             "section": "qol_settings_options",
-            "tags": [],
             "suboptions": [
                 {
                     "type": "boolean",
@@ -230,7 +203,6 @@
             "i18n_title": "inAppExtSettings",
             "i18n_description": "inAppExtSettings_description",
             "section": "qol_settings_options",
-            "tags": [],
             "suboptions": [
                 {
                     "type": "boolean",
@@ -269,8 +241,7 @@
             "id": "move_logout_button",
             "i18n_title": "moveLogOutButton",
             "i18n_description": "moveLogOutButton_description",
-            "section": "qol_settings_options",
-            "tags": []
+            "section": "qol_settings_options"
         },
         {
             "type": "boolean",
@@ -303,6 +274,20 @@
                     "i18n_description": "monRoundedAverages_description"
                 }
             ]
+        },
+        {
+            "type": "boolean",
+            "id": "autoRefresh",
+            "i18n_title": "auto_refresh",
+            "i18n_description": "auto_refresh_description",
+            "section": "misc_settings_options"
+        },
+        {
+            "type": "boolean",
+            "id": "disable_theme_sync",
+            "i18n_title": "disableThemeSync_label",
+            "i18n_description": "disableThemeSync_description",
+            "section": "misc_settings_options"
         },
         {
             "type": "boolean",

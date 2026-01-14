@@ -18,7 +18,7 @@ function QoL() {
                 loadCssFile("/css/shkolo/compatibility.css");
             }
 
-            if (result.colored_icons || result.colored_icons === undefined) {
+            if (result.colored_icons) {
                 loadCssFile("/css/shkolo/misc/colored_icons.css");
             }
             if (result.rounded) {

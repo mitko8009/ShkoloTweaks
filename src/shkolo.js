@@ -5,6 +5,12 @@ const pageurl = window.location.href
 const today = new Date();
 const year = today.getFullYear();
 
+// Define jQuery
+let script = document.createElement("script")
+script.src = chrome.runtime.getURL("lib/jquery.min.js")
+script.type = "text/javascript"
+document.getElementsByTagName("head")[0].appendChild(script)
+
 // User Details
 var pupil_id = null
 var school_name = null
@@ -36,12 +42,6 @@ try {
     chrome.storage.local.set({ disablePupilIDFeatures: true })
 }
 
-// Define jQuery
-let script = document.createElement("script")
-script.src = chrome.runtime.getURL("lib/jquery.min.js")
-script.type = "text/javascript"
-document.getElementsByTagName("head")[0].appendChild(script)
-
 function main() {
     stat_tracking() // Track stats
 
@@ -57,7 +57,7 @@ function main() {
             if (txt.endsWith('|')) txt = txt.slice(0, -1).trim();
             school_name = txt;
             if (typeof console !== 'undefined' && console.debug) console.debug(`[${manifest.name}] detected school name:`, school_name);
-        } catch (inner) { /* ignore extraction errors */ }
+        } catch { /* ignore extraction errors */ }
         $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
     } catch { }
 }
