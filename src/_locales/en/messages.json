@@ -424,5 +424,38 @@
   },
   "animationDuration_description": {
     "message": "Set the duration for UI animations (in milliseconds)"
+  },
+  "zoomAvatarProfilePicture": {
+    "message": "Zoom Profile Picture"
+  },
+  "zoomAvatarProfilePicture_description": {
+    "message": "Enable zoom effect on profile pictures when hovered"
+  },
+  "zoomLevel": {
+    "message": "Zoom Level"
+  },
+  "zoomLevel_description": {
+    "message": "Set the zoom level for profile pictures"
+  },
+  "zoomLevel_option_1_0x": {
+    "message": "1.0x"
+  },
+  "zoomLevel_option_1_1x": {
+    "message": "1.1x"
+  },
+  "zoomLevel_option_1_25x": {
+    "message": "1.25x"
+  },
+  "zoomLevel_option_1_5x": {
+    "message": "1.5x"
+  },
+  "zoomLevel_option_2x": {
+    "message": "2x"
+  },
+  "miniAvatars": {
+    "message": "Mini Avatars"
+  },
+  "miniAvatars_description": {
+    "message": "Show smaller avatars"
   }
 }

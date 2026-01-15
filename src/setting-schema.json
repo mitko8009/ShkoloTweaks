@@ -12,6 +12,7 @@
         "reorder_sidebar": true,
         "colored_icons": false,
         "animations": true,
+        "sub_animation_duration": 300,
         "remove_ads": true,
         "sub_remove_statistics_button": true,
         "sub_remove_rank_disclaimer": true,
@@ -31,6 +32,9 @@
         "sub_settings_section_dev": false,
         "move_logout_button": true,
         "sub_confirm_logout": true,
+        "zoom_avatar_profile_picture": false,
+        "sub_zoom_level": "1.25",
+        "sub_mini_avatars": false,
         "mon_grades_average": true,
         "mon_side_navbar": true,
         "mon_grades_term_averages": true,
@@ -140,7 +144,8 @@
             "id": "no_avatars",
             "i18n_title": "noAvatars",
             "i18n_description": "noAvatars_description",
-            "section": "main_settings_options"
+            "section": "main_settings_options",
+            "blocks": ["zoom_avatar_profile_picture"]
         },
         {
             "type": "boolean",
@@ -268,6 +273,50 @@
                     "id": "sub_confirm_logout",
                     "i18n_title": "confirmLogout",
                     "i18n_description": "confirmLogout_description"
+                }
+            ]
+        },
+        {
+            "type": "boolean",
+            "id": "zoom_avatar_profile_picture",
+            "i18n_title": "zoomAvatarProfilePicture",
+            "i18n_description": "zoomAvatarProfilePicture_description",
+            "section": "qol_settings_options",
+            "tags": ["new_feature"],
+            "suboptions": [
+                {
+                    "type": "enum",
+                    "id":"sub_zoom_level",
+                    "i18n_title": "zoomLevel",
+                    "i18n_description": "zoomLevel_description",
+                    "options": [
+                        {
+                            "value": "1.0",
+                            "i18n": "zoomLevel_option_1_0x"
+                        },
+                        {
+                            "value": "1.1",
+                            "i18n": "zoomLevel_option_1_1x"
+                        },
+                        {
+                            "value": "1.25",
+                            "i18n": "zoomLevel_option_1_25x"
+                        },
+                        {
+                            "value": "1.5",
+                            "i18n": "zoomLevel_option_1_5x"
+                        },
+                        {
+                            "value": "2.0",
+                            "i18n": "zoomLevel_option_2x"
+                        }
+                    ]
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_mini_avatars",
+                    "i18n_title": "miniAvatars",
+                    "i18n_description": "miniAvatars_description"
                 }
             ]
         },

@@ -62,6 +62,21 @@ function checkTheme() {
                 loadCssFile("css/shkolo/misc/animations.css");
             }
 
+            if (storageObj.zoom_avatar_profile_picture) {
+                // Load zoom level variables before the main zoom avatars CSS
+                const zoomLevel = parseFloat(storageObj.sub_zoom_level || 1.0);
+                const miniAvatars = !!storageObj.sub_mini_avatars;
+                const styleEl = document.createElement("style");
+                styleEl.id = "shkolo_zoom_avatars_vars";
+                styleEl.textContent = `:root {
+                    --avatar-zoom-level: ${zoomLevel};
+                    --mini-avatars-scale: ${miniAvatars ? 0.75 : 1.0}
+                }`;
+                document.head.appendChild(styleEl);
+
+                loadCssFile("css/shkolo/misc/zoom-avatars.css");
+            }
+
             let messageBody = document.getElementsByClassName("message-body")[0];
             if (messageBody !== undefined) {
                 for (let i = 0; i < messageBody.children.length; i++) {
