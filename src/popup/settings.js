@@ -26,7 +26,7 @@ loadSettingSchema();
 function handleBlockedOptions(schema, blockingId, isEnabled) {
     const items = schema.schema || [];
     const blockingItem = items.find(item => item.id === blockingId);
-    
+
     if (!blockingItem || !blockingItem.blocks || !Array.isArray(blockingItem.blocks)) {
         return;
     }
@@ -61,17 +61,17 @@ function handleBlockedOptions(schema, blockingId, isEnabled) {
 
                 // Add visual indicator
                 optionDiv.classList.add('disabled');
-                
+
                 if (!existingTag) {
                     const blockingItemData = items.find(item => item.id === blockingId);
                     const blockingTitle = chrome.i18n?.getMessage(blockingItemData?.i18n_title) || blockingItemData?.i18n_title || blockingId;
-                    
+
                     const blockedTag = document.createElement('p');
                     blockedTag.className = 'tag blocked-tag';
                     blockedTag.style.backgroundColor = '#db0101';
                     blockedTag.style.color = '#fff';
                     blockedTag.textContent = `Blocked by: ${blockingTitle}`;
-                    
+
                     const label = optionDiv.querySelector('label[for="' + blockedId + '"]');
                     if (label) {
                         label.after(blockedTag);
@@ -162,7 +162,7 @@ function createOptionElement(item, values, isSuboption = false) {
             options.forEach(opt => {
                 const optionEl = document.createElement('option');
                 optionEl.value = opt.value;
-                const optLabel = chrome.i18n?.getMessage(opt.i18n) || opt.label || opt.value;
+                const optLabel = chrome.i18n.getMessage(opt.i18n) || opt.value;
                 optionEl.textContent = optLabel;
                 if (opt.value === currentValue) {
                     optionEl.selected = true;
@@ -184,7 +184,7 @@ function createOptionElement(item, values, isSuboption = false) {
     // Text label
     const textLabel = document.createElement('label');
     textLabel.setAttribute('for', elementId);
-    const translatedTitle = chrome.i18n?.getMessage(i18n_title) || i18n_title || id;
+    const translatedTitle = chrome.i18n.getMessage(i18n_title) || i18n_title || id;
     textLabel.textContent = translatedTitle;
     optionDiv.appendChild(textLabel);
 
