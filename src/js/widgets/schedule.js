@@ -83,7 +83,6 @@ function sc_DisplayDay(day, data) {
 
                 classTitle.innerHTML = classTitleDetails + classTitle.innerHTML
             }
-            classTitle.innerHTML = classTitle.innerHTML + indexOffset
             classInfo.appendChild(classTitle)
 
             if (window.syncedSettings.sub_schedule_teacher_name) {
