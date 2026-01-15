@@ -759,3 +759,79 @@ body.dark-theme .custom-css-btn {
 .edit-btn:active {
     transform: translateY(1px);
 }
+/* Input wrapper for int and enum types */
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.input-number,
+.input-select {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #1f2937;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.input-number:focus,
+.input-select:focus {
+    border-color: #5d8bf7;
+    box-shadow: 0 0 0 3px rgba(93, 139, 247, 0.1);
+}
+
+.input-number:hover,
+.input-select:hover {
+    border-color: #9ca3af;
+}
+
+.input-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+.input-confirm-btn {
+    padding: 8px 12px;
+    background-color: #5d8bf7;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+    transition: all 0.2s;
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+.input-confirm-btn.visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: all;
+}
+
+.input-confirm-btn:hover {
+    background-color: #4a7ae8;
+    transform: scale(1.05);
+}
+
+.input-confirm-btn:active {
+    transform: scale(0.95);
+}
+
+.options.suboption-item .input-wrapper {
+    margin-left: 4px;
+}

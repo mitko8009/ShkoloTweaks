@@ -1,3 +1,5 @@
+let defaultsSchema = {};
+
 async function loadSettingSchema() {
     try {
         const response = await fetch(chrome.runtime.getURL('setting-schema.json'));
@@ -9,6 +11,8 @@ async function loadSettingSchema() {
             return;
         }
 
+        defaultsSchema = schema['defaults'] || {};
+
         loadOptionsInSettings(schema);
         loadSettingsState(schema);
         optionsEventHandler();
@@ -17,6 +21,168 @@ async function loadSettingSchema() {
     }
 }
 loadSettingSchema();
+
+function createOptionElement(item, values, isSuboption = false) {
+    const { type, id, i18n_title, i18n_description, min, max, options } = item;
+    const idPrefix = isSuboption ? 'suboption_' : '';
+    const elementId = `${idPrefix}${id}`;
+
+    const optionDiv = document.createElement('div');
+    optionDiv.className = isSuboption ? 'options suboption-item' : 'options';
+
+    let inputElement;
+    const currentValue = values[id] !== undefined ? values[id] : defaultsSchema[id];
+
+    // Create input based on type
+    if (type === 'boolean') {
+        inputElement = document.createElement('input');
+        inputElement.id = elementId;
+        inputElement.type = 'checkbox';
+        inputElement.checked = !!currentValue;
+
+        const switchLabel = document.createElement('label');
+        switchLabel.setAttribute('for', elementId);
+        switchLabel.className = 'switch';
+        optionDiv.appendChild(inputElement);
+        optionDiv.appendChild(switchLabel);
+
+    } else if (type === 'int') {
+        const inputWrapper = document.createElement('div');
+        inputWrapper.className = 'input-wrapper';
+
+        inputElement = document.createElement('input');
+        inputElement.id = elementId;
+        inputElement.type = 'number';
+        inputElement.className = 'input-number';
+        inputElement.value = currentValue !== undefined ? currentValue : (defaultsSchema[id] || 0);
+        if (min !== undefined) inputElement.min = min;
+        if (max !== undefined) inputElement.max = max;
+
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className = 'input-confirm-btn';
+        confirmBtn.textContent = '✓';
+        confirmBtn.title = 'Apply';
+
+        inputWrapper.appendChild(inputElement);
+        inputWrapper.appendChild(confirmBtn);
+        optionDiv.appendChild(inputWrapper);
+
+    } else if (type === 'enum') {
+        const inputWrapper = document.createElement('div');
+        inputWrapper.className = 'input-wrapper';
+
+        inputElement = document.createElement('select');
+        inputElement.id = elementId;
+        inputElement.className = 'input-select';
+
+        if (Array.isArray(options)) {
+            options.forEach(opt => {
+                const optionEl = document.createElement('option');
+                optionEl.value = opt.value;
+                const optLabel = chrome.i18n?.getMessage(opt.i18n) || opt.label || opt.value;
+                optionEl.textContent = optLabel;
+                if (opt.value === currentValue) {
+                    optionEl.selected = true;
+                }
+                inputElement.appendChild(optionEl);
+            });
+        }
+
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className = 'input-confirm-btn';
+        confirmBtn.textContent = '✓';
+        confirmBtn.title = 'Apply';
+
+        inputWrapper.appendChild(inputElement);
+        inputWrapper.appendChild(confirmBtn);
+        optionDiv.appendChild(inputWrapper);
+    }
+
+    // Text label
+    const textLabel = document.createElement('label');
+    textLabel.setAttribute('for', elementId);
+    const translatedTitle = chrome.i18n?.getMessage(i18n_title) || i18n_title || id;
+    textLabel.textContent = translatedTitle;
+    optionDiv.appendChild(textLabel);
+
+    // Description
+    const description = document.createElement('p');
+    description.className = 'description';
+    if (i18n_description) {
+        const translatedDesc = chrome.i18n?.getMessage(i18n_description) || i18n_description;
+        description.textContent = translatedDesc;
+    }
+    optionDiv.appendChild(description);
+
+    // Event handlers based on type
+    if (type === 'boolean') {
+        optionDiv.onclick = (e) => {
+            const tag = e.target.tagName.toLowerCase();
+            if (tag === 'input' || tag === 'label') return;
+            inputElement.checked = !inputElement.checked;
+            chrome.storage.sync.set({ [id]: inputElement.checked });
+            optionDiv.classList.add('clicked');
+            setTimeout(() => optionDiv.classList.remove('clicked'), 300);
+        };
+
+        inputElement.onchange = (e) => {
+            e.stopPropagation();
+            chrome.storage.sync.set({ [id]: inputElement.checked });
+        };
+
+    } else if (type === 'int') {
+        const confirmBtn = optionDiv.querySelector('.input-confirm-btn');
+        let initialValue = inputElement.value;
+
+        inputElement.oninput = (e) => {
+            e.stopPropagation();
+            const hasChanged = inputElement.value !== initialValue;
+            confirmBtn.classList.toggle('visible', hasChanged);
+        };
+
+        inputElement.onkeypress = (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                confirmBtn.click();
+            }
+        };
+
+        confirmBtn.onclick = (e) => {
+            e.stopPropagation();
+            const value = parseInt(inputElement.value, 10);
+            if (!isNaN(value)) {
+                chrome.storage.sync.set({ [id]: value }, () => {
+                    initialValue = inputElement.value;
+                    confirmBtn.classList.remove('visible');
+                    optionDiv.classList.add('clicked');
+                    setTimeout(() => optionDiv.classList.remove('clicked'), 300);
+                });
+            }
+        };
+
+    } else if (type === 'enum') {
+        const confirmBtn = optionDiv.querySelector('.input-confirm-btn');
+        let initialValue = inputElement.value;
+
+        inputElement.onchange = (e) => {
+            e.stopPropagation();
+            const hasChanged = inputElement.value !== initialValue;
+            confirmBtn.classList.toggle('visible', hasChanged);
+        };
+
+        confirmBtn.onclick = (e) => {
+            e.stopPropagation();
+            chrome.storage.sync.set({ [id]: inputElement.value }, () => {
+                initialValue = inputElement.value;
+                confirmBtn.classList.remove('visible');
+                optionDiv.classList.add('clicked');
+                setTimeout(() => optionDiv.classList.remove('clicked'), 300);
+            });
+        };
+    }
+
+    return { optionDiv, inputElement };
+}
 
 function showSuboptionsPopup(parentItem) {
     const overlay = document.getElementById('box_popup_overlay');
@@ -52,53 +218,12 @@ function showSuboptionsPopup(parentItem) {
         const values = { ...result };
 
         parentItem.suboptions.forEach((subItem) => {
-            const { type, id, i18n_title, i18n_description } = subItem;
+            const { type } = subItem;
 
-            if (type !== 'boolean') return;
+            // Support boolean, int, and enum types
+            if (!['boolean', 'int', 'enum'].includes(type)) return;
 
-            const optionDiv = document.createElement('div');
-            optionDiv.className = 'options suboption-item';
-
-            const checkbox = document.createElement('input');
-            checkbox.id = `suboption_${id}`;
-            checkbox.type = 'checkbox';
-            checkbox.checked = !!values[id];
-
-            const switchLabel = document.createElement('label');
-            switchLabel.setAttribute('for', `suboption_${id}`);
-            switchLabel.className = 'switch';
-
-            const textLabel = document.createElement('label');
-            textLabel.setAttribute('for', `suboption_${id}`);
-            const translatedTitle = chrome.i18n?.getMessage(i18n_title) || i18n_title || id;
-            textLabel.textContent = translatedTitle;
-
-            const description = document.createElement('p');
-            description.className = 'description';
-            if (i18n_description) {
-                const translatedDesc = chrome.i18n?.getMessage(i18n_description) || i18n_description;
-                description.textContent = translatedDesc;
-            }
-
-            optionDiv.appendChild(checkbox);
-            optionDiv.appendChild(switchLabel);
-            optionDiv.appendChild(textLabel);
-            optionDiv.appendChild(description);
-
-            optionDiv.onclick = (e) => {
-                const tag = e.target.tagName.toLowerCase();
-                if (tag === 'input' || tag === 'label') return;
-                checkbox.checked = !checkbox.checked;
-                chrome.storage.sync.set({ [id]: checkbox.checked });
-                optionDiv.classList.add('clicked');
-                setTimeout(() => optionDiv.classList.remove('clicked'), 300);
-            };
-
-            checkbox.onchange = (e) => {
-                e.stopPropagation();
-                chrome.storage.sync.set({ [id]: checkbox.checked });
-            };
-
+            const { optionDiv } = createOptionElement(subItem, values, true);
             suboptionsContainer.appendChild(optionDiv);
         });
 
@@ -123,73 +248,47 @@ function loadOptionsInSettings(schema) {
 
     const items = schema.schema || [];
 
-    items.forEach((item) => {
-        const { type, id, i18n_title, i18n_description, section } = item;
+    chrome.storage.sync.get(null, (result) => {
+        const values = { ...result };
 
-        if (type !== 'boolean' || !id || !section) return;
+        items.forEach((item) => {
+            const { type, id, section } = item;
 
-        const sectionElement = document.getElementById(section);
-        if (!sectionElement) {
-            console.warn(`Section element not found: ${section}`);
-            return;
-        }
+            // Support boolean, int, and enum types
+            if (!['boolean', 'int', 'enum'].includes(type) || !id || !section) return;
 
-        if (document.getElementById(id)) {
-            return;
-        }
+            const sectionElement = document.getElementById(section);
+            if (!sectionElement) {
+                console.warn(`Section element not found: ${section}`);
+                return;
+            }
 
-        const optionDiv = document.createElement('div');
-        optionDiv.className = 'options';
+            if (document.getElementById(id)) {
+                return;
+            }
 
-        const checkbox = document.createElement('input');
-        checkbox.id = id;
-        checkbox.type = 'checkbox';
+            const { optionDiv } = createOptionElement(item, values, false);
 
-        const switchLabel = document.createElement('label');
-        switchLabel.setAttribute('for', id);
-        switchLabel.className = 'switch';
+            // If there are suboptions, add a gear button
+            if (item.suboptions && Array.isArray(item.suboptions) && item.suboptions.length > 0) {
+                const gearBtn = document.createElement('button');
+                gearBtn.className = 'suboptions-gear-btn';
+                gearBtn.setAttribute('aria-label', 'More options');
 
-        const textLabel = document.createElement('label');
-        textLabel.setAttribute('for', id);
-        textLabel.id = i18n_title || '';
-        if (i18n_title && typeof chrome !== 'undefined' && chrome.i18n) {
-            const translatedTitle = chrome.i18n.getMessage(i18n_title);
-            if (translatedTitle) textLabel.textContent = translatedTitle;
-        }
+                const gearImg = document.createElement('img');
+                gearImg.src = chrome.runtime.getURL('../assets/gear.svg');
+                gearImg.alt = 'Settings';
+                gearBtn.appendChild(gearImg);
 
-        const description = document.createElement('p');
-        description.className = 'description';
-        description.id = i18n_description || '';
-        if (i18n_description && typeof chrome !== 'undefined' && chrome.i18n) {
-            const translatedDesc = chrome.i18n.getMessage(i18n_description);
-            if (translatedDesc) description.textContent = translatedDesc;
-        }
+                gearBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    showSuboptionsPopup(item);
+                };
+                optionDiv.appendChild(gearBtn);
+            }
 
-        // Append all elements to the option container
-        optionDiv.appendChild(checkbox);
-        optionDiv.appendChild(switchLabel);
-        optionDiv.appendChild(textLabel);
-        optionDiv.appendChild(description);
-
-        // If there are suboptions, add a gear button
-        if (item.suboptions && Array.isArray(item.suboptions) && item.suboptions.length > 0) {
-            const gearBtn = document.createElement('button');
-            gearBtn.className = 'suboptions-gear-btn';
-            gearBtn.setAttribute('aria-label', 'More options');
-            
-            const gearImg = document.createElement('img');
-            gearImg.src = chrome.runtime.getURL('../assets/gear.svg');
-            gearImg.alt = 'Settings';
-            gearBtn.appendChild(gearImg);
-            
-            gearBtn.onclick = (e) => {
-                e.stopPropagation();
-                showSuboptionsPopup(item);
-            };
-            optionDiv.appendChild(gearBtn);
-        }
-
-        sectionElement.appendChild(optionDiv);
+            sectionElement.appendChild(optionDiv);
+        });
     });
 }
 
