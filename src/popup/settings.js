@@ -46,7 +46,7 @@ function createOptionElement(item, values, isSuboption = false) {
         optionDiv.appendChild(inputElement);
         optionDiv.appendChild(switchLabel);
 
-    } else if (type === 'int') {
+    } else if (type === 'number') {
         const inputWrapper = document.createElement('div');
         inputWrapper.className = 'input-wrapper';
 
@@ -131,7 +131,7 @@ function createOptionElement(item, values, isSuboption = false) {
             chrome.storage.sync.set({ [id]: inputElement.checked });
         };
 
-    } else if (type === 'int') {
+    } else if (type === 'number') {
         const confirmBtn = optionDiv.querySelector('.input-confirm-btn');
         let initialValue = inputElement.value;
 
@@ -221,8 +221,8 @@ function showSuboptionsPopup(parentItem) {
         parentItem.suboptions.forEach((subItem) => {
             const { type } = subItem;
 
-            // Support boolean, int, and enum types
-            if (!['boolean', 'int', 'enum'].includes(type)) return;
+            // Support boolean, number, and enum types
+            if (!['boolean', 'number', 'enum'].includes(type)) return;
 
             const { optionDiv } = createOptionElement(subItem, values, true);
             suboptionsContainer.appendChild(optionDiv);
@@ -255,8 +255,8 @@ function loadOptionsInSettings(schema) {
         items.forEach((item) => {
             const { type, id, section } = item;
 
-            // Support boolean, int, and enum types
-            if (!['boolean', 'int', 'enum'].includes(type) || !id || !section) return;
+            // Support boolean, number, and enum types
+            if (!['boolean', 'number', 'enum'].includes(type) || !id || !section) return;
 
             const sectionElement = document.getElementById(section);
             if (!sectionElement) {
