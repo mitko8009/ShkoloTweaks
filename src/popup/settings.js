@@ -596,6 +596,21 @@ function tagSetting(setting, text, color) {
 function filterSettings(query) {
     const q = (query || "").trim().toLowerCase()
     let matches = 0
+    const schema = window.__settingSchema;
+
+    const hasMatchingSuboption = (itemId) => {
+        if (!schema || !schema.schema) return false;
+
+        const item = schema.schema.find(i => i.id === itemId);
+        if (!item || !item.suboptions || !Array.isArray(item.suboptions)) return false;
+
+        return item.suboptions.some(subItem => {
+            const subTitle = chrome.i18n?.getMessage(subItem.i18n_title) || subItem.i18n_title || subItem.id || '';
+            const subDesc = chrome.i18n?.getMessage(subItem.i18n_description) || subItem.i18n_description || '';
+            const subCombined = (subTitle + " " + subDesc + " " + subItem.id).toLowerCase();
+            return subCombined.indexOf(q) !== -1;
+        });
+    };
 
     $(".box-wrapper > .box").each(function () {
         const box = $(this)
@@ -605,14 +620,26 @@ function filterSettings(query) {
             const opt = $(this)
             const label = (opt.children().eq(2).text() || "")
             const desc = (opt.find(".description").text() || "")
-            const combined = (label + " " + desc + " " + opt.children().eq(0).attr('id')).toLowerCase()
+            const optionId = opt.children().eq(0).attr('id')
+            const combined = (label + " " + desc + " " + optionId).toLowerCase()
 
-            if (!q || combined.indexOf(q) !== -1) {
+            const mainMatches = !q || combined.indexOf(q) !== -1;
+            const subMatches = q && hasMatchingSuboption(optionId);
+
+            if (mainMatches || subMatches) {
                 opt.removeClass("settings-hidden")
                 boxHasVisible = true
                 matches++
+
+                // Add visual indicator if suboption matched
+                if (subMatches && !mainMatches) {
+                    opt.addClass("has-matching-suboption")
+                } else {
+                    opt.removeClass("has-matching-suboption")
+                }
             } else {
                 opt.addClass("settings-hidden")
+                opt.removeClass("has-matching-suboption")
             }
         })
 

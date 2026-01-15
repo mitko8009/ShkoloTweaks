@@ -850,3 +850,36 @@ body.dark-theme .custom-css-btn {
     cursor: not-allowed;
     pointer-events: none;
 }
+
+/* Search suboptions display */
+.search-suboptions-container {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: rgba(93, 139, 247, 0.08);
+    border-left: 3px solid #5d8bf7;
+    border-radius: 4px;
+}
+
+.search-suboptions-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #5d8bf7;
+    margin: 0 0 6px 0;
+}
+
+.search-suboption-item {
+    font-size: 13px;
+    color: #374151;
+    padding: 4px 0;
+    line-height: 1.4;
+}
+
+.search-suboption-title {
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.search-suboption-desc {
+    color: #6b7280;
+    font-size: 12px;
+}
