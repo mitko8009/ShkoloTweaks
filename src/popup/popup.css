@@ -835,3 +835,18 @@ body.dark-theme .custom-css-btn {
 .options.suboption-item .input-wrapper {
     margin-left: 4px;
 }
+
+/* Blocked option styling */
+.tag.blocked-tag {
+    background-color: #db0101 !important;
+    color: #fff !important;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(219, 1, 1, 0.3);
+}
+
+.options.disabled .input-wrapper input,
+.options.disabled .input-wrapper select {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}

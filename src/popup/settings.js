@@ -12,6 +12,7 @@ async function loadSettingSchema() {
         }
 
         defaultsSchema = schema['defaults'] || {};
+        window.__settingSchema = schema;
 
         loadOptionsInSettings(schema);
         loadSettingsState(schema);
@@ -21,6 +22,87 @@ async function loadSettingSchema() {
     }
 }
 loadSettingSchema();
+
+function handleBlockedOptions(schema, blockingId, isEnabled) {
+    const items = schema.schema || [];
+    const blockingItem = items.find(item => item.id === blockingId);
+    
+    if (!blockingItem || !blockingItem.blocks || !Array.isArray(blockingItem.blocks)) {
+        return;
+    }
+
+    chrome.storage.sync.get(null, (result) => {
+        const updates = {};
+        const blockedStates = result.__blockedStates || {};
+
+        blockingItem.blocks.forEach((blockedId) => {
+            const blockedElement = document.getElementById(blockedId);
+            if (!blockedElement) return;
+
+            const optionDiv = blockedElement.closest('.options');
+            if (!optionDiv) return;
+
+            // Find if there's already a blocked tag
+            const existingTag = optionDiv.querySelector('.tag.blocked-tag');
+
+            if (isEnabled) {
+                // Store current value before blocking
+                if (blockedElement.type === 'checkbox') {
+                    if (!blockedStates[blockedId]) {
+                        blockedStates[blockedId] = {
+                            value: blockedElement.checked,
+                            blockedBy: blockingId
+                        };
+                    }
+                    // Disable the blocked option
+                    blockedElement.checked = false;
+                    updates[blockedId] = false;
+                }
+
+                // Add visual indicator
+                optionDiv.classList.add('disabled');
+                
+                if (!existingTag) {
+                    const blockingItemData = items.find(item => item.id === blockingId);
+                    const blockingTitle = chrome.i18n?.getMessage(blockingItemData?.i18n_title) || blockingItemData?.i18n_title || blockingId;
+                    
+                    const blockedTag = document.createElement('p');
+                    blockedTag.className = 'tag blocked-tag';
+                    blockedTag.style.backgroundColor = '#db0101';
+                    blockedTag.style.color = '#fff';
+                    blockedTag.textContent = `Blocked by: ${blockingTitle}`;
+                    
+                    const label = optionDiv.querySelector('label[for="' + blockedId + '"]');
+                    if (label) {
+                        label.after(blockedTag);
+                    }
+                }
+            } else {
+                // Restore previous value
+                if (blockedStates[blockedId] && blockedStates[blockedId].blockedBy === blockingId) {
+                    if (blockedElement.type === 'checkbox') {
+                        blockedElement.checked = blockedStates[blockedId].value;
+                        updates[blockedId] = blockedStates[blockedId].value;
+                    }
+                    delete blockedStates[blockedId];
+                }
+
+                // Remove visual indicator if no other option is blocking it
+                const stillBlocked = Object.values(blockedStates).some(state => state.blockedBy && state.blockedBy !== blockingId);
+                if (!stillBlocked) {
+                    optionDiv.classList.remove('disabled');
+                    if (existingTag) {
+                        existingTag.remove();
+                    }
+                }
+            }
+        });
+
+        // Save updates
+        updates.__blockedStates = blockedStates;
+        chrome.storage.sync.set(updates);
+    });
+}
 
 function createOptionElement(item, values, isSuboption = false) {
     const { type, id, i18n_title, i18n_description, min, max, step, options } = item;
@@ -121,14 +203,26 @@ function createOptionElement(item, values, isSuboption = false) {
             const tag = e.target.tagName.toLowerCase();
             if (tag === 'input' || tag === 'label') return;
             inputElement.checked = !inputElement.checked;
-            chrome.storage.sync.set({ [id]: inputElement.checked });
+            chrome.storage.sync.set({ [id]: inputElement.checked }, () => {
+                // Handle blocking logic
+                const schemaData = window.__settingSchema;
+                if (schemaData) {
+                    handleBlockedOptions(schemaData, id, inputElement.checked);
+                }
+            });
             optionDiv.classList.add('clicked');
             setTimeout(() => optionDiv.classList.remove('clicked'), 300);
         };
 
         inputElement.onchange = (e) => {
             e.stopPropagation();
-            chrome.storage.sync.set({ [id]: inputElement.checked });
+            chrome.storage.sync.set({ [id]: inputElement.checked }, () => {
+                // Handle blocking logic
+                const schemaData = window.__settingSchema;
+                if (schemaData) {
+                    handleBlockedOptions(schemaData, id, inputElement.checked);
+                }
+            });
         };
 
     } else if (type === 'number') {
@@ -316,6 +410,16 @@ function loadSettingsState(schema) {
             const tagDefs = schema.tags || {};
             const defaults = schema.defaults || {};
 
+            // Initialize blocked states based on current settings
+            items.forEach((item) => {
+                if (item.type === 'boolean' && item.blocks && Array.isArray(item.blocks)) {
+                    const isEnabled = merged[item.id] !== undefined ? merged[item.id] : defaults[item.id];
+                    if (isEnabled) {
+                        handleBlockedOptions(schema, item.id, true);
+                    }
+                }
+            });
+
             items.forEach((item) => {
                 const id = item.id || item.key;
                 if (!id) return;
@@ -398,7 +502,13 @@ function optionsEventHandler() {
                 })
             })
         } else {
-            chrome.storage.sync.set({ [option]: optionValue })
+            chrome.storage.sync.set({ [option]: optionValue }, () => {
+                // Handle blocking logic
+                const schemaData = window.__settingSchema;
+                if (schemaData) {
+                    handleBlockedOptions(schemaData, option, optionValue);
+                }
+            })
         }
 
         $(this).addClass("clicked")
@@ -434,7 +544,13 @@ function optionsEventHandler() {
                 })
             })
         } else {
-            chrome.storage.sync.set({ [option]: optionValue })
+            chrome.storage.sync.set({ [option]: optionValue }, () => {
+                // Handle blocking logic
+                const schemaData = window.__settingSchema;
+                if (schemaData) {
+                    handleBlockedOptions(schemaData, option, optionValue);
+                }
+            })
         }
     })
 }
