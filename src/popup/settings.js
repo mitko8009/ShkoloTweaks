@@ -23,7 +23,7 @@ async function loadSettingSchema() {
 loadSettingSchema();
 
 function createOptionElement(item, values, isSuboption = false) {
-    const { type, id, i18n_title, i18n_description, min, max, options } = item;
+    const { type, id, i18n_title, i18n_description, min, max, step, options } = item;
     const idPrefix = isSuboption ? 'suboption_' : '';
     const elementId = `${idPrefix}${id}`;
 
@@ -57,6 +57,7 @@ function createOptionElement(item, values, isSuboption = false) {
         inputElement.value = currentValue !== undefined ? currentValue : (defaultsSchema[id] || 0);
         if (min !== undefined) inputElement.min = min;
         if (max !== undefined) inputElement.max = max;
+        if (step !== undefined) inputElement.step = step;
 
         const confirmBtn = document.createElement('button');
         confirmBtn.className = 'input-confirm-btn';
