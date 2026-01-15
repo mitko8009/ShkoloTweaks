@@ -122,7 +122,18 @@
             "i18n_title": "animationsLabel",
             "i18n_description": "animations_description",
             "section": "main_settings_options",
-            "tags": ["new_feature", "beta"]
+            "tags": ["new_feature", "beta"],
+            "suboptions": [
+                {
+                    "type": "number",
+                    "id": "sub_animation_duration",
+                    "i18n_title": "animationDuration",
+                    "i18n_description": "animationDuration_description",
+                    "min": 10,
+                    "max": 2000,
+                    "step": 25
+                }
+            ]
         },
         {
             "type": "boolean",

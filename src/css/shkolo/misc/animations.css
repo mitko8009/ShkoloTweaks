@@ -1,13 +1,13 @@
 .col-sm-12, .table-responsive, .table, .scheduleView, .portlet, .datepicker, .dropdown-menu, .btn, .note {
-    animation: showAnimation 0.3s ease-in-out;
+    animation: showAnimation var(--animation-duration) ease-in-out;
 }
 
 .dashboard-stat {
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn var(--animation-duration) ease-in-out;
 }
 
 .stats-rank-box:hover .statsRankPopup {
-    animation: showAnimation 0.2s ease-in-out;
+    animation: showAnimation var(--animation-duration) ease-in-out;
 }
 
 @keyframes showAnimation {

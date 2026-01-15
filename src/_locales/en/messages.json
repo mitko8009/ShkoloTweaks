@@ -418,5 +418,11 @@
   },
   "confirmLogout_description": {
     "message": "Show a confirmation prompt when logging out"
+  },
+  "animationDuration": {
+    "message": "Animation Duration"
+  },
+  "animationDuration_description": {
+    "message": "Set the duration for UI animations (in milliseconds)"
   }
 }

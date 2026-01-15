@@ -50,7 +50,17 @@ function checkTheme() {
             if (storageObj.no_avatars) { loadCssFile("css/shkolo/noAvatars.css"); }
             if (storageObj.rounded) { loadCssFile("css/shkolo/rounded.css"); }
             if (storageObj.colored_icons) { loadCssFile("/css/shkolo/misc/colored_icons.css"); }
-            if (storageObj.animations) { loadCssFile("css/shkolo/misc/animations.css"); }
+
+            if (storageObj.animations) {
+                // Load variables for animations before the main animations CSS
+                const styleEl = document.createElement("style");
+                styleEl.id = "shkolo_animations_vars";
+                styleEl.textContent = `:root {
+                    --animation-duration: ${parseFloat(storageObj.sub_animation_duration || 300)}ms;
+                }`;
+                document.head.appendChild(styleEl);
+                loadCssFile("css/shkolo/misc/animations.css");
+            }
 
             let messageBody = document.getElementsByClassName("message-body")[0];
             if (messageBody !== undefined) {
