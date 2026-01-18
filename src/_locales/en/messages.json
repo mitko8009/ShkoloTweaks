@@ -463,5 +463,17 @@
   },
   "monShowNumberInTable_description": {
     "message": "Show the class number in the grades table"
+  },
+  "monQoLForMon": {
+    "message": "Quality of Life"
+  },
+  "monQoLForMon_description": {
+    "message": "Enable Quality of Life improvements"
+  },
+  "scrollBarAlwaysVisible": {
+    "message": "Scrollbar Always Visible"
+  },
+  "scrollBarAlwaysVisible_description": {
+    "message": "Make scrollbars always visible in MON"
   }
 }

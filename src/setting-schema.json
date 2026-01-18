@@ -35,6 +35,8 @@
         "zoom_avatar_profile_picture": false,
         "sub_zoom_level": "1.25",
         "sub_mini_avatars": false,
+        "mon_qol_for_mon": true,
+        "sub_mon_show_number_in_table": true,
         "mon_grades_average": true,
         "mon_side_navbar": true,
         "mon_grades_term_averages": true,
@@ -324,6 +326,22 @@
         },
         {
             "type": "boolean",
+            "id": "mon_qol_for_mon",
+            "i18n_title": "monQoLForMon",
+            "i18n_description": "monQoLForMon_description",
+            "section": "mon_settings_options",
+            "tags": ["new_feature"],
+            "suboptions": [
+                {
+                    "type": "boolean",
+                    "id": "sub_mon_show_number_in_table",
+                    "i18n_title": "monShowNumberInTable",
+                    "i18n_description": "monShowNumberInTable_description"
+                }
+            ]
+        },
+        {
+            "type": "boolean",
             "id": "mon_grades_average",
             "i18n_title": "monGradesAverage",
             "i18n_description": "monGradesAverage_description",
@@ -369,14 +387,6 @@
                     "step": 25
                 }
             ]
-        },
-        {
-            "type": "boolean",
-            "id": "mon_show_number_in_table",
-            "i18n_title": "monShowNumberInTable",
-            "i18n_description": "monShowNumberInTable_description",
-            "section": "mon_settings_options",
-            "tags": ["new_feature"]
         },
         {
             "type": "boolean",
