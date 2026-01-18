@@ -15,7 +15,7 @@ function QoL() {
 
             // Extras
             if (typeof compatibility_mode !== 'undefined' && compatibility_mode) {
-                loadCssFile("/css/shkolo/compatibility.css");
+                loadCssFile("/css/shkolo/misc/compatibility.css");
             }
         });
     }

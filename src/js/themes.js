@@ -47,8 +47,8 @@ function checkTheme() {
             applyCustomCss(combined);
 
             if (storageObj.blur_data) { loadCssFile("css/shkolo/blurData.css"); }
-            if (storageObj.no_avatars) { loadCssFile("css/shkolo/noAvatars.css"); }
             if (storageObj.rounded) { loadCssFile("css/shkolo/rounded.css"); }
+            if (storageObj.no_avatars) { loadCssFile("css/shkolo/misc/noAvatars.css"); }
             if (storageObj.colored_icons) { loadCssFile("/css/shkolo/misc/colored_icons.css"); }
 
             if (storageObj.animations) {
