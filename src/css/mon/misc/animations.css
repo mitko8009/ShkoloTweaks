@@ -1,0 +1,3 @@
+ng-component {
+    animation: showAnimation var(--mon_animation-duration) ease-in-out;
+}

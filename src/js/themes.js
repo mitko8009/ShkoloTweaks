@@ -52,6 +52,9 @@ function checkTheme() {
             if (storageObj.colored_icons) { loadCssFile("/css/shkolo/misc/colored_icons.css"); }
 
             if (storageObj.animations) {
+                // Load Animation Core
+                loadCssFile("css/common/animation-core.css");
+
                 // Load variables for animations before the main animations CSS
                 const styleEl = document.createElement("style");
                 styleEl.id = "shkolo_animations_vars";

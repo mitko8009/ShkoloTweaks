@@ -38,6 +38,8 @@
         "mon_grades_average": true,
         "mon_side_navbar": true,
         "mon_grades_term_averages": true,
+        "sub_mon_animation_duration": 300,
+        "mon_animations": true,
         "sub_mon_rounded_averages": true,
         "year_countdown": false,
         "stats_panel": false,
@@ -126,7 +128,7 @@
             "i18n_title": "animationsLabel",
             "i18n_description": "animations_description",
             "section": "main_settings_options",
-            "tags": ["new_feature", "beta"],
+            "tags": ["new_feature"],
             "suboptions": [
                 {
                     "type": "number",
@@ -346,6 +348,25 @@
                     "id": "sub_mon_rounded_averages",
                     "i18n_title": "monRoundedAverages",
                     "i18n_description": "monRoundedAverages_description"
+                }
+            ]
+        },
+        {
+            "type": "boolean",
+            "id": "mon_animations",
+            "i18n_title": "animationsLabel",
+            "i18n_description": "animations_description",
+            "section": "mon_settings_options",
+            "tags": ["new_feature", "beta"],
+            "suboptions": [
+                {
+                    "type": "number",
+                    "id": "sub_mon_animation_duration",
+                    "i18n_title": "animationDuration",
+                    "i18n_description": "animationDuration_description",
+                    "min": 10,
+                    "max": 2000,
+                    "step": 25
                 }
             ]
         },
