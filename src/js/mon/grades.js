@@ -8,15 +8,14 @@
                 const table = document.querySelector(SELECTOR) || document.querySelector(FALLBACK_SELECTOR);
                 if (table) {
                     resolve(table);
-                    console.log(table)
                     gradesTable = table;
                 } else if (retries > 0) {
                     retries--;
                     setTimeout(attempt, interval);
-                    console.log('[ShkoloTweaks]: Waiting for grades table to load...');
+                    if(DEBUG) console.log('[ShkoloTweaks]: Waiting for grades table to load...');
                 } else {
                     reject(new Error('Grades table not found'));
-                    console.warn('[ShkoloTweaks]: Grades table not found after multiple attempts.');
+                    if(DEBUG) console.warn('[ShkoloTweaks]: Grades table not found after multiple attempts.');
                 }
             };
             attempt();
@@ -276,8 +275,6 @@
                     }
                 }
             });
-
-            console.log('[ShkoloTweaks]: Term averages displayed in grade rows.');
         });
     }
 
