@@ -372,6 +372,14 @@
         },
         {
             "type": "boolean",
+            "id": "mon_show_number_in_table",
+            "i18n_title": "monShowNumberInTable",
+            "i18n_description": "monShowNumberInTable_description",
+            "section": "mon_settings_options",
+            "tags": ["new_feature"]
+        },
+        {
+            "type": "boolean",
             "id": "autoRefresh",
             "i18n_title": "auto_refresh",
             "i18n_description": "auto_refresh_description",

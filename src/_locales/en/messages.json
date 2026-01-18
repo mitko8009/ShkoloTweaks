@@ -457,5 +457,11 @@
   },
   "miniAvatars_description": {
     "message": "Show smaller avatars"
+  },
+  "monShowNumberInTable": {
+    "message": "Number classes in grades table"
+  },
+  "monShowNumberInTable_description": {
+    "message": "Show the class number in the grades table"
   }
 }

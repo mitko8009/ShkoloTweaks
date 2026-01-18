@@ -8,6 +8,7 @@
                 const table = document.querySelector(SELECTOR) || document.querySelector(FALLBACK_SELECTOR);
                 if (table) {
                     resolve(table);
+                    console.log(table)
                     gradesTable = table;
                 } else if (retries > 0) {
                     retries--;
@@ -226,7 +227,7 @@
 
             rows.forEach((row, index) => {
                 const cells = row.querySelectorAll('td');
-                console.log(cells);
+                // console.log(cells); // Debug
                 if (cells.length < 6) return;
 
                 // Calculate and display Term 1 average
@@ -280,9 +281,30 @@
         });
     }
 
+    async function showClassNumbersInTable() {
+        chrome.storage.sync.get(null, async (result) => {
+            const enabled = result.mon_show_number_in_table ?? false;
+            
+            if (!enabled) return;
+            if (document.getElementById('shkolo-tweaks-class-number')) return;
+
+            const table = await waitForGradesTable();
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach((row, index) => {
+                const numberCell = document.createElement('span');
+                numberCell.textContent = (index + 1).toString() + '. ';
+                numberCell.style.fontWeight = 'bold';
+                numberCell.id = 'shkolo-tweaks-class-number';
+                row.firstChild.prepend(numberCell);
+            });
+        });
+    }
+
     // Initial call
     displayAverageValues();
     calculateAverageValuesForTermGrades();
+    showClassNumbersInTable();
 
     // Fix avg grades disappearing when switching tabs
     handleTabClickEventToUpdateTable();
@@ -297,6 +319,7 @@
                 if (document.getElementById('shkolo-tweaks-average-row')) return;
                 displayAverageValues();
                 calculateAverageValuesForTermGrades();
+                showClassNumbersInTable();
             });
         }, 100)
     }
