@@ -74,4 +74,20 @@ chrome.storage.sync.get(null, (result) => {
             attempt(maxRetries)
         }
     })()
+
+    if (result.mon_animations) {
+        // Load Animation Core
+        loadCssFile("css/common/animation-core.css");
+
+        // Load variables for animations before the main animations CSS
+        const styleEl = document.createElement("style");
+        styleEl.id = "mon_animations_vars";
+        styleEl.textContent = `:root {
+            --mon_animation-duration: ${parseFloat(result.sub_mon_animation_duration || 300)}ms;
+        }`;
+        document.head.appendChild(styleEl);
+
+        loadCssFile("css/mon/misc/animations.css");
+    }
 })
+
