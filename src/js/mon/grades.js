@@ -283,14 +283,14 @@
 
     async function showClassNumbersInTable() {
         chrome.storage.sync.get(null, async (result) => {
-            const enabled = result.mon_show_number_in_table ?? false;
+            if (!result.mon_qol_for_mon) return;
+            if (!result.sub_mon_show_number_in_table) return;
             
-            if (!enabled) return;
-            if (document.getElementById('shkolo-tweaks-class-number')) return;
-
             const table = await waitForGradesTable();
             const rows = table.querySelectorAll('tbody tr');
 
+            if (document.getElementById('shkolo-tweaks-class-number')) return;
+            
             rows.forEach((row, index) => {
                 const numberCell = document.createElement('span');
                 numberCell.textContent = (index + 1).toString() + '. ';
