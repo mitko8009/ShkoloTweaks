@@ -2,7 +2,7 @@
     const SELECTOR = '#twroot > sb-root > sb-snackbar-root > sb-student > sb-app-chrome > div > div > main > div > ng-component > sb-simple-page-skeleton-template > sb-book > sb-tabs > div > div > ng-component > sb-simple-tab-skeleton-template > sb-grades > div > table';
     const FALLBACK_SELECTOR = 'table.table-grades';
 
-    function waitForGradesTable(retries = 20, interval = 500) {
+    function waitForGradesTable(retries = 20, interval = 100) {
         return new Promise((resolve, reject) => {
             const attempt = () => {
                 const table = document.querySelector(SELECTOR) || document.querySelector(FALLBACK_SELECTOR);
@@ -208,6 +208,9 @@
             avgRow.children[0].style.padding = '8px';
             avgRow.children[0].style.textAlign = 'left';
             avgRow.style.textAlign = 'center';
+            avgRow.id = 'shkolo-tweaks-average-row';
+
+            if (gradesTable.children[gradesTable.children.length - 1].id === 'shkolo-tweaks-average-row') return;
 
             gradesTable.appendChild(avgRow);
         });
@@ -320,5 +323,20 @@
             });
         }, 100)
     }
+
+    checkAndUpdateGradesTablePeriodically();
+    function checkAndUpdateGradesTablePeriodically() {
+        
+        
+        setInterval(() => {
+            if (window.location.href.includes('/grades')) {
+                if (document.getElementById('shkolo-tweaks-average-row')) return;
+                displayAverageValues();
+                calculateAverageValuesForTermGrades();
+                showClassNumbersInTable();
+            }
+        }, 1000);
+    }
+
 })();
 
