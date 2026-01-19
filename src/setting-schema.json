@@ -65,6 +65,10 @@
         "unavailable": {
             "i18n": "unavailable_tag",
             "color": "#ff4f4f"
+        },
+        "shkolo": {
+            "i18n": "shkolo_tag",
+            "color": "#5e94f7"
         }
     },
     "schema": [
@@ -408,7 +412,7 @@
             "i18n_title": "yearCountdown",
             "i18n_description": "yearCountdown_description",
             "section": "experimental_settings_options",
-            "tags": ["beta"]
+            "tags": ["beta", "shkolo"]
         },
         {
             "type": "boolean",
@@ -416,7 +420,7 @@
             "i18n_title": "statsPanel",
             "i18n_description": "statsPanel_description",
             "section": "experimental_settings_options",
-            "tags": ["beta"]
+            "tags": ["beta", "shkolo"]
         },
         {
             "type": "boolean",
@@ -424,7 +428,7 @@
             "i18n_title": "trustedDevicesLogins",
             "i18n_description": "trustedDevicesLogins_description",
             "section": "experimental_settings_options",
-            "tags": ["beta"]
+            "tags": ["beta", "shkolo"]
         },
         {
             "type": "boolean",
@@ -432,7 +436,7 @@
             "i18n_title": "leaderboardLabel",
             "i18n_description": "leaderboard_description",
             "section": "experimental_settings_options",
-            "tags": ["beta"]
+            "tags": ["beta", "shkolo"]
         },
         {
             "type": "boolean",

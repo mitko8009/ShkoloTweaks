@@ -475,5 +475,8 @@
   },
   "scrollBarAlwaysVisible_description": {
     "message": "Make scrollbars always visible in MON"
+  },
+  "shkolo_tag": {
+    "message": "Shkolo"
   }
 }
