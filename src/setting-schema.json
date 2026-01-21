@@ -37,6 +37,7 @@
         "sub_mini_avatars": false,
         "mon_qol_for_mon": true,
         "sub_mon_show_number_in_table": true,
+        "sub_mon_show_grade_count": true,
         "mon_grades_average": true,
         "mon_side_navbar": true,
         "mon_grades_term_averages": true,
@@ -341,6 +342,12 @@
                     "id": "sub_mon_show_number_in_table",
                     "i18n_title": "monShowNumberInTable",
                     "i18n_description": "monShowNumberInTable_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_mon_show_grade_count",
+                    "i18n_title": "monShowGradeCount",
+                    "i18n_description": "monShowGradeCount_description"
                 }
             ]
         },

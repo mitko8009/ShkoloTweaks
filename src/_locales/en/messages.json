@@ -478,5 +478,11 @@
   },
   "shkolo_tag": {
     "message": "Shkolo"
+  },
+  "monShowGradeCount": {
+    "message": "Show Grade Count"
+  },
+  "monShowGradeCount_description": {
+    "message": "Display the total number of grades counted for the average"
   }
 }

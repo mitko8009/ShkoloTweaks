@@ -301,10 +301,33 @@
         });
     }
 
+    async function showTatalNumberOfGrades() {
+        chrome.storage.sync.get(null, async (result) => {
+            if (!result.sub_mon_show_grade_count) return;
+            
+            const data = await parseGradesTable();
+            if (!data) return;
+
+            const totalGrades = data.g1_values.reduce((acc, grades) => acc + grades.length, 0) + data.g2_values.reduce((acc, grades) => acc + grades.length, 0);
+
+            const gradesMatTab = document.getElementById('mat-tab-link-0');
+            if (gradesMatTab && !document.getElementById('shkolo-tweaks-grade-count')) {
+                const countSpan = document.createElement('span');
+                countSpan.id = 'shkolo-tweaks-grade-count';
+                countSpan.style.fontSize = '0.9em';
+                countSpan.style.fontWeight = 'bold';
+                countSpan.style.marginLeft = '4px';
+                countSpan.textContent = `(${totalGrades})`;
+                gradesMatTab.appendChild(countSpan);
+            }
+        });
+    }
+
     // Initial call
     displayAverageValues();
     calculateAverageValuesForTermGrades();
     showClassNumbersInTable();
+    showTatalNumberOfGrades();
 
     // Fix avg grades disappearing when switching tabs
     handleTabClickEventToUpdateTable();
@@ -326,8 +349,6 @@
 
     checkAndUpdateGradesTablePeriodically();
     function checkAndUpdateGradesTablePeriodically() {
-        
-        
         setInterval(() => {
             if (window.location.href.includes('/grades')) {
                 if (document.getElementById('shkolo-tweaks-average-row')) return;
