@@ -13,9 +13,42 @@
 @keyframes fadeIn {
     from { 
         opacity: 0;
+        transform: scale(0.95);
         aniamation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
     to {
         opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -48%) scale(0.9);
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes clickBounce {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    30% {
+        transform: scale(0.98);
+        filter: brightness(0.92);
+    }
+    60% {
+        transform: scale(1.02);
+        filter: brightness(1.04);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
     }
 }
