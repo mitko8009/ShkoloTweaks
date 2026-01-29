@@ -484,5 +484,11 @@
   },
   "monShowGradeCount_description": {
     "message": "Display the total number of grades counted for the average"
+  },
+  "removeShkoloAcademyLink": {
+    "message": "Remove Shkolo Academy Link"
+  },
+  "removeShkoloAcademyLink_description": {
+    "message": "Removes the Shkolo Academy link from the sidebar menu"
   }
 }

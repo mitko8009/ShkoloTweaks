@@ -56,7 +56,6 @@ function main() {
             if (txt.endsWith(suffix)) txt = txt.slice(0, -suffix.length).trim();
             if (txt.endsWith('|')) txt = txt.slice(0, -1).trim();
             school_name = txt;
-            if (typeof console !== 'undefined' && console.debug) console.debug(`[${manifest.name}] detected school name:`, school_name);
         } catch { /* ignore extraction errors */ }
         $(".page-footer-inner")[0].innerHTML += " | " + chrome.i18n.getMessage("FooterDisclaimer");
     } catch { }

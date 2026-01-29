@@ -18,6 +18,7 @@
         "sub_remove_rank_disclaimer": true,
         "sub_remove_mobile_app_badges": true,
         "sub_remove_help_link": true,
+        "sub_remove_shkolo_academy_link": true,
         "load_qol_css": true,
         "email_and_tel": false,
         "messages_background_fix": true,
@@ -186,6 +187,12 @@
                     "id": "sub_remove_help_link",
                     "i18n_title": "removeHelpLink",
                     "i18n_description": "removeHelpLink_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_remove_shkolo_academy_link",
+                    "i18n_title": "removeShkoloAcademyLink",
+                    "i18n_description": "removeShkoloAcademyLink_description"
                 }
             ]
         },

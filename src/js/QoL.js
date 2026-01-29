@@ -28,6 +28,9 @@ function QoL() {
             if (settings.sub_remove_mobile_app_badges) removeElements($(".mobile-app-badges"));
             if (settings.sub_remove_mobile_app_badges) removeElements($(".mobile-app-link"));
             if (settings.sub_remove_help_link) $("#help-link-in-menu").remove();
+            if (settings.sub_remove_shkolo_academy_link) {
+                $("a[href*='https://shkolo.academy']").each(function() { this.parentElement.remove(); });
+            }
         } catch (error) {
             console.error(`[${manifest.name} v${version}][QoL]: Failed to remove ads. ERROR: ${error}`);
         }
