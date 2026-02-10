@@ -204,7 +204,7 @@ function QoL() {
 
                             // Organize items by section
                             schema.schema.forEach(item => {
-                                if (item.type === 'boolean' && item.section && sections[item.section]) {
+                                if (item.type === 'boolean' && item.section && sections[item.section] && !item.hidden) {
                                     sections[item.section].items.push(item);
                                 }
                             });
