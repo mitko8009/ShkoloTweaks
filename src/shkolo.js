@@ -9,37 +9,24 @@ const year = today.getFullYear();
 let script = document.createElement("script")
 script.src = chrome.runtime.getURL("lib/jquery.min.js")
 script.type = "text/javascript"
+script.onload = initializePupilId
 document.getElementsByTagName("head")[0].appendChild(script)
 
 // User Details
-var pupil_id = null
+var pupil_id = chrome.storage.local.get("pupil_id", (res) => { pupil_id = res.pupil_id })
 var school_name = null
-try {
-    const allLocalStorage = {};
-    // Only accept pupil IDs that start with the last two digits of the current school year.
-    const schoolYearCutoff = new Date(year, 7, 1);
-    const effectiveYear = today < schoolYearCutoff ? year - 1 : year;
-    const yearPrefix = String(effectiveYear).slice(-2);
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const value = localStorage.getItem(key);
-        allLocalStorage[key] = value;
-        try {
-            const parsed = JSON.parse(value);
-            if (parsed && typeof parsed === "object" && parsed.hasOwnProperty("pupil_id")) {
-                const candidate = parsed["pupil_id"];
-                const candidateStr = candidate != null ? String(candidate) : "";
-                if (candidateStr.startsWith(yearPrefix)) {
-                    pupil_id = candidateStr;
-                    break;
-                }
-            }
-        } catch (e) { }
+
+function initializePupilId() {
+    try {
+        const pupil_element = $("body > div.page-container > div.page-content-wrapper > div > div > div > a")
+        pupil_id = pupil_element.length ? pupil_element.attr("href").split("/").pop() : null
+        if (!pupil_id) chrome.storage.local.set({ disablePupilIDFeatures: true })
+        else chrome.storage.local.set({ disablePupilIDFeatures: false })
+        chrome.storage.local.set({ pupil_id })
+    } catch (e) {
+        console.warn(`[${manifest.name} v${version}]: Failed to get pupil_id from localStorage. This may result in some features not working properly or complitely disabled. If you think this is a bug, please report it on GitHub with the flollowing information: ${e}`)
+        chrome.storage.local.set({ disablePupilIDFeatures: true })
     }
-    chrome.storage.local.set({ disablePupilIDFeatures: false })
-} catch (e) {
-    console.warn(`[${manifest.name} v${version}]: Failed to get pupil_id from localStorage. This may result in some features not working properly or complitely disabled. If you think this is a bug, please report it on GitHub with the flollowing information: ${e}`)
-    chrome.storage.local.set({ disablePupilIDFeatures: true })
 }
 
 function main() {
