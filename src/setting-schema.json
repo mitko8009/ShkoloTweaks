@@ -450,7 +450,8 @@
             "i18n_title": "leaderboardLabel",
             "i18n_description": "leaderboard_description",
             "section": "experimental_settings_options",
-            "tags": ["beta", "shkolo"]
+            "tags": ["beta", "shkolo"],
+            "hidden": true
         },
         {
             "type": "boolean",

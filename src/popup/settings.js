@@ -313,7 +313,10 @@ function showSuboptionsPopup(parentItem) {
         const values = { ...result };
 
         parentItem.suboptions.forEach((subItem) => {
-            const { type } = subItem;
+            const { type, hidden } = subItem;
+
+            // Skip hidden suboptions
+            if (hidden === true) return;
 
             // Support boolean, number, and enum types
             if (!['boolean', 'number', 'enum'].includes(type)) return;
@@ -347,7 +350,10 @@ function loadOptionsInSettings(schema) {
         const values = { ...result };
 
         items.forEach((item) => {
-            const { type, id, section } = item;
+            const { type, id, section, hidden } = item;
+
+            // Skip hidden settings
+            if (hidden === true) return;
 
             // Support boolean, number, and enum types
             if (!['boolean', 'number', 'enum'].includes(type) || !id || !section) return;
