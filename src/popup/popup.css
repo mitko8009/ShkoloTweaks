@@ -369,6 +369,13 @@ input:checked + .switch::after {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
+#chrome_storage_popup {
+    width: 90%;
+    max-width: 90% !important;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
 #chrome_storage_result {
     overflow-y: auto;
     max-height: 60vh;
