@@ -30,15 +30,24 @@ function ct_parseData(data) {
 }
 
 function ct_getData() {
-    ajax(`https://app.shkolo.bg/ajax/diary/getControlTests?pupil_id=${pupil_id}`, 'GET', '', function (response) {
-        const parser = new DOMParser()
-        response = parser.parseFromString(response, 'text/html')
-        response = response.getElementsByClassName('controlTestBody')[0].children[1].children[1]
+    const fetchWithPupilId = () => {
+        if (!window.shkolo_pupil_id) {
+            setTimeout(fetchWithPupilId, 100);
+            return;
+        }
+        
+        ajax(`https://app.shkolo.bg/ajax/diary/getControlTests?pupil_id=${window.shkolo_pupil_id}`, 'GET', '', function (response) {
+            const parser = new DOMParser()
+            response = parser.parseFromString(response, 'text/html')
+            response = response.getElementsByClassName('controlTestBody')[0].children[1].children[1]
 
-        ctWidgetContent.innerHTML = ""
-        ct_Data = JSON.parse(ct_parseData(response))
-        ct_DisplayData(ct_Data)
-    })
+            ctWidgetContent.innerHTML = ""
+            ct_Data = JSON.parse(ct_parseData(response))
+            ct_DisplayData(ct_Data)
+        })
+    };
+    
+    fetchWithPupilId();
 }
 
 function ct_DisplayData(data) {

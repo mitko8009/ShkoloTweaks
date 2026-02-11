@@ -30,16 +30,25 @@ function sc_saveLocaly(data) {
 }
 
 function sc_fetchAndSave(displayDay) {
-    weekDay = getWeekNumber().toString()
-    ajax(`https://app.shkolo.bg/ajax/diary/getScheduleForClass?pupil_id=${pupil_id}&year=${year.toString().slice(-2)}&week=${weekDay}`, 'GET', '', function (response) {
-        const parser = new DOMParser();
-        response = parser.parseFromString(response, 'text/html');
-        response = response.getElementsByClassName('scheduleTable')[0];
+    const fetchWithPupilId = () => {
+        if (!window.shkolo_pupil_id) {
+            setTimeout(fetchWithPupilId, 50);
+            return;
+        }
+        
+        weekDay = getWeekNumber().toString()
+        ajax(`https://app.shkolo.bg/ajax/diary/getScheduleForClass?pupil_id=${window.shkolo_pupil_id}&year=${year.toString().slice(-2)}&week=${weekDay}`, 'GET', '', function (response) {
+            const parser = new DOMParser();
+            response = parser.parseFromString(response, 'text/html');
+            response = response.getElementsByClassName('scheduleTable')[0];
 
-        scheduleWidgetContent.innerHTML = ""
-        sc_Data = JSON.parse(sc_saveLocaly(response))
-        sc_DisplayDay(displayDay, sc_Data)
-    });
+            scheduleWidgetContent.innerHTML = ""
+            sc_Data = JSON.parse(sc_saveLocaly(response))
+            sc_DisplayDay(displayDay, sc_Data)
+        });
+    };
+    
+    fetchWithPupilId();
 }
 
 function sc_DisplayDay(day, data) {

@@ -9,24 +9,29 @@ const year = today.getFullYear();
 let script = document.createElement("script")
 script.src = chrome.runtime.getURL("lib/jquery.min.js")
 script.type = "text/javascript"
-script.onload = initializePupilId
 document.getElementsByTagName("head")[0].appendChild(script)
 
 // User Details
-var pupil_id = chrome.storage.local.get("pupil_id", (res) => { pupil_id = res.pupil_id })
+window.shkolo_pupil_id = null
 var school_name = null
 
 function initializePupilId() {
-    try {
-        const pupil_element = $("body > div.page-container > div.page-content-wrapper > div > div > div > a")
-        pupil_id = pupil_element.length ? pupil_element.attr("href").split("/").pop() : null
-        if (!pupil_id) chrome.storage.local.set({ disablePupilIDFeatures: true })
-        else chrome.storage.local.set({ disablePupilIDFeatures: false })
-        chrome.storage.local.set({ pupil_id })
-    } catch (e) {
-        console.warn(`[${manifest.name} v${version}]: Failed to get pupil_id from localStorage. This may result in some features not working properly or complitely disabled. If you think this is a bug, please report it on GitHub with the flollowing information: ${e}`)
-        chrome.storage.local.set({ disablePupilIDFeatures: true })
-    }
+    chrome.storage.local.get("pupil_id", (res) => {
+        window.shkolo_pupil_id = res.pupil_id;
+        
+        try {
+            const pupil_element = $("body > div.page-container > div.page-content-wrapper > div > div > div > a")
+            const pupil_id = pupil_element.length ? pupil_element.attr("href").split("/").pop() : null
+            
+            if (pupil_id) {
+                window.shkolo_pupil_id = pupil_id
+                chrome.storage.local.set({ pupil_id: pupil_id, disablePupilIDFeatures: false })
+            } else if (pageurl.includes("dashboard")) chrome.storage.local.set({ disablePupilIDFeatures: true })
+        } catch (e) {
+            console.warn(`[${manifest.name} v${version}]: Failed to get pupil_id from localStorage. This may result in some features not working properly or complitely disabled. If you think this is a bug, please report it on GitHub with the flollowing information: ${e}`)
+            chrome.storage.local.set({ disablePupilIDFeatures: true })
+        }
+    });
 }
 
 function main() {
@@ -59,6 +64,7 @@ chrome.storage.sync.get(null, (result) => {
     DEBUG = result.dev_tools
     compatibility_mode = result.compatibility_mode
 
+    initializePupilId();
     main();
 
     try {
