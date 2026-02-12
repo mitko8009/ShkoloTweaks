@@ -159,6 +159,8 @@ function sc_main() {
     scheduleWidgetContent.style.fontSize = "14px"
     scheduleWidgetContent.style.fontWeight = "bold"
     scheduleWidgetContent.style.height = "auto"
+    scheduleWidgetContent.style.paddingTop = "0"
+    scheduleWidgetContent.style.paddingBottom = "10px"
     scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("Loading")
 
     let headerButtons = document.createElement("div")

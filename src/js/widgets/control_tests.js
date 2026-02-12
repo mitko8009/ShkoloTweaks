@@ -136,7 +136,8 @@ function ct_main() {
 
     ctWidgetContent.style.fontSize = "14px"
     ctWidgetContent.style.fontWeight = "bold"
-    ctWidgetContent.style.padding = "10px"
+    ctWidgetContent.style.paddingTop = "0"
+    ctWidgetContent.style.paddingBottom = "10px"
     ctWidgetContent.innerHTML = chrome.i18n.getMessage("Loading")
 
     // Header buttons
