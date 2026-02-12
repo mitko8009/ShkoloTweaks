@@ -26,12 +26,6 @@
 	"host_permissions": [
 		"*://*.pishkisoriz.com/*"
 	],
-	"background": {
-		"service_worker": "js/service/leaderboard_service.js",
-		"scripts": [
-			"js/service/leaderboard_service.js"
-		]
-	},
 	"content_scripts": [
 		{
 			"matches": [
