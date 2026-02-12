@@ -110,6 +110,10 @@ function ct_DisplayData(data) {
             }
         }
     }
+
+    if (itemCount === 0) {
+        ctWidgetContent.innerHTML = chrome.i18n.getMessage("noUpcomingTests")
+    }
 }
 
 function ct_main() {

@@ -490,5 +490,8 @@
   },
   "removeShkoloAcademyLink_description": {
     "message": "Removes the Shkolo Academy link from the sidebar menu"
+  },
+  "noUpcomingTests": {
+    "message": "There are no upcoming tests. Great job!"
   }
 }
