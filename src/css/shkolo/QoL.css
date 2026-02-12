@@ -1,8 +1,3 @@
-.page-header.navbar .top-menu .navbar-nav>li.dropdown-extended .dropdown-menu {
-    max-height: 400px !important;
-    min-height: 361px !important;
-}
-
 .profile-userpic img.avatar {
     width: 150px;
     height: 150px;
