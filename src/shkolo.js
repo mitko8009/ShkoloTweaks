@@ -64,6 +64,8 @@ chrome.storage.sync.get(null, (result) => {
     DEBUG = result.dev_tools
     compatibility_mode = result.compatibility_mode
 
+    if (result.disable_core_scripts && result.sub_disable_shkolo_core_script) return;
+
     initializePupilId();
     main();
 

@@ -318,6 +318,13 @@ function showSuboptionsPopup(parentItem) {
             // Skip hidden suboptions
             if (hidden === true) return;
 
+            // Skip dev-tagged suboptions if dev_tools is not enabled
+            if (subItem.tags && Array.isArray(subItem.tags) && subItem.tags.includes('dev')) {
+                if (!values.dev_tools) {
+                    return;
+                }
+            }
+
             // Support boolean, number, and enum types
             if (!['boolean', 'number', 'enum'].includes(type)) return;
 
@@ -354,6 +361,13 @@ function loadOptionsInSettings(schema) {
 
             // Skip hidden settings
             if (hidden === true) return;
+
+            // Skip dev-tagged settings if dev_tools is not enabled
+            if (item.tags && Array.isArray(item.tags) && item.tags.includes('dev')) {
+                if (!values.dev_tools) {
+                    return;
+                }
+            }
 
             // Support boolean, number, and enum types
             if (!['boolean', 'number', 'enum'].includes(type) || !id || !section) return;

@@ -49,7 +49,10 @@
         "stats_panel": false,
         "trusted_devices_logins": false,
         "leaderboard": false,
-        "dev_tools": false
+        "dev_tools": false,
+        "disable_core_scripts": false,
+        "sub_disable_shkolo_core_script": false,
+        "sub_disable_qol_core_script": false
     },
     "tags": {
         "dev": {
@@ -458,8 +461,23 @@
             "id": "dev_tools",
             "i18n_title": "devTools",
             "i18n_description": "devTools_description",
+            "section": "dev_settings_options"
+        },
+        {
+            "type": "boolean",
+            "id": "disable_core_scripts",
+            "i18n_title": "disableCoreScripts",
+            "i18n_description": "disableCoreScripts_description",
             "section": "dev_settings_options",
-            "tags": ["dev"]
+            "tags": ["dev"],
+            "suboptions": [
+                {
+                    "type": "boolean",
+                    "id": "sub_disable_shkolo_core_script",
+                    "i18n_title": "disableShkoloCoreScript",
+                    "i18n_description": "disableShkoloCoreScript_description"
+                }
+            ]
         }
     ]
 }

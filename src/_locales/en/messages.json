@@ -493,5 +493,17 @@
   },
   "noUpcomingTests": {
     "message": "There are no upcoming tests. Great job!"
+  },
+  "disableCoreScripts": {
+    "message": "Disable Core Scripts"
+  },
+  "disableCoreScripts_description": {
+    "message": "Disable core scripts that may conflict with Shkolo Tweaks"
+  },
+  "disableShkoloCoreScript": {
+    "message": "Disable Shkolo Core Script and QoL"
+  },
+  "disableShkoloCoreScript_description": {
+    "message": "Disable the core Shkolo script and QoL. This may cause some features to break and is not recommended unless you know what you're doing."
   }
 }
