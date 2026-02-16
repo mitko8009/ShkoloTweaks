@@ -209,9 +209,6 @@
   "noAvatars_description": {
     "message": "Hide user avatars in the Shkolo interface"
   },
-  "NoUpcomingTests": {
-    "message": "Opps... There are no upcoming tests."
-  },
   "NoScheduleData": {
     "message": "Opps... There is no schedule data for this day."
   },

@@ -51,8 +51,7 @@
         "leaderboard": false,
         "dev_tools": false,
         "disable_core_scripts": false,
-        "sub_disable_shkolo_core_script": false,
-        "sub_disable_qol_core_script": false
+        "sub_disable_shkolo_core_script": false
     },
     "tags": {
         "dev": {
