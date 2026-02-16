@@ -359,16 +359,18 @@ function QoL() {
 
     this.moveLogOutButton = function () {
         try {
-            const logoutButton = document.querySelector(`body > div.page-header.navbar.navbar-fixed-top > div > div.top-menu > ul > li.hidden-xs.hidden-sm.dropdown.dropdown-quick-sidebar-toggler`).cloneNode(true);
+            const logoutButton = document.querySelector(`body > div.page-header.navbar.navbar-fixed-top > div > div.top-menu > ul > li.hidden-xs.hidden-sm.dropdown.dropdown-quick-sidebar-toggler`)?.cloneNode(true);
 
-            if (true) {
-                logoutButton.children[0].href = "#";
-                logoutButton.children[0].addEventListener("click", function (e) {
-                    if (confirm(chrome.i18n.getMessage("logout_confirmation"))) {
-                        window.location.href = "/auth/logout";
-                    }
-                });
-            }
+            chrome.storage.sync.get({ sub_confirm_logout: false }, (res) => {
+                if (res.sub_confirm_logout) {
+                    logoutButton.children[0].href = "#";
+                    logoutButton.children[0].addEventListener("click", function (e) {
+                        if (confirm(chrome.i18n.getMessage("logout_confirmation"))) {
+                            window.location.href = "/auth/logout";
+                        }
+                    });
+                }
+            });
 
             if (pageurl.includes("/profile") && logoutButton) {
                 const anchor = logoutButton.querySelector("a");
@@ -379,7 +381,7 @@ function QoL() {
                     }
                 }
                 const profileList = document.querySelector("body > div.page-container > div.page-content-wrapper > div > div > div > div.profile-sidebar > div > div.profile-usermenu > ul");
-                if (profileList) { profileList.appendChild(logoutButton); }
+                if (profileList) profileList.appendChild(logoutButton);
             }
 
             const oldLogoutButton = document.querySelector("body > div.page-header.navbar.navbar-fixed-top > div > div.top-menu > ul > li.hidden-xs.hidden-sm.dropdown.dropdown-quick-sidebar-toggler");
