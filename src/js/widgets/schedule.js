@@ -172,21 +172,11 @@ function sc_main() {
     scheduleViewMore.classList.add("pull-right", "widget_buttons", "rounded")
     headerButtons.appendChild(scheduleViewMore)
 
-    // let scheduleRefresh = document.createElement("a")
-    // scheduleRefresh.innerHTML = chrome.i18n.getMessage("Refresh")
-    // scheduleRefresh.classList.add("pull-right", "widget_buttons", "rounded")
-    // scheduleRefresh.onclick = () => {
-    //     scheduleWidgetTitle.innerHTML = chrome.i18n.getMessage("Schedule")
-    //     scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FetchSchedule")
-    //     sc_fetchAndSave(WEEKDAYS[today.getDay() - 1 > 4 ? 0 : today.getDay() - 1], sc_Widget)
-    // }
-    // headerButtons.appendChild(scheduleRefresh)
-
     try {
         sc_fetchAndSave(weekday) // Fetch and save the schedule data
     } catch (e) {
         console.error("Failed to fetch the Schedule data. Error: " + e)
-        scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FailedToFetchSchedule")
+        scheduleWidgetContent.innerHTML = chrome.i18n.getMessage("FetchScheduleError")
     }
 
     // Next and Previous Day Buttons
