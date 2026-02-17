@@ -162,8 +162,8 @@
         {
             "type": "boolean",
             "id": "remove_ads",
-            "i18n_title": "removeAds",
-            "i18n_description": "removeAds_description",
+            "i18n_title": "removeAnnoyances",
+            "i18n_description": "removeAnnoyances_description",
             "section": "qol_settings_options",
             "suboptions": [
                 {

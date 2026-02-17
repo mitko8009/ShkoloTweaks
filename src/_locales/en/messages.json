@@ -38,35 +38,17 @@
   "ViewMore": {
     "message": "View More"
   },
-  "FetchSchedule": {
-    "message": "Fetching schedule data..."
-  },
   "FetchScheduleError": {
     "message": "An error occurred while fetching the schedule data.<br> Try again by clinking the <b>refresh</b> button.<br><br>If the problem persists, please contact the developer."
   },
   "Loading": {
     "message": "Loading..."
   },
-  "themeLabel": {
-    "message": "Color Theme"
-  },
-  "saveBtn": {
-    "message": "Save"
-  },
-  "shkoloBtn": {
-    "message": "Open Shkolo.bg"
-  },
-  "cleanUpLabel": {
-    "message": "General Fixes"
-  },
   "roundedLabel": {
     "message": "Rounded edges"
   },
   "blurLabel": {
     "message": "Blur Personal Info"
-  },
-  "scLabel": {
-    "message": "Schedule Widget"
   },
   "lightTheme": {
     "message": "Light"
@@ -80,35 +62,14 @@
   "StatsLTOPopup": {
     "message": "This is the number of times you've opened the<br>Shkolo Dashboard since you've installed <b>ShkoloTweaks</b>.<br><b>Note:</b> This number is stored locally you may lose it if you clear your browser data."
   },
-  "latestVersion": {
-    "message": "Up to date"
-  },
-  "outdatedVersion": {
-    "message": "Update available - %s"
-  },
-  "devVersion": {
-    "message": "Development version - %s"
-  },
   "customizations": {
     "message": "Customizations"
-  },
-  "Share": {
-    "message": "Share"
   },
   "CountdownTitle": {
     "message": "{{DAYS}} days until the end of the school year"
   },
   "CountdownFooter": {
     "message": "This statistic does NOT include holidays"
-  },
-  "githubLabel": {
-    "message": "GitHub"
-  },
-  "instagramLabel": {
-    "message": "Instagram"
-  },
-  "websiteLabel": {
-    "message": "Official Website"
   },
   "ControlTestsTitle": {
     "message": "Control Tests"
@@ -212,17 +173,14 @@
   "NoScheduleData": {
     "message": "Opps... There is no schedule data for this day."
   },
-  "suspiciousLabel": {
-    "message": "Suspicious"
-  },
   "QoLSettings": {
     "message": "QoL Settings"
   },
-  "removeAds": {
-    "message": "Remove Ads"
+  "removeAnnoyances": {
+    "message": "Remove Annoyances"
   },
-  "removeAds_description": {
-    "message": "Hide promotional elements where possible"
+  "removeAnnoyances_description": {
+    "message": "Remove various elements from the interface that may be considered annoying"
   },
   "loadQoLCss": {
     "message": "Load QoL CSS"

@@ -1,12 +1,12 @@
 {
   "extDescription": {
-    "message": "¡Personaliza tu experiencia en Shkolo con ShkoloTweaks! Modo oscuro, widgets personalizados, estadísticas interesantes y más!"
+    "message": "¡Personaliza tu experiencia Shkolo con ShkoloTweaks! Modo oscuro, widgets personalizados, estadísticas geniales, ¡y mucho más!"
   },
   "extName": {
     "message": "ShkoloTweaks"
   },
   "FooterDisclaimer": {
-    "message": "ShkoloTweaks fue creado por el equipo de <b>ITPG Web Studios</b> y es un software no afiliado ni aprobado por Shkolo.bg."
+    "message": "ShkoloTweaks fue creado por <b>estudiantes de ITPG</b> y es un software no afiliado ni respaldado por <b><i>Shkolo.bg</i></b>."
   },
   "Monday": {
     "message": "Lunes"
@@ -38,35 +38,17 @@
   "ViewMore": {
     "message": "Ver más"
   },
-  "FetchSchedule": {
-    "message": "Obteniendo datos del horario..."
-  },
   "FetchScheduleError": {
-    "message": "Ocurrió un error al obtener los datos del horario.<br> Inténtalo de nuevo presionando el botón <b>actualizar</b>.<br><br>Si el problema persiste, por favor contacta al desarrollador."
+    "message": "Se produjo un error al obtener los datos del horario.<br> Intente nuevamente haciendo clic en el botón <b>actualizar</b>.<br><br>Si el problema persiste, contacte al desarrollador."
   },
   "Loading": {
     "message": "Cargando..."
   },
-  "themeLabel": {
-    "message": "Tema de color"
-  },
-  "saveBtn": {
-    "message": "Guardar"
-  },
-  "shkoloBtn": {
-    "message": "Abrir Shkolo.bg"
-  },
-  "cleanUpLabel": {
-    "message": "Mejoras generales"
-  },
   "roundedLabel": {
-    "message": "Esquinas redondeadas"
+    "message": "Bordes redondeados"
   },
   "blurLabel": {
     "message": "Difuminar información personal"
-  },
-  "scLabel": {
-    "message": "Widget de horario"
   },
   "lightTheme": {
     "message": "Claro"
@@ -75,22 +57,193 @@
     "message": "Oscuro"
   },
   "StatsLTO": {
-    "message": "veces que Shkolo fue abierto"
+    "message": "veces que se abrió Shkolo"
   },
   "StatsLTOPopup": {
-    "message": "Este es el número de veces que has abierto el<br>Tablero de Shkolo desde que instalaste <b>ShkoloTweaks</b>.<br><b>Nota:</b> Este número se almacena localmente, puede perderse si borras los datos de tu navegador."
-  },
-  "latestVersion": {
-    "message": "Versión actualizada"
-  },
-  "outdatedVersion": {
-    "message": "Actualización disponible"
+    "message": "Este es el número de veces que has abierto<br>el Panel de Shkolo desde que instalaste <b>ShkoloTweaks</b>.<br><b>Nota:</b> Este número se almacena localmente y puedes perderlo si borras los datos de tu navegador."
   },
   "customizations": {
     "message": "Personalizaciones"
   },
+  "CountdownTitle": {
+    "message": "{{DAYS}} días hasta el final del año escolar"
+  },
+  "CountdownFooter": {
+    "message": "Esta estadística NO incluye días festivos"
+  },
+  "ControlTestsTitle": {
+    "message": "Exámenes de control"
+  },
   "reordermode": {
-    "message": "Modo de reordenar"
+    "message": "Modo reordenar"
+  },
+  "advanced_settings": {
+    "message": "Más ajustes"
+  },
+  "popup_settings": {
+    "message": "Configuración del popup"
+  },
+  "auto_refresh": {
+    "message": "Actualización automática"
+  },
+  "auto_refresh_description": {
+    "message": "Actualizar automáticamente la página cuando se cambien los ajustes"
+  },
+  "shkolo_settings": {
+    "message": "Configuración de Shkolo"
+  },
+  "schedule_widget": {
+    "message": "Widget de horario"
+  },
+  "schedule_widget_description": {
+    "message": "Mostrar el widget de horario en el panel"
+  },
+  "control_tests_widget": {
+    "message": "Widget de exámenes de control"
+  },
+  "control_tests_widget_description": {
+    "message": "Mostrar el widget de exámenes de control en el panel"
+  },
+  "reorderSidebar": {
+    "message": "Reordenar barra lateral"
+  },
+  "reorderSidebar_description": {
+    "message": "Reordenar los elementos de la barra lateral"
+  },
+  "developer_settings": {
+    "message": "Desarrollador"
+  },
+  "beta_tag": {
+    "message": "Beta"
+  },
+  "dev_tag": {
+    "message": "Des."
+  },
+  "new_feature_tag": {
+    "message": "Nueva función"
+  },
+  "unavailable_tag": {
+    "message": "No disponible"
+  },
+  "yearCountdown": {
+    "message": "Widget cuenta regresiva del año"
+  },
+  "yearCountdown_description": {
+    "message": "Mostrar el widget de cuenta regresiva del año en el panel"
+  },
+  "statsPanel": {
+    "message": "Panel de estadísticas"
+  },
+  "statsPanel_description": {
+    "message": "Mostrar estadísticas que Shkolo Tweaks recopila en la página de estadísticas de Shkolo"
+  },
+  "devTools": {
+    "message": "Herramientas de desarrollo"
+  },
+  "devTools_description": {
+    "message": "Mostrar información de depuración y herramientas en la aplicación"
+  },
+  "DaysAgo": {
+    "message": "hace %s días"
+  },
+  "coloredIcons": {
+    "message": "Iconos de colores"
+  },
+  "coloredIcons_description": {
+    "message": "Usar iconos de colores en lugar de monocromáticos"
+  },
+  "disclaimer_settings_reload": {
+    "message": "Algunos ajustes pueden requerir recargar la página para tener efecto. <b><a href=''>[Recargar]</a></b>"
+  },
+  "Miscellaneous": {
+    "message": "Varios"
+  },
+  "information": {
+    "message": "Información"
+  },
+  "version": {
+    "message": "Versión"
+  },
+  "noAvatars": {
+    "message": "Sin avatares"
+  },
+  "noAvatars_description": {
+    "message": "Ocultar avatares de usuario en la interfaz de Shkolo"
+  },
+  "NoScheduleData": {
+    "message": "Ups... No hay datos de horario para este día."
+  },
+  "suspiciousLabel": {
+    "message": "Sospechoso"
+  },
+  "QoLSettings": {
+    "message": "Ajustes de calidad de vida"
+  },
+  "removeAds": {
+    "message": "Eliminar anuncios"
+  },
+  "removeAds_description": {
+    "message": "Ocultar elementos promocionales cuando sea posible"
+  },
+  "loadQoLCss": {
+    "message": "Cargar CSS de QoL"
+  },
+  "loadQoLCss_description": {
+    "message": "Inyectar hoja de estilo de calidad de vida"
+  },
+  "emailAndTel": {
+    "message": "Enlaces de correo y teléfono"
+  },
+  "emailAndTel_description": {
+    "message": "Hacer que el correo electrónico y el teléfono sean clicables"
+  },
+  "messagesBackgroundFix": {
+    "message": "Corrección de fondo de mensajes"
+  },
+  "messagesBackgroundFix_description": {
+    "message": "Corregir spans de fondo blanco en mensajes"
+  },
+  "detailsDate": {
+    "message": "Corrección de fecha de detalles"
+  },
+  "detailsDate_description": {
+    "message": "Normalizar y aumentar la visualización de fechas"
+  },
+  "inAppExtSettings": {
+    "message": "Configuración de extensión en la aplicación"
+  },
+  "inAppExtSettings_description": {
+    "message": "Agregar configuración de extensión dentro de la página de perfil"
+  },
+  "moveLogOutButton": {
+    "message": "Mover botón de cerrar sesión"
+  },
+  "moveLogOutButton_description": {
+    "message": "Agregar cierre de sesión a la barra lateral del perfil"
+  },
+  "trustedDevicesLogins": {
+    "message": "Dispositivos de confianza / Inicios de sesión"
+  },
+  "trustedDevicesLogins_description": {
+    "message": "Guardar/marcar modelos de dispositivos y navegadores conocidos"
+  },
+  "savedModels": {
+    "message": "Modelos guardados"
+  },
+  "savedBrowsers": {
+    "message": "Navegadores guardados"
+  },
+  "savedModelsList": {
+    "message": "Modelos guardados"
+  },
+  "savedBrowsersList": {
+    "message": "Navegadores guardados"
+  },
+  "remove": {
+    "message": "Eliminar"
+  },
+  "close": {
+    "message": "Cerrar"
   },
   "mon_settings_title": {
     "message": "Configuración de MON"
@@ -99,12 +252,216 @@
     "message": "Mostrar promedio de calificaciones"
   },
   "monGradesAverage_description": {
-    "message": "Agrega una fila con el promedio de calificaciones en la tabla de calificaciones de MON"
+    "message": "Agrega una fila con las calificaciones promedio en la tabla de calificaciones de MON"
   },
   "monSideNavbar": {
     "message": "Barra de navegación lateral"
   },
   "monSideNavbar_description": {
     "message": "Mueve la barra de navegación desde la parte superior a la barra lateral en MON"
+  },
+  "disableThemeSync_label": {
+    "message": "Desactivar sincronización de tema"
+  },
+  "disableThemeSync_description": {
+    "message": "Evitar que ShkoloTweaks sincronice el tema activo o temas personalizados con Chrome sync."
+  },
+  "leaderboardLabel": {
+    "message": "Tabla de clasificación"
+  },
+  "leaderboard_description": {
+    "message": "Habilitar tabla de clasificación para comparar resultados con otros. Advertencia: Esto habilita una extensión de tabla de clasificación que puede enviar tu éxito, recuento de comentarios, pupil_id y nombre de escuela a un servidor que NO es de Shkolo, y la información será públicamente accesible."
+  },
+  "monGradesTermAverages": {
+    "message": "Mostrar promedios de período"
+  },
+  "monGradesTermAverages_description": {
+    "message": "Agrega los promedios de período en las columnas de período"
+  },
+  "monRoundedAverages": {
+    "message": "Promedios redondeados"
+  },
+  "monRoundedAverages_description": {
+    "message": "Mostrar promedios redondeados en lugar de precisos"
+  },
+  "subSettingsSectionMain": {
+    "message": "Sección de configuración principal"
+  },
+  "subSettingsSectionMain_description": {
+    "message": "Mostrar el separador de la sección de configuración principal en la página de configuración"
+  },
+  "subSettingsSectionQol": {
+    "message": "Sección de configuración de QoL"
+  },
+  "subSettingsSectionQol_description": {
+    "message": "Mostrar el separador de la sección de configuración de QoL en la página de configuración"
+  },
+  "subSettingsSectionExperimental": {
+    "message": "Sección de configuración experimental"
+  },
+  "subSettingsSectionExperimental_description": {
+    "message": "Mostrar el separador de la sección de configuración experimental en la página de configuración"
+  },
+  "subSettingsSectionMon": {
+    "message": "Sección de configuración de MON"
+  },
+  "subSettingsSectionMon_description": {
+    "message": "Mostrar el separador de la sección de configuración de MON en la página de configuración"
+  },
+  "subSettingsSectionDev": {
+    "message": "Sección de configuración de desarrollador"
+  },
+  "subSettingsSectionDev_description": {
+    "message": "Mostrar el separador de la sección de configuración de desarrollador en la página de configuración"
+  },
+  "removeStatisticsButton": {
+    "message": "Eliminar botón de estadísticas"
+  },
+  "removeStatisticsButton_description": {
+    "message": "Elimina el botón 'Eliminar estadísticas' del panel"
+  },
+  "removeRankDisclaimer": {
+    "message": "Eliminar advertencia de clasificación"
+  },
+  "removeRankDisclaimer_description": {
+    "message": "Elimina la advertencia de clasificación del widget de clasificaciones en el panel"
+  },
+  "removeMobileAppBadges": {
+    "message": "Eliminar insignias de app móvil"
+  },
+  "removeMobileAppBadges_description": {
+    "message": "Elimina las insignias de descarga de la app móvil del panel"
+  },
+  "removeHelpLink": {
+    "message": "Eliminar enlace de ayuda"
+  },
+  "removeHelpLink_description": {
+    "message": "Elimina el enlace de ayuda del menú lateral"
+  },
+  "showDateLogins": {
+    "message": "Habilitar en inicios de sesión"
+  },
+  "showDateLogins_description": {
+    "message": "Mostrar fechas detalladas en inicios de sesión"
+  },
+  "showDataProfilePicture": {
+    "message": "Habilitar en foto de perfil"
+  },
+  "showDataProfilePicture_description": {
+    "message": "Mostrar fechas detalladas en la página de fotos de perfil"
+  },
+  "schedule_teacher_name": {
+    "message": "Mostrar nombre del profesor"
+  },
+  "schedule_teacher_name_description": {
+    "message": "Mostrar el nombre del profesor en el widget de horario"
+  },
+  "schedule_room_number": {
+    "message": "Mostrar número de aula"
+  },
+  "schedule_room_number_description": {
+    "message": "Mostrar el número de aula en el widget de horario"
+  },
+  "animationsLabel": {
+    "message": "Animaciones"
+  },
+  "animations_description": {
+    "message": "Habilitar animaciones suaves para varios elementos de UI"
+  },
+  "logout_confirmation": {
+    "message": "¿Estás seguro de que quieres cerrar sesión?"
+  },
+  "confirmLogout": {
+    "message": "Confirmar cierre de sesión"
+  },
+  "confirmLogout_description": {
+    "message": "Mostrar un mensaje de confirmación al cerrar sesión"
+  },
+  "animationDuration": {
+    "message": "Duración de animación"
+  },
+  "animationDuration_description": {
+    "message": "Establecer la duración de las animaciones de UI (en milisegundos)"
+  },
+  "zoomAvatarProfilePicture": {
+    "message": "Ampliar foto de perfil"
+  },
+  "zoomAvatarProfilePicture_description": {
+    "message": "Habilitar efecto de zoom en las fotos de perfil al pasar el cursor"
+  },
+  "zoomLevel": {
+    "message": "Nivel de zoom"
+  },
+  "zoomLevel_description": {
+    "message": "Establecer el nivel de zoom para las fotos de perfil"
+  },
+  "zoomLevel_option_1_0x": {
+    "message": "1.0x"
+  },
+  "zoomLevel_option_1_1x": {
+    "message": "1.1x"
+  },
+  "zoomLevel_option_1_25x": {
+    "message": "1.25x"
+  },
+  "zoomLevel_option_1_5x": {
+    "message": "1.5x"
+  },
+  "zoomLevel_option_2x": {
+    "message": "2x"
+  },
+  "miniAvatars": {
+    "message": "Mini avatares"
+  },
+  "miniAvatars_description": {
+    "message": "Mostrar avatares más pequeños"
+  },
+  "monShowNumberInTable": {
+    "message": "Numerar clases en tabla de calificaciones"
+  },
+  "monShowNumberInTable_description": {
+    "message": "Mostrar el número de clase en la tabla de calificaciones"
+  },
+  "monQoLForMon": {
+    "message": "Calidad de vida"
+  },
+  "monQoLForMon_description": {
+    "message": "Habilitar mejoras de calidad de vida"
+  },
+  "scrollBarAlwaysVisible": {
+    "message": "Barra de desplazamiento siempre visible"
+  },
+  "scrollBarAlwaysVisible_description": {
+    "message": "Hacer que las barras de desplazamiento sean siempre visibles en MON"
+  },
+  "shkolo_tag": {
+    "message": "Shkolo"
+  },
+  "monShowGradeCount": {
+    "message": "Mostrar recuento de calificaciones"
+  },
+  "monShowGradeCount_description": {
+    "message": "Mostrar el número total de calificaciones contadas para el promedio"
+  },
+  "removeShkoloAcademyLink": {
+    "message": "Eliminar enlace de Shkolo Academy"
+  },
+  "removeShkoloAcademyLink_description": {
+    "message": "Elimina el enlace de Shkolo Academy del menú lateral"
+  },
+  "noUpcomingTests": {
+    "message": "No hay exámenes próximos. ¡Buen trabajo!"
+  },
+  "disableCoreScripts": {
+    "message": "Desactivar scripts principales"
+  },
+  "disableCoreScripts_description": {
+    "message": "Desactivar scripts principales que puedan entrar en conflicto con Shkolo Tweaks"
+  },
+  "disableShkoloCoreScript": {
+    "message": "Desactivar script principal de Shkolo y QoL"
+  },
+  "disableShkoloCoreScript_description": {
+    "message": "Desactivar el script principal de Shkolo y QoL. Esto puede causar que algunas características no funcionen y no se recomienda a menos que sepas lo que estás haciendo."
   }
 }

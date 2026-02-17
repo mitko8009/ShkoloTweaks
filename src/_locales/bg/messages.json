@@ -1,12 +1,12 @@
 {
   "extDescription": {
-    "message": "Персонализирайте своето Shkolo със ShkoloTweaks! Тъмен режим, персонализирани джаджи, любопитни статистики и много други!"
+    "message": "Персонализирайте своето Shkolo изживяване с ShkoloTweaks! Тъмен режим, персонализирани джаджи, готини статистики и още!"
   },
   "extName": {
     "message": "ShkoloTweaks"
   },
   "FooterDisclaimer": {
-    "message": "ShkoloTweaks е създадено от <b>ITPG Ученици</b> и е софтуер, който не е свързан или одобрен от <b><i>Shkolo.bg</i></b>."
+    "message": "ShkoloTweaks е създаден от <b>ученици на ИТПГ</b> и е софтуер, който не е свързан или одобрен от <b><i>Shkolo.bg</i></b>."
   },
   "Monday": {
     "message": "Понеделник"
@@ -30,43 +30,25 @@
     "message": "Неделя"
   },
   "Schedule": {
-    "message": "Разписание"
+    "message": "Програма"
   },
   "Refresh": {
     "message": "Обнови"
   },
   "ViewMore": {
-    "message": "Виж още"
-  },
-  "FetchSchedule": {
-    "message": "Данните за графика се обновяват..."
+    "message": "Виж повече"
   },
   "FetchScheduleError": {
-    "message": "Възникна грешка при обновяването на разписанието.<br> Опитайте отново, като натиснете върху бутона <b>Обнови</b>.<br><br>Ако проблемът продължава, моля свържете се с разработчика."
+    "message": "Възникна грешка при зареждане на програмата.<br> Опитайте отново, като кликнете бутона <b>обнови</b>.<br><br>Ако проблемът продължава, моля свържете се с разработчика."
   },
   "Loading": {
     "message": "Зареждане..."
   },
-  "themeLabel": {
-    "message": "Цветова Тема"
-  },
-  "saveBtn": {
-    "message": "Запази"
-  },
-  "shkoloBtn": {
-    "message": "Отвори Shkolo.bg"
-  },
-  "cleanUpLabel": {
-    "message": "Основни продобрения"
-  },
   "roundedLabel": {
-    "message": "Закръглени ъгли"
+    "message": "Заоблени ръбове"
   },
   "blurLabel": {
-    "message": "Скриване на лични данни"
-  },
-  "scLabel": {
-    "message": "Панел за разписание"
+    "message": "Замъгляване на лична информация"
   },
   "lightTheme": {
     "message": "Светла"
@@ -75,106 +57,91 @@
     "message": "Тъмна"
   },
   "StatsLTO": {
-    "message": "пъти Shkolo е отварян"
+    "message": "пъти Shkolo е отворен"
   },
   "StatsLTOPopup": {
-    "message": "Това е броят отваряния на началната страница на Shkolo, откакто сте инсталирали <b>ShkoloTweaks</b>."
-  },
-  "latestVersion": {
-    "message": "Актуално"
-  },
-  "outdatedVersion": {
-    "message": "Налична е актуализация - %s"
-  },
-  "devVersion": {
-    "message": "Разработчиска версия - %s"
+    "message": "Това е броят пъти, в които сте отворили<br>таблото на Shkolo, откакто сте инсталирали <b>ShkoloTweaks</b>.<br><b>Забележка:</b> Този брой се съхранява локално и може да го загубите, ако изчистите данните на браузъра."
   },
   "customizations": {
-    "message": "Персонализации"
-  },
-  "Share": {
-    "message": "Споделяне"
+    "message": "Персонализация"
   },
   "CountdownTitle": {
     "message": "{{DAYS}} дни до края на учебната година"
   },
   "CountdownFooter": {
-    "message": "Тази статистика НЕ включва ваканциите"
-  },
-  "githubLabel": {
-    "message": "GitHub"
-  },
-  "instagramLabel": {
-    "message": "Instagram"
-  },
-  "websiteLabel": {
-    "message": "Официален уебсайт"
+    "message": "Тази статистика НЕ включва празници"
   },
   "ControlTestsTitle": {
     "message": "Контролни работи"
   },
   "reordermode": {
-    "message": "Режим на пренареждане"
+    "message": "Режим пренареждане"
   },
   "advanced_settings": {
-    "message": "Поверче настройки"
+    "message": "Още настройки"
   },
   "popup_settings": {
-    "message": "Настройки на Pop-up прозорец"
+    "message": "Настройки на попъпа"
   },
   "auto_refresh": {
-    "message": "Автоматично презареждане"
+    "message": "Автоматично опресняване"
   },
   "auto_refresh_description": {
-    "message": "Автоматично презареждане на страницата при промяна в настройките"
+    "message": "Автоматично презареди страницата при промяна на настройките"
   },
   "shkolo_settings": {
     "message": "Shkolo настройки"
   },
   "schedule_widget": {
-    "message": "Панел за разписание"
+    "message": "Програма джаджа"
   },
   "schedule_widget_description": {
-    "message": "Показване на панел с разписание на началното табло"
+    "message": "Показване на джаджата за програма в таблото"
   },
   "control_tests_widget": {
-    "message": "Панел за контролни"
+    "message": "Контролни работи джаджа"
   },
   "control_tests_widget_description": {
-    "message": "Показване на панел с контролни работи на началното табло"
+    "message": "Показване на джаджата за контролни работи в таблото"
   },
   "reorderSidebar": {
-    "message": "Пренареждане на лента за навигация"
+    "message": "Пренареди страничната лента"
   },
   "reorderSidebar_description": {
-    "message": "Позволява пренареждането на елементите от лентата за навигация"
+    "message": "Пренареди елементите в страничната лента"
   },
   "developer_settings": {
-    "message": "Настройки за разработчици"
+    "message": "Разработчик"
   },
-  "beta": {
-    "message": "Бета функция"
+  "beta_tag": {
+    "message": "Бета"
   },
-  "new": {
-    "message": "Ново"
+  "dev_tag": {
+    "message": "Разр."
+  },
+  "new_feature_tag": {
+    "message": "Нова функция"
+  },
+  "unavailable_tag": {
+    "message": "Недостъпно"
   },
   "yearCountdown": {
-    "message": "Уиджет за обратно броене до края на учебната година"
+    "message": "Броене до края на годината"
   },
   "yearCountdown_description": {
-    "message": "Показване на уиджет за обратно броене до края на учебната година на началното табло"
+    "message": "Показване на джаджата за броене до края на годината в таблото"
   },
   "statsPanel": {
-    "message": "Панел за статистика"
+    "message": "Панел за статистики"
   },
   "statsPanel_description": {
-    "message": "Показване на статистиките, които Shkolo Tweaks събира на страницата за статистика на Shkolo"
+    "message": "Показване на статистики, които Shkolo Tweaks събира в страницата за статистики на Shkolo"
   },
   "devTools": {
-    "message": "DevTools"
+    "message": "Инструменти за разработчици"
   },
   "devTools_description": {
-    "message": "Показване на информация и инструменти за отстраняване на грешки в приложението"
+    "message": "Показване на информация за отстраняване на грешки и инструменти в приложението"
   },
   "DaysAgo": {
     "message": "преди %s дни"
@@ -183,92 +150,79 @@
     "message": "Цветни икони"
   },
   "coloredIcons_description": {
-    "message": "Използвайте цветни икони вместо монохромни"
+    "message": "Използвай цветни икони вместо монохромни"
   },
   "disclaimer_settings_reload": {
-    "message": "Някои настройки може да изискват презареждане на страницата, за да влязат в сила. <a href=''>[Презареди]</a>"
-  },
-  "disclaimer_settings_more": {
-    "message": "Това <b>НЕ</b> е пълният списък с настройки. Някои настройки са налични в секцията <b>Поверче настройки</b> в pop-up прозореца."
-  },
-  "appearanceSettingsTitle": {
-    "message": "Настройки на външния вид"
-  },
-  "extendingFunctionalityTitle": {
-    "message": "Разширяване на функционалността"
+    "message": "Някои настройки може да изискват презареждане на страницата. <b><a href=''>[Презареди]</a></b>"
   },
   "Miscellaneous": {
     "message": "Разни"
+  },
+  "information": {
+    "message": "Информация"
   },
   "version": {
     "message": "Версия"
   },
   "noAvatars": {
-    "message": "Без аватари"
+    "message": "Без профилни снимки"
   },
   "noAvatars_description": {
-    "message": "Скриване на аватарите на потребителите в интерфейса на Shkolo"
-  },
-  "NoUpcomingTests": {
-    "message": "Opps... Няма предстоящи контролни."
+    "message": "Скриване на профилните снимки в интерфейса на Shkolo"
   },
   "NoScheduleData": {
-    "message": "Opps... Няма данни за разписанието за този ден."
+    "message": "Опа... Няма данни за програма за този ден."
   },
-  "suspiciousLabel": {
-    "message": "Подозрително"
-  },
-
   "QoLSettings": {
-    "message": "QoL Настройки"
+    "message": "Настройки за удобство"
   },
-  "removeAds": {
-    "message": "Премахни реклами"
+  "removeAnnoyances": {
+    "message": "Премахване на досадни елементи"
   },
-  "removeAds_description": {
-    "message": "Скрий промоционални елементи, където е възможно"
+  "removeAnnoyances_description": {
+    "message": "Премахване на досадни елементи от интерфейса на Shkolo"
   },
   "loadQoLCss": {
-    "message": "Зареди QoL CSS"
+    "message": "Зареждане на QoL CSS"
   },
   "loadQoLCss_description": {
-    "message": "Внедри QoL stylesheet"
+    "message": "Вмъкване на стилов файл за удобство"
   },
   "emailAndTel": {
-    "message": "Имейл и Телефон"
+    "message": "Имейл и телефонни връзки"
   },
   "emailAndTel_description": {
-    "message": "Направи имейла и телефона кликаеми"
+    "message": "Направи имейлите и телефоните кликабилни"
   },
   "messagesBackgroundFix": {
-    "message": "Поправка фон в съобщения"
+    "message": "Поправка на фона на съобщенията"
   },
   "messagesBackgroundFix_description": {
-    "message": "Поправя бели фонове в съобщенията"
+    "message": "Поправка на бели spanове във фона на съобщенията"
   },
   "detailsDate": {
     "message": "Поправка на датите в детайлите"
   },
   "detailsDate_description": {
-    "message": "Нормализира и добавя детайли към показването на дати"
+    "message": "Нормализиране и подобряване на показването на датите"
   },
   "inAppExtSettings": {
     "message": "Настройки на разширението в приложението"
   },
   "inAppExtSettings_description": {
-    "message": "Добавя настройки на разширението в профила"
+    "message": "Добавяне на настройки на разширението в страницата на профила"
   },
   "moveLogOutButton": {
-    "message": "Премести бутон Изход"
+    "message": "Премести бутона за изход"
   },
   "moveLogOutButton_description": {
-    "message": "Добавя бутон за изход в страничната лента на профила"
+    "message": "Добави изход към страничната лента на профила"
   },
   "trustedDevicesLogins": {
-    "message": "Доверени устройства / влизания"
+    "message": "Доверени устройства / Влизания"
   },
   "trustedDevicesLogins_description": {
-    "message": "Запази/маркирай познати модели устройства и браузъри"
+    "message": "Запазване/маркиране на известни модели устройства и браузъри"
   },
   "savedModels": {
     "message": "Запазени модели"
@@ -289,18 +243,222 @@
     "message": "Затвори"
   },
   "mon_settings_title": {
-    "message": "MON Настройки"
+    "message": "MON настройки"
   },
   "monGradesAverage": {
-    "message": "Показване на среден успех"
+    "message": "Показване на средна оценка"
   },
   "monGradesAverage_description": {
-    "message": "Добавяред със средния успех в таблицата с оценки в MON"
+    "message": "Добавя ред със средните оценки в таблицата с оценките в MON"
   },
   "monSideNavbar": {
     "message": "Странична навигационна лента"
   },
   "monSideNavbar_description": {
-    "message": "Премества навигационната лента отгоре към страничната лента в MON"
+    "message": "Премества навигационната лента от горе в страничната лента в MON"
+  },
+  "disableThemeSync_label": {
+    "message": "Деактивиране на синхронизация на темата"
+  },
+  "disableThemeSync_description": {
+    "message": "Предотвратяване на ShkoloTweaks да синхронизира активната тема или персонализирани теми с Chrome sync."
+  },
+  "leaderboardLabel": {
+    "message": "Класация"
+  },
+  "leaderboard_description": {
+    "message": "Активиране на класация за сравняване на резултати с други. Предупреждение: Това активира разширение за класация, което може да изпрати вашия успех, брой обратна връзка, pupil_id и име на училище към НЕ-Shkolo сървър, и информацията ще бъде публично достъпна."
+  },
+  "monGradesTermAverages": {
+    "message": "Показване на средни оценки за срок"
+  },
+  "monGradesTermAverages_description": {
+    "message": "Добавя средните оценки в колоните за срок"
+  },
+  "monRoundedAverages": {
+    "message": "Закръглени средни оценки"
+  },
+  "monRoundedAverages_description": {
+    "message": "Показване на закръглени средни оценки вместо точни"
+  },
+  "subSettingsSectionMain": {
+    "message": "Основни настройки секция"
+  },
+  "subSettingsSectionMain_description": {
+    "message": "Показване на разделителя за основни настройки в страницата с настройки"
+  },
+  "subSettingsSectionQol": {
+    "message": "QoL настройки секция"
+  },
+  "subSettingsSectionQol_description": {
+    "message": "Показване на разделителя за QoL настройки в страницата с настройки"
+  },
+  "subSettingsSectionExperimental": {
+    "message": "Експериментални настройки секция"
+  },
+  "subSettingsSectionExperimental_description": {
+    "message": "Показване на разделителя за експериментални настройки в страницата с настройки"
+  },
+  "subSettingsSectionMon": {
+    "message": "MON настройки секция"
+  },
+  "subSettingsSectionMon_description": {
+    "message": "Показване на разделителя за MON настройки в страницата с настройки"
+  },
+  "subSettingsSectionDev": {
+    "message": "Настройки за разработчици секция"
+  },
+  "subSettingsSectionDev_description": {
+    "message": "Показване на разделителя за настройки на разработчици в страницата с настройки"
+  },
+  "removeStatisticsButton": {
+    "message": "Премахване на бутона за статистики"
+  },
+  "removeStatisticsButton_description": {
+    "message": "Премахва бутона 'Премахни статистики' от таблото"
+  },
+  "removeRankDisclaimer": {
+    "message": "Премахване на предупреждението за класиране"
+  },
+  "removeRankDisclaimer_description": {
+    "message": "Премахва предупреждението за класиране от джаджата за класиране в таблото"
+  },
+  "removeMobileAppBadges": {
+    "message": "Премахване на значките за мобилно приложение"
+  },
+  "removeMobileAppBadges_description": {
+    "message": "Премахва значките за изтегляне на мобилно приложение от таблото"
+  },
+  "removeHelpLink": {
+    "message": "Премахване на връзката за помощ"
+  },
+  "removeHelpLink_description": {
+    "message": "Премахва връзката за помощ от страничното меню"
+  },
+  "showDateLogins": {
+    "message": "Активиране във влизанията"
+  },
+  "showDateLogins_description": {
+    "message": "Показване на подробни дати във влизанията"
+  },
+  "showDataProfilePicture": {
+    "message": "Активиране в профилната снимка"
+  },
+  "showDataProfilePicture_description": {
+    "message": "Показване на подробни дати в страницата с профилни снимки"
+  },
+  "schedule_teacher_name": {
+    "message": "Показване на името на учителя"
+  },
+  "schedule_teacher_name_description": {
+    "message": "Показване на името на учителя в джаджата за програма"
+  },
+  "schedule_room_number": {
+    "message": "Показване на номера на стаята"
+  },
+  "schedule_room_number_description": {
+    "message": "Показване на номера на стаята в джаджата за програма"
+  },
+  "animationsLabel": {
+    "message": "Анимации"
+  },
+  "animations_description": {
+    "message": "Активиране на плавни анимации за различни елементи на интерфейса"
+  },
+  "logout_confirmation": {
+    "message": "Сигурни ли сте, че искате да излезете?"
+  },
+  "confirmLogout": {
+    "message": "Потвърждаване на изход"
+  },
+  "confirmLogout_description": {
+    "message": "Показване на прозорец за потвърждение при излизане"
+  },
+  "animationDuration": {
+    "message": "Продължителност на анимациите"
+  },
+  "animationDuration_description": {
+    "message": "Задаване на продължителност за UI анимациите (в милисекунди)"
+  },
+  "zoomAvatarProfilePicture": {
+    "message": "Увеличаване на профилната снимка"
+  },
+  "zoomAvatarProfilePicture_description": {
+    "message": "Активиране на ефект на увеличение на профилните снимки при преминаване с мишката"
+  },
+  "zoomLevel": {
+    "message": "Ниво на увеличение"
+  },
+  "zoomLevel_description": {
+    "message": "Задаване на нивото на увеличение на профилните снимки"
+  },
+  "zoomLevel_option_1_0x": {
+    "message": "1.0x"
+  },
+  "zoomLevel_option_1_1x": {
+    "message": "1.1x"
+  },
+  "zoomLevel_option_1_25x": {
+    "message": "1.25x"
+  },
+  "zoomLevel_option_1_5x": {
+    "message": "1.5x"
+  },
+  "zoomLevel_option_2x": {
+    "message": "2x"
+  },
+  "miniAvatars": {
+    "message": "Мини аватари"
+  },
+  "miniAvatars_description": {
+    "message": "Показване на по-малки аватари"
+  },
+  "monShowNumberInTable": {
+    "message": "Номериране на класовете в таблицата с оценки"
+  },
+  "monShowNumberInTable_description": {
+    "message": "Показване на номера на класа в таблицата с оценки"
+  },
+  "monQoLForMon": {
+    "message": "Качество на живот"
+  },
+  "monQoLForMon_description": {
+    "message": "Активиране на подобрения за удобство"
+  },
+  "scrollBarAlwaysVisible": {
+    "message": "Винаги видима лента за превъртане"
+  },
+  "scrollBarAlwaysVisible_description": {
+    "message": "Направи лентите за превъртане винаги видими в MON"
+  },
+  "shkolo_tag": {
+    "message": "Shkolo"
+  },
+  "monShowGradeCount": {
+    "message": "Показване на броя оценки"
+  },
+  "monShowGradeCount_description": {
+    "message": "Показване на общия брой оценки, които се броят за средната"
+  },
+  "removeShkoloAcademyLink": {
+    "message": "Премахване на връзката към Shkolo Academy"
+  },
+  "removeShkoloAcademyLink_description": {
+    "message": "Премахва връзката към Shkolo Academy от страничното меню"
+  },
+  "noUpcomingTests": {
+    "message": "Няма предстоящи тестове. Браво!"
+  },
+  "disableCoreScripts": {
+    "message": "Деактивиране на основните скриптове"
+  },
+  "disableCoreScripts_description": {
+    "message": "Деактивирай основните скриптове, които могат да конфликтират със Shkolo Tweaks"
+  },
+  "disableShkoloCoreScript": {
+    "message": "Деактивиране на основния Shkolo скрипт и QoL"
+  },
+  "disableShkoloCoreScript_description": {
+    "message": "Деактивирай основния Shkolo скрипт и QoL. Това може да причини някои функции да не работят и не се препоръчва, освен ако не знаете какво правите."
   }
 }
