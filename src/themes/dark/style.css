@@ -41,6 +41,11 @@ label, .stats-label, a, tspan, .font-blue-dark, .font-blue-steel,.scheduleTable 
     color: white !important;
 }
 
+/* Lighter Dark bg */
+.taken-shi, .list-group-item.active>.badge, .nav-pills>.active>a>.badge {
+    background-color: var(--lighterDark-bg) !important;
+}
+
 .login .content .form-actions .btn, .phone-label, a.btn-custom-primary, .or-login-text h4 span {
     background-color: var(--button-primary) !important;
     color: var(--dark-bg) !important;
@@ -111,10 +116,6 @@ table > thead > tr {
 
 .scheduleTable .scheduleTableCell:hover {
     background-color: var(--darker2-bg) !important;
-}
-
-.taken-shi {
-    background-color: var(--lighterDark-bg) !important;
 }
 
 .taken-shi *, .taken-shi > .scheduleCourse {
