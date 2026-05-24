@@ -19,6 +19,7 @@
         "sub_remove_mobile_app_badges": true,
         "sub_remove_help_link": true,
         "sub_remove_shkolo_academy_link": true,
+        "sub_fix_school_name_itpg": true,
         "load_qol_css": true,
         "email_and_tel": false,
         "messages_background_fix": true,
@@ -194,6 +195,12 @@
                     "id": "sub_remove_shkolo_academy_link",
                     "i18n_title": "removeShkoloAcademyLink",
                     "i18n_description": "removeShkoloAcademyLink_description"
+                },
+                {
+                    "type": "boolean",
+                    "id": "sub_fix_school_name_itpg",
+                    "i18n_title": "fixSchoolNameITPG",
+                    "i18n_description": "fixSchoolNameITPG_description"
                 }
             ]
         },

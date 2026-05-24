@@ -460,5 +460,11 @@
   },
   "disableShkoloCoreScript_description": {
     "message": "Disable the core Shkolo script and QoL. This may cause some features to break and is not recommended unless you know what you're doing."
+  },
+  "fixSchoolNameITPG": {
+    "message": "Fix ITPG School Name"
+  },
+  "fixSchoolNameITPG_description": {
+    "message": "Fix the ITPG school name in the interface"
   }
 }

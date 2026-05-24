@@ -463,5 +463,11 @@
   },
   "disableShkoloCoreScript_description": {
     "message": "Desactivar el script principal de Shkolo y QoL. Esto puede causar que algunas características no funcionen y no se recomienda a menos que sepas lo que estás haciendo."
+  },
+  "fixSchoolNameITPG": {
+    "message": "Corregir nombre de escuela ITPG"
+  },
+  "fixSchoolNameITPG_description": {
+    "message": "Corregir el nombre de la escuela ITPG en la interfaz"
   }
 }

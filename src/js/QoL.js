@@ -31,6 +31,10 @@ function QoL() {
             if (settings.sub_remove_shkolo_academy_link && pageurl.includes("app.shkolo.bg")) {
                 $("a[href*='https://shkolo.academy']").each(function() { this.parentElement.remove(); });
             }
+            if (settings.sub_fix_school_name_itpg) {
+                school_name = school_name.replace("ПГКМКС - Варна - Варна", "ПГКМКС - Варна");
+                $("#sc-name-lbl").html(school_name + ` | ${manifest.name} v` + version);
+            }
         } catch (error) {
             console.error(`[${manifest.name} v${version}][QoL]: Failed to remove ads. ERROR: ${error}`);
         }

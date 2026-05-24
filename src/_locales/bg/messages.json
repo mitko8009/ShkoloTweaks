@@ -460,5 +460,11 @@
   },
   "disableShkoloCoreScript_description": {
     "message": "Деактивирай основния Shkolo скрипт и QoL. Това може да причини някои функции да не работят и не се препоръчва, освен ако не знаете какво правите."
+  },
+  "fixSchoolNameITPG": {
+    "message": "Коригиране на името на училището ITPG"
+  },
+  "fixSchoolNameITPG_description": {
+    "message": "Коригиране на името на училището ITPG в интерфейса"
   }
 }
