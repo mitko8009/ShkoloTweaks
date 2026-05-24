@@ -37,7 +37,6 @@ If you want to hack on the extension, you'll need to install it manually by foll
 
 - [@mitko8009](https://github.com/mitko8009)
 - [@DeyanVNikolov](https://github.com/DeyanVNikolov)
-- [@Maximus019BG](https://github.com/Maximus019BG)
 - [@Crea7orX](https://github.com/Crea7orX)
 
 <hr>
