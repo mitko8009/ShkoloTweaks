@@ -1,4 +1,8 @@
+const manifest = chrome.runtime.getManifest()
+const version = manifest.version_name || manifest.version
 let defaultsSchema = {};
+
+$("#version").text("v" + version)
 
 async function loadSettingSchema() {
     try {

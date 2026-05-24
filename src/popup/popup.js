@@ -1,6 +1,5 @@
 const manifest = chrome.runtime.getManifest()
 const version = manifest.version_name || manifest.version
-const label_version = document.getElementById('version')
 
 function refresh_page() {
     chrome.storage.sync.get(['autoRefresh'], (result) => {
