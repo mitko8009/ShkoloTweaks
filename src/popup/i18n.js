@@ -1,6 +1,7 @@
 $("#Customizations").html(chrome.i18n.getMessage("customizations"))
 $("#lightTheme").html(chrome.i18n.getMessage("lightTheme"))
 $("#darkTheme").html(chrome.i18n.getMessage("darkTheme"))
+$("#pinnedOptions").html(chrome.i18n.getMessage("pinnedOptions"))
 $("#advanced_settings").html(chrome.i18n.getMessage("advanced_settings"))
 
 $("#popup_settings").html(chrome.i18n.getMessage("popup_settings"))

@@ -1,6 +1,3 @@
-const manifest = chrome.runtime.getManifest()
-const version = manifest.version_name || manifest.version
-
 function refresh_page() {
     chrome.storage.sync.get(['autoRefresh'], (result) => {
         if (result.autoRefresh) {
@@ -11,8 +8,6 @@ function refresh_page() {
     })
 
 }
-
-$("#version").text("v" + version)
 
 // Theme Switcher: use storage.theme ("light"|"dark"|"custom:<id>")
 const lightThemeBtn = document.getElementById('lightTheme')
@@ -62,27 +57,6 @@ darkThemeBtn.addEventListener('click', () => {
     applyTheme('dark');
     getThemeStore((store) => store.set({ theme: 'dark' }));
 });
-
-// Buttons
-chrome.storage.sync.get(['rounded', 'blur_data'], (result) => {
-    const rounded = result.rounded || false
-    const blur_data = result.blur_data || false
-
-    $("#rounded").prop("checked", rounded)
-    $("#blur-data").prop("checked", blur_data)
-})
-
-$("#rounded").click(() => {
-    const rounded = $("#rounded").prop("checked")
-    chrome.storage.sync.set({ rounded: rounded })
-    refresh_page()
-})
-
-$("#blur-data").click(() => {
-    const blur_data = $("#blur-data").prop("checked")
-    chrome.storage.sync.set({ blur_data: blur_data })
-    refresh_page()
-})
 
 chrome.storage.sync.get(['dev_tools'], (result) => {
     if (result.dev_tools) {

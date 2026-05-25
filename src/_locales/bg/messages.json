@@ -466,5 +466,8 @@
   },
   "fixSchoolNameITPG_description": {
     "message": "Коригиране на името на училището ITPG в интерфейса"
+  },
+  "pinnedOptions": {
+    "message": "Закачени настройки"
   }
 }

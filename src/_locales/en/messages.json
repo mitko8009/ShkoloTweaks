@@ -466,5 +466,8 @@
   },
   "fixSchoolNameITPG_description": {
     "message": "Fix the ITPG school name in the interface"
+  },
+  "pinnedOptions": {
+    "message": "Pinned Settings"
   }
 }

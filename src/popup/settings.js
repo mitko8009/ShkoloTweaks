@@ -1,9 +1,3 @@
-const manifest = chrome.runtime.getManifest()
-const version = manifest.version_name || manifest.version
-let defaultsSchema = {};
-
-$("#version").text("v" + version)
-
 async function loadSettingSchema() {
     try {
         const response = await fetch(chrome.runtime.getURL('setting-schema.json'));
@@ -17,6 +11,7 @@ async function loadSettingSchema() {
 
         defaultsSchema = schema['defaults'] || {};
         window.__settingSchema = schema;
+        settingSchema = schema;
 
         loadOptionsInSettings(schema);
         loadSettingsState(schema);

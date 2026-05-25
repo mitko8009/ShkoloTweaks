@@ -469,5 +469,8 @@
   },
   "fixSchoolNameITPG_description": {
     "message": "Corregir el nombre de la escuela ITPG en la interfaz"
+  },
+  "pinnedOptions": {
+    "message": "Configuraciones fijadas"
   }
 }
