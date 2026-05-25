@@ -469,5 +469,14 @@
   },
   "pinnedOptions": {
     "message": "Pinned Settings"
+  },
+  "pinSetting": {
+    "message": "Pin setting"
+  },
+  "unpinSetting": {
+    "message": "Unpin setting"
+  },
+  "noPinnedSettings": {
+    "message": "No pinned settings yet"
   }
 }

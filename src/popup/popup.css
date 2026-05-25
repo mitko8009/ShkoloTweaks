@@ -233,6 +233,70 @@ input:checked + .switch::after {
     margin-right: .3rem;
 }
 
+.pinned-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pinned-empty {
+    color: #6b7280;
+    margin-top: 6px;
+    text-align: center;
+}
+
+.pin-btn {
+    position: absolute;
+    padding: -6px;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #4278d7;
+    border-radius: 6px;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 300ms opacity, 300ms pointer-events;
+    animation-duration: 300ms;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.options:hover .pin-btn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.pin-btn.pinned {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.pin-btn:hover {
+    background-color: rgba(93, 139, 247, 0.1);
+}
+
+.pin-btn:hover img {
+    animation: jumpBounce 0.35s ease-in-out;
+}
+
+@keyframes jumpBounce {
+    0% { transform: translateY(0); }
+    30% { transform: translateY(-4px); }
+    50% { transform: translateY(0); }
+    70% { transform: translateY(-2px); }
+    100% { transform: translateY(0); }
+}
+
+.options.has-suboptions .pin-btn {
+    right: 44px;
+}
+
 .options.clicked {
     animation: clickBounce 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, filter;

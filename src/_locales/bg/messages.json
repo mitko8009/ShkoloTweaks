@@ -469,5 +469,14 @@
   },
   "pinnedOptions": {
     "message": "Закачени настройки"
+  },
+  "pinSetting": {
+    "message": "Закачи настройка"
+  },
+  "unpinSetting": {
+    "message": "Откачи настройка"
+  },
+  "noPinnedSettings": {
+    "message": "Няма закачени настройки"
   }
 }

@@ -2,6 +2,9 @@ $("#Customizations").html(chrome.i18n.getMessage("customizations"))
 $("#lightTheme").html(chrome.i18n.getMessage("lightTheme"))
 $("#darkTheme").html(chrome.i18n.getMessage("darkTheme"))
 $("#pinnedOptions").html(chrome.i18n.getMessage("pinnedOptions"))
+if ($("#pinned_options_empty").length) {
+    $("#pinned_options_empty").text(chrome.i18n.getMessage("noPinnedSettings") || "No pinned settings yet")
+}
 $("#advanced_settings").html(chrome.i18n.getMessage("advanced_settings"))
 
 $("#popup_settings").html(chrome.i18n.getMessage("popup_settings"))

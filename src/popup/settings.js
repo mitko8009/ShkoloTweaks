@@ -20,6 +20,67 @@ async function loadSettingSchema() {
         console.error('Error loading setting schema:', e);
     }
 }
+
+const PINNED_SETTINGS_KEY = 'pinned_settings';
+const PIN_LABEL = (typeof chrome !== 'undefined' && chrome.i18n && chrome.i18n.getMessage)
+    ? (chrome.i18n.getMessage('pinSetting') || 'Pin setting')
+    : 'Pin setting';
+const UNPIN_LABEL = (typeof chrome !== 'undefined' && chrome.i18n && chrome.i18n.getMessage)
+    ? (chrome.i18n.getMessage('unpinSetting') || 'Unpin setting')
+    : 'Unpin setting';
+const PIN_ICON_URL = (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getURL)
+    ? chrome.runtime.getURL('../assets/pin.svg')
+    : '../assets/pin.svg';
+const UNPIN_ICON_URL = (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getURL)
+    ? chrome.runtime.getURL('../assets/unpin.svg')
+    : '../assets/unpin.svg';
+
+function setPinButtonState(btn, isPinned) {
+    if (!btn) return;
+    btn.classList.toggle('pinned', !!isPinned);
+    btn.setAttribute('aria-pressed', isPinned ? 'true' : 'false');
+    btn.setAttribute('title', isPinned ? UNPIN_LABEL : PIN_LABEL);
+    btn.setAttribute('aria-label', isPinned ? UNPIN_LABEL : PIN_LABEL);
+    const img = btn.querySelector('img');
+    if (img) {
+        img.src = isPinned ? UNPIN_ICON_URL : PIN_ICON_URL;
+        img.alt = isPinned ? UNPIN_LABEL : PIN_LABEL;
+    }
+}
+
+function updatePinnedButtonStates(pinnedSet) {
+    const set = pinnedSet || new Set();
+    document.querySelectorAll('.pin-btn[data-setting-id]').forEach((btn) => {
+        const id = String(btn.dataset.settingId || '');
+        setPinButtonState(btn, set.has(id));
+    });
+}
+
+function togglePinnedSetting(settingId, pinBtn) {
+    const sid = String(settingId);
+    chrome.storage.sync.get({ [PINNED_SETTINGS_KEY]: [] }, (res) => {
+        const current = Array.isArray(res[PINNED_SETTINGS_KEY]) ? res[PINNED_SETTINGS_KEY] : [];
+        const set = new Set(current.map(String));
+        if (set.has(sid)) {
+            set.delete(sid);
+        } else {
+            set.add(sid);
+        }
+        const next = Array.from(set);
+        chrome.storage.sync.set({ [PINNED_SETTINGS_KEY]: next }, () => {
+            setPinButtonState(pinBtn, set.has(sid));
+        });
+    });
+}
+
+if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.onChanged) {
+    chrome.storage.onChanged.addListener((changes, area) => {
+        if (area !== 'sync' || !changes[PINNED_SETTINGS_KEY]) return;
+        const next = Array.isArray(changes[PINNED_SETTINGS_KEY].newValue) ? changes[PINNED_SETTINGS_KEY].newValue : [];
+        updatePinnedButtonStates(new Set(next.map(String)));
+    });
+}
+
 loadSettingSchema();
 
 function handleBlockedOptions(schema, blockingId, isEnabled) {
@@ -103,7 +164,7 @@ function handleBlockedOptions(schema, blockingId, isEnabled) {
     });
 }
 
-function createOptionElement(item, values, isSuboption = false) {
+function createOptionElement(item, values, isSuboption = false, pinnedSet = null) {
     const { type, id, i18n_title, i18n_description, min, max, step, options } = item;
     const idPrefix = isSuboption ? 'suboption_' : '';
     const elementId = `${idPrefix}${id}`;
@@ -196,11 +257,33 @@ function createOptionElement(item, values, isSuboption = false) {
     }
     optionDiv.appendChild(description);
 
+    if (type === 'boolean' && !isSuboption) {
+        const pinBtn = document.createElement('button');
+        pinBtn.type = 'button';
+        pinBtn.className = 'pin-btn';
+        pinBtn.dataset.settingId = String(id);
+        const pinImg = document.createElement('img');
+        pinImg.className = 'pin-icon';
+        pinImg.src = PIN_ICON_URL;
+        pinImg.alt = PIN_LABEL;
+        pinBtn.appendChild(pinImg);
+
+        const isPinned = pinnedSet instanceof Set ? pinnedSet.has(String(id)) : false;
+        setPinButtonState(pinBtn, isPinned);
+
+        pinBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            togglePinnedSetting(id, pinBtn);
+        });
+
+        optionDiv.appendChild(pinBtn);
+    }
+
     // Event handlers based on type
     if (type === 'boolean') {
         optionDiv.onclick = (e) => {
             const tag = e.target.tagName.toLowerCase();
-            if (tag === 'input' || tag === 'label') return;
+            if (tag === 'input' || tag === 'label' || tag === 'button' || (e.target.closest && e.target.closest('button'))) return;
             inputElement.checked = !inputElement.checked;
             chrome.storage.sync.set({ [id]: inputElement.checked }, () => {
                 // Handle blocking logic
@@ -310,6 +393,7 @@ function showSuboptionsPopup(parentItem) {
     // Load current storage values
     chrome.storage.sync.get(null, (result) => {
         const values = { ...result };
+        const pinnedSet = new Set((values[PINNED_SETTINGS_KEY] || []).map(String));
 
         parentItem.suboptions.forEach((subItem) => {
             const { type, hidden } = subItem;
@@ -327,7 +411,7 @@ function showSuboptionsPopup(parentItem) {
             // Support boolean, number, and enum types
             if (!['boolean', 'number', 'enum'].includes(type)) return;
 
-            const { optionDiv } = createOptionElement(subItem, values, true);
+            const { optionDiv } = createOptionElement(subItem, values, true, null);
             suboptionsContainer.appendChild(optionDiv);
         });
 
@@ -354,6 +438,7 @@ function loadOptionsInSettings(schema) {
 
     chrome.storage.sync.get(null, (result) => {
         const values = { ...result };
+        const pinnedSet = new Set((values[PINNED_SETTINGS_KEY] || []).map(String));
 
         items.forEach((item) => {
             const { type, id, section, hidden } = item;
@@ -381,7 +466,7 @@ function loadOptionsInSettings(schema) {
                 return;
             }
 
-            const { optionDiv } = createOptionElement(item, values, false);
+            const { optionDiv } = createOptionElement(item, values, false, pinnedSet);
 
             // If there are suboptions, add a gear button
             if (item.suboptions && Array.isArray(item.suboptions) && item.suboptions.length > 0) {
@@ -398,6 +483,7 @@ function loadOptionsInSettings(schema) {
                     e.stopPropagation();
                     showSuboptionsPopup(item);
                 };
+                optionDiv.classList.add('has-suboptions');
                 optionDiv.appendChild(gearBtn);
             }
 

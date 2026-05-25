@@ -472,5 +472,14 @@
   },
   "pinnedOptions": {
     "message": "Configuraciones fijadas"
+  },
+  "pinSetting": {
+    "message": "Fijar ajuste"
+  },
+  "unpinSetting": {
+    "message": "Desfijar ajuste"
+  },
+  "noPinnedSettings": {
+    "message": "No hay ajustes fijados"
   }
 }
