@@ -36,8 +36,8 @@ If you want to hack on the extension, you'll need to install it manually by foll
 ## Authors
 
 - [@mitko8009](https://github.com/mitko8009)
-- [@Crea7orX](https://github.com/Crea7orX)
 - [@DeyanVNikolov](https://github.com/DeyanVNikolov)
+- [@Crea7orX](https://github.com/Crea7orX)
 
 <hr>
 <div align="center">
