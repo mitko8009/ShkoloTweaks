@@ -4,8 +4,8 @@
 
 **Shkolo Tweaks** is a web extension for customising **[Shkolo]("https://www.shkolo.bg/")**. It features a dark theme, widgets, stats, and much more.
 
-> [!WARNING]
-> **ShkoloTweak** is a software NOT affiliated with or endorsed by **Shkolo.bg** or the **Ministry of Education and Science** *(MON for short in BG)* in Bulgaria.
+> [!CAUTION]
+> **ShkoloTweak** is unofficial, third-party, independent web extension (add-on) for **Shkolo.bg**. It is not affiliated with, endorsed by, or in any way officially connected to **Juniper Education** or **Ministry of Education and Science** (MON for short in BG)
 
 ## Key Features
 
