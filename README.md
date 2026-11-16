@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/License-GPL_v3-red)](https://github.com/mitko8009/ShkoloTweaks/blob/main/LICENSE)
 
-![Promo Banner](https://github.com/user-attachments/assets/f091c882-70fb-4935-9115-8c64bf37696d)
+<img width="2560" height="1440" alt="Artboard 2" src="https://github.com/user-attachments/assets/1b24a634-2031-4399-b60f-24831a09d690" />
 
 **Shkolo Tweaks** is a web extension for customising **[Shkolo]("https://www.shkolo.bg/")**. It features a dark theme, widgets, stats, and much more.
 
